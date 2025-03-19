@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Do not import all bootstrap to prevent possible conflicts with Material
+//@import 'bootstrap/scss/bootstrap';
+
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+@import "node_modules/bootstrap/scss/utilities";  // Spacing, colors, etc.
+@import "node_modules/bootstrap/scss/grid";       // Bootstrap grid system
+@import "node_modules/bootstrap/scss/helpers";    // Flex, text utilities, etc.
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
