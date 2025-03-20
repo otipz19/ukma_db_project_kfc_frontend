@@ -1,0 +1,62 @@
+@let emailControl = form.controls.email;
+
+<mat-horizontal-stepper class="mat-elevation-z5"
+                        labelPosition="bottom"
+                        [linear]="true">
+  <mat-step errorMessage="Неправильна основна інформація">
+    <ng-template matStepLabel>Основна інформація</ng-template>
+
+    <div [formGroup]="form">
+      <mat-form-field appearance="fill" floatLabel="auto">
+        <mat-label>Пошта</mat-label>
+
+        <input type="email" matInput [formControlName]="formControlNames.email" #email/>
+
+        <mat-hint align="end">
+          {{email.value.length}} / 320
+        </mat-hint>
+
+        @if(emailControl.invalid) {
+          <mat-error>
+            @switch (form.controls.email.)
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="stepper-buttons">
+      <div></div>
+      <button class="stepper-btn-next" mat-raised-button color="primary" matStepperNext>
+        Вперед
+      </button>
+    </div>
+  </mat-step>
+
+  <mat-step errorMessage="Неправильна додаткова інформація">
+    <ng-template matStepLabel>Додаткова інформація</ng-template>
+
+    <div [formGroup]="form">
+      <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Телефон</mat-label>
+
+        <span matTextPrefix>+38</span>
+
+        <input type="tel" matInput [formControlName]="formControlNames.phoneNumber" #phone/>
+
+        <mat-hint align="end">
+          {{phone.value.length}} / 10
+        </mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="stepper-buttons">
+      <button mat-raised-button color="primary" matStepperPrevious>
+        Назад
+      </button>
+
+      <button mat-raised-button color="accent">
+        Зареєструватись
+      </button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
