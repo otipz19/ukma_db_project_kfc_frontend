@@ -1,5 +1,3 @@
-@let emailControl = form.controls.email;
-
 <mat-horizontal-stepper class="mat-elevation-z5"
                         labelPosition="bottom"
                         [linear]="true">
@@ -13,15 +11,53 @@
         <input type="email" matInput [formControlName]="formControlNames.email" #email/>
 
         <mat-hint align="end">
-          {{email.value.length}} / 320
+          {{ email.value.length }} / 320
         </mat-hint>
 
-        @if(emailControl.invalid) {
+        @if (form.controls.email.invalid) {
           <mat-error>
-            @switch (form.controls.email.)
+            Помилка!
           </mat-error>
         }
       </mat-form-field>
+
+      <mat-form-field appearance="fill" floatLabel="auto">
+        <mat-label>Пароль</mat-label>
+
+        <input type="password" matInput [formControlName]="formControlNames.password" #password/>
+
+        <mat-hint align="end">
+          {{ password.value.length }} / 64
+        </mat-hint>
+
+        @if (form.controls.password.invalid) {
+          <mat-error>
+            Помилка!
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" floatLabel="auto">
+        <mat-label>Підтвердіть пароль</mat-label>
+
+        <input type="password" matInput [formControlName]="formControlNames.passwordConfirm" #passwordConfirm/>
+
+        <mat-hint align="end">
+          {{ passwordConfirm.value.length }} / 64
+        </mat-hint>
+
+        @if (form.controls.passwordConfirm.invalid) {
+          <mat-error>
+            Помилка!
+          </mat-error>
+        }
+      </mat-form-field>
+
+      @if (form.touched && form.errors) {
+        <mat-error>
+          Паролі мають співпадати
+        </mat-error>
+      }
     </div>
 
     <div class="stepper-buttons">
@@ -44,7 +80,7 @@
         <input type="tel" matInput [formControlName]="formControlNames.phoneNumber" #phone/>
 
         <mat-hint align="end">
-          {{phone.value.length}} / 10
+          {{ phone.value.length }} / 10
         </mat-hint>
       </mat-form-field>
     </div>
