@@ -1,20 +1,20 @@
 <mat-horizontal-stepper class="mat-elevation-z5"
                         labelPosition="bottom"
                         [linear]="true">
-  <mat-step errorMessage="Неправильна основна інформація">
+  <mat-step [stepControl]="firstStepForm">
     <ng-template matStepLabel>Основна інформація</ng-template>
 
-    <div [formGroup]="form">
+    <form [formGroup]="firstStepForm">
       <mat-form-field appearance="fill" floatLabel="auto">
         <mat-label>Пошта</mat-label>
 
-        <input type="email" matInput [formControlName]="formControlNames.email" #email/>
+        <input type="email" matInput [formControlName]="firstStepControlNames.email" #email/>
 
         <mat-hint align="end">
           {{ email.value.length }} / 320
         </mat-hint>
 
-        @if (form.controls.email.invalid) {
+        @if (firstStepForm.controls.email.invalid) {
           <mat-error>
             Помилка!
           </mat-error>
@@ -24,13 +24,13 @@
       <mat-form-field appearance="fill" floatLabel="auto">
         <mat-label>Пароль</mat-label>
 
-        <input type="password" matInput [formControlName]="formControlNames.password" #password/>
+        <input type="password" matInput [formControlName]="firstStepControlNames.password" #password/>
 
         <mat-hint align="end">
           {{ password.value.length }} / 64
         </mat-hint>
 
-        @if (form.controls.password.invalid) {
+        @if (firstStepForm.controls.password.invalid) {
           <mat-error>
             Помилка!
           </mat-error>
@@ -40,57 +40,57 @@
       <mat-form-field appearance="fill" floatLabel="auto">
         <mat-label>Підтвердіть пароль</mat-label>
 
-        <input type="password" matInput [formControlName]="formControlNames.passwordConfirm" #passwordConfirm/>
+        <input type="password" matInput [formControlName]="firstStepControlNames.passwordConfirm" #passwordConfirm/>
 
         <mat-hint align="end">
           {{ passwordConfirm.value.length }} / 64
         </mat-hint>
 
-        @if (form.controls.passwordConfirm.invalid) {
+        @if (firstStepForm.controls.passwordConfirm.invalid) {
           <mat-error>
             Помилка!
           </mat-error>
         }
       </mat-form-field>
 
-      @if (form.touched && form.errors) {
+      @if (firstStepForm.touched && firstStepForm.errors) {
         <mat-error>
           Паролі мають співпадати
         </mat-error>
       }
-    </div>
+    </form>
 
     <div class="stepper-buttons">
       <div></div>
-      <button class="stepper-btn-next" mat-raised-button color="primary" matStepperNext>
-        Вперед
+      <button type="submit" class="stepper-btn-next" mat-raised-button color="primary" matStepperNext>
+        Далі
       </button>
     </div>
   </mat-step>
 
-  <mat-step errorMessage="Неправильна додаткова інформація">
+  <mat-step [stepControl]="secondStepForm">
     <ng-template matStepLabel>Додаткова інформація</ng-template>
 
-    <div [formGroup]="form">
+    <form [formGroup]="secondStepForm">
       <mat-form-field appearance="fill" floatLabel="always">
         <mat-label>Телефон</mat-label>
 
         <span matTextPrefix>+38</span>
 
-        <input type="tel" matInput [formControlName]="formControlNames.phoneNumber" #phone/>
+        <input type="tel" matInput [formControlName]="secondStepControlNames.phoneNumber" #phone/>
 
         <mat-hint align="end">
           {{ phone.value.length }} / 10
         </mat-hint>
       </mat-form-field>
-    </div>
+    </form>
 
     <div class="stepper-buttons">
-      <button mat-raised-button color="primary" matStepperPrevious>
+      <button type="button" mat-raised-button color="primary" matStepperPrevious>
         Назад
       </button>
 
-      <button mat-raised-button color="accent">
+      <button type="submit" mat-raised-button color="accent">
         Зареєструватись
       </button>
     </div>

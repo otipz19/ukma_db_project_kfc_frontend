@@ -9,7 +9,7 @@ import {getFormControlNames} from "../../../../../shared/form/utils/getFormContr
 import {emailValidator} from "../../../../../shared/form/validators/email.validator";
 
 @Component({
-    selector: 'app-registration-form',
+  selector: 'app-registration-form',
   imports: [
     MatButton,
     MatStepper,
@@ -25,24 +25,28 @@ import {emailValidator} from "../../../../../shared/form/validators/email.valida
     MatHint,
     MatError
   ],
-    templateUrl: './registration-form.component.html',
-    styleUrl: './registration-form.component.scss'
+  templateUrl: './registration-form.component.html',
+  styleUrl: './registration-form.component.scss'
 })
 export class RegistrationFormComponent {
-    private readonly fb = inject(FormBuilder).nonNullable;
+  private readonly fb = inject(FormBuilder).nonNullable;
 
-    protected readonly form = this.fb.group({
-        email: this.fb.control("", [Validators.required, emailValidator()]),
-        password: this.fb.control("", [Validators.required, Validators.minLength(5), Validators.maxLength(64)]),
-        passwordConfirm: this.fb.control("", [Validators.required, Validators.minLength(5), Validators.maxLength(64)]),
-        firstName: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
-        surname: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
-        middleName: this.fb.control("", [Validators.maxLength(64)]),
-        phoneNumber: this.fb.control("", [Validators.pattern("\d{10}")]),
-        birthDate: this.fb.control("")
-    }, {
-        validators: [passwordsEqualValidator()]
-    });
+  protected readonly firstStepForm = this.fb.group({
+    email: this.fb.control("", [Validators.required, emailValidator()]),
+    password: this.fb.control("", [Validators.required, Validators.minLength(5), Validators.maxLength(64)]),
+    passwordConfirm: this.fb.control("", [Validators.required, Validators.minLength(5), Validators.maxLength(64)]),
+  }, {
+    validators: [passwordsEqualValidator()]
+  });
 
-    protected readonly formControlNames = getFormControlNames(this.form);
+  protected readonly secondStepForm = this.fb.group({
+    firstName: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
+    surname: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
+    middleName: this.fb.control("", [Validators.maxLength(64)]),
+    phoneNumber: this.fb.control("", [Validators.pattern("\d{10}")]),
+    birthDate: this.fb.control("")
+  });
+
+  protected readonly firstStepControlNames = getFormControlNames(this.firstStepForm);
+  protected readonly secondStepControlNames = getFormControlNames(this.secondStepForm);
 }
