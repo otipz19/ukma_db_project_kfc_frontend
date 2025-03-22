@@ -1,93 +1,168 @@
 <mat-horizontal-stepper class="mat-elevation-z5"
                         labelPosition="bottom"
-                        [linear]="true">
-    <mat-step [stepControl]="firstStepForm">
-        <ng-template matStepLabel>Облікові дані</ng-template>
+                        [linear]="false">
+  <mat-step [stepControl]="firstStepForm">
+    <ng-template matStepLabel>Облікові дані</ng-template>
 
-        <form [formGroup]="firstStepForm">
-            <mat-form-field appearance="fill" floatLabel="auto">
-                <mat-label>Пошта</mat-label>
+    <form [formGroup]="firstStepForm">
+      <mat-form-field appearance="fill" floatLabel="auto">
+        <mat-label>Пошта</mat-label>
 
-                <input type="email" matInput [formControlName]="firstStepControlNames.email" #email/>
+        <input type="email" matInput [formControlName]="firstStepControlNames.email" #email/>
 
-                <mat-hint align="end">
-                    {{ email.value.length }} / 320
-                </mat-hint>
+        <mat-hint align="end">
+          {{ email.value.length }} / 320
+        </mat-hint>
 
-                @if (firstStepForm.controls.email.invalid) {
-                    <mat-error>{{ firstStepForm.controls.email.errors | errorMessage }}</mat-error>
-                }
-            </mat-form-field>
+        @if (firstStepForm.controls.email.invalid) {
+          <mat-error>{{ firstStepForm.controls.email.errors | errorMessage }}</mat-error>
+        }
+      </mat-form-field>
 
-            <mat-form-field appearance="fill" floatLabel="auto">
-                <mat-label>Пароль</mat-label>
+      <mat-form-field appearance="fill" floatLabel="auto">
+        <mat-label>Пароль</mat-label>
 
-                <input type="password" matInput [formControlName]="firstStepControlNames.password" #password/>
+        <input [type]="$showPassword() ? 'text' : 'password'" matInput
+               [formControlName]="firstStepControlNames.password" #password/>
 
-                <mat-hint align="end">
-                    {{ password.value.length }} / 64
-                </mat-hint>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="onShowPassword($event)"
+        >
+          <mat-icon>{{ $showPassword() ? 'visibility' : 'visibility_off' }}</mat-icon>
+        </button>
 
-                @if (firstStepForm.controls.password.invalid) {
-                    <mat-error>{{ firstStepForm.controls.password.errors | errorMessage }}</mat-error>
-                }
-            </mat-form-field>
+        <mat-hint align="end">
+          {{ password.value.length }} / 64
+        </mat-hint>
 
-            <mat-form-field appearance="fill" floatLabel="auto">
-                <mat-label>Підтвердіть пароль</mat-label>
+        @if (firstStepForm.controls.password.invalid) {
+          <mat-error>{{ firstStepForm.controls.password.errors | errorMessage }}</mat-error>
+        }
+      </mat-form-field>
 
-                <input type="password" matInput [formControlName]="firstStepControlNames.passwordConfirm"
-                       #passwordConfirm/>
+      <mat-form-field appearance="fill" floatLabel="auto">
+        <mat-label>Підтвердіть пароль</mat-label>
 
-                <mat-hint align="end">
-                    {{ passwordConfirm.value.length }} / 64
-                </mat-hint>
+        <input [type]="$showPasswordConfirm() ? 'text' : 'password'" matInput
+               [formControlName]="firstStepControlNames.passwordConfirm"
+               #passwordConfirm/>
 
-                @if (firstStepForm.controls.passwordConfirm.invalid) {
-                    <mat-error>{{ firstStepForm.controls.passwordConfirm.errors | errorMessage }}</mat-error>
-                }
-            </mat-form-field>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="onShowPasswordConfirm($event)"
+        >
+          <mat-icon>{{ $showPasswordConfirm() ? 'visibility' : 'visibility_off' }}</mat-icon>
+        </button>
 
-            @if (firstStepForm.errors) {
-                <mat-error>
-                    {{ firstStepForm.errors | errorMessage }}
-                </mat-error>
-            }
-        </form>
+        <mat-hint align="end">
+          {{ passwordConfirm.value.length }} / 64
+        </mat-hint>
 
-        <div class="stepper-buttons">
-            <div></div>
-            <button type="submit" class="stepper-btn-next" mat-raised-button color="primary" matStepperNext>
-                Далі
-            </button>
-        </div>
-    </mat-step>
+        @if (firstStepForm.controls.passwordConfirm.invalid) {
+          <mat-error>{{ firstStepForm.controls.passwordConfirm.errors | errorMessage }}</mat-error>
+        }
+      </mat-form-field>
 
-    <mat-step [stepControl]="secondStepForm">
-        <ng-template matStepLabel>Додаткові дані</ng-template>
+      @if (firstStepForm.errors) {
+        <mat-error>
+          {{ firstStepForm.errors | errorMessage }}
+        </mat-error>
+      }
+    </form>
 
-        <form [formGroup]="secondStepForm">
-            <mat-form-field appearance="fill" floatLabel="always">
-                <mat-label>Телефон</mat-label>
+    <div class="stepper-buttons">
+      <div></div>
+      <button type="submit" class="stepper-btn-next" mat-raised-button color="primary" matStepperNext>
+        Далі
+      </button>
+    </div>
+  </mat-step>
 
-                <span matTextPrefix>+38</span>
+  <mat-step [stepControl]="secondStepForm">
+    <ng-template matStepLabel>Додаткові дані</ng-template>
 
-                <input type="tel" matInput [formControlName]="secondStepControlNames.phoneNumber" #phone/>
+    <form [formGroup]="secondStepForm">
+      <mat-form-field appearance="fill" floatLabel="auto">
+        <mat-label>Прізвище</mat-label>
 
-                <mat-hint align="end">
-                    {{ phone.value.length }} / 10
-                </mat-hint>
-            </mat-form-field>
-        </form>
+        <input type="text" matInput [formControlName]="secondStepControlNames.surname" #surname/>
 
-        <div class="stepper-buttons">
-            <button type="button" mat-raised-button color="primary" matStepperPrevious>
-                Назад
-            </button>
+        <mat-hint align="end">
+          {{ surname.value.length }} / 64
+        </mat-hint>
 
-            <button type="submit" mat-raised-button color="accent">
-                Зареєструватись
-            </button>
-        </div>
-    </mat-step>
+        @if (secondStepForm.controls.surname.invalid) {
+          <mat-error>{{ secondStepForm.controls.surname.errors | errorMessage }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" floatLabel="auto">
+        <mat-label>Ім'я</mat-label>
+
+        <input type="text" matInput [formControlName]="secondStepControlNames.firstName" #firstName/>
+
+        <mat-hint align="end">
+          {{ firstName.value.length }} / 64
+        </mat-hint>
+
+        @if (secondStepForm.controls.firstName.invalid) {
+          <mat-error>{{ secondStepForm.controls.firstName.errors | errorMessage }}</mat-error>
+        }
+      </mat-form-field>
+
+
+      <mat-form-field appearance="fill" floatLabel="auto">
+        <mat-label>По-батькові</mat-label>
+
+        <input type="password" matInput [formControlName]="secondStepControlNames.middleName" #middleName/>
+
+        <mat-hint align="end">
+          {{ middleName.value.length }} / 64
+        </mat-hint>
+
+        @if (secondStepForm.controls.middleName.invalid) {
+          <mat-error>{{ secondStepForm.controls.middleName.errors | errorMessage }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" floatLabel="auto">
+        <mat-label>Дата народження</mat-label>
+
+        <input type="" matInput [formControlName]="secondStepControlNames.birthDate" [matDatepicker]="birthDatePicker"/>
+
+        <mat-datepicker-toggle matIconSuffix [for]="birthDatePicker"/>
+
+        <mat-datepicker #birthDatePicker [startAt]="''"/>
+
+        @if (secondStepForm.controls.birthDate.invalid) {
+          <mat-error>{{ secondStepForm.controls.birthDate.errors | errorMessage }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Телефон</mat-label>
+
+        <span matTextPrefix>+38</span>
+
+        <input type="tel" matInput [formControlName]="secondStepControlNames.phoneNumber" #phone/>
+
+        <mat-hint align="end">
+          {{ phone.value.length }} / 10
+        </mat-hint>
+      </mat-form-field>
+    </form>
+
+    <div class="stepper-buttons">
+      <button type="button" mat-raised-button color="primary" matStepperPrevious>
+        Назад
+      </button>
+
+      <button type="submit" mat-raised-button color="accent">
+        Зареєструватись
+      </button>
+    </div>
+  </mat-step>
 </mat-horizontal-stepper>

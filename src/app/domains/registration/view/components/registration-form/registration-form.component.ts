@@ -1,33 +1,40 @@
-import {Component, inject} from '@angular/core';
-import {MatButton} from "@angular/material/button";
+import {Component, inject, signal} from '@angular/core';
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
 import {passwordsEqualValidator} from "../../validators/passwordsEqual.validator";
-import {MatError, MatFormField, MatHint, MatLabel, MatPrefix} from "@angular/material/form-field";
+import {MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {getFormControlNames} from "../../../../../shared/form/utils/get-form-control-names";
 import {emailValidator} from "../../../../../shared/form/validators/email.validator";
-import {getErrorMessage} from "../../../../../shared/form/utils/get-error-message";
 import {ErrorMessagePipe} from "../../../../../shared/form/pipes/error-message.pipe";
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-registration-form',
-    imports: [
-        MatButton,
-        MatStepper,
-        MatStep,
-        MatStepLabel,
-        MatStepperNext,
-        MatStepperPrevious,
-        ReactiveFormsModule,
-        MatFormField,
-        MatInput,
-        MatLabel,
-        MatPrefix,
-        MatHint,
-        MatError,
-        ErrorMessagePipe,
-    ],
+  imports: [
+    MatButton,
+    MatStepper,
+    MatStep,
+    MatStepLabel,
+    MatStepperNext,
+    MatStepperPrevious,
+    ReactiveFormsModule,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    MatPrefix,
+    MatHint,
+    MatError,
+    ErrorMessagePipe,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatSuffix,
+    MatDatepicker,
+    MatIconButton,
+    MatIcon,
+  ],
   templateUrl: './registration-form.component.html',
   styleUrl: './registration-form.component.scss'
 })
@@ -52,5 +59,17 @@ export class RegistrationFormComponent {
 
   protected readonly firstStepControlNames = getFormControlNames(this.firstStepForm);
   protected readonly secondStepControlNames = getFormControlNames(this.secondStepForm);
-  protected readonly getErrorMessage = getErrorMessage;
+
+  protected readonly $showPassword = signal<boolean>(false);
+  protected readonly $showPasswordConfirm = signal<boolean>(false);
+
+  protected onShowPassword(event: MouseEvent) {
+    event.stopPropagation();
+    this.$showPassword.update(val => !val);
+  }
+
+  protected onShowPasswordConfirm(event: MouseEvent) {
+    event.stopPropagation();
+    this.$showPasswordConfirm.update(val => !val);
+  }
 }
