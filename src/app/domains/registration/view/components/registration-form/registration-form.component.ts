@@ -5,26 +5,29 @@ import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} f
 import {passwordsEqualValidator} from "../../validators/passwordsEqual.validator";
 import {MatError, MatFormField, MatHint, MatLabel, MatPrefix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
-import {getFormControlNames} from "../../../../../shared/form/utils/getFormControlNames";
+import {getFormControlNames} from "../../../../../shared/form/utils/get-form-control-names";
 import {emailValidator} from "../../../../../shared/form/validators/email.validator";
+import {getErrorMessage} from "../../../../../shared/form/utils/get-error-message";
+import {ErrorMessagePipe} from "../../../../../shared/form/pipes/error-message.pipe";
 
 @Component({
   selector: 'app-registration-form',
-  imports: [
-    MatButton,
-    MatStepper,
-    MatStep,
-    MatStepLabel,
-    MatStepperNext,
-    MatStepperPrevious,
-    ReactiveFormsModule,
-    MatFormField,
-    MatInput,
-    MatLabel,
-    MatPrefix,
-    MatHint,
-    MatError
-  ],
+    imports: [
+        MatButton,
+        MatStepper,
+        MatStep,
+        MatStepLabel,
+        MatStepperNext,
+        MatStepperPrevious,
+        ReactiveFormsModule,
+        MatFormField,
+        MatInput,
+        MatLabel,
+        MatPrefix,
+        MatHint,
+        MatError,
+        ErrorMessagePipe,
+    ],
   templateUrl: './registration-form.component.html',
   styleUrl: './registration-form.component.scss'
 })
@@ -49,4 +52,5 @@ export class RegistrationFormComponent {
 
   protected readonly firstStepControlNames = getFormControlNames(this.firstStepForm);
   protected readonly secondStepControlNames = getFormControlNames(this.secondStepForm);
+  protected readonly getErrorMessage = getErrorMessage;
 }

@@ -1,98 +1,93 @@
 <mat-horizontal-stepper class="mat-elevation-z5"
                         labelPosition="bottom"
                         [linear]="true">
-  <mat-step [stepControl]="firstStepForm">
-    <ng-template matStepLabel>Основна інформація</ng-template>
+    <mat-step [stepControl]="firstStepForm">
+        <ng-template matStepLabel>Облікові дані</ng-template>
 
-    <form [formGroup]="firstStepForm">
-      <mat-form-field appearance="fill" floatLabel="auto">
-        <mat-label>Пошта</mat-label>
+        <form [formGroup]="firstStepForm">
+            <mat-form-field appearance="fill" floatLabel="auto">
+                <mat-label>Пошта</mat-label>
 
-        <input type="email" matInput [formControlName]="firstStepControlNames.email" #email/>
+                <input type="email" matInput [formControlName]="firstStepControlNames.email" #email/>
 
-        <mat-hint align="end">
-          {{ email.value.length }} / 320
-        </mat-hint>
+                <mat-hint align="end">
+                    {{ email.value.length }} / 320
+                </mat-hint>
 
-        @if (firstStepForm.controls.email.invalid) {
-          <mat-error>
-            Помилка!
-          </mat-error>
-        }
-      </mat-form-field>
+                @if (firstStepForm.controls.email.invalid) {
+                    <mat-error>{{ firstStepForm.controls.email.errors | errorMessage }}</mat-error>
+                }
+            </mat-form-field>
 
-      <mat-form-field appearance="fill" floatLabel="auto">
-        <mat-label>Пароль</mat-label>
+            <mat-form-field appearance="fill" floatLabel="auto">
+                <mat-label>Пароль</mat-label>
 
-        <input type="password" matInput [formControlName]="firstStepControlNames.password" #password/>
+                <input type="password" matInput [formControlName]="firstStepControlNames.password" #password/>
 
-        <mat-hint align="end">
-          {{ password.value.length }} / 64
-        </mat-hint>
+                <mat-hint align="end">
+                    {{ password.value.length }} / 64
+                </mat-hint>
 
-        @if (firstStepForm.controls.password.invalid) {
-          <mat-error>
-            Помилка!
-          </mat-error>
-        }
-      </mat-form-field>
+                @if (firstStepForm.controls.password.invalid) {
+                    <mat-error>{{ firstStepForm.controls.password.errors | errorMessage }}</mat-error>
+                }
+            </mat-form-field>
 
-      <mat-form-field appearance="fill" floatLabel="auto">
-        <mat-label>Підтвердіть пароль</mat-label>
+            <mat-form-field appearance="fill" floatLabel="auto">
+                <mat-label>Підтвердіть пароль</mat-label>
 
-        <input type="password" matInput [formControlName]="firstStepControlNames.passwordConfirm" #passwordConfirm/>
+                <input type="password" matInput [formControlName]="firstStepControlNames.passwordConfirm"
+                       #passwordConfirm/>
 
-        <mat-hint align="end">
-          {{ passwordConfirm.value.length }} / 64
-        </mat-hint>
+                <mat-hint align="end">
+                    {{ passwordConfirm.value.length }} / 64
+                </mat-hint>
 
-        @if (firstStepForm.controls.passwordConfirm.invalid) {
-          <mat-error>
-            Помилка!
-          </mat-error>
-        }
-      </mat-form-field>
+                @if (firstStepForm.controls.passwordConfirm.invalid) {
+                    <mat-error>{{ firstStepForm.controls.passwordConfirm.errors | errorMessage }}</mat-error>
+                }
+            </mat-form-field>
 
-      @if (firstStepForm.touched && firstStepForm.errors) {
-        <mat-error>
-          Паролі мають співпадати
-        </mat-error>
-      }
-    </form>
+            @if (firstStepForm.errors) {
+                <mat-error>
+                    {{ firstStepForm.errors | errorMessage }}
+                </mat-error>
+            }
+        </form>
 
-    <div class="stepper-buttons">
-      <div></div>
-      <button type="submit" class="stepper-btn-next" mat-raised-button color="primary" matStepperNext>
-        Далі
-      </button>
-    </div>
-  </mat-step>
+        <div class="stepper-buttons">
+            <div></div>
+            <button type="submit" class="stepper-btn-next" mat-raised-button color="primary" matStepperNext>
+                Далі
+            </button>
+        </div>
+    </mat-step>
 
-  <mat-step [stepControl]="secondStepForm">
-    <ng-template matStepLabel>Додаткова інформація</ng-template>
+    <mat-step [stepControl]="secondStepForm">
+        <ng-template matStepLabel>Додаткові дані</ng-template>
 
-    <form [formGroup]="secondStepForm">
-      <mat-form-field appearance="fill" floatLabel="always">
-        <mat-label>Телефон</mat-label>
+        <form [formGroup]="secondStepForm">
+            <mat-form-field appearance="fill" floatLabel="always">
+                <mat-label>Телефон</mat-label>
 
-        <span matTextPrefix>+38</span>
+                <span matTextPrefix>+38</span>
 
-        <input type="tel" matInput [formControlName]="secondStepControlNames.phoneNumber" #phone/>
+                <input type="tel" matInput [formControlName]="secondStepControlNames.phoneNumber" #phone/>
 
-        <mat-hint align="end">
-          {{ phone.value.length }} / 10
-        </mat-hint>
-      </mat-form-field>
-    </form>
+                <mat-hint align="end">
+                    {{ phone.value.length }} / 10
+                </mat-hint>
+            </mat-form-field>
+        </form>
 
-    <div class="stepper-buttons">
-      <button type="button" mat-raised-button color="primary" matStepperPrevious>
-        Назад
-      </button>
+        <div class="stepper-buttons">
+            <button type="button" mat-raised-button color="primary" matStepperPrevious>
+                Назад
+            </button>
 
-      <button type="submit" mat-raised-button color="accent">
-        Зареєструватись
-      </button>
-    </div>
-  </mat-step>
+            <button type="submit" mat-raised-button color="accent">
+                Зареєструватись
+            </button>
+        </div>
+    </mat-step>
 </mat-horizontal-stepper>

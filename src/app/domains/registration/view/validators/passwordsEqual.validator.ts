@@ -6,7 +6,7 @@ export function passwordsEqualValidator(): ValidatorFn {
     const passwordConfirm = control.get('passwordConfirm');
 
     if (!password || !passwordConfirm || password.value !== passwordConfirm.value) {
-      return {passwordsAreNotEqual: {value: 'Паролі мають співпадати'}};
+      return {passwordsAreNotEqual: {value: true}};
     }
 
     return null;
