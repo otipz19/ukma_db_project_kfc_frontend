@@ -1,7 +1,22 @@
 :host {
-  height: 100vh;
   width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-toolbar {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 5px;
+}
+
+
+.form-container {
   display: flex;
   justify-content: center;
   align-content: center;
+  flex-grow: 1;
 }
