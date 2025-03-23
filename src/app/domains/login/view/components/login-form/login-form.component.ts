@@ -15,6 +15,7 @@ import {
 } from "../../../../../shared/form/components/common-form-password-field/common-form-password-field.component";
 import {MatAnchor, MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-login-form',
@@ -30,7 +31,8 @@ import {MatIcon} from "@angular/material/icon";
     MatButton,
     MatIcon,
     MatCardFooter,
-    MatAnchor
+    MatAnchor,
+    RouterLink
   ],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss'
