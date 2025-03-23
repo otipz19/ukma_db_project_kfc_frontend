@@ -5,28 +5,10 @@ import {MatFormField, MatInput, MatLabel, MatPrefix, MatSuffix} from "@angular/m
 import {MatError, MatHint} from "@angular/material/form-field";
 
 export type FormInputFieldType =
-  "button"
-  | "checkbox"
-  | "color"
-  | "date"
-  | "datetime-local"
   | "email"
-  | "file"
-  | "hidden"
-  | "image"
-  | "month"
   | "number"
-  | "password"
-  | "radio"
-  | "range"
-  | "reset"
-  | "search"
-  | "submit"
   | "tel"
-  | "text"
-  | "time"
-  | "url"
-  | "week";
+  | "text";
 
 @Component({
   selector: 'app-common-form-input-field',
