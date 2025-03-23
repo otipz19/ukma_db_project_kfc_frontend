@@ -10,6 +10,15 @@ import {emailValidator} from "../../../../../shared/form/validators/email.valida
 import {ErrorMessagePipe} from "../../../../../shared/form/pipes/error-message.pipe";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {MatIcon} from "@angular/material/icon";
+import {
+  CommonFormInputFieldComponent
+} from "../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
+import {
+  CommonFormPasswordFieldComponent
+} from "../../../../../shared/form/components/common-form-password-field/common-form-password-field.component";
+import {
+  CommonFormDatepickerFieldComponent
+} from "../../../../../shared/form/components/common-form-datepicker-field/common-form-datepicker-field.component";
 
 @Component({
   selector: 'app-registration-form',
@@ -34,6 +43,9 @@ import {MatIcon} from "@angular/material/icon";
     MatDatepicker,
     MatIconButton,
     MatIcon,
+    CommonFormInputFieldComponent,
+    CommonFormPasswordFieldComponent,
+    CommonFormDatepickerFieldComponent,
   ],
   templateUrl: './registration-form.component.html',
   styleUrl: './registration-form.component.scss'
