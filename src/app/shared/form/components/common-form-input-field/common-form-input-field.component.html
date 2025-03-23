@@ -2,13 +2,15 @@
   <mat-label>{{ $label() }}</mat-label>
 
   @if ($textPrefix()) {
-    <span matTextPrefix>{{$textPrefix()}}</span>
+    <span matTextPrefix>{{ $textPrefix() }}</span>
   }
 
   <input [type]="$inputType()" matInput [formControl]="$control()" #field/>
 
   @if ($textSuffix()) {
-    <span matTextSuffix>{{$textSuffix()}}</span>
+    <span matTextSuffix>{{ $textSuffix() }}</span>
+  } @else if ($computedIconSuffix()){
+    <mat-icon matSuffix>{{$computedIconSuffix()}}</mat-icon>
   }
 
   @if ($maxLength()) {
