@@ -5,18 +5,18 @@
     <ng-template matStepLabel>Облікові дані</ng-template>
 
     <form [formGroup]="firstStepForm">
-      <app-common-form-input-field class="input-field"
+      <app-common-form-input-field class="default-form-input-field"
                                    [control]="firstStepForm.controls.email"
                                    label="Пошта"
                                    inputType="email"
                                    [maxLength]="320"/>
 
-      <app-common-form-password-field class="input-field"
+      <app-common-form-password-field class="default-form-input-field"
                                       [control]="firstStepForm.controls.password"
                                       label="Пароль"
                                       [maxLength]="64"/>
 
-      <app-common-form-password-field class="input-field"
+      <app-common-form-password-field class="default-form-input-field"
                                       [control]="firstStepForm.controls.passwordConfirm"
                                       label="Підтвердіть пароль"
                                       [maxLength]="64"/>
@@ -40,26 +40,26 @@
     <ng-template matStepLabel>Додаткові дані</ng-template>
 
     <form [formGroup]="secondStepForm">
-      <app-common-form-input-field class="input-field"
+      <app-common-form-input-field class="default-form-input-field"
                                    [control]="secondStepForm.controls.surname"
                                    label="Прізвище"
                                    [maxLength]="64"/>
 
-      <app-common-form-input-field class="input-field"
+      <app-common-form-input-field class="default-form-input-field"
                                    [control]="secondStepForm.controls.firstName"
                                    label="Ім'я"
                                    [maxLength]="64"/>
 
-      <app-common-form-input-field class="input-field"
+      <app-common-form-input-field class="default-form-input-field"
                                    [control]="secondStepForm.controls.middleName"
                                    label="По-батькові"
                                    [maxLength]="64"/>
 
-      <app-common-form-datepicker-field class="input-field"
+      <app-common-form-datepicker-field class="default-form-input-field"
                                         [control]="secondStepForm.controls.birthDate"
                                         label="Дата народження"/>
 
-      <app-common-form-input-field class="input-field"
+      <app-common-form-input-field class="default-form-input-field"
                                    [control]="secondStepForm.controls.phoneNumber"
                                    inputType="tel"
                                    label="Телефон"
