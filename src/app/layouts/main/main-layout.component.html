@@ -1,0 +1,37 @@
+<mat-toolbar color="primary" class="toolbar">
+  @if ($shouldShowSidenav()) {
+    <button mat-icon-button (click)="onMenuButtonClick()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  }
+
+  <div class="title-container">
+    <mat-icon svgIcon="burger"/>
+    <span>Київські файні страви</span>
+  </div>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container" autosize>
+  @if($shouldShowSidenav()) {
+    <mat-sidenav class="sidenav" mode="side" opened="true" (mouseenter)="onSidenavMouseEnter()"
+                 (mouseleave)="onSidenavMouseLeave()">
+      <mat-nav-list>
+        @for (sidenavLink of sidenavLinks; track sidenavLink.label) {
+          <mat-list-item [routerLink]="sidenavLink.routerLink">
+            <div class="nav-list-item">
+              <mat-icon>{{ sidenavLink.icon }}</mat-icon>
+              @if ($isSidenavExpanded()) {
+                <span>{{ sidenavLink.label }}</span>
+              }
+            </div>
+          </mat-list-item>
+        }
+      </mat-nav-list>
+    </mat-sidenav>
+  }
+
+  <mat-sidenav-content class="sidenav-content">
+    <router-outlet/>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
