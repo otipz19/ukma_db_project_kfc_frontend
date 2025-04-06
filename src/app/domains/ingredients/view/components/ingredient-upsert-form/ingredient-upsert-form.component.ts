@@ -2,7 +2,6 @@ import {Component, inject, input, OnInit, output} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {IngredientDto} from "../../../model/ingredient-dto";
 import {IngredientViewDto} from "../../../model/ingredient-view-dto";
-import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {
   CommonFormInputFieldComponent
@@ -11,11 +10,8 @@ import {
 @Component({
   selector: 'app-ingredient-upsert-form',
   imports: [
-    MatFormField,
     ReactiveFormsModule,
-    MatInput,
     MatButton,
-    MatLabel,
     CommonFormInputFieldComponent
   ],
   templateUrl: './ingredient-upsert-form.component.html',
