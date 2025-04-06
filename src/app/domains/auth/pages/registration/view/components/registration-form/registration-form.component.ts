@@ -15,6 +15,9 @@ import {
 import {
   CommonFormDatepickerFieldComponent
 } from "../../../../../../../shared/form/components/common-form-datepicker-field/common-form-datepicker-field.component";
+import {ClientRegistrationService} from "../../../../../data-access/services/client-registration.service";
+import {RegisterClientDto} from "../../../../../data-access/model/register-client.dto";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registration-form',
@@ -36,6 +39,8 @@ import {
   styleUrl: './registration-form.component.scss'
 })
 export class RegistrationFormComponent {
+  private readonly registrationService = inject(ClientRegistrationService);
+  private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder).nonNullable;
 
   protected readonly firstStepForm = this.fb.group({
@@ -50,7 +55,26 @@ export class RegistrationFormComponent {
     firstName: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
     surname: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
     middleName: this.fb.control("", [Validators.maxLength(64)]),
-    phoneNumber: this.fb.control("", [Validators.pattern("\d{10}")]),
+    // TODO: fix phoneNumber format validator
+    // phoneNumber: this.fb.control("", [Validators.pattern("\d{10}")]),
+    phoneNumber: this.fb.control(""),
     birthDate: this.fb.control("")
   });
+
+  protected onSubmit() {
+    if (this.firstStepForm.invalid || this.secondStepForm.invalid) {
+      this.firstStepForm.markAllAsTouched();
+      this.secondStepForm.markAllAsTouched();
+      return;
+    }
+
+    const {email: username, password} = this.firstStepForm.getRawValue();
+    const dto: RegisterClientDto = {username, password, ...this.secondStepForm.getRawValue()};
+
+    this.registrationService.register$(dto)
+      .subscribe(() => {
+        // TODO: navigate to start page of role
+        this.router.navigate(['/', 'ingredients']);
+      });
+  }
 }
