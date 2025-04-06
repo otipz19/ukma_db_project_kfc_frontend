@@ -25,7 +25,7 @@ export class IngredientUpsertFormComponent implements OnInit {
     energy: this.fb.control(0, [Validators.required, Validators.min(0)]),
     weight: this.fb.control(0, [Validators.required, Validators.min(0)]),
     price: this.fb.control(0, [Validators.required, Validators.min(0)]),
-    image: this.fb.control('', [Validators.required, Validators.maxLength(2048)])
+    image: this.fb.control('', [Validators.maxLength(2048)])
   });
 
   readonly $initialData = input<IngredientDto | undefined>(undefined, {alias: 'initialData'});

@@ -1,5 +1,8 @@
 <div class="topbar-container">
   <app-search-bar (search)="onSearch($event)" class="search-bar"/>
+  <button mat-raised-button color="accent" (click)="onCreateClick()">
+    Створити новий
+  </button>
 </div>
 
 <div class="ingredient-grid">
