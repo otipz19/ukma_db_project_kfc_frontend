@@ -1,8 +1,11 @@
+<div class="topbar-container">
+  <app-search-bar (search)="onSearch($event)" class="search-bar"/>
+</div>
+
 <div class="ingredient-grid">
-  @for (ingredient of ingredients; track ingredient.title) {
+  @for (ingredient of $ingredients(); track ingredient.title) {
     <div class="ingredient-item">
       <app-ingredient-card [ingredient]="ingredient"></app-ingredient-card>
     </div>
   }
 </div>
-

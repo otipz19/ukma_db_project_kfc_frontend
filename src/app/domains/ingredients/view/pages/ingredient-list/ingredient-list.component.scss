@@ -1,6 +1,25 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
 .ingredient-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 16px;
+  padding: 0 16px 16px 16px;
+}
+
+.topbar-container {
   padding: 16px;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  .search-bar {
+    flex-grow: 1;
+  }
 }
