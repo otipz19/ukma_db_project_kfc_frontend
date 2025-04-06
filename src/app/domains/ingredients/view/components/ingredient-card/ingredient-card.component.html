@@ -1,13 +1,38 @@
 <mat-card class="ingredient-card">
+  <mat-card-header>
+    <mat-card-title class="ingredient-card-title">{{ $ingredient().title }}</mat-card-title>
+  </mat-card-header>
+
   <img class="ingredient-img" mat-card-image [src]="$ingredient().image" alt="{{ $ingredient().title }}">
-  <mat-card-title>{{ $ingredient().title }}</mat-card-title>
+
   <mat-card-content>
-    <p><strong>Energy:</strong> {{ $ingredient().energy }} kcal</p>
-    <p><strong>Weight:</strong> {{ $ingredient().weight }} g</p>
-    <p><strong>Price:</strong> ${{ $ingredient().price }}</p>
+    <div class="info-container">
+      <p>
+        <span class="info-label">Ціна: </span>
+        <span class="info-data">{{ $ingredient().price }}</span>
+        <span> грн</span>
+      </p>
+      <p>
+        <span class="info-label">Енергетична цінність: </span>
+        <span class="info-data">{{ $ingredient().energy }}</span>
+        <span> ккал</span>
+      </p>
+      <p>
+        <span class="info-label">Вага: </span>
+        <span class="info-data">{{ $ingredient().weight }}</span>
+        <span> г</span>
+      </p>
+    </div>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-button color="primary">Edit</button>
-    <button mat-button color="warn">Delete</button>
+
+  <mat-card-actions class="actions-container">
+    <button mat-button color="primary">
+      <mat-icon>edit</mat-icon>
+      <span>Редагувати</span>
+    </button>
+    <button mat-button color="warn">
+      <mat-icon>delete</mat-icon>
+      <span>Видалити</span>
+    </button>
   </mat-card-actions>
 </mat-card>

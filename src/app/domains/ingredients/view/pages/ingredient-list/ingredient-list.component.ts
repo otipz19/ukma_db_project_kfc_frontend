@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {IngredientDto} from "../../../model/ingredient-dto";
 import {IngredientCardComponent} from "../../components/ingredient-card/ingredient-card.component";
 
 @Component({
   selector: 'app-ingredient-list',
   imports: [
-    IngredientCardComponent
+    IngredientCardComponent,
   ],
   templateUrl: './ingredient-list.component.html',
   styleUrl: './ingredient-list.component.scss'
@@ -15,7 +15,7 @@ export class IngredientListComponent {
     {
       id: 1,
       image: 'https://placehold.co/1200x800.png?text=Ingredient+Placeholder',
-      title: 'Tomato',
+      title: 'Томат',
       energy: 18,
       weight: 150,
       price: 0.5
@@ -23,7 +23,7 @@ export class IngredientListComponent {
     {
       id: 2,
       image: 'https://placehold.co/1200x800.png?text=Ingredient+Placeholder',
-      title: 'Cheese',
+      title: 'Сир',
       energy: 402,
       weight: 100,
       price: 1.2
@@ -31,7 +31,7 @@ export class IngredientListComponent {
     {
       id: 3,
       image: 'https://placehold.co/1200x800.png?text=Ingredient+Placeholder',
-      title: 'Lettuce',
+      title: 'Салат',
       energy: 15,
       weight: 80,
       price: 0.3
@@ -39,7 +39,7 @@ export class IngredientListComponent {
     {
       id: 4,
       image: 'https://placehold.co/1200x800.png?text=Ingredient+Placeholder',
-      title: 'Beef',
+      title: 'Котлета',
       energy: 250,
       weight: 200,
       price: 3.0
@@ -47,7 +47,7 @@ export class IngredientListComponent {
     {
       id: 5,
       image: 'https://placehold.co/1200x800.png?text=Ingredient+Placeholder',
-      title: 'Onion',
+      title: 'Цибуля',
       energy: 40,
       weight: 100,
       price: 0.4
@@ -55,7 +55,7 @@ export class IngredientListComponent {
     {
       id: 6,
       image: 'https://placehold.co/1200x800.png?text=Ingredient+Placeholder',
-      title: 'Burger Bun',
+      title: 'Булочка',
       energy: 290,
       weight: 90,
       price: 0.6
