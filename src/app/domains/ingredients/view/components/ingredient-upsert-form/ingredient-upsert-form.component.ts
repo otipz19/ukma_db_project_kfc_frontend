@@ -4,6 +4,9 @@ import {IngredientDto} from "../../../model/ingredient-dto";
 import {IngredientViewDto} from "../../../model/ingredient-view-dto";
 import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
+import {
+  CommonFormInputFieldComponent
+} from "../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
 
 @Component({
   selector: 'app-ingredient-upsert-form',
@@ -12,7 +15,8 @@ import {MatButton} from "@angular/material/button";
     ReactiveFormsModule,
     MatInput,
     MatButton,
-    MatLabel
+    MatLabel,
+    CommonFormInputFieldComponent
   ],
   templateUrl: './ingredient-upsert-form.component.html',
   styleUrl: './ingredient-upsert-form.component.scss'

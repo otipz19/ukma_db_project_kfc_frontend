@@ -1,23 +1,24 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-fields">
-  <mat-form-field appearance="fill">
-    <mat-label>Назва</mat-label>
-    <input matInput formControlName="title" />
-  </mat-form-field>
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.title"
+                               label="Назва"
+                               inputType="text"
+                               [maxLength]="64"/>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Енергетична цінність (ккал)</mat-label>
-    <input matInput type="number" formControlName="energy" />
-  </mat-form-field>
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.price"
+                               label="Ціна (₴)"
+                               inputType="number"/>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Вага (г)</mat-label>
-    <input matInput type="number" formControlName="weight" />
-  </mat-form-field>
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.energy"
+                               label="Енергетична цінність (ккал)"
+                               inputType="number"/>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Ціна (₴)</mat-label>
-    <input matInput type="number" formControlName="price" />
-  </mat-form-field>
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.weight"
+                               label="Вага (г)"
+                               inputType="number"/>
 
 <!--  <div class="image-section">-->
 <!--    <label for="imageUpload">Зображення:</label>-->
@@ -25,11 +26,13 @@
 <!--    <img [src]="previewUrl" class="preview-img" *ngIf="previewUrl" />-->
 <!--  </div>-->
 
-  <button type="button" mat-raised-button color="primary" (click)="onCancel()">
-    Скасувати
-  </button>
+  <div class="form-actions">
+    <button type="button" mat-raised-button color="primary" (click)="onCancel()">
+      Скасувати
+    </button>
 
-  <button type="submit" mat-raised-button color="accent" [disabled]="form.invalid">
-    Зберегти
-  </button>
+    <button type="submit" mat-raised-button color="accent" [disabled]="form.invalid">
+      Зберегти
+    </button>
+  </div>
 </form>

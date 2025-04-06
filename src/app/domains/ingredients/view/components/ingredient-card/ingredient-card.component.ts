@@ -48,7 +48,8 @@ export class IngredientCardComponent {
 
   onEditClick(): void {
     const dialogRef = this.dialog.open(IngredientEditDialogComponent, {
-      data: this.$ingredient()
+      data: this.$ingredient(),
+      width: '600px'
     });
 
     dialogRef.afterClosed().subscribe(updatedIngredient => {
