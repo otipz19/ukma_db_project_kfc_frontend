@@ -10,5 +10,6 @@ git_push.sh
 index.ts
 model/models.ts
 model/user.ts
+model/userRole.ts
 param.ts
 variables.ts

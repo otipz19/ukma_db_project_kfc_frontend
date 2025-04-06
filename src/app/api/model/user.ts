@@ -7,11 +7,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { UserRole } from './userRole';
 
 
 export interface User { 
     id: number;
     username: string;
-    role: string;
+    role: UserRole;
 }
+export namespace User {
+}
+
 
