@@ -1,8 +1,8 @@
 import {computed, inject, Injectable, signal} from "@angular/core";
-import {AuthenticationControllerService} from "../../../../api/api/authenticationController.service";
-import {map, Observable, switchMap, tap, throwError} from "rxjs";
-import {voidOperator} from "../../../../shared/rxjs/operators/void-operator";
-import {User, UserControllerService} from "../../../../api";
+import {AuthenticationControllerService} from "../../api/api/authenticationController.service";
+import {map, Observable, switchMap, tap} from "rxjs";
+import {voidOperator} from "../../shared/rxjs/operators/void-operator";
+import {User, UserControllerService} from "../../api";
 
 @Injectable({
   providedIn: 'root'
