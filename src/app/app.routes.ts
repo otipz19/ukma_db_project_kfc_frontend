@@ -30,6 +30,10 @@ export const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'ingredients',
+        loadComponent: () => import('./domains/ingredients/view/pages/ingredient-list/ingredient-list.component').then(r => r.IngredientListComponent)
+      }
     ]
   }
 ];

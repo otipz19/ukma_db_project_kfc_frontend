@@ -1,0 +1,13 @@
+<mat-card class="ingredient-card">
+  <img class="ingredient-img" mat-card-image [src]="$ingredient().image" alt="{{ $ingredient().title }}">
+  <mat-card-title>{{ $ingredient().title }}</mat-card-title>
+  <mat-card-content>
+    <p><strong>Energy:</strong> {{ $ingredient().energy }} kcal</p>
+    <p><strong>Weight:</strong> {{ $ingredient().weight }} g</p>
+    <p><strong>Price:</strong> ${{ $ingredient().price }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="primary">Edit</button>
+    <button mat-button color="warn">Delete</button>
+  </mat-card-actions>
+</mat-card>
