@@ -22,11 +22,11 @@ export const routes: Routes = [
         children: [
           {
             path: 'registration',
-            loadComponent: () => import('./domains/registration/view/components/registration-form/registration-form.component').then(r => r.RegistrationFormComponent)
+            loadComponent: () => import('./domains/auth/pages/registration/view/components/registration-form/registration-form.component').then(r => r.RegistrationFormComponent)
           },
           {
             path: 'login',
-            loadComponent: () => import('./domains/login/view/components/login-form/login-form.component').then(r => r.LoginFormComponent)
+            loadComponent: () => import('./domains/auth/pages/login/view/components/login-form/login-form.component').then(r => r.LoginFormComponent)
           }
         ]
       },

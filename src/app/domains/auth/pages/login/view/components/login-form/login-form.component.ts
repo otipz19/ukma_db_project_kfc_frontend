@@ -6,13 +6,13 @@ import {
   MatCardTitle
 } from "@angular/material/card";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
-import {emailValidator} from "../../../../../shared/form/validators/email.validator";
+import {emailValidator} from "../../../../../../../shared/form/validators/email.validator";
 import {
   CommonFormInputFieldComponent
-} from "../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
+} from "../../../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
 import {
   CommonFormPasswordFieldComponent
-} from "../../../../../shared/form/components/common-form-password-field/common-form-password-field.component";
+} from "../../../../../../../shared/form/components/common-form-password-field/common-form-password-field.component";
 import {MatAnchor, MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";

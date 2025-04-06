@@ -4,17 +4,17 @@ import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
 import {passwordsEqualValidator} from "../../validators/passwordsEqual.validator";
 import {MatError} from "@angular/material/form-field";
-import {emailValidator} from "../../../../../shared/form/validators/email.validator";
-import {ErrorMessagePipe} from "../../../../../shared/form/pipes/error-message.pipe";
+import {emailValidator} from "../../../../../../../shared/form/validators/email.validator";
+import {ErrorMessagePipe} from "../../../../../../../shared/form/pipes/error-message.pipe";
 import {
   CommonFormInputFieldComponent
-} from "../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
+} from "../../../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
 import {
   CommonFormPasswordFieldComponent
-} from "../../../../../shared/form/components/common-form-password-field/common-form-password-field.component";
+} from "../../../../../../../shared/form/components/common-form-password-field/common-form-password-field.component";
 import {
   CommonFormDatepickerFieldComponent
-} from "../../../../../shared/form/components/common-form-datepicker-field/common-form-datepicker-field.component";
+} from "../../../../../../../shared/form/components/common-form-datepicker-field/common-form-datepicker-field.component";
 
 @Component({
   selector: 'app-registration-form',

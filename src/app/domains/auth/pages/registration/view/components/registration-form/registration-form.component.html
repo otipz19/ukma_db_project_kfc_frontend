@@ -30,14 +30,14 @@
 
     <div class="stepper-buttons">
       <div></div>
-      <button type="submit" class="stepper-btn-next" mat-raised-button color="primary" matStepperNext>
+      <button type="submit" class="stepper-btn-next" mat-raised-button color="accent" matStepperNext>
         Далі
       </button>
     </div>
   </mat-step>
 
   <mat-step [stepControl]="secondStepForm">
-    <ng-template matStepLabel>Додаткові дані</ng-template>
+    <ng-template matStepLabel>Персональні дані</ng-template>
 
     <form [formGroup]="secondStepForm">
       <app-common-form-input-field class="default-form-input-field"
