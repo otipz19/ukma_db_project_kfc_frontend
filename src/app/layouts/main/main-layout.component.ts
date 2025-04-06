@@ -32,12 +32,12 @@ type SidenavLinkModel = {
 export class MainLayoutComponent {
   protected readonly sidenavLinks: readonly SidenavLinkModel[] = [
     {
-      routerLink: ['/', 'admin', 'ingredients'],
+      routerLink: ['/', 'ingredients'],
       icon: 'food_bank',
       label: 'Інгредієнти'
     },
     {
-      routerLink: ['/', 'admin', 'meals'],
+      routerLink: ['/', 'meals'],
       icon: 'lunch_dining',
       label: 'Страви'
     },
