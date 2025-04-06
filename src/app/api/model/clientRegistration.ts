@@ -1,5 +1,5 @@
 /**
- * Authentication Service
+ * Client Service
  *
  * 
  *
@@ -9,7 +9,11 @@
  */
 
 
-export interface LoginRequest { 
+export interface ClientRegistration { 
+    surname: string;
+    firstName: string;
+    middleName?: string;
+    birthDate?: string;
     username: string;
     password: string;
 }

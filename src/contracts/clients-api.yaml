@@ -1,0 +1,172 @@
+openapi: 3.0.0
+info:
+  description: Client Service
+  version: '1.0'
+  title: Client Service
+
+tags:
+  - name: client-controller
+    description: Client Controller
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /register/client:
+    post:
+      operationId: registerClient
+      tags:
+        - client-controller
+      summary: Register a new client
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientRegistration'
+      responses:
+        200:
+          description: User id of the registered client
+          content:
+            application/json:
+              schema:
+                type: integer
+        400:
+          $ref: 'common-types.yaml#/components/responses/BadRequest'
+        500:
+          $ref: 'common-types.yaml#/components/responses/InternalServerError'
+
+  /api/client:
+    get:
+      operationId: getAllClients
+      tags:
+        - client-controller
+      summary: Get all clients
+      responses:
+        200:
+          description: List of clients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Client'
+        401:
+          $ref: 'common-types.yaml#/components/responses/Unauthorized'
+        403:
+          $ref: 'common-types.yaml#/components/responses/Forbidden'
+        500:
+          $ref: 'common-types.yaml#/components/responses/InternalServerError'
+
+  /api/client/{userId}:
+    parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: integer
+
+    get:
+      operationId: getClientByUserId
+      tags:
+        - client-controller
+      summary: Get client by user id
+      responses:
+        200:
+          description: Client with corresponding user id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        401:
+          $ref: 'common-types.yaml#/components/responses/Unauthorized'
+        403:
+          $ref: 'common-types.yaml#/components/responses/Forbidden'
+        404:
+          $ref: 'common-types.yaml#/components/responses/NotFound'
+        500:
+          $ref: 'common-types.yaml#/components/responses/InternalServerError'
+
+    put:
+      operationId: updateClientByUserId
+      tags:
+        - client-controller
+      summary: Update client by user id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateClient'
+      responses:
+        204:
+          description: Client was updated
+        401:
+          $ref: 'common-types.yaml#/components/responses/Unauthorized'
+        403:
+          $ref: 'common-types.yaml#/components/responses/Forbidden'
+        404:
+          $ref: 'common-types.yaml#/components/responses/NotFound'
+        500:
+          $ref: 'common-types.yaml#/components/responses/InternalServerError'
+
+    delete:
+      operationId: deleteClientByUserId
+      tags:
+        - client-controller
+      summary: Delete client by user id
+      responses:
+        204:
+          description: Client was deleted
+        401:
+          $ref: 'common-types.yaml#/components/responses/Unauthorized'
+        403:
+          $ref: 'common-types.yaml#/components/responses/Forbidden'
+        404:
+          $ref: 'common-types.yaml#/components/responses/NotFound'
+        500:
+          $ref: 'common-types.yaml#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    UpdateClient:
+      type: object
+      properties:
+        surname:
+          type: string
+        firstName:
+          type: string
+        middleName:
+          type: string
+        birthDate:
+          type: string
+          format: date
+      required:
+        - surname
+        - firstName
+
+    ClientRegistration:
+      allOf:
+        - $ref: '#/components/schemas/UpdateClient'
+        - type: object
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+          required:
+            - username
+            - password
+
+    Client:
+      allOf:
+        - $ref: '#/components/schemas/UpdateClient'
+        - type: object
+          properties:
+            userId:
+              type: integer
+            username:
+              type: string
+            bonuses:
+              type: integer
+          required:
+            - userId
+            - username
+            - bonuses

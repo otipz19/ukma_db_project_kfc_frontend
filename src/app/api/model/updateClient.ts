@@ -1,5 +1,5 @@
 /**
- * Authentication Service
+ * Client Service
  *
  * 
  *
@@ -9,7 +9,10 @@
  */
 
 
-export interface ResetTokenRequest { 
-    refreshToken: string;
+export interface UpdateClient { 
+    surname: string;
+    firstName: string;
+    middleName?: string;
+    birthDate?: string;
 }
 

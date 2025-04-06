@@ -1,3 +1,3 @@
-export * from './loginController.service';
-import { LoginControllerService } from './loginController.service';
-export const APIS = [LoginControllerService];
+export * from './userController.service';
+import { UserControllerService } from './userController.service';
+export const APIS = [UserControllerService];

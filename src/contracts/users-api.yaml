@@ -1,0 +1,70 @@
+openapi: 3.0.0
+info:
+  description: User Service
+  version: '1.0'
+  title: User Service
+
+tags:
+  - name: user-controller
+    description: User Controller
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /api/user/current:
+    get:
+      operationId: getCurrentUser
+      tags:
+        - user-controller
+      summary: Get current user
+      responses:
+        200:
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        401:
+          $ref: 'common-types.yaml#/components/responses/Unauthorized'
+        500:
+          $ref: 'common-types.yaml#/components/responses/InternalServerError'
+
+  /api/user/disable/{userId}:
+    post:
+      operationId: disableUser
+      tags:
+        - user-controller
+      summary: Disable user
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: User was disabled
+        401:
+          $ref: 'common-types.yaml#/components/responses/Unauthorized'
+        403:
+          $ref: 'common-types.yaml#/components/responses/Forbidden'
+        404:
+          $ref: 'common-types.yaml#/components/responses/NotFound'
+        500:
+          $ref: 'common-types.yaml#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        role:
+          type: string
+      required:
+        - id
+        - username
+        - role

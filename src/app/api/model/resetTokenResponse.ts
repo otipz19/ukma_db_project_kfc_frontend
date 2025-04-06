@@ -1,5 +1,5 @@
 /**
- * Login Service
+ * Authentication Service
  *
  * 
  *

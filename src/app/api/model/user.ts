@@ -1,5 +1,5 @@
 /**
- * Authentication Service
+ * User Service
  *
  * 
  *
@@ -9,7 +9,9 @@
  */
 
 
-export interface ResetTokenRequest { 
-    refreshToken: string;
+export interface User { 
+    id: number;
+    username: string;
+    role: string;
 }
 

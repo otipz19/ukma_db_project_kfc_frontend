@@ -1,5 +1,5 @@
 /**
- * Login Service
+ * Authentication Service
  *
  * 
  *
@@ -35,7 +35,7 @@ import { BaseService } from '../api.base.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginControllerService extends BaseService {
+export class AuthenticationControllerService extends BaseService {
 
     constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string|string[], @Optional() configuration?: Configuration) {
         super(basePath, configuration);
@@ -86,7 +86,7 @@ export class LoginControllerService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/login`;
+        let localVarPath = `/auth/login`;
         return this.httpClient.request<LoginResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -146,7 +146,7 @@ export class LoginControllerService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/reset-token`;
+        let localVarPath = `/auth/reset-token`;
         return this.httpClient.request<ResetTokenResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

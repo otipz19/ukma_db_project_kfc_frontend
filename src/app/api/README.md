@@ -1,6 +1,6 @@
 # @
 
-Login Service
+User Service
 
 The version of the OpenAPI document: 1.0
 
