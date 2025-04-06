@@ -5,13 +5,13 @@ import {routes} from './app.routes';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {provideNativeDateAdapter} from "@angular/material/core";
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
-import {jwtTokenAuthInterceptor} from "./domains/auth/model/interceptors/jwt-token-auth.interceptor";
+import {authInterceptor} from "./domains/auth/model/interceptors/auth.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
-    provideHttpClient(withInterceptors([jwtTokenAuthInterceptor]))
+    provideHttpClient(withInterceptors([authInterceptor]))
   ]
 };

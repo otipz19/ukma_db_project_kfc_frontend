@@ -1,6 +1,6 @@
 import {computed, inject, Injectable, signal} from "@angular/core";
 import {AuthenticationControllerService} from "../../../../api/api/authenticationController.service";
-import {Observable, switchMap, tap} from "rxjs";
+import {map, Observable, switchMap, tap, throwError} from "rxjs";
 import {voidOperator} from "../../../../shared/rxjs/operators/void-operator";
 import {User, UserControllerService} from "../../../../api";
 
@@ -8,7 +8,7 @@ import {User, UserControllerService} from "../../../../api";
   providedIn: 'root'
 })
 export class AuthService {
-  private static readonly LS_KEY_JWT_TOKEN = "LS_KEY_JWT_TOKEN";
+  private static readonly LS_KEY_ACCESS_TOKEN = "LS_KEY_ACCESS_TOKEN";
   private static readonly LS_KEY_REFRESH_TOKEN = "LS_KEY_REFRESH_TOKEN";
 
   private readonly authApi = inject(AuthenticationControllerService);
@@ -22,8 +22,8 @@ export class AuthService {
     return this.authApi.loginUser({username, password})
       .pipe(
         tap(({token, refreshToken}) => {
-          localStorage.setItem(AuthService.LS_KEY_JWT_TOKEN, token);
-          localStorage.setItem(AuthService.LS_KEY_REFRESH_TOKEN, refreshToken);
+          this.accessToken = token;
+          this.refreshToken = refreshToken;
         }),
         switchMap(() => {
           return this.userApi.getCurrentUser()
@@ -35,7 +35,40 @@ export class AuthService {
       );
   }
 
-  getToken(): string | null {
-    return localStorage.getItem(AuthService.LS_KEY_JWT_TOKEN);
+  refreshSession$(): Observable<string> {
+    const refreshToken = this.refreshToken;
+    if (!refreshToken) {
+      return throwError(() => new Error('refreshSession was called without active session'));
+    }
+
+    return this.authApi.resetToken({refreshToken})
+      .pipe(
+        map(({token}) => token),
+        tap((token) => {
+          this.accessToken = token;
+        })
+      )
+  }
+
+  closeSession() {
+    localStorage.removeItem(AuthService.LS_KEY_ACCESS_TOKEN);
+    localStorage.removeItem(AuthService.LS_KEY_REFRESH_TOKEN);
+    this.$currentUserInner.set(undefined);
+  }
+
+  get accessToken(): string | null {
+    return localStorage.getItem(AuthService.LS_KEY_ACCESS_TOKEN);
+  }
+
+  get refreshToken(): string | null {
+    return localStorage.getItem(AuthService.LS_KEY_REFRESH_TOKEN);
+  }
+
+  private set accessToken(value: string) {
+    localStorage.setItem(AuthService.LS_KEY_ACCESS_TOKEN, value);
+  }
+
+  private set refreshToken(value: string) {
+    localStorage.setItem(AuthService.LS_KEY_REFRESH_TOKEN, value);
   }
 }
