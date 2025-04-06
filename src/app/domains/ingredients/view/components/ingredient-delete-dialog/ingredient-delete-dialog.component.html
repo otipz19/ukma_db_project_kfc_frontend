@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Підтвердження видалення</h2>
+
+<mat-dialog-content>
+  Ви впевнені, що хочете видалити інгредієнт <strong>{{ data.title }}</strong>?
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button color="primary" (click)="onCancel()">Скасувати</button>
+  <button mat-button color="warn" (click)="onConfirm()">Видалити</button>
+</mat-dialog-actions>

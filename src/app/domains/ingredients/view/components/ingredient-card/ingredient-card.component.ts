@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {
   MatCard,
   MatCardActions,
@@ -10,6 +10,8 @@ import {
 import {MatButton} from "@angular/material/button";
 import {IngredientDto} from "../../../model/ingredient-dto";
 import {MatIcon} from "@angular/material/icon";
+import {MatDialog} from "@angular/material/dialog";
+import {IngredientDeleteDialogComponent} from "../ingredient-delete-dialog/ingredient-delete-dialog.component";
 
 @Component({
   selector: 'app-ingredient-card',
@@ -27,5 +29,20 @@ import {MatIcon} from "@angular/material/icon";
   styleUrl: './ingredient-card.component.scss'
 })
 export class IngredientCardComponent {
+  private readonly dialog = inject(MatDialog);
+
   readonly $ingredient = input.required<IngredientDto>({alias: 'ingredient'});
+
+  onDeleteClick(): void {
+    const dialogRef = this.dialog.open(IngredientDeleteDialogComponent, {
+      data: {title: this.$ingredient().title}
+    });
+
+    dialogRef.afterClosed().subscribe(isConfirmed => {
+      if (isConfirmed) {
+        // TODO: Add backend logic here
+      }
+    });
+  }
+
 }
