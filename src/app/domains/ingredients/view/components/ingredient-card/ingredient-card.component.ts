@@ -12,6 +12,7 @@ import {IngredientDto} from "../../../model/ingredient-dto";
 import {MatIcon} from "@angular/material/icon";
 import {MatDialog} from "@angular/material/dialog";
 import {IngredientDeleteDialogComponent} from "../ingredient-delete-dialog/ingredient-delete-dialog.component";
+import {IngredientEditDialogComponent} from "../ingredient-edit-dialog/ingredient-edit-dialog.component";
 
 @Component({
   selector: 'app-ingredient-card',
@@ -45,4 +46,15 @@ export class IngredientCardComponent {
     });
   }
 
+  onEditClick(): void {
+    const dialogRef = this.dialog.open(IngredientEditDialogComponent, {
+      data: this.$ingredient()
+    });
+
+    dialogRef.afterClosed().subscribe(updatedIngredient => {
+      if (updatedIngredient) {
+        // TODO: Add backend logic here
+      }
+    });
+  }
 }

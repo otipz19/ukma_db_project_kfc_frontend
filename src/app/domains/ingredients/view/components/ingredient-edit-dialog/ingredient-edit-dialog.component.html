@@ -1,0 +1,4 @@
+<h2 mat-dialog-title>Редагування інгредієнта</h2>
+<mat-dialog-content>
+  <app-ingredient-upsert-form [initialData]="data" (submit)="onSubmit($event)" (cancel)="onCancel()"></app-ingredient-upsert-form>
+</mat-dialog-content>
