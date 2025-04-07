@@ -17,6 +17,7 @@ import {MatAnchor, MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {Router, RouterLink} from "@angular/router";
 import {AuthService} from "../../../../../../../core/services/auth.service";
+import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
 
 @Component({
   selector: 'app-login-form',
@@ -41,6 +42,7 @@ import {AuthService} from "../../../../../../../core/services/auth.service";
 export class LoginFormComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly notifyService = inject(NotifyService);
   private readonly fb = inject(FormBuilder).nonNullable;
 
   protected readonly form = this.fb.group({
@@ -56,6 +58,9 @@ export class LoginFormComponent {
 
     const {email, password} = this.form.getRawValue();
     this.authService.login$(email, password)
+      .pipe(
+        this.notifyService.notifyHttpRequest()
+      )
       .subscribe(() => {
         this.router.navigate(['/', 'landing']);
       });

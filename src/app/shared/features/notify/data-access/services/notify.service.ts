@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
-import {Observable, Subscriber} from "rxjs";
+import {catchError, EMPTY, Observable, tap, throwError} from "rxjs";
 import {SuccessDialogComponent} from "../../view/components/success-dialog/success-dialog.component";
 import {ErrorDialogComponent, ErrorDialogConfig} from "../../view/components/error-dialog/error-dialog.component";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -15,23 +15,37 @@ export class NotifyService {
 
   notifyHttpRequest(successMessage?: string): (innerObservable: Observable<any>) => Observable<any> {
     return (innerObservable: Observable<any>) => {
-      return new Observable<any>((subscriber: Subscriber<any>) => {
-        const innerSub = innerObservable.subscribe({
-          next: val => subscriber.next(val),
-          error: err => {
-            this.handleHttpError(err);
-            subscriber.error(err);
-          },
-          complete: () => {
-            this.notifySuccess(successMessage);
-            subscriber.complete();
-          }
-        });
+      return innerObservable
+        .pipe(
+          this.notifySuccess(successMessage),
+          this.notifyHttpError()
+        );
+    };
+  }
 
-        return () => {
-          innerSub.unsubscribe();
-        };
-      });
+  notifySuccess(successMessage?: string): (innerObservable: Observable<any>) => Observable<any> {
+    return (innerObservable: Observable<any>) => {
+      return innerObservable
+        .pipe(
+          tap({
+            complete: () => this.openSuccessDialog(successMessage)
+          })
+        )
+    };
+  }
+
+  /**
+   * Completes instead of throwing error
+   */
+  notifyHttpError(): (innerObservable: Observable<any>) => Observable<any> {
+    return (innerObservable: Observable<any>) => {
+      return innerObservable
+        .pipe(
+          catchError(error => {
+            this.handleHttpError({error});
+            return EMPTY;
+          })
+        )
     };
   }
 
@@ -46,13 +60,9 @@ export class NotifyService {
         .subscribe(() => {
           this.router.navigate(['/', 'auth', 'login']);
         });
+    } else {
+      this.openErrorDialog({error});
     }
-
-    this.notifyError(error);
-  }
-
-  notifyError(error?: any) {
-    this.openErrorDialog({error});
   }
 
   private openErrorDialog(config: ErrorDialogConfig) {
@@ -62,8 +72,8 @@ export class NotifyService {
     });
   }
 
-  notifySuccess(successMessage?: string) {
-    this.dialog.open(SuccessDialogComponent, {
+  private openSuccessDialog(successMessage?: string) {
+    return this.dialog.open(SuccessDialogComponent, {
       data: successMessage,
       minWidth: '400px'
     });

@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -25,11 +25,20 @@ export type ErrorDialogConfig = {
   templateUrl: './error-dialog.component.html',
   styleUrl: './error-dialog.component.scss'
 })
-export class ErrorDialogComponent {
+export class ErrorDialogComponent implements OnInit {
   private readonly dialogRef = inject(MatDialogRef<ErrorDialogComponent>);
   protected readonly config: ErrorDialogConfig | undefined = inject(MAT_DIALOG_DATA);
 
-  onClose(): void {
+  protected errorMessage = 'Сталася помилка...';
+
+  ngOnInit() {
+    const err = this.config?.error;
+    if (err) {
+      this.errorMessage = JSON.stringify(err);
+    }
+  }
+
+  protected onClose(): void {
     this.dialogRef.close();
   }
 }
