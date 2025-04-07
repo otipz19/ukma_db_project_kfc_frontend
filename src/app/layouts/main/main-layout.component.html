@@ -1,18 +1,26 @@
 <mat-toolbar color="primary" class="toolbar">
-  @if ($shouldShowSidenav()) {
-    <button mat-icon-button (click)="onMenuButtonClick()">
-      <mat-icon>menu</mat-icon>
-    </button>
-  }
+  <div class="toolbar-left">
+    @if ($shouldShowSidenav()) {
+      <button mat-icon-button (click)="onMenuButtonClick()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    }
 
-  <div class="title-container">
-    <mat-icon svgIcon="burger"/>
-    <span>Київські файні страви</span>
+    <div class="title-container">
+      <mat-icon svgIcon="burger"/>
+      <span>Київські файні страви</span>
+    </div>
+  </div>
+
+  <div class="toolbar-right">
+    @if ($isAuthenticated()) {
+      <app-toolbar-user-menu/>
+    }
   </div>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container" autosize>
-  @if($shouldShowSidenav()) {
+  @if ($shouldShowSidenav()) {
     <mat-sidenav class="sidenav" mode="side" opened="true" (mouseenter)="onSidenavMouseEnter()"
                  (mouseleave)="onSidenavMouseLeave()">
       <mat-nav-list>
