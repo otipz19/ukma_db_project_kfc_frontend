@@ -15,7 +15,8 @@ import {
 } from "../../../../../../../shared/form/components/common-form-password-field/common-form-password-field.component";
 import {MatAnchor, MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
+import {AuthService} from "../../../../../../../core/services/auth-service";
 
 @Component({
   selector: 'app-login-form',
@@ -38,10 +39,25 @@ import {RouterLink} from "@angular/router";
   styleUrl: './login-form.component.scss'
 })
 export class LoginFormComponent {
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder).nonNullable;
 
   protected readonly form = this.fb.group({
     email: this.fb.control('', [Validators.required, emailValidator()]),
     password: this.fb.control('', [Validators.required, Validators.maxLength(64)])
   });
+
+  protected onSubmit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const {email, password} = this.form.getRawValue();
+    this.authService.login$(email, password)
+      .subscribe(() => {
+        this.router.navigate(['/']);
+      });
+  }
 }
