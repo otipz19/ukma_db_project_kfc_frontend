@@ -1,6 +1,6 @@
 import {computed, inject, Injectable, signal} from "@angular/core";
 import {AuthenticationControllerService} from "../../api/api/authenticationController.service";
-import {map, Observable, switchMap, tap} from "rxjs";
+import {EMPTY, map, Observable, switchMap, tap} from "rxjs";
 import {voidOperator} from "../../shared/rxjs/operators/void-operator";
 import {User, UserControllerService} from "../../api";
 
@@ -20,11 +20,7 @@ export class AuthService {
   private readonly $currentUserInner = signal<User | undefined>(undefined);
   readonly $currentUser = this.$currentUserInner.asReadonly();
   readonly $isAuthenticated = computed(() => Boolean(this.$currentUser()));
-
-  constructor() {
-    this._accessToken = localStorage.getItem(AuthService.LS_KEY_ACCESS_TOKEN) ?? undefined;
-    this._refreshToken = localStorage.getItem(AuthService.LS_KEY_REFRESH_TOKEN) ?? undefined;
-  }
+  readonly $role = computed(() => this.$currentUser()?.role);
 
   login$(username: string, password: string): Observable<void> {
     return this.authApi.loginUser({username, password})
@@ -33,9 +29,24 @@ export class AuthService {
           this.accessToken = token;
           this.refreshToken = refreshToken;
         }),
-        switchMap(() => {
-          return this.userApi.getCurrentUser()
-        }),
+        switchMap(() => this.setCurrentUser$()),
+      );
+  }
+
+  restoreSession$(): Observable<void> {
+    this._accessToken = localStorage.getItem(AuthService.LS_KEY_ACCESS_TOKEN) ?? undefined;
+    this._refreshToken = localStorage.getItem(AuthService.LS_KEY_REFRESH_TOKEN) ?? undefined;
+
+    if(!this.accessToken || !this.refreshToken) {
+      return EMPTY;
+    }
+
+    return this.setCurrentUser$();
+  }
+
+  private setCurrentUser$(): Observable<void> {
+    return this.userApi.getCurrentUser()
+      .pipe(
         tap(user => {
           this.$currentUserInner.set(user);
         }),

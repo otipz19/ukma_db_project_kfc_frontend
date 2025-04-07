@@ -1,5 +1,7 @@
 import {Routes} from '@angular/router';
 import {MainLayoutComponent} from "./layouts/main/main-layout.component";
+import {hasRoleRouteGuard} from "./core/route-guards/has-role.route-guard";
+import {unauthenticatedRouteGuard} from "./core/route-guards/unauthenticated.route-guard";
 
 export const routes: Routes = [
   {
@@ -14,10 +16,11 @@ export const routes: Routes = [
       {
         path: 'auth',
         redirectTo: 'auth/login',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'auth',
+        canActivateChild: [unauthenticatedRouteGuard],
         loadComponent: () => import('./layouts/auth/auth-layout.component').then(r => r.AuthLayoutComponent),
         children: [
           {
@@ -32,6 +35,7 @@ export const routes: Routes = [
       },
       {
         path: 'ingredients',
+        canActivate: [hasRoleRouteGuard('ADMIN')],
         loadComponent: () => import('./domains/ingredients/view/pages/ingredient-list/ingredient-list.component').then(r => r.IngredientListComponent)
       }
     ]

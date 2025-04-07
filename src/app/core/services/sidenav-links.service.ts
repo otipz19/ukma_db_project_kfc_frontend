@@ -20,9 +20,6 @@ export class SidenavLinksService {
 
   private readonly roleToAllowedLinks = new Map<UserRoleState, Array<LinkAlias>>([
     ['ADMIN', ['ingredients', 'meals']],
-    // TODO: Remove when auth is finished
-    ['UNAUTHENTICATED', ['ingredients', 'meals']],
-    ['CLIENT', ['ingredients', 'meals']]
   ]);
 
   private readonly allLinks = new Map<LinkAlias, SidenavLinkModel>([
