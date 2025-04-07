@@ -18,6 +18,7 @@ import {
 import {ClientRegistrationService} from "../../../../../data-access/services/client-registration.service";
 import {RegisterClientDto} from "../../../../../data-access/model/register-client.dto";
 import {Router} from "@angular/router";
+import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
 
 @Component({
   selector: 'app-registration-form',
@@ -41,6 +42,7 @@ import {Router} from "@angular/router";
 export class RegistrationFormComponent {
   private readonly registrationService = inject(ClientRegistrationService);
   private readonly router = inject(Router);
+  private readonly notifyService = inject(NotifyService);
   private readonly fb = inject(FormBuilder).nonNullable;
 
   protected readonly firstStepForm = this.fb.group({
@@ -72,9 +74,11 @@ export class RegistrationFormComponent {
     const dto: RegisterClientDto = {username, password, ...this.secondStepForm.getRawValue()};
 
     this.registrationService.register$(dto)
+      .pipe(
+        this.notifyService.notifyHttpError()
+      )
       .subscribe(() => {
-        // TODO: navigate to start page of role
-        this.router.navigate(['/', 'ingredients']);
+        this.router.navigate(['/', 'landing']);
       });
   }
 }
