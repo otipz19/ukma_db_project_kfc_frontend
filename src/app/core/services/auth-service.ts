@@ -19,7 +19,7 @@ export class AuthService {
 
   private readonly $currentUserInner = signal<User | undefined>(undefined);
   readonly $currentUser = this.$currentUserInner.asReadonly();
-  readonly $isAuthenticated = computed(() => Boolean(this.$currentUser));
+  readonly $isAuthenticated = computed(() => Boolean(this.$currentUser()));
 
   constructor() {
     this._accessToken = localStorage.getItem(AuthService.LS_KEY_ACCESS_TOKEN) ?? undefined;
