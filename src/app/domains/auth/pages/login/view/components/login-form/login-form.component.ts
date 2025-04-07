@@ -16,7 +16,7 @@ import {
 import {MatAnchor, MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {Router, RouterLink} from "@angular/router";
-import {AuthService} from "../../../../../../../core/services/auth-service";
+import {AuthService} from "../../../../../../../core/services/auth.service";
 
 @Component({
   selector: 'app-login-form',

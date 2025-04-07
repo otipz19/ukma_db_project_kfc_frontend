@@ -1,0 +1,11 @@
+<div (click)="onClose()">
+  <h2 mat-dialog-title>{{ config?.title ?? 'Зрада' }}</h2>
+
+  <mat-dialog-content>
+    {{ config?.error ?? 'Сталася помилка...' }}
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button color="warn">{{ config?.btnLabel ?? 'Невдача спіткала' }}</button>
+  </mat-dialog-actions>
+</div>

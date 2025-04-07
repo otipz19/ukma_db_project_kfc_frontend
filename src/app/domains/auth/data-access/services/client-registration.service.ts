@@ -3,7 +3,7 @@ import {ClientControllerService} from "../../../../api/api/clientController.serv
 import {Observable, switchMap} from "rxjs";
 import {UserPhonesControllerService} from "../../../../api/api/userPhonesController.service";
 import {RegisterClientDto} from "../model/register-client.dto";
-import {AuthService} from "../../../../core/services/auth-service";
+import {AuthService} from "../../../../core/services/auth.service";
 
 @Injectable({
   providedIn: 'root'

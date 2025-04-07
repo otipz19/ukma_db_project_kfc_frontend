@@ -1,5 +1,5 @@
 import {computed, inject, Injectable} from "@angular/core";
-import {AuthService} from "./auth-service";
+import {AuthService} from "./auth.service";
 import {UserRole} from "../../api";
 
 type LinkAlias = 'ingredients' | 'meals';

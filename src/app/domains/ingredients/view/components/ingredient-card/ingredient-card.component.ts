@@ -11,8 +11,11 @@ import {MatButton} from "@angular/material/button";
 import {IngredientDto} from "../../../model/ingredient-dto";
 import {MatIcon} from "@angular/material/icon";
 import {MatDialog} from "@angular/material/dialog";
-import {IngredientDeleteDialogComponent} from "../ingredient-delete-dialog/ingredient-delete-dialog.component";
+import {
+  IngredientDeleteDialogComponent,
+} from "../ingredient-delete-dialog/ingredient-delete-dialog.component";
 import {IngredientEditDialogComponent} from "../ingredient-edit-dialog/ingredient-edit-dialog.component";
+import {NotifyService} from "../../../../../shared/features/notify/data-access/services/notify.service";
 
 @Component({
   selector: 'app-ingredient-card',

@@ -5,7 +5,7 @@ import {RouterLink, RouterOutlet} from "@angular/router";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
-import {SidenavLinksService} from "../../core/services/sidenav-links-service";
+import {SidenavLinksService} from "../../core/services/sidenav-links.service";
 
 @Component({
   selector: 'app-admin-layout',
