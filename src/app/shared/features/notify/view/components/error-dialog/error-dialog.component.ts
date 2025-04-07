@@ -34,7 +34,7 @@ export class ErrorDialogComponent implements OnInit {
   ngOnInit() {
     const err = this.config?.error;
     if (err) {
-      this.errorMessage = JSON.stringify(err);
+      this.errorMessage = typeof err === 'string' ? err : JSON.stringify(err);
     }
   }
 

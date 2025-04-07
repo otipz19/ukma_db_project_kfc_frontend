@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
-import {catchError, EMPTY, Observable, tap, throwError} from "rxjs";
+import {catchError, EMPTY, Observable, tap} from "rxjs";
 import {SuccessDialogComponent} from "../../view/components/success-dialog/success-dialog.component";
 import {ErrorDialogComponent, ErrorDialogConfig} from "../../view/components/error-dialog/error-dialog.component";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -42,7 +42,7 @@ export class NotifyService {
       return innerObservable
         .pipe(
           catchError(error => {
-            this.handleHttpError({error});
+            this.handleHttpError(error);
             return EMPTY;
           })
         )

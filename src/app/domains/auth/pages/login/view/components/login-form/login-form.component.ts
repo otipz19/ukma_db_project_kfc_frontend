@@ -59,7 +59,7 @@ export class LoginFormComponent {
     const {email, password} = this.form.getRawValue();
     this.authService.login$(email, password)
       .pipe(
-        this.notifyService.notifyHttpRequest()
+        this.notifyService.notifyHttpError()
       )
       .subscribe(() => {
         this.router.navigate(['/', 'landing']);
