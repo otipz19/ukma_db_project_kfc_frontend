@@ -37,7 +37,7 @@ export const routes: Routes = [
       {
         path: 'landing',
         canActivate: [authenticatedRouteGuard],
-        loadComponent: () => import('./domains/landing/view/pages/landing-page/landing-page.component').then(r => r.LandingPageComponent)
+        loadComponent: () => import('./domains/dumb-pages/view/pages/landing-page/landing-page.component').then(r => r.LandingPageComponent)
       },
       {
         path: 'ingredients',
@@ -47,7 +47,11 @@ export const routes: Routes = [
       {
         path: 'forbidden',
         canActivate: [authenticatedRouteGuard],
-        loadComponent: () => import('./domains/forbidden/view/pages/forbidden-page/forbidden-page.component').then(r => r.ForbiddenPageComponent)
+        loadComponent: () => import('./domains/dumb-pages/view/pages/forbidden-page/forbidden-page.component').then(r => r.ForbiddenPageComponent)
+      },
+      {
+        path: '**',
+        loadComponent: () => import('./domains/dumb-pages/view/pages/not-found/not-found.component').then(r => r.NotFoundComponent)
       }
     ]
   }
