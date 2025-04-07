@@ -2,6 +2,7 @@ import {Routes} from '@angular/router';
 import {MainLayoutComponent} from "./layouts/main/main-layout.component";
 import {hasRoleRouteGuard} from "./core/route-guards/has-role.route-guard";
 import {unauthenticatedRouteGuard} from "./core/route-guards/unauthenticated.route-guard";
+import {authenticatedRouteGuard} from "./core/route-guards/authenticated.route-guard";
 
 export const routes: Routes = [
   {
@@ -34,9 +35,19 @@ export const routes: Routes = [
         ]
       },
       {
+        path: 'landing',
+        canActivate: [authenticatedRouteGuard],
+        loadComponent: () => import('./domains/landing/view/pages/landing-page/landing-page.component').then(r => r.LandingPageComponent)
+      },
+      {
         path: 'ingredients',
         canActivate: [hasRoleRouteGuard('ADMIN')],
         loadComponent: () => import('./domains/ingredients/view/pages/ingredient-list/ingredient-list.component').then(r => r.IngredientListComponent)
+      },
+      {
+        path: 'forbidden',
+        canActivate: [authenticatedRouteGuard],
+        loadComponent: () => import('./domains/forbidden/view/pages/forbidden-page/forbidden-page.component').then(r => r.ForbiddenPageComponent)
       }
     ]
   }

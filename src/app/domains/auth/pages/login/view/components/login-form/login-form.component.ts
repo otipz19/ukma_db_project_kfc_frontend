@@ -57,7 +57,7 @@ export class LoginFormComponent {
     const {email, password} = this.form.getRawValue();
     this.authService.login$(email, password)
       .subscribe(() => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/', 'landing']);
       });
   }
 }
