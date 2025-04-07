@@ -42,7 +42,7 @@ export class IngredientUpsertFormComponent implements OnInit {
 
   onSubmit() {
     if(this.form.invalid) {
-      this.form.markAsTouched();
+      this.form.markAllAsTouched();
       return;
     }
 

@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-fields">
+<form [formGroup]="form" class="form-fields">
   <app-common-form-input-field class="default-form-input-field"
                                [control]="form.controls.title"
                                label="Назва"
@@ -31,7 +31,7 @@
       Скасувати
     </button>
 
-    <button type="submit" mat-raised-button color="accent" [disabled]="form.invalid">
+    <button type="button" mat-raised-button color="accent" (click)="onSubmit()">
       Зберегти
     </button>
   </div>
