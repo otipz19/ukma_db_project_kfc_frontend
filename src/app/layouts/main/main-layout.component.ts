@@ -1,16 +1,11 @@
-import {Component, computed, signal} from '@angular/core';
+import {Component, computed, inject, signal} from '@angular/core';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {MatToolbar} from "@angular/material/toolbar";
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
-
-type SidenavLinkModel = {
-  routerLink: string[],
-  icon: string,
-  label: string
-};
+import {SidenavLinksService} from "../../core/services/sidenav-links-service";
 
 @Component({
   selector: 'app-admin-layout',
@@ -30,21 +25,12 @@ type SidenavLinkModel = {
   styleUrl: './main-layout.component.scss'
 })
 export class MainLayoutComponent {
-  protected readonly sidenavLinks: readonly SidenavLinkModel[] = [
-    {
-      routerLink: ['/', 'ingredients'],
-      icon: 'food_bank',
-      label: 'Інгредієнти'
-    },
-    {
-      routerLink: ['/', 'meals'],
-      icon: 'lunch_dining',
-      label: 'Страви'
-    },
-  ];
+  private readonly sidenavLinksService = inject(SidenavLinksService);
+
+  protected readonly $sidenavLinks = this.sidenavLinksService.$sidenavLinks;
 
   protected $shouldShowSidenav = computed(() => {
-    return this.sidenavLinks.length !== 0;
+    return this.$sidenavLinks().length !== 0;
   });
 
   protected $isSidenavFixed = signal<boolean>(false);
