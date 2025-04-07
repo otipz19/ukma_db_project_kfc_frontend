@@ -4,18 +4,21 @@ import {EMPTY, map, Observable, switchMap, tap} from "rxjs";
 import {voidOperator} from "../../shared/rxjs/operators/void-operator";
 import {User, UserControllerService} from "../../api";
 
+type TokensDto = {
+  accessToken: string,
+  refreshToken: string
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private static readonly LS_KEY_ACCESS_TOKEN = "LS_KEY_ACCESS_TOKEN";
-  private static readonly LS_KEY_REFRESH_TOKEN = "LS_KEY_REFRESH_TOKEN";
+  private static readonly LS_KEY_TOKENS_DTO = "LS_KEY_TOKENS_DTO";
 
   private readonly authApi = inject(AuthenticationControllerService);
   private readonly userApi = inject(UserControllerService);
 
-  private _accessToken: string | undefined;
-  private _refreshToken: string | undefined;
+  private _tokensDto: TokensDto | undefined;
 
   private readonly $currentUserInner = signal<User | undefined>(undefined);
   readonly $currentUser = this.$currentUserInner.asReadonly();
@@ -26,21 +29,19 @@ export class AuthService {
     return this.authApi.loginUser({username, password})
       .pipe(
         tap(({token, refreshToken}) => {
-          this.accessToken = token;
-          this.refreshToken = refreshToken;
+          this.setTokens(token, refreshToken);
         }),
         switchMap(() => this.setCurrentUser$()),
       );
   }
 
   restoreSession$(): Observable<void> {
-    this._accessToken = localStorage.getItem(AuthService.LS_KEY_ACCESS_TOKEN) ?? undefined;
-    this._refreshToken = localStorage.getItem(AuthService.LS_KEY_REFRESH_TOKEN) ?? undefined;
-
-    if(!this.accessToken || !this.refreshToken) {
+    const fromLs = localStorage.getItem(AuthService.LS_KEY_TOKENS_DTO);
+    if (!fromLs) {
       return EMPTY;
     }
 
+    this._tokensDto = JSON.parse(fromLs);
     return this.setCurrentUser$();
   }
 
@@ -63,43 +64,32 @@ export class AuthService {
     return this.authApi.resetToken({refreshToken})
       .pipe(
         map(({token}) => token),
-        tap((token) => {
-          this.accessToken = token;
+        tap((accessToken) => {
+          this.setTokens(accessToken, refreshToken);
         })
       )
   }
 
   closeSession() {
-    this.accessToken = undefined;
-    this.refreshToken = undefined;
+    this.clearTokens();
     this.$currentUserInner.set(undefined);
   }
 
   get accessToken(): string | undefined {
-    return this._accessToken;
+    return this._tokensDto?.accessToken;
   }
 
   get refreshToken(): string | undefined {
-    return this._refreshToken;
+    return this._tokensDto?.refreshToken;
   }
 
-  private set accessToken(value: string | undefined) {
-    if (value) {
-      localStorage.setItem(AuthService.LS_KEY_ACCESS_TOKEN, value);
-      this._accessToken = value;
-    } else {
-      localStorage.removeItem(AuthService.LS_KEY_ACCESS_TOKEN);
-      this._accessToken = undefined;
-    }
+  private setTokens(accessToken: string, refreshToken: string) {
+    this._tokensDto = {accessToken, refreshToken};
+    localStorage.setItem(AuthService.LS_KEY_TOKENS_DTO, JSON.stringify(this._tokensDto));
   }
 
-  private set refreshToken(value: string | undefined) {
-    if (value) {
-      localStorage.setItem(AuthService.LS_KEY_REFRESH_TOKEN, value);
-      this._refreshToken = value;
-    } else {
-      localStorage.removeItem(AuthService.LS_KEY_REFRESH_TOKEN);
-      this._refreshToken = undefined;
-    }
+  private clearTokens() {
+    localStorage.removeItem(AuthService.LS_KEY_TOKENS_DTO);
+    this._tokensDto = undefined;
   }
 }
