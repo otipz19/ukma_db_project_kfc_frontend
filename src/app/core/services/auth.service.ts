@@ -1,8 +1,9 @@
 import {computed, inject, Injectable, signal} from "@angular/core";
 import {AuthenticationControllerService} from "../../api/api/authenticationController.service";
-import {EMPTY, map, Observable, switchMap, tap} from "rxjs";
+import {catchError, EMPTY, map, Observable, switchMap, tap, throwError} from "rxjs";
 import {voidOperator} from "../../shared/rxjs/operators/void-operator";
 import {User, UserControllerService} from "../../api";
+import {HttpErrorResponse} from "@angular/common/http";
 
 type TokensDto = {
   accessToken: string,
@@ -50,6 +51,13 @@ export class AuthService {
       .pipe(
         tap(user => {
           this.$currentUserInner.set(user);
+        }),
+        catchError(error => {
+          // TODO: temporary workaround of session restoration by expired token
+          if (error instanceof HttpErrorResponse && error.status === 401) {
+            return EMPTY;
+          }
+          return throwError(() => error);
         }),
         voidOperator()
       );
