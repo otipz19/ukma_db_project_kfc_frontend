@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  <ng-template #formContainer></ng-template>
+
+  <div class="form-actions">
+    <button type="button" mat-raised-button color="primary" (click)="onCancel()">
+      Скасувати
+    </button>
+
+    <button type="button" mat-raised-button color="accent" (click)="onSubmit()">
+      Зберегти
+    </button>
+  </div>
+</mat-dialog-content>
