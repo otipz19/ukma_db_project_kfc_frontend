@@ -1,26 +1,27 @@
-import {Component, inject, input, OnInit, output} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
-import {IngredientDto} from "../../../model/ingredient-dto";
+import {Component, inject} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {IngredientViewDto} from "../../../model/ingredient-view-dto";
-import {MatButton} from "@angular/material/button";
 import {
   CommonFormInputFieldComponent
 } from "../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
+import {
+  UpsertDialogFormComponent
+} from "../../../../../shared/features/upsert-dialog/components/upsert-dialog/upsert-dialog.component";
+import {ControlsOf} from "../../../../../shared/type-utils/controls-of";
 
 @Component({
   selector: 'app-ingredient-upsert-form',
   imports: [
     ReactiveFormsModule,
-    MatButton,
     CommonFormInputFieldComponent
   ],
   templateUrl: './ingredient-upsert-form.component.html',
   styleUrl: './ingredient-upsert-form.component.scss'
 })
-export class IngredientUpsertFormComponent implements OnInit {
+export class IngredientUpsertFormComponent implements UpsertDialogFormComponent<IngredientViewDto> {
   private readonly fb = inject(FormBuilder).nonNullable;
 
-  protected readonly form = this.fb.group({
+  protected readonly form: FormGroup<ControlsOf<IngredientViewDto>> = this.fb.group({
     title: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
     energy: this.fb.control(0, [Validators.required, Validators.min(0)]),
     weight: this.fb.control(0, [Validators.required, Validators.min(0)]),
@@ -28,29 +29,20 @@ export class IngredientUpsertFormComponent implements OnInit {
     image: this.fb.control('', [Validators.maxLength(2048)])
   });
 
-  readonly $initialData = input<IngredientDto | undefined>(undefined, {alias: 'initialData'});
-
-  protected readonly submit = output<IngredientViewDto>();
-  protected readonly cancel = output<void>();
-
-  ngOnInit() {
-    const initData = this.$initialData();
-    if (initData) {
-      this.form.patchValue(initData);
-    }
+  initByValue(value: IngredientViewDto): void {
+    this.form.patchValue(value);
   }
 
-  onSubmit() {
-    if(this.form.invalid) {
+  validate(): boolean {
+    if (this.form.invalid) {
       this.form.markAllAsTouched();
-      return;
+      return false;
     }
 
-    const data = {...this.form.getRawValue(), };
-    this.submit.emit(data);
+    return true;
   }
 
-  onCancel() {
-    this.cancel.emit();
+  getFormValue(): IngredientViewDto {
+    return this.form.getRawValue();
   }
 }

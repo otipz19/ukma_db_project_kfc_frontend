@@ -2,11 +2,8 @@ import {Component, inject, signal} from '@angular/core';
 import {IngredientCardComponent} from "../../components/ingredient-card/ingredient-card.component";
 import {INGREDIENTS} from "../../../model/mock-data";
 import {SearchBarComponent} from "../../components/search-bar/search-bar.component";
-import {MatDialog} from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
-import {
-  IngredientCreateDialogComponent
-} from "../../components/ingredient-create-dialog/ingredient-create-dialog.component";
+import {CreateIngredientService} from "../../../features/create-ingredient/services/create-ingredient.service";
 
 @Component({
   selector: 'app-ingredient-list',
@@ -19,7 +16,7 @@ import {
   styleUrl: './ingredient-list.component.scss'
 })
 export class IngredientListComponent {
-  private readonly dialog = inject(MatDialog);
+  private readonly createIngredientService = inject(CreateIngredientService);
 
   protected readonly $ingredients = signal(INGREDIENTS);
 
@@ -29,14 +26,6 @@ export class IngredientListComponent {
   }
 
   onCreateClick(): void {
-    const dialogRef = this.dialog.open(IngredientCreateDialogComponent, {
-      width: '600px'
-    });
-
-    dialogRef.afterClosed().subscribe(dto => {
-      if (dto) {
-        // TODO: Add backend logic here
-      }
-    });
+    this.createIngredientService.create();
   }
 }

@@ -9,16 +9,16 @@ import {Observable} from "rxjs";
 export class UpsertDialogService {
   private readonly matDialog = inject(MatDialog);
 
-  openUpsert$<TViewDto extends object>(data: UpsertDialogData<TViewDto>): Observable<TViewDto | undefined> {
+  openUpsert$<TFormValue extends object>(data: UpsertDialogData<TFormValue>): Observable<TFormValue | undefined> {
     const dialogRef = this.matDialog
-      .open<UpsertDialogComponent<TViewDto>, UpsertDialogData<TViewDto>, TViewDto>(
+      .open<UpsertDialogComponent<TFormValue>, UpsertDialogData<TFormValue>, TFormValue>(
         UpsertDialogComponent,
         {
           data: data,
-          minWidth: '600px'
+          width: '600px'
         }
       );
 
-    return dialogRef.afterClosed();
+    return dialogRef.beforeClosed();
   }
 }

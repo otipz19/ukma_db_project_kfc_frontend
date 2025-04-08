@@ -1,18 +1,18 @@
 import {AfterViewInit, Component, inject, viewChild, ViewContainerRef} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
-import {DialogRef} from "@angular/cdk/dialog";
+import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle} from "@angular/material/dialog";
 import {ConstructorOfType} from "../../../../type-utils/constructor-of-type";
 import {MatButton} from "@angular/material/button";
 
-export interface UpsertDialogFormComponent<TViewDto extends object> {
-    initByValue(value: TViewDto): void;
-    getFormValue(): TViewDto;
+export interface UpsertDialogFormComponent<TFormValue extends object> {
+    initByValue(value: TFormValue): void;
+    validate(): boolean;
+    getFormValue(): TFormValue;
 }
 
-export type UpsertDialogData<TViewDto extends object> = {
-  formComponent: ConstructorOfType<UpsertDialogFormComponent<TViewDto>>,
+export type UpsertDialogData<TFormValue extends object> = {
+  formComponent: ConstructorOfType<UpsertDialogFormComponent<TFormValue>>,
   title: string
-  initialValue?: TViewDto
+  initialValue?: TFormValue
 };
 
 @Component({
@@ -25,15 +25,15 @@ export type UpsertDialogData<TViewDto extends object> = {
   templateUrl: './upsert-dialog.component.html',
   styleUrl: './upsert-dialog.component.scss'
 })
-export class UpsertDialogComponent<TViewDto extends object> implements AfterViewInit {
-  private readonly dialogRef = inject(DialogRef<TViewDto | undefined>);
-  protected readonly data: UpsertDialogData<TViewDto> = inject(MAT_DIALOG_DATA);
+export class UpsertDialogComponent<TFormValue extends object> implements AfterViewInit {
+  private readonly dialogRef = inject(MatDialogRef<TFormValue | undefined>);
+  protected readonly data: UpsertDialogData<TFormValue> = inject(MAT_DIALOG_DATA);
 
   private readonly formContainer = viewChild.required('formContainer', {
     read: ViewContainerRef
   });
 
-  private formComponentInstance!: UpsertDialogFormComponent<TViewDto>;
+  private formComponentInstance!: UpsertDialogFormComponent<TFormValue>;
 
   ngAfterViewInit(): void {
     const formComponentRef = this.formContainer().createComponent(this.data.formComponent);
@@ -43,8 +43,11 @@ export class UpsertDialogComponent<TViewDto extends object> implements AfterView
     }
   }
 
-  onSubmit() {
-    this.dialogRef.close(this.formComponentInstance.getFormValue());
+  onSubmit(clickEvent: MouseEvent) {
+    clickEvent.stopPropagation();
+    if (this.formComponentInstance.validate()) {
+      this.dialogRef.close(this.formComponentInstance.getFormValue());
+    }
   }
 
   onCancel() {
