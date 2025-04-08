@@ -11,11 +11,8 @@ import {MatButton} from "@angular/material/button";
 import {IngredientDto} from "../../../model/ingredient-dto";
 import {MatIcon} from "@angular/material/icon";
 import {MatDialog} from "@angular/material/dialog";
-import {
-  IngredientDeleteDialogComponent,
-} from "../ingredient-delete-dialog/ingredient-delete-dialog.component";
 import {IngredientEditDialogComponent} from "../ingredient-edit-dialog/ingredient-edit-dialog.component";
-import {NotifyService} from "../../../../../shared/features/notify/data-access/services/notify.service";
+import {DeleteIngredientService} from "../../../features/delete-ingredient/services/delete-ingredient.service";
 
 @Component({
   selector: 'app-ingredient-card',
@@ -33,20 +30,14 @@ import {NotifyService} from "../../../../../shared/features/notify/data-access/s
   styleUrl: './ingredient-card.component.scss'
 })
 export class IngredientCardComponent {
+  private readonly deleteIngredientService = inject(DeleteIngredientService);
+
   private readonly dialog = inject(MatDialog);
 
   readonly $ingredient = input.required<IngredientDto>({alias: 'ingredient'});
 
   onDeleteClick(): void {
-    const dialogRef = this.dialog.open(IngredientDeleteDialogComponent, {
-      data: {title: this.$ingredient().title}
-    });
-
-    dialogRef.afterClosed().subscribe(isConfirmed => {
-      if (isConfirmed) {
-        // TODO: Add backend logic here
-      }
-    });
+    this.deleteIngredientService.delete(this.$ingredient());
   }
 
   onEditClick(): void {
