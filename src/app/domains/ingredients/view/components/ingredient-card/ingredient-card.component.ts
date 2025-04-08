@@ -10,9 +10,8 @@ import {
 import {MatButton} from "@angular/material/button";
 import {IngredientDto} from "../../../model/ingredient-dto";
 import {MatIcon} from "@angular/material/icon";
-import {MatDialog} from "@angular/material/dialog";
-import {IngredientEditDialogComponent} from "../ingredient-edit-dialog/ingredient-edit-dialog.component";
 import {DeleteIngredientService} from "../../../features/delete-ingredient/services/delete-ingredient.service";
+import {EditIngredientService} from "../../../features/edit-ingredient/services/edit-ingredient.service";
 
 @Component({
   selector: 'app-ingredient-card',
@@ -31,8 +30,7 @@ import {DeleteIngredientService} from "../../../features/delete-ingredient/servi
 })
 export class IngredientCardComponent {
   private readonly deleteIngredientService = inject(DeleteIngredientService);
-
-  private readonly dialog = inject(MatDialog);
+  private readonly editIngredientService = inject(EditIngredientService);
 
   readonly $ingredient = input.required<IngredientDto>({alias: 'ingredient'});
 
@@ -41,15 +39,6 @@ export class IngredientCardComponent {
   }
 
   onEditClick(): void {
-    const dialogRef = this.dialog.open(IngredientEditDialogComponent, {
-      data: this.$ingredient(),
-      width: '600px'
-    });
-
-    dialogRef.afterClosed().subscribe(updatedIngredient => {
-      if (updatedIngredient) {
-        // TODO: Add backend logic here
-      }
-    });
+    this.editIngredientService.edit(this.$ingredient());
   }
 }
