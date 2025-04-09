@@ -7,7 +7,7 @@ import {Ingredient} from "../../../../../api/model/ingredient";
 import {IngredientControllerService} from "../../../../../api/api/ingredientController.service";
 import {NotifyService} from "../../../../../shared/features/notify/data-access/services/notify.service";
 import {IngredientsStore} from "../../../data-access/store/ingredients.store";
-import {EMPTY, switchMap} from "rxjs";
+import {tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -24,19 +24,16 @@ export class EditIngredientService {
     this.upsertDialogService.openUpsert$({
       title: 'Створення інгредієнта',
       formComponent: IngredientUpsertFormComponent,
-      initialValue: formInitValue
-    })
-      .pipe(
-        switchMap(updateDto => {
-          if (updateDto) {
-            return this.api.updateIngredient(id, updateDto)
-          }
-          return EMPTY;
-        }),
-        this.notify.notifyHttpRequest()
-      )
-      .subscribe(updatedId => {
-        this.store.update(id, updatedId);
-      });
+      initialValue: formInitValue,
+      submitCallback: dto => {
+        return this.api.updateIngredient(id, dto)
+          .pipe(
+            this.notify.notifyHttpRequest(),
+            tap(updatedId => {
+              this.store.update(id, updatedId);
+            })
+          )
+      }
+    });
   }
 }

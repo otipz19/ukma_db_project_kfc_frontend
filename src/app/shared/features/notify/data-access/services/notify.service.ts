@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
-import {catchError, EMPTY, map, Observable, switchMap, tap} from "rxjs";
+import {catchError, EMPTY, map, Observable, switchMap} from "rxjs";
 import {SuccessDialogComponent} from "../../view/components/success-dialog/success-dialog.component";
 import {ErrorDialogComponent, ErrorDialogConfig} from "../../view/components/error-dialog/error-dialog.component";
 import {HttpErrorResponse} from "@angular/common/http";

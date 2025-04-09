@@ -9,9 +9,9 @@ import {Observable} from "rxjs";
 export class UpsertDialogService {
   private readonly matDialog = inject(MatDialog);
 
-  openUpsert$<TFormValue extends object>(data: UpsertDialogData<TFormValue>): Observable<TFormValue | undefined> {
+  openUpsert$<TFormValue extends object>(data: UpsertDialogData<TFormValue>): Observable<void> {
     const dialogRef = this.matDialog
-      .open<UpsertDialogComponent<TFormValue>, UpsertDialogData<TFormValue>, TFormValue>(
+      .open<UpsertDialogComponent<TFormValue>, UpsertDialogData<TFormValue>, void>(
         UpsertDialogComponent,
         {
           data: data,
@@ -19,6 +19,6 @@ export class UpsertDialogService {
         }
       );
 
-    return dialogRef.beforeClosed();
+    return dialogRef.afterClosed();
   }
 }

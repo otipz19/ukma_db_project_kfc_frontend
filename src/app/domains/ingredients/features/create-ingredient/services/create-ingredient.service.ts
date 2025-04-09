@@ -6,7 +6,7 @@ import {
 import {IngredientControllerService} from "../../../../../api/api/ingredientController.service";
 import {NotifyService} from "../../../../../shared/features/notify/data-access/services/notify.service";
 import {IngredientsStore} from "../../../data-access/store/ingredients.store";
-import {EMPTY, switchMap} from "rxjs";
+import {tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -21,18 +21,15 @@ export class CreateIngredientService {
     this.upsertDialogService.openUpsert$({
       title: 'Створення інгредієнта',
       formComponent: IngredientUpsertFormComponent,
-    })
-      .pipe(
-        switchMap(dto => {
-          if (dto) {
-            return this.api.createIngredient(dto)
-          }
-          return EMPTY;
-        }),
-        this.notify.notifyHttpRequest()
-      )
-      .subscribe(id => {
-        this.store.load(id);
-      });
+      submitCallback: dto => {
+        return this.api.createIngredient(dto)
+          .pipe(
+            this.notify.notifyHttpRequest(),
+            tap(id => {
+              this.store.load(id);
+            })
+          )
+      }
+    });
   }
 }

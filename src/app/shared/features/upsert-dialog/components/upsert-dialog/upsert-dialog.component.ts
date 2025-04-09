@@ -2,6 +2,7 @@ import {AfterViewInit, Component, inject, viewChild, ViewContainerRef} from '@an
 import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle} from "@angular/material/dialog";
 import {ConstructorOfType} from "../../../../type-utils/constructor-of-type";
 import {MatButton} from "@angular/material/button";
+import {Observable} from "rxjs";
 
 export interface UpsertDialogFormComponent<TFormValue extends object> {
     initByValue(value: TFormValue): void;
@@ -12,7 +13,8 @@ export interface UpsertDialogFormComponent<TFormValue extends object> {
 export type UpsertDialogData<TFormValue extends object> = {
   formComponent: ConstructorOfType<UpsertDialogFormComponent<TFormValue>>,
   title: string
-  initialValue?: TFormValue
+  initialValue?: TFormValue,
+  submitCallback: (value: TFormValue) => Observable<any>
 };
 
 @Component({
@@ -26,7 +28,7 @@ export type UpsertDialogData<TFormValue extends object> = {
   styleUrl: './upsert-dialog.component.scss'
 })
 export class UpsertDialogComponent<TFormValue extends object> implements AfterViewInit {
-  private readonly dialogRef = inject(MatDialogRef<TFormValue | undefined>);
+  private readonly dialogRef = inject(MatDialogRef<void>);
   protected readonly data: UpsertDialogData<TFormValue> = inject(MAT_DIALOG_DATA);
 
   private readonly formContainer = viewChild.required('formContainer', {
@@ -46,7 +48,9 @@ export class UpsertDialogComponent<TFormValue extends object> implements AfterVi
   onSubmit(clickEvent: MouseEvent) {
     clickEvent.stopPropagation();
     if (this.formComponentInstance.validate()) {
-      this.dialogRef.close(this.formComponentInstance.getFormValue());
+      const formValue = this.formComponentInstance.getFormValue();
+      this.data.submitCallback(formValue)
+        .subscribe(() => this.dialogRef.close());
     }
   }
 
