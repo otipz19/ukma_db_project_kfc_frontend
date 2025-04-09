@@ -1,6 +1,7 @@
 import {inject, Injectable, signal} from "@angular/core";
 import {Ingredient} from "../../../../api/model/ingredient";
 import {IngredientControllerService} from "../../../../api/api/ingredientController.service";
+import {IngredientsFiltersContainer} from "../filters/filters-container/ingredients-filters-container";
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,11 @@ import {IngredientControllerService} from "../../../../api/api/ingredientControl
 export class IngredientsStore {
   private readonly ingredientsApi = inject(IngredientControllerService);
 
-  private readonly $responseList = signal<Array<Ingredient>>([]);
+  readonly filters = new IngredientsFiltersContainer();
 
-  readonly $viewList = this.$responseList.asReadonly();
+  private readonly $responseList = signal<Array<Ingredient>>([]);
+  private readonly $filteredList = this.filters.$filterSignal(this.$responseList);
+  readonly $viewList = this.$filteredList;
 
   loadAll() {
     this.ingredientsApi.getAllIngredients()
@@ -43,10 +46,7 @@ export class IngredientsStore {
     });
   }
 
-  // TODO: make as wrapper signal
-  filter(title: string) {
-    this.$responseList.update(oldVal => {
-      return oldVal.filter(item => item.title.toLowerCase().includes(title));
-    });
+  reloadOnFilter() {
+    this.$responseList.update(val => [...val]);
   }
 }

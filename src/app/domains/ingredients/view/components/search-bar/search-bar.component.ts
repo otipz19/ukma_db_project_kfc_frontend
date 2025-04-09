@@ -30,7 +30,8 @@ export class SearchBarComponent {
   protected readonly searchField = this.form.controls.searchField;
 
   protected onSearchClick() {
-    const query = this.searchField.value.trim().toLowerCase();
-    this.store.filter(query);
+    const query = this.searchField.value;
+    this.store.filters.titleFilter.setFilter(query);
+    this.store.reloadOnFilter();
   }
 }
