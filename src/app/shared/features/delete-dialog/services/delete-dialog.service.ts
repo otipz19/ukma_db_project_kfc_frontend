@@ -1,7 +1,8 @@
 import {inject, Injectable} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent, DeleteDialogData} from "../components/delete-dialog/delete-dialog.component";
-import {map, Observable} from "rxjs";
+import {EMPTY, first, map, Observable, of, switchMap, takeWhile} from "rxjs";
+import {voidOperator} from "../../../rxjs/operators/void-operator";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import {map, Observable} from "rxjs";
 export class DeleteDialogService {
   private readonly matDialog = inject(MatDialog);
 
-  confirmDelete$(dialogData: DeleteDialogData): Observable<boolean> {
+  confirmDelete$(dialogData: DeleteDialogData): Observable<void> {
     const dialogRef = this.matDialog
       .open<DeleteDialogComponent, DeleteDialogData, boolean>(
         DeleteDialogComponent,
@@ -21,8 +22,8 @@ export class DeleteDialogService {
 
     return dialogRef.afterClosed()
       .pipe(
-        // Cast undefined to boolean
-        map(val => Boolean(val))
+        takeWhile(isConfirmed => Boolean(isConfirmed)),
+        voidOperator()
       );
   }
 }

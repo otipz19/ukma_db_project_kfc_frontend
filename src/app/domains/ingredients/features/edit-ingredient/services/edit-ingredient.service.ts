@@ -22,7 +22,7 @@ export class EditIngredientService {
     const {id, ...formInitValue} = ingredient;
 
     this.upsertDialogService.openUpsert$({
-      title: 'Створення інгредієнта',
+      title: 'Редагування інгредієнта',
       formComponent: IngredientUpsertFormComponent,
       initialValue: formInitValue,
       submitCallback: dto => {

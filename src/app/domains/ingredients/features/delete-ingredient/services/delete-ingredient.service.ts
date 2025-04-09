@@ -2,7 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {DeleteDialogService} from "../../../../../shared/features/delete-dialog/services/delete-dialog.service";
 import {Ingredient} from "../../../../../api/model/ingredient";
 import {IngredientControllerService} from "../../../../../api/api/ingredientController.service";
-import {EMPTY, switchMap} from "rxjs";
+import {switchMap} from "rxjs";
 import {NotifyService} from "../../../../../shared/features/notify/data-access/services/notify.service";
 import {IngredientsStore} from "../../../data-access/store/ingredients.store";
 
@@ -21,11 +21,8 @@ export class DeleteIngredientService {
       entityInstanceName: ingredient.title
     })
       .pipe(
-        switchMap(isConfirmed => {
-          if (isConfirmed) {
-            return this.api.deleteIngredient(ingredient.id);
-          }
-          return EMPTY;
+        switchMap(() => {
+          return this.api.deleteIngredient(ingredient.id);
         }),
         this.notify.notifyHttpRequest()
       )
