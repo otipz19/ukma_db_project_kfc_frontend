@@ -32,6 +32,6 @@ export class SearchBarComponent {
   protected onSearchClick() {
     const query = this.searchField.value;
     this.store.filters.titleFilter.setFilter(query);
-    this.store.reloadOnFilter();
+    this.store.forceSignalReload();
   }
 }
