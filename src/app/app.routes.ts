@@ -45,6 +45,11 @@ export const routes: Routes = [
         loadComponent: () => import('./domains/ingredients/view/pages/ingredients-page/ingredients-page.component').then(r => r.IngredientsPageComponent)
       },
       {
+        path: 'restaurants',
+        canActivate: [hasRoleRouteGuard('ADMIN')],
+        loadComponent: () => import('./domains/restaurants/view/pages/restaurants-page/restaurants-page.component').then(r => r.RestaurantsPageComponent)
+      },
+      {
         path: 'forbidden',
         canActivate: [authenticatedRouteGuard],
         loadComponent: () => import('./domains/dumb-pages/view/pages/forbidden-page/forbidden-page.component').then(r => r.ForbiddenPageComponent)

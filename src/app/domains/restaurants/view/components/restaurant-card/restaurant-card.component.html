@@ -1,0 +1,20 @@
+<mat-card>
+  <mat-card-content>
+    <div class="content-container">
+      <div>
+        <span>{{ $restaurant().address }}</span>
+      </div>
+
+      <div class="actions-container">
+        <button mat-button color="primary" (click)="onEdit()">
+          <mat-icon>edit</mat-icon>
+          <span>Редагувати</span>
+        </button>
+        <button mat-button color="warn" (click)="onDelete()">
+          <mat-icon>delete</mat-icon>
+          <span>Видалити</span>
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

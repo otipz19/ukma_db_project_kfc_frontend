@@ -28,8 +28,8 @@ export class EditRestaurantService {
         return this.api.updateRestaurantById(id, value)
           .pipe(
             this.notify.notifyHttpRequest(),
-            tap(newId => {
-              this.store.update(id, newId);
+            tap(() => {
+              this.store.update(id, id);
             })
           )
       }

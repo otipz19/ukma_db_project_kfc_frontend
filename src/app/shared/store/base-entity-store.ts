@@ -1,5 +1,4 @@
 import {signal} from "@angular/core";
-import {Ingredient} from "../../api/model/ingredient";
 import {FiltersContainer} from "../features/filters/model/filters-container";
 import {Observable} from "rxjs";
 
@@ -28,7 +27,7 @@ export abstract class BaseEntityStore<TEntity extends {id: number}, TFiltersCont
       });
   }
 
-  update(oldId: Ingredient['id'], newId: Ingredient['id']) {
+  update(oldId: number, newId: number) {
     this.getByIdFromApi(newId)
       .subscribe(result => {
         this.$responseList.update(oldVal => {
@@ -41,7 +40,7 @@ export abstract class BaseEntityStore<TEntity extends {id: number}, TFiltersCont
 
   protected abstract getByIdFromApi(id: number): Observable<TEntity>;
 
-  remove(id: Ingredient['id']) {
+  remove(id: number) {
     this.$responseList.update(oldValue => {
       return oldValue.filter(item => item.id !== id);
     });
