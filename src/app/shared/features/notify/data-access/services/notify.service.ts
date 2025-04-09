@@ -28,7 +28,7 @@ export class NotifyService {
       return innerObservable
         .pipe(
           tap({
-            complete: () => this.openSuccessDialog(successMessage)
+            next: () => this.openSuccessDialog(successMessage)
           })
         )
     };
