@@ -2,8 +2,9 @@ import {computed, inject, Injectable, signal} from "@angular/core";
 import {AuthenticationControllerService} from "../../api/api/authenticationController.service";
 import {catchError, EMPTY, map, Observable, switchMap, tap, throwError} from "rxjs";
 import {voidOperator} from "../../shared/rxjs/operators/void-operator";
-import {User, UserControllerService} from "../../api";
 import {HttpErrorResponse} from "@angular/common/http";
+import {UserControllerService} from "../../api/api/userController.service";
+import {User} from "../../api/model/user";
 
 type TokensDto = {
   accessToken: string,

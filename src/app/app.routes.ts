@@ -42,7 +42,7 @@ export const routes: Routes = [
       {
         path: 'ingredients',
         canActivate: [hasRoleRouteGuard('ADMIN')],
-        loadComponent: () => import('./domains/ingredients/view/pages/ingredient-list/ingredient-list.component').then(r => r.IngredientListComponent)
+        loadComponent: () => import('./domains/ingredients/view/pages/ingredients-page/ingredients-page.component').then(r => r.IngredientsPageComponent)
       },
       {
         path: 'forbidden',

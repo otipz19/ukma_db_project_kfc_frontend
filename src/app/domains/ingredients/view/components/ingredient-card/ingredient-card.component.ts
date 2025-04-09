@@ -8,10 +8,10 @@ import {
   MatCardTitle
 } from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
-import {IngredientDto} from "../../../model/ingredient-dto";
 import {MatIcon} from "@angular/material/icon";
 import {DeleteIngredientService} from "../../../features/delete-ingredient/services/delete-ingredient.service";
 import {EditIngredientService} from "../../../features/edit-ingredient/services/edit-ingredient.service";
+import {Ingredient} from "../../../../../api/model/ingredient";
 
 @Component({
   selector: 'app-ingredient-card',
@@ -32,7 +32,7 @@ export class IngredientCardComponent {
   private readonly deleteIngredientService = inject(DeleteIngredientService);
   private readonly editIngredientService = inject(EditIngredientService);
 
-  readonly $ingredient = input.required<IngredientDto>({alias: 'ingredient'});
+  readonly $ingredient = input.required<Ingredient>({alias: 'ingredient'});
 
   onDeleteClick(): void {
     this.deleteIngredientService.delete(this.$ingredient());

@@ -3,7 +3,8 @@
     <mat-card-title class="ingredient-card-title">{{ $ingredient().title }}</mat-card-title>
   </mat-card-header>
 
-  <img class="ingredient-img" mat-card-image [src]="$ingredient().image" alt="{{ $ingredient().title }}">
+  <!-- TODO: add images from entity when api is updated -->
+  <img class="ingredient-img" mat-card-image src="https://placehold.co/1200x800.png?text=Ingredient+Placeholder" alt="{{ $ingredient().title }}"/>
 
   <mat-card-content>
     <div class="info-container">
@@ -11,7 +12,7 @@
         <strong>Ціна: </strong> {{ $ingredient().price }} грн
       </p>
       <p>
-        <strong>Енергетична цінність:</strong> {{ $ingredient().energy }} ккал
+        <strong>Енергетична цінність:</strong> {{ $ingredient().energeticValue }} ккал
       </p>
       <p>
         <strong>Вага:</strong> {{ $ingredient().weight }} г

@@ -13,8 +13,8 @@ export class NotifyService {
   private readonly dialog = inject(MatDialog);
   private readonly router = inject(Router);
 
-  notifyHttpRequest(successMessage?: string): (innerObservable: Observable<any>) => Observable<any> {
-    return (innerObservable: Observable<any>) => {
+  notifyHttpRequest<T>(successMessage?: string): (innerObservable: Observable<T>) => Observable<T> {
+    return (innerObservable: Observable<T>) => {
       return innerObservable
         .pipe(
           this.notifySuccess(successMessage),
@@ -23,8 +23,8 @@ export class NotifyService {
     };
   }
 
-  notifySuccess(successMessage?: string): (innerObservable: Observable<any>) => Observable<any> {
-    return (innerObservable: Observable<any>) => {
+  notifySuccess<T>(successMessage?: string): (innerObservable: Observable<T>) => Observable<T> {
+    return (innerObservable: Observable<T>) => {
       return innerObservable
         .pipe(
           tap({
@@ -37,8 +37,8 @@ export class NotifyService {
   /**
    * Completes instead of throwing error
    */
-  notifyHttpError(): (innerObservable: Observable<any>) => Observable<any> {
-    return (innerObservable: Observable<any>) => {
+  notifyHttpError<T>(): (innerObservable: Observable<T>) => Observable<T> {
+    return (innerObservable: Observable<T>) => {
       return innerObservable
         .pipe(
           catchError(error => {

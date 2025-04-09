@@ -1,6 +1,5 @@
 import {Component, inject} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {IngredientViewDto} from "../../../model/ingredient-view-dto";
 import {
   CommonFormInputFieldComponent
 } from "../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
@@ -8,6 +7,7 @@ import {
   UpsertDialogFormComponent
 } from "../../../../../shared/features/upsert-dialog/components/upsert-dialog/upsert-dialog.component";
 import {ControlsOf} from "../../../../../shared/type-utils/controls-of";
+import {UpdateIngredient} from "../../../../../api/model/updateIngredient";
 
 @Component({
   selector: 'app-ingredient-upsert-form',
@@ -18,18 +18,17 @@ import {ControlsOf} from "../../../../../shared/type-utils/controls-of";
   templateUrl: './ingredient-upsert-form.component.html',
   styleUrl: './ingredient-upsert-form.component.scss'
 })
-export class IngredientUpsertFormComponent implements UpsertDialogFormComponent<IngredientViewDto> {
+export class IngredientUpsertFormComponent implements UpsertDialogFormComponent<UpdateIngredient> {
   private readonly fb = inject(FormBuilder).nonNullable;
 
-  protected readonly form: FormGroup<ControlsOf<IngredientViewDto>> = this.fb.group({
+  protected readonly form: FormGroup<ControlsOf<UpdateIngredient>> = this.fb.group({
     title: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
-    energy: this.fb.control(0, [Validators.required, Validators.min(0)]),
+    energeticValue: this.fb.control(0, [Validators.required, Validators.min(0)]),
     weight: this.fb.control(0, [Validators.required, Validators.min(0)]),
     price: this.fb.control(0, [Validators.required, Validators.min(0)]),
-    image: this.fb.control('', [Validators.maxLength(2048)])
   });
 
-  initByValue(value: IngredientViewDto): void {
+  initByValue(value: UpdateIngredient): void {
     this.form.patchValue(value);
   }
 
@@ -42,7 +41,7 @@ export class IngredientUpsertFormComponent implements UpsertDialogFormComponent<
     return true;
   }
 
-  getFormValue(): IngredientViewDto {
+  getFormValue(): UpdateIngredient {
     return this.form.getRawValue();
   }
 }
