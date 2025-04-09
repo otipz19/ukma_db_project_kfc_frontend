@@ -49,6 +49,21 @@ export class NotifyService {
     };
   }
 
+  /**
+   * Completes instead of throwing error
+   */
+  notifyError<T>(): (innerObservable: Observable<T>) => Observable<T> {
+    return (innerObservable: Observable<T>) => {
+      return innerObservable
+        .pipe(
+          catchError(error => {
+            this.openErrorDialog({error});
+            return EMPTY;
+          })
+        )
+    };
+  }
+
   private handleHttpError(error: any) {
     if (error && error instanceof HttpErrorResponse && error.status === 401) {
       const dialogRef = this.openErrorDialog({
