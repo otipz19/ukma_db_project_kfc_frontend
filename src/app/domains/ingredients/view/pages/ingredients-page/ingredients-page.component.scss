@@ -1,25 +1,16 @@
 :host {
   display: flex;
   flex-direction: column;
+  padding: 16px;
+  gap: 16px;
 }
 
 .create-btn-container {
   display: flex;
   justify-content: end;
   align-items: center;
-  padding: 16px 16px 0 0;
 }
 
 .search-bar-container {
-  padding: 16px;
-  box-sizing: border-box;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-
-  .search-bar {
-    flex-grow: 1;
-  }
 }
