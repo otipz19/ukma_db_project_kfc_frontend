@@ -14,7 +14,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req)
     .pipe(
       catchError((err: HttpErrorResponse) => {
-        if (err.status === 401 && authService.$isAuthenticated()) {
+        if (err.status === 401 && authService.refreshToken) {
           return authService.refreshSession$()
             .pipe(
               switchMap(newToken => {
