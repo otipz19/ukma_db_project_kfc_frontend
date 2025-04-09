@@ -1,4 +1,4 @@
-import {inject, Injectable, signal} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {Ingredient} from "../../../../api/model/ingredient";
 import {IngredientControllerService} from "../../../../api/api/ingredientController.service";
 import {IngredientsFiltersContainer} from "../filters/filters-container/ingredients-filters-container";

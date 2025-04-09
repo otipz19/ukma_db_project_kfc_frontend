@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent, DeleteDialogData} from "../components/delete-dialog/delete-dialog.component";
-import {EMPTY, first, map, Observable, of, switchMap, takeWhile} from "rxjs";
+import {Observable, takeWhile} from "rxjs";
 import {voidOperator} from "../../../rxjs/operators/void-operator";
 
 @Injectable({
