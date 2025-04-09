@@ -1,5 +1,13 @@
-<button mat-raised-button color="accent" (click)="onCreate()">
-  Створити новий
-</button>
+<div class="create-btn-container">
+  <button mat-raised-button color="accent" (click)="onCreate()">
+    Створити новий
+  </button>
+</div>
 
-<app-restaurants-list [restaurants]="$restaurants()"/>
+<div class="search-bar-container">
+  <app-search-bar class="search-bar" label="Пошук ресторана" (search)="onSearch($event)"/>
+</div>
+
+<div class="list-container">
+  <app-restaurants-list [restaurants]="$restaurants()"/>
+</div>

@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="onSearchClick()" class="search-form">
   <mat-form-field subscriptSizing="dynamic" appearance="outline" class="search-field">
-    <mat-label>Пошук інгредієнта</mat-label>
-    <input matInput placeholder="Введіть назву..." [formControl]="searchField"/>
+    <mat-label>{{ $label() }}</mat-label>
+    <input matInput placeholder="Введіть запит..." [formControl]="searchField"/>
     <button matSuffix mat-icon-button (click)="onSearchClick()">
       <mat-icon>search</mat-icon>
     </button>

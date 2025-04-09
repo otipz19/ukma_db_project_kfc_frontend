@@ -3,7 +3,14 @@
   flex-direction: column;
 }
 
-.topbar-container {
+.create-btn-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 16px 16px 0 0;
+}
+
+.search-bar-container {
   padding: 16px;
   box-sizing: border-box;
   width: 100%;

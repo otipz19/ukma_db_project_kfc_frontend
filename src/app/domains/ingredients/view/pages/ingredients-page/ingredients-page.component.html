@@ -1,8 +1,11 @@
-<div class="topbar-container">
-  <app-search-bar class="search-bar"/>
+<div class="create-btn-container">
   <button mat-raised-button color="accent" (click)="onCreateClick()">
     Створити новий
   </button>
+</div>
+
+<div class="search-bar-container">
+  <app-search-bar class="search-bar" label="Пошук інгредієнта" (search)="onSearch($event)"/>
 </div>
 
 <app-ingredients-list [ingredients]="$ingredients()"/>

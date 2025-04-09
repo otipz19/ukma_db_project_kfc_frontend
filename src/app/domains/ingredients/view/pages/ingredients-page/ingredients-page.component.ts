@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {IngredientsListComponent} from "../../components/ingredients-list/ingredients-list.component";
 import {IngredientsStore} from "../../../data-access/store/ingredients.store";
-import {SearchBarComponent} from "../../components/search-bar/search-bar.component";
+import {SearchBarComponent} from "../../../../../shared/components/search-bar/search-bar.component";
 import {MatButton} from "@angular/material/button";
 import {CreateIngredientService} from "../../../features/create-ingredient/services/create-ingredient.service";
 
@@ -27,5 +27,10 @@ export class IngredientsPageComponent implements OnInit {
 
   onCreateClick() {
     this.createService.create();
+  }
+
+  onSearch(query: string) {
+    this.store.filters.titleFilter.setFilter(query);
+    this.store.forceSignalReload();
   }
 }
