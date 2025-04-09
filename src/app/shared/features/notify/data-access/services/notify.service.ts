@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
-import {catchError, EMPTY, Observable, tap} from "rxjs";
+import {catchError, EMPTY, map, Observable, switchMap, tap} from "rxjs";
 import {SuccessDialogComponent} from "../../view/components/success-dialog/success-dialog.component";
 import {ErrorDialogComponent, ErrorDialogConfig} from "../../view/components/error-dialog/error-dialog.component";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -27,8 +27,12 @@ export class NotifyService {
     return (innerObservable: Observable<T>) => {
       return innerObservable
         .pipe(
-          tap({
-            next: () => this.openSuccessDialog(successMessage)
+          switchMap(innerObsRes => {
+            const dialogRef = this.openSuccessDialog(successMessage);
+            return dialogRef.afterClosed()
+              .pipe(
+                map(() => innerObsRes)
+              );
           })
         )
     };
@@ -42,8 +46,24 @@ export class NotifyService {
       return innerObservable
         .pipe(
           catchError(error => {
-            this.handleHttpError(error);
-            return EMPTY;
+            if (error && error instanceof HttpErrorResponse && error.status === 401) {
+              const dialogRef = this.openErrorDialog({
+                error: 'Помилка аутентифікації',
+                btnLabel: 'Увійдіть у свій акаунт'
+              });
+
+              dialogRef.afterClosed()
+                .subscribe(() => {
+                  this.router.navigate(['/', 'auth', 'login']);
+                });
+
+              return EMPTY;
+            } else {
+              return this.openErrorDialog({error}).afterClosed()
+                .pipe(
+                  switchMap(() => EMPTY)
+                );
+            }
           })
         )
     };
@@ -57,40 +77,27 @@ export class NotifyService {
       return innerObservable
         .pipe(
           catchError(error => {
-            this.openErrorDialog({error});
-            return EMPTY;
+            const dialogRef = this.openErrorDialog({error});
+            return dialogRef.afterClosed()
+              .pipe(
+                switchMap(() => EMPTY)
+              )
           })
         )
     };
   }
 
-  private handleHttpError(error: any) {
-    if (error && error instanceof HttpErrorResponse && error.status === 401) {
-      const dialogRef = this.openErrorDialog({
-        error: 'Помилка аутентифікації',
-        btnLabel: 'Увійдіть у свій акаунт'
-      });
-
-      dialogRef.afterClosed()
-        .subscribe(() => {
-          this.router.navigate(['/', 'auth', 'login']);
-        });
-    } else {
-      this.openErrorDialog({error});
-    }
-  }
-
   private openErrorDialog(config: ErrorDialogConfig) {
-    return this.dialog.open<ErrorDialogComponent, ErrorDialogConfig>(ErrorDialogComponent, {
+    return this.dialog.open<ErrorDialogComponent, ErrorDialogConfig, undefined>(ErrorDialogComponent, {
       data: config,
       minWidth: '400px'
     });
   }
 
   private openSuccessDialog(successMessage?: string) {
-    return this.dialog.open(SuccessDialogComponent, {
+    return this.dialog.open<SuccessDialogComponent, string, undefined>(SuccessDialogComponent, {
       data: successMessage,
-      minWidth: '400px'
+      minWidth: '400px',
     });
   }
 }
