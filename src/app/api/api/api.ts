@@ -1,3 +1,3 @@
-export * from './restaurantController.service';
-import { RestaurantControllerService } from './restaurantController.service';
-export const APIS = [RestaurantControllerService];
+export * from './employeeController.service';
+import { EmployeeControllerService } from './employeeController.service';
+export const APIS = [EmployeeControllerService];
