@@ -1,6 +1,6 @@
 import {Component, input} from '@angular/core';
-import {Restaurant} from "../../../../../api";
 import {RestaurantCardComponent} from "../restaurant-card/restaurant-card.component";
+import {Restaurant} from "../../../../../api/model/restaurant";
 
 @Component({
   selector: 'app-restaurants-list',

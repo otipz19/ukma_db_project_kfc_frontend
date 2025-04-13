@@ -1,8 +1,9 @@
 import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
-import {Restaurant, RestaurantControllerService} from "../../../../api";
 import {RestaurantsFiltersContainer} from "../filters/filters-container/restaurants-filters-container";
 import { Observable } from "rxjs";
 import {inject, Injectable} from "@angular/core";
+import {Restaurant} from "../../../../api/model/restaurant";
+import {RestaurantControllerService} from "../../../../api/api/restaurantController.service";
 
 @Injectable({
   providedIn: 'root'

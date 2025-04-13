@@ -3,11 +3,11 @@ import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
   UpsertDialogFormComponent
 } from "../../../../../shared/features/upsert-dialog/components/upsert-dialog/upsert-dialog.component";
-import {UpdateRestaurant} from "../../../../../api";
 import {ControlsOf} from "../../../../../shared/type-utils/controls-of";
 import {
   CommonFormInputFieldComponent
 } from "../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
+import {UpdateRestaurant} from "../../../../../api/model/updateRestaurant";
 
 @Component({
   selector: 'app-restaurant-upsert-form',

@@ -1,9 +1,10 @@
 import {inject, Injectable} from "@angular/core";
-import {Restaurant, RestaurantControllerService} from "../../../../api";
 import {RestaurantsStore} from "../../data-access/store/restaurants.store";
 import {NotifyService} from "../../../../shared/features/notify/data-access/services/notify.service";
 import {DeleteDialogService} from "../../../../shared/features/delete-dialog/services/delete-dialog.service";
 import {switchMap} from "rxjs";
+import {RestaurantControllerService} from "../../../../api/api/restaurantController.service";
+import {Restaurant} from "../../../../api/model/restaurant";
 
 @Injectable({
   providedIn: 'root'

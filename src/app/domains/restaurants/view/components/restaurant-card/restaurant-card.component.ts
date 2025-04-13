@@ -4,7 +4,7 @@ import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {EditRestaurantService} from "../../../features/edit/edit-restaurant.service";
 import {DeleteRestaurantService} from "../../../features/delete/delete-restaurant.service";
-import {Restaurant} from "../../../../../api";
+import {Restaurant} from "../../../../../api/model/restaurant";
 
 @Component({
   selector: 'app-restaurant-card',
