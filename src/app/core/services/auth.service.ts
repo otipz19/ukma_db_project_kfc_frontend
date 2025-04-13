@@ -2,9 +2,10 @@ import {computed, inject, Injectable, signal} from "@angular/core";
 import {AuthenticationControllerService} from "../../api/api/authenticationController.service";
 import {catchError, EMPTY, map, Observable, switchMap, tap, throwError} from "rxjs";
 import {voidOperator} from "../../shared/rxjs/operators/void-operator";
-import {HttpErrorResponse} from "@angular/common/http";
+import {HttpContext, HttpErrorResponse} from "@angular/common/http";
 import {UserControllerService} from "../../api/api/userController.service";
 import {User} from "../../api/model/user";
+import {SKIP_AUTH_INTERCEPTOR} from "../interceptors/auth.interceptor";
 
 type TokensDto = {
   accessToken: string,
@@ -70,7 +71,12 @@ export class AuthService {
       throw new Error('refreshSession was called without active session');
     }
 
-    return this.authApi.resetToken({refreshToken})
+    return this.authApi.resetToken(
+      {refreshToken},
+      'body',
+      false,
+      {context: new HttpContext().set(SKIP_AUTH_INTERCEPTOR, true)}
+    )
       .pipe(
         map(({token}) => token),
         tap((accessToken) => {
