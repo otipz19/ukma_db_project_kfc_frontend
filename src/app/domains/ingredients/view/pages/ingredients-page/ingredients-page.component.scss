@@ -11,6 +11,18 @@
   align-items: center;
 }
 
-.search-bar-container {
+.list-toolbar {
   width: 100%;
+
+  .list-toolbar-footer {
+    margin: 16px 0 16px 0;
+    display: flex;
+    justify-content: space-between;
+
+    .ordering-container {
+      margin-left: 16px;
+      display: flex;
+      gap: 16px;
+    }
+  }
 }

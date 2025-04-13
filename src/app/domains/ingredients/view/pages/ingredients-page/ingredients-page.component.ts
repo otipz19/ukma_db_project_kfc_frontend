@@ -4,16 +4,28 @@ import {IngredientsStore} from "../../../data-access/store/ingredients.store";
 import {SearchBarComponent} from "../../../../../shared/components/search-bar/search-bar.component";
 import {MatButton} from "@angular/material/button";
 import {CreateIngredientService} from "../../../features/create-ingredient/services/create-ingredient.service";
+import {MatCard, MatCardContent, MatCardFooter} from "@angular/material/card";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {MatFormField, MatLabel} from "@angular/material/input";
+import {MatOption, MatSelect} from "@angular/material/select";
 
 @Component({
-  selector: 'app-ingredients-page',
   imports: [
     IngredientsListComponent,
     SearchBarComponent,
     MatButton,
+    MatCard,
+    MatCardContent,
+    MatCardFooter,
+    MatPaginator,
+    MatFormField,
+    MatSelect,
+    MatOption,
+    MatLabel
   ],
-  templateUrl: './ingredients-page.component.html',
+  selector: 'app-ingredients-page',
   styleUrl: './ingredients-page.component.scss',
+  templateUrl: './ingredients-page.component.html',
 })
 export class IngredientsPageComponent implements OnInit {
   private readonly store = inject(IngredientsStore);
@@ -32,5 +44,9 @@ export class IngredientsPageComponent implements OnInit {
   onSearch(query: string) {
     this.store.filters.titleFilter.setFilter(query);
     this.store.forceSignalReload();
+  }
+
+  onPaginate(pageEvent: PageEvent) {
+
   }
 }

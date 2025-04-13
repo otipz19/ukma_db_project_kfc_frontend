@@ -1,13 +1,16 @@
 import {signal} from "@angular/core";
 import {FiltersContainer} from "../features/filters/model/filters-container";
 import {Observable} from "rxjs";
+import {PaginationModel} from "../features/pagination/model/pagination-model";
 
 export abstract class BaseEntityStore<TEntity extends {id: number}, TFiltersContainer extends FiltersContainer<TEntity>> {
   readonly filters: TFiltersContainer = this.buildFiltersContainer();
+  readonly paginator = new PaginationModel<TEntity>();
 
   private readonly $responseList = signal<Array<TEntity>>([]);
   private readonly $filteredList = this.filters.$filterSignal(this.$responseList);
-  readonly $viewList = this.$filteredList;
+  private readonly $paginatedList = this.paginator.$paginationSignal(this.$filteredList);
+  readonly $viewList = this.$paginatedList;
 
   protected abstract buildFiltersContainer(): TFiltersContainer;
 

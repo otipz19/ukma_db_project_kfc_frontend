@@ -8,6 +8,7 @@ import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {authInterceptor} from "./core/interceptors/auth.interceptor";
 import {apiConfigProvider} from "./core/config/api-config";
 import {restoreSessionProvider} from "./core/providers/restore-session.provider";
+import {paginatorLocalizationProvider} from "./shared/features/pagination/model/paginator-localization";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideNativeDateAdapter(),
     provideHttpClient(withInterceptors([authInterceptor])),
     apiConfigProvider,
-    restoreSessionProvider
+    restoreSessionProvider,
+    paginatorLocalizationProvider
   ]
 };

@@ -4,8 +4,42 @@
   </button>
 </div>
 
-<div class="search-bar-container">
-  <app-search-bar class="search-bar" label="Пошук інгредієнта" (search)="onSearch($event)"/>
-</div>
+<mat-card class="list-toolbar">
+  <mat-card-content>
+    <app-search-bar class="search-bar" label="Пошук інгредієнта" (search)="onSearch($event)"/>
+  </mat-card-content>
+  <mat-card-footer class="list-toolbar-footer">
+    <div class="ordering-container">
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Впорядкувати за</mat-label>
+        <mat-select>
+          <mat-option>None</mat-option>
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option2">Option 2</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>За зростанням?</mat-label>
+        <mat-select>
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option2">Option 2</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="paginator-container">
+      <mat-paginator [length]="100"
+                     [pageSize]="10"
+                     [pageSizeOptions]="[5, 10, 25, 100]"
+                     aria-label="Select page"
+                     showFirstLastButtons
+                     (page)="onPaginate($event)">
+      </mat-paginator>
+    </div>
+  </mat-card-footer>
+</mat-card>
 
 <app-ingredients-list [ingredients]="$ingredients()"/>
