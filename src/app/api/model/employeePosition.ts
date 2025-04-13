@@ -9,16 +9,14 @@
  */
 
 
-export type EmployeePosition = 'TOP_MANAGER' | 'MANAGER' | 'COOK' | 'CASHIER';
+export enum EmployeePosition {
 
-export const EmployeePosition = {
+    TOP_MANAGER = 'TOP_MANAGER',
 
-    TopManager: 'TOP_MANAGER' as EmployeePosition,
+    MANAGER = 'MANAGER',
 
-    Manager: 'MANAGER' as EmployeePosition,
+    COOK = 'COOK',
 
-    Cook: 'COOK' as EmployeePosition,
-
-    Cashier: 'CASHIER' as EmployeePosition
-};
+    CASHIER = 'CASHIER'
+}
 

@@ -23,7 +23,6 @@ export interface EmployeeHiring {
     managerUserId: number;
     restaurantId: number;
 }
-export namespace EmployeeHiring {
-}
+
 
 

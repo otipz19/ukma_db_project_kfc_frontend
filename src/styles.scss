@@ -6,3 +6,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .default-form-input-field {
   width: 100%;
 }
+
+.stepper-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
