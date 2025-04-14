@@ -31,7 +31,7 @@
 
   <ng-container [matColumnDef]="EmployeeColumns.position">
     <th mat-header-cell *matHeaderCellDef>Посада</th>
-    <td mat-cell *matCellDef="let employee">{{ employee.position }}</td>
+    <td mat-cell *matCellDef="let employee">{{ employee.position | employeePositionPipe }}</td>
   </ng-container>
 
   <ng-container [matColumnDef]="EmployeeColumns.managerUserId!">

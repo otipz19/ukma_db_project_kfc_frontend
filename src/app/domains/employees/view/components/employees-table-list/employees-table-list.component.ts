@@ -9,6 +9,7 @@ import {
   MatTable
 } from "@angular/material/table";
 import {EmployeeStoreEntity} from "../../../data-access/model/employee-store-entity";
+import {EmployeePositionPipe} from "../../pipes/employee-position.pipe";
 
 type EmployeeColumn = keyof Omit<EmployeeStoreEntity, 'id' | 'username'>;
 
@@ -36,7 +37,8 @@ const EmployeeColumns: Record<EmployeeColumn, EmployeeColumn> = {
     MatHeaderRow,
     MatHeaderRowDef,
     MatRow,
-    MatRowDef
+    MatRowDef,
+    EmployeePositionPipe
   ],
   templateUrl: './employees-table-list.component.html',
   styleUrl: './employees-table-list.component.scss'
