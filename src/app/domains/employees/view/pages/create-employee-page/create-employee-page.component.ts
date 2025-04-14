@@ -7,8 +7,7 @@ import {
 import {NotifyService} from "../../../../../shared/features/notify/data-access/services/notify.service";
 import {Employee, EmployeeControllerService, EmployeeHiring, EmployeePosition} from "../../../../../api";
 import {UserPhonesControllerService} from "../../../../../api/api/userPhonesController.service";
-import {EmployeesStore} from "../../../data-access/store/employees.store";
-import {map, Observable, of, switchMap, tap} from "rxjs";
+import {map, Observable, of, switchMap} from "rxjs";
 import {Restaurant} from "../../../../../api/model/restaurant";
 import {Location} from "@angular/common";
 
@@ -26,32 +25,30 @@ export class CreateEmployeePageComponent {
   private readonly notify = inject(NotifyService);
   private readonly employeeApi = inject(EmployeeControllerService);
   private readonly phoneApi = inject(UserPhonesControllerService);
-  private readonly store = inject(EmployeesStore);
 
   protected onSubmit(formResult: EmployeeCreateFormResult) {
     const managerIdRequest$ = formResult.position === EmployeePosition.MANAGER
       ? this.requestTopManagerId$()
       : this.requestManagerId$(formResult.restaurantId);
 
+    const {phoneNumber, ...restFormResult} = formResult;
+
     managerIdRequest$
       .pipe(
         switchMap(managerId => {
-          const hiringEmployee: EmployeeHiring = {managerUserId: managerId, ...formResult};
+          const hiringEmployee: EmployeeHiring = {managerUserId: managerId, ...restFormResult};
           return this.employeeApi.hireEmployee(hiringEmployee);
         }),
         switchMap(createdUserId => {
-          if(formResult.phoneNumber) {
-            return this.phoneApi.setUserPhones(createdUserId, [formResult.phoneNumber])
+          if(phoneNumber) {
+            return this.phoneApi.setUserPhones(createdUserId, [phoneNumber])
               .pipe(
                 map(() => createdUserId)
               );
           }
           return of(createdUserId);
         }),
-        this.notify.notifyHttpRequest(),
-        tap(createdUserId => {
-          this.store.load(createdUserId);
-        })
+        this.notify.notifyHttpRequest()
       )
       .subscribe(() => {
         this.location.back();
