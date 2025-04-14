@@ -8,12 +8,16 @@ const EmployeePositionLabels: Record<EmployeePosition, string> = {
   [EmployeePosition.CASHIER]: 'Касир'
 };
 
+export function mapEmployeePositionToLabel(value: EmployeePosition): string {
+  return EmployeePositionLabels[value];
+}
+
 @Pipe({
   name: 'employeePositionPipe',
   standalone: true
 })
 export class EmployeePositionPipe implements PipeTransform {
   transform(value: EmployeePosition): string {
-    return EmployeePositionLabels[value];
+    return mapEmployeePositionToLabel(value);
   }
 }

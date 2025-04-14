@@ -1,4 +1,4 @@
-import {Component, computed, input} from '@angular/core';
+import {Component, computed, inject, input} from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -12,6 +12,7 @@ import {EmployeeStoreEntity} from "../../../data-access/model/employee-store-ent
 import {EmployeePositionPipe} from "../../pipes/employee-position.pipe";
 import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
+import {DeleteEmployeeService} from "../../../features/delete-employee/data-access/services/delete-employee.service";
 
 type EmployeeColumn = (keyof Omit<EmployeeStoreEntity, 'id' | 'username'>) | 'actions';
 
@@ -49,6 +50,8 @@ const EmployeeColumns: Record<EmployeeColumn, EmployeeColumn> = {
   styleUrl: './employees-table-list.component.scss'
 })
 export class EmployeesTableListComponent {
+  private readonly deleteService = inject(DeleteEmployeeService);
+
   readonly $employees = input.required<Array<EmployeeStoreEntity>>({alias: 'employees'});
 
   // Separate for potential more complex dataSource
@@ -57,11 +60,11 @@ export class EmployeesTableListComponent {
   protected readonly displayedColumns: Array<EmployeeColumn> = Object.values(EmployeeColumns);
   protected readonly EmployeeColumns = EmployeeColumns;
 
-  onEdit(id: EmployeeStoreEntity['id']) {
+  onEdit(employee: EmployeeStoreEntity) {
 
   }
 
-  onDelete(id: EmployeeStoreEntity['id']) {
-
+  onDelete(employee: EmployeeStoreEntity) {
+    this.deleteService.deleteEmployee(employee);
   }
 }
