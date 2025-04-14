@@ -42,12 +42,14 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button type="button" mat-raised-button color="primary" (click)="onCancel()">
-      Скасувати
-    </button>
+    <div class="form-actions">
+      <button type="button" mat-raised-button color="primary" (click)="onCancel()">
+        Скасувати
+      </button>
 
-    <button type="button" mat-raised-button color="accent" (click)="onSubmit()">
-      Підтвердити
-    </button>
+      <button type="button" mat-raised-button color="accent" (click)="onSubmit()">
+        Зберегти
+      </button>
+    </div>
   </mat-card-actions>
 </mat-card>

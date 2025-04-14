@@ -6,11 +6,13 @@ import {UpdateEmployeeFormComponent} from "../../components/update-employee-form
 import {Location} from "@angular/common";
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
 import {UPDATE_EMPLOYEE_RESOLVER_KEY} from "../../../data-access/resolvers/update-employee.resolver";
+import {MatDialogTitle} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-update-employee-page',
   imports: [
-    UpdateEmployeeFormComponent
+    UpdateEmployeeFormComponent,
+    MatDialogTitle
   ],
   templateUrl: './update-employee-page.component.html',
   styleUrl: './update-employee-page.component.scss'
