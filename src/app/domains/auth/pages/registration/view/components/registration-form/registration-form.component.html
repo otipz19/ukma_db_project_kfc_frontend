@@ -6,10 +6,11 @@
 
     <form [formGroup]="firstStepForm">
       <app-common-form-input-field class="default-form-input-field"
-                                   [control]="firstStepForm.controls.email"
-                                   label="Пошта"
-                                   inputType="email"
-                                   [maxLength]="320"/>
+                                   [control]="firstStepForm.controls.username"
+                                   label="Ім'я користувача"
+                                   inputType="text"
+                                   [maxLength]="320"
+                                   iconSuffix="person"/>
 
       <app-common-form-password-field class="default-form-input-field"
                                       [control]="firstStepForm.controls.password"

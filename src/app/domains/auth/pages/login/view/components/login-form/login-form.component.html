@@ -9,10 +9,11 @@
   <mat-card-content>
     <form [formGroup]="form">
       <app-common-form-input-field class="default-form-input-field"
-                                   [control]="form.controls.email"
-                                   label="Пошта"
-                                   inputType="email"
-                                   [maxLength]="320"/>
+                                   [control]="form.controls.username"
+                                   label="Ім'я користувача"
+                                   inputType="text"
+                                   [maxLength]="320"
+                                   iconSuffix="person"/>
 
       <app-common-form-password-field class="default-form-input-field"
                                       [control]="form.controls.password"

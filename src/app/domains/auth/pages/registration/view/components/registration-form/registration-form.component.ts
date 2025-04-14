@@ -4,7 +4,6 @@ import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
 import {passwordsEqualValidator} from "../../validators/passwordsEqual.validator";
 import {MatError} from "@angular/material/form-field";
-import {emailValidator} from "../../../../../../../shared/form/validators/email.validator";
 import {ErrorMessagePipe} from "../../../../../../../shared/form/pipes/error-message.pipe";
 import {
   CommonFormInputFieldComponent
@@ -46,7 +45,7 @@ export class RegistrationFormComponent {
   private readonly fb = inject(FormBuilder).nonNullable;
 
   protected readonly firstStepForm = this.fb.group({
-    email: this.fb.control("", [Validators.required, emailValidator()]),
+    username: this.fb.control("", [Validators.required, Validators.maxLength(320)]),
     password: this.fb.control("", [Validators.required, Validators.minLength(5), Validators.maxLength(64)]),
     passwordConfirm: this.fb.control("", [Validators.required, Validators.minLength(5), Validators.maxLength(64)]),
   }, {
@@ -70,7 +69,7 @@ export class RegistrationFormComponent {
       return;
     }
 
-    const {email: username, password} = this.firstStepForm.getRawValue();
+    const {username, password} = this.firstStepForm.getRawValue();
     const dto: RegisterClientDto = {username, password, ...this.secondStepForm.getRawValue()};
 
     this.registrationService.register$(dto)

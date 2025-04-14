@@ -6,7 +6,6 @@ import {
   MatCardTitle
 } from "@angular/material/card";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
-import {emailValidator} from "../../../../../../../shared/form/validators/email.validator";
 import {
   CommonFormInputFieldComponent
 } from "../../../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
@@ -46,7 +45,7 @@ export class LoginFormComponent {
   private readonly fb = inject(FormBuilder).nonNullable;
 
   protected readonly form = this.fb.group({
-    email: this.fb.control('', [Validators.required, emailValidator()]),
+    username: this.fb.control('', [Validators.required, Validators.maxLength(320)]),
     password: this.fb.control('', [Validators.required, Validators.maxLength(64)])
   });
 
@@ -56,8 +55,8 @@ export class LoginFormComponent {
       return;
     }
 
-    const {email, password} = this.form.getRawValue();
-    this.authService.login$(email, password)
+    const {username, password} = this.form.getRawValue();
+    this.authService.login$(username, password)
       .pipe(
         this.notifyService.notifyError()
       )
