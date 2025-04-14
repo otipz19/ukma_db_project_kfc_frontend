@@ -10,8 +10,10 @@ import {
 } from "@angular/material/table";
 import {EmployeeStoreEntity} from "../../../data-access/model/employee-store-entity";
 import {EmployeePositionPipe} from "../../pipes/employee-position.pipe";
+import {MatIconButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
 
-type EmployeeColumn = keyof Omit<EmployeeStoreEntity, 'id' | 'username'>;
+type EmployeeColumn = (keyof Omit<EmployeeStoreEntity, 'id' | 'username'>) | 'actions';
 
 const EmployeeColumns: Record<EmployeeColumn, EmployeeColumn> = {
   passportNumber: 'passportNumber',
@@ -23,6 +25,7 @@ const EmployeeColumns: Record<EmployeeColumn, EmployeeColumn> = {
   position: 'position',
   managerUserId: 'managerUserId',
   restaurantId: 'restaurantId',
+  actions: 'actions'
 };
 
 @Component({
@@ -38,7 +41,9 @@ const EmployeeColumns: Record<EmployeeColumn, EmployeeColumn> = {
     MatHeaderRowDef,
     MatRow,
     MatRowDef,
-    EmployeePositionPipe
+    EmployeePositionPipe,
+    MatIcon,
+    MatIconButton
   ],
   templateUrl: './employees-table-list.component.html',
   styleUrl: './employees-table-list.component.scss'
@@ -51,4 +56,12 @@ export class EmployeesTableListComponent {
 
   protected readonly displayedColumns: Array<EmployeeColumn> = Object.values(EmployeeColumns);
   protected readonly EmployeeColumns = EmployeeColumns;
+
+  onEdit(id: EmployeeStoreEntity['id']) {
+
+  }
+
+  onDelete(id: EmployeeStoreEntity['id']) {
+
+  }
 }
