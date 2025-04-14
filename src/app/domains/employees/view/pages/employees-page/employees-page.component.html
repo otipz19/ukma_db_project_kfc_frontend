@@ -1,11 +1,13 @@
-<div class="create-btn-container">
-  <button mat-raised-button color="accent" (click)="onCreate()">
-    Створити нового
-  </button>
-</div>
+<div class="header-container">
+  <div class="create-btn-container">
+    <button mat-raised-button color="accent" (click)="onCreate()">
+      Створити нового
+    </button>
+  </div>
 
-<div class="search-bar-container">
-  <app-search-bar class="search-bar" label="Пошук працівника" (search)="onSearch($event)"/>
+  <div class="search-bar-container">
+    <app-search-bar class="search-bar" label="Пошук працівника" (search)="onSearch($event)"/>
+  </div>
 </div>
 
 <div class="list-container">
