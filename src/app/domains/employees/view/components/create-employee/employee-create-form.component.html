@@ -43,7 +43,10 @@
     </form>
 
     <div class="stepper-buttons">
-      <div></div>
+      <button type="button" mat-raised-button color="primary" (click)="onCancel()">
+        Скасувати
+      </button>
+
       <button type="submit" class="stepper-btn-next" mat-raised-button color="accent" matStepperNext>
         Далі
       </button>

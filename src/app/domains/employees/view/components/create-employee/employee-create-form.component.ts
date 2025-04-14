@@ -23,6 +23,7 @@ import {RestaurantControllerService} from "../../../../../api/api/restaurantCont
 import {SelectOptionModel} from "../../../../../shared/form/utils/select-options";
 import {Restaurant} from "../../../../../api/model/restaurant";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {MatLabel} from "@angular/material/input";
 
 type PersonalDataFormType = {
   passportNumber: string;
@@ -64,6 +65,7 @@ export type EmployeeCreateFormResult = Omit<PersonalDataFormType & HiringDataFor
     MatFormField,
     MatSelect,
     MatOption,
+    MatLabel
   ],
   selector: 'app-employee-create-form',
   styleUrl: './employee-create-form.component.scss',
@@ -73,6 +75,7 @@ export class EmployeeCreateFormComponent {
   private readonly restaurantsApi = inject(RestaurantControllerService);
 
   protected readonly submit = output<EmployeeCreateFormResult>();
+  protected readonly cancel = output<void>();
 
   private readonly fb = inject(FormBuilder).nonNullable;
 
@@ -141,5 +144,9 @@ export class EmployeeCreateFormComponent {
       };
 
     this.submit.emit(value);
+  }
+
+  protected onCancel() {
+    this.cancel.emit();
   }
 }
