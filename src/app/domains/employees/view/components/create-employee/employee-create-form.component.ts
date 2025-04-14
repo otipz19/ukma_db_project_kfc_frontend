@@ -1,7 +1,7 @@
 import {Component, inject, output, signal} from '@angular/core';
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
-import {EmployeePosition} from "../../../../../api";
+import {EmployeeControllerService, EmployeePosition} from "../../../../../api";
 import {ControlsOf} from "../../../../../shared/type-utils/controls-of";
 import {passwordsEqualValidator} from "../../../../auth/pages/registration/view/validators/passwordsEqual.validator";
 import {
@@ -16,7 +16,9 @@ import {
 } from "../../../../../shared/form/components/common-form-password-field/common-form-password-field.component";
 import {ErrorMessagePipe} from "../../../../../shared/form/pipes/error-message.pipe";
 import {MatError, MatFormField} from "@angular/material/form-field";
-import {employeePositionSelectOptionModelList} from "../../select-models/employee-position-select-model";
+import {
+  ManagerPositionSelectOptions, MinorPositionsSelectOptions
+} from "../../select-models/employee-position-select-model";
 import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
 import {RestaurantControllerService} from "../../../../../api/api/restaurantController.service";
@@ -24,6 +26,7 @@ import {SelectOptionModel} from "../../../../../shared/form/utils/select-options
 import {Restaurant} from "../../../../../api/model/restaurant";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MatLabel} from "@angular/material/input";
+import {map, Observable, switchMap} from "rxjs";
 
 type PersonalDataFormType = {
   passportNumber: string;
@@ -73,6 +76,7 @@ export type EmployeeCreateFormResult = Omit<PersonalDataFormType & HiringDataFor
 })
 export class EmployeeCreateFormComponent {
   private readonly restaurantsApi = inject(RestaurantControllerService);
+  private readonly employeeApi = inject(EmployeeControllerService);
 
   protected readonly submit = output<EmployeeCreateFormResult>();
   protected readonly cancel = output<void>();
@@ -115,7 +119,7 @@ export class EmployeeCreateFormComponent {
     auth: this.authDataStepForm
   });
 
-  protected readonly employeePositionOptions = employeePositionSelectOptionModelList;
+  protected readonly $employeePositionOptions = signal<SelectOptionModel<EmployeePosition>[]>([]);
 
   protected readonly $restaurantsOptions = signal<Array<SelectOptionModel<Restaurant['id']>>>([]);
 
@@ -128,6 +132,31 @@ export class EmployeeCreateFormComponent {
         const options = list.map(r => ({value: r.id, label: r.address}));
         this.$restaurantsOptions.set(options);
       });
+
+    this.hiringDataStepForm.controls.restaurantId.valueChanges
+      .pipe(
+        takeUntilDestroyed(),
+        switchMap(chosenRestaurantId => {
+          return this.hasManager$(chosenRestaurantId);
+        }),
+        map(hasManager => {
+          return hasManager ? MinorPositionsSelectOptions : ManagerPositionSelectOptions;
+        })
+      )
+      .subscribe(options => {
+        this.$employeePositionOptions.set(options);
+      });
+  }
+
+  // TODO: Refactor when api is updated
+  private hasManager$(restaurantId: Restaurant['id']): Observable<boolean> {
+    return this.employeeApi.getAllEmployees(restaurantId)
+      .pipe(
+        map(employees => {
+          const managers = employees.filter(e => e.position == EmployeePosition.MANAGER);
+          return managers.length > 0;
+        })
+      )
   }
 
   protected onSubmit() {

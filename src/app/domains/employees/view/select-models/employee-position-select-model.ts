@@ -1,5 +1,9 @@
 import {EmployeePosition} from "../../../../api";
-import {optionsToSelectOptionModelList, SelectOptionLabelsMap} from "../../../../shared/form/utils/select-options";
+import {
+  optionsToSelectOptionModelList,
+  SelectOptionLabelsMap,
+  SelectOptionModel
+} from "../../../../shared/form/utils/select-options";
 
 export const EmployeePositionSelectLabels: SelectOptionLabelsMap<EmployeePosition> = {
   'MANAGER': 'Менеджер',
@@ -8,4 +12,11 @@ export const EmployeePositionSelectLabels: SelectOptionLabelsMap<EmployeePositio
   'CASHIER': 'Касир'
 };
 
-export const employeePositionSelectOptionModelList = optionsToSelectOptionModelList(EmployeePosition, EmployeePositionSelectLabels);
+export const ManagerPositionSelectOptions: SelectOptionModel<EmployeePosition>[] = [
+  {value: EmployeePosition.MANAGER, label: 'Менеджер'}
+];
+
+export const MinorPositionsSelectOptions: SelectOptionModel<EmployeePosition>[] = [
+  {value: EmployeePosition.CASHIER, label: 'Касир'},
+  {value: EmployeePosition.COOK, label: 'Кухар'}
+];
