@@ -90,14 +90,14 @@ export class NotifyService {
   private openErrorDialog(config: ErrorDialogConfig) {
     return this.dialog.open<ErrorDialogComponent, ErrorDialogConfig, undefined>(ErrorDialogComponent, {
       data: config,
-      minWidth: '400px'
+      minWidth: '600px'
     });
   }
 
   private openSuccessDialog(successMessage?: string) {
     return this.dialog.open<SuccessDialogComponent, string, undefined>(SuccessDialogComponent, {
       data: successMessage,
-      minWidth: '400px',
+      minWidth: '600px',
     });
   }
 }

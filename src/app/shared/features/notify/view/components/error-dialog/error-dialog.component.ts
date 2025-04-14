@@ -7,6 +7,7 @@ import {
   MatDialogTitle
 } from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
+import {HttpErrorResponse} from "@angular/common/http";
 
 export type ErrorDialogConfig = {
   error?: any,
@@ -33,7 +34,9 @@ export class ErrorDialogComponent implements OnInit {
 
   ngOnInit() {
     const err = this.config?.error;
-    if (err) {
+    if(err instanceof HttpErrorResponse) {
+      this.errorMessage = err.error;
+    } else {
       this.errorMessage = typeof err === 'string' ? err : JSON.stringify(err);
     }
   }
