@@ -51,8 +51,24 @@ export const routes: Routes = [
       },
       {
         path: 'employees',
-        canActivate: [hasRoleRouteGuard('ADMIN')],
-        loadComponent: () => import('./domains/employees/view/pages/employees-page/employees-page.component').then(r => r.EmployeesPageComponent)
+        redirectTo: 'employees',
+        pathMatch: 'full',
+
+      },
+      {
+        path: 'employees',
+        children: [
+          {
+            path: '',
+            canActivate: [hasRoleRouteGuard('ADMIN')],
+            loadComponent: () => import('./domains/employees/view/pages/employees-page/employees-page.component').then(r => r.EmployeesPageComponent)
+          },
+          {
+            path: 'create',
+            canActivate: [hasRoleRouteGuard('ADMIN')],
+            loadComponent: () => import('./domains/employees/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
+          }
+        ]
       },
       {
         path: 'forbidden',

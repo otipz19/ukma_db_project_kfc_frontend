@@ -1,28 +1,28 @@
 import {Component, inject} from '@angular/core';
-import {MatDialogContent, MatDialogRef, MatDialogTitle} from "@angular/material/dialog";
+import {MatDialogTitle} from "@angular/material/dialog";
 import {
   EmployeeCreateFormComponent,
   EmployeeCreateFormResult
-} from "../../../../../view/components/create-employee/employee-create-form.component";
-import {Employee, EmployeeControllerService, EmployeeHiring, EmployeePosition} from "../../../../../../../api";
-import {Restaurant} from "../../../../../../../api/model/restaurant";
+} from "../../components/create-employee/employee-create-form.component";
+import {NotifyService} from "../../../../../shared/features/notify/data-access/services/notify.service";
+import {Employee, EmployeeControllerService, EmployeeHiring, EmployeePosition} from "../../../../../api";
+import {UserPhonesControllerService} from "../../../../../api/api/userPhonesController.service";
+import {EmployeesStore} from "../../../data-access/store/employees.store";
 import {map, Observable, of, switchMap, tap} from "rxjs";
-import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
-import {UserPhonesControllerService} from "../../../../../../../api/api/userPhonesController.service";
-import {EmployeesStore} from "../../../../../data-access/store/employees.store";
+import {Restaurant} from "../../../../../api/model/restaurant";
+import {Location} from "@angular/common";
 
 @Component({
-  selector: 'app-employee-create-dialog',
+  selector: 'app-create-employee-page',
   imports: [
-    MatDialogContent,
     MatDialogTitle,
     EmployeeCreateFormComponent
   ],
-  templateUrl: './employee-create-dialog.component.html',
-  styleUrl: './employee-create-dialog.component.scss'
+  templateUrl: './create-employee-page.component.html',
+  styleUrl: './create-employee-page.component.scss'
 })
-export class EmployeeCreateDialogComponent {
-  private readonly dialogRef = inject(MatDialogRef<void>);
+export class CreateEmployeePageComponent {
+  private readonly location = inject(Location);
   private readonly notify = inject(NotifyService);
   private readonly employeeApi = inject(EmployeeControllerService);
   private readonly phoneApi = inject(UserPhonesControllerService);
@@ -54,7 +54,7 @@ export class EmployeeCreateDialogComponent {
         })
       )
       .subscribe(() => {
-        this.dialogRef.close();
+        this.location.back();
       })
   }
 
@@ -87,6 +87,6 @@ export class EmployeeCreateDialogComponent {
   }
 
   protected onCancel() {
-    this.dialogRef.close();
+    this.location.back();
   }
 }

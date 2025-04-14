@@ -85,7 +85,7 @@ export class EmployeeCreateFormComponent {
       firstName: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
       surname: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
       middleName: this.fb.control('', [Validators.maxLength(64)]),
-      birthDate: this.fb.control(''),
+      birthDate: this.fb.control('', [Validators.required]),
       phoneNumber: this.fb.control(''),
     });
 

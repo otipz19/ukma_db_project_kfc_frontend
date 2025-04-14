@@ -4,7 +4,7 @@ import {MatButton} from "@angular/material/button";
 import {EmployeesTableListComponent} from "../../components/employees-table-list/employees-table-list.component";
 import {EmployeesStore} from "../../../data-access/store/employees.store";
 import { EmployeeStoreEntity } from '../../../data-access/model/employee-store-entity';
-import {CreateEmployeeService} from "../../../features/create-employee/data-access/services/create-employee.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-employees-page',
@@ -18,7 +18,7 @@ import {CreateEmployeeService} from "../../../features/create-employee/data-acce
 })
 export class EmployeesPageComponent implements OnInit {
   private readonly store = inject(EmployeesStore);
-  private readonly createService = inject(CreateEmployeeService);
+  private readonly router = inject(Router);
 
   protected readonly $employees: Signal<EmployeeStoreEntity[]> = this.store.$viewList;
 
@@ -27,7 +27,7 @@ export class EmployeesPageComponent implements OnInit {
   }
 
   protected onCreate() {
-    this.createService.create();
+    this.router.navigate(['/', 'employees', 'create']);
   }
 
   protected onSearch(query: string) {
