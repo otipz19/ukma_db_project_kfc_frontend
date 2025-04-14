@@ -13,6 +13,7 @@ import {EmployeePositionPipe} from "../../pipes/employee-position.pipe";
 import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {DeleteEmployeeService} from "../../../features/delete-employee/data-access/services/delete-employee.service";
+import {Router} from "@angular/router";
 
 type EmployeeColumn = (keyof Omit<EmployeeStoreEntity, 'id' | 'username'>) | 'actions';
 
@@ -51,6 +52,7 @@ const EmployeeColumns: Record<EmployeeColumn, EmployeeColumn> = {
 })
 export class EmployeesTableListComponent {
   private readonly deleteService = inject(DeleteEmployeeService);
+  private readonly router = inject(Router);
 
   readonly $employees = input.required<Array<EmployeeStoreEntity>>({alias: 'employees'});
 
@@ -61,7 +63,7 @@ export class EmployeesTableListComponent {
   protected readonly EmployeeColumns = EmployeeColumns;
 
   onEdit(employee: EmployeeStoreEntity) {
-
+    this.router.navigate(['/', 'employees', 'update', employee.id]);
   }
 
   onDelete(employee: EmployeeStoreEntity) {

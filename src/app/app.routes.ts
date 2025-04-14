@@ -3,6 +3,10 @@ import {MainLayoutComponent} from "./layouts/main/main-layout.component";
 import {hasRoleRouteGuard} from "./core/route-guards/has-role.route-guard";
 import {unauthenticatedRouteGuard} from "./core/route-guards/unauthenticated.route-guard";
 import {authenticatedRouteGuard} from "./core/route-guards/authenticated.route-guard";
+import {
+  UPDATE_EMPLOYEE_RESOLVER_KEY,
+  updateEmployeeResolver
+} from "./domains/employees/features/update-employee/data-access/resolvers/update-employee.resolver";
 
 export const routes: Routes = [
   {
@@ -67,6 +71,12 @@ export const routes: Routes = [
             path: 'create',
             canActivate: [hasRoleRouteGuard('ADMIN')],
             loadComponent: () => import('./domains/employees/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
+          },
+          {
+            path: 'update/:id',
+            canActivate: [hasRoleRouteGuard('ADMIN')],
+            resolve: {[UPDATE_EMPLOYEE_RESOLVER_KEY]: updateEmployeeResolver},
+            loadComponent: () => import('./domains/employees/features/update-employee/view/pages/update-employee-page/update-employee-page.component').then(r => r.UpdateEmployeePageComponent)
           }
         ]
       },
