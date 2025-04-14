@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+}
+
+.create-btn-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.search-bar-container {
+  width: 100%;
+}

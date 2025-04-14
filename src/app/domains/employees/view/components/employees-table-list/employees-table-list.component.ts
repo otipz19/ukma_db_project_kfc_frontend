@@ -10,7 +10,7 @@ import {
 } from "@angular/material/table";
 import {EmployeeStoreEntity} from "../../../data-access/model/employee-store-entity";
 
-type EmployeeColumn = keyof Omit<EmployeeStoreEntity, 'id'>;
+type EmployeeColumn = keyof Omit<EmployeeStoreEntity, 'id' | 'username'>;
 
 const EmployeeColumns: Record<EmployeeColumn, EmployeeColumn> = {
   passportNumber: 'passportNumber',
@@ -19,7 +19,6 @@ const EmployeeColumns: Record<EmployeeColumn, EmployeeColumn> = {
   middleName: 'middleName',
   salary: 'salary',
   birthDate: 'birthDate',
-  username: 'username',
   position: 'position',
   managerUserId: 'managerUserId',
   restaurantId: 'restaurantId',

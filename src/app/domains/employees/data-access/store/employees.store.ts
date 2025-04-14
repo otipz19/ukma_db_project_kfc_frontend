@@ -2,9 +2,12 @@ import {map, Observable} from "rxjs";
 import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
 import {EmployeesFiltersContainer} from "../filters/filters-container/employees-filters-container";
 import {EmployeeStoreEntity, mapEmployeeToStoreEntity} from "../model/employee-store-entity";
-import {inject} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {EmployeeControllerService} from "../../../../api";
 
+@Injectable({
+  providedIn: 'root'
+})
 export class EmployeesStore extends BaseEntityStore<EmployeeStoreEntity, EmployeesFiltersContainer> {
   private readonly api = inject(EmployeeControllerService);
 
