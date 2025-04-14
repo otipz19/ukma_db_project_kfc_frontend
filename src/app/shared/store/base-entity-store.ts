@@ -5,9 +5,8 @@ import {Observable} from "rxjs";
 export abstract class BaseEntityStore<TEntity extends {id: number}, TFiltersContainer extends FiltersContainer<TEntity>> {
   readonly filters: TFiltersContainer = this.buildFiltersContainer();
 
-  private readonly $responseList = signal<Array<TEntity>>([]);
-  private readonly $filteredList = this.filters.$filterSignal(this.$responseList);
-  readonly $viewList = this.$filteredList;
+  protected readonly $responseList = signal<Array<TEntity>>([]);
+  protected readonly $filteredList = this.filters.$filterSignal(this.$responseList);
 
   protected abstract buildFiltersContainer(): TFiltersContainer;
 

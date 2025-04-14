@@ -11,6 +11,8 @@ import {RestaurantControllerService} from "../../../../api/api/restaurantControl
 export class RestaurantsStore extends BaseEntityStore<Restaurant, RestaurantsFiltersContainer> {
   private readonly api = inject(RestaurantControllerService);
 
+  readonly $viewList = this.$filteredList;
+
   protected override buildFiltersContainer(): RestaurantsFiltersContainer {
     return new RestaurantsFiltersContainer();
   }

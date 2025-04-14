@@ -2,14 +2,20 @@ import {map, Observable} from "rxjs";
 import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
 import {EmployeesFiltersContainer} from "../filters/filters-container/employees-filters-container";
 import {EmployeeStoreEntity, mapEmployeeToStoreEntity} from "../model/employee-store-entity";
-import {inject, Injectable} from "@angular/core";
+import {computed, inject, Injectable} from "@angular/core";
 import {EmployeeControllerService} from "../../../../api";
+import {AuthService} from "../../../../core/services/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeesStore extends BaseEntityStore<EmployeeStoreEntity, EmployeesFiltersContainer> {
   private readonly api = inject(EmployeeControllerService);
+  private readonly authService = inject(AuthService);
+
+  readonly $viewList = computed(() => {
+    return this.$filteredList().filter(e => e.id !== this.authService.$currentUser()?.id);
+  });
 
   protected override buildFiltersContainer(): EmployeesFiltersContainer {
     return new EmployeesFiltersContainer();

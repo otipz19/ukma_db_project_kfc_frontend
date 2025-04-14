@@ -11,6 +11,8 @@ import { Observable } from "rxjs";
 export class IngredientsStore extends BaseEntityStore<Ingredient, IngredientsFiltersContainer> {
   private readonly ingredientsApi = inject(IngredientControllerService);
 
+  readonly $viewList = this.$filteredList;
+
   protected override buildFiltersContainer(): IngredientsFiltersContainer {
       return new IngredientsFiltersContainer();
   }
