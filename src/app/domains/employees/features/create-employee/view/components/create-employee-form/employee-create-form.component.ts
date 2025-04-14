@@ -1,29 +1,29 @@
 import {Component, inject, output, signal} from '@angular/core';
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
-import {EmployeeControllerService, EmployeePosition} from "../../../../../api";
-import {ControlsOf} from "../../../../../shared/type-utils/controls-of";
-import {passwordsEqualValidator} from "../../../../auth/pages/registration/view/validators/passwordsEqual.validator";
+import {EmployeeControllerService, EmployeePosition} from "../../../../../../../api";
+import {ControlsOf} from "../../../../../../../shared/type-utils/controls-of";
+import {passwordsEqualValidator} from "../../../../../../auth/pages/registration/view/validators/passwordsEqual.validator";
 import {
   CommonFormInputFieldComponent
-} from "../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
+} from "../../../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
 import {
   CommonFormDatepickerFieldComponent
-} from "../../../../../shared/form/components/common-form-datepicker-field/common-form-datepicker-field.component";
+} from "../../../../../../../shared/form/components/common-form-datepicker-field/common-form-datepicker-field.component";
 import {MatButton} from "@angular/material/button";
 import {
   CommonFormPasswordFieldComponent
-} from "../../../../../shared/form/components/common-form-password-field/common-form-password-field.component";
-import {ErrorMessagePipe} from "../../../../../shared/form/pipes/error-message.pipe";
+} from "../../../../../../../shared/form/components/common-form-password-field/common-form-password-field.component";
+import {ErrorMessagePipe} from "../../../../../../../shared/form/pipes/error-message.pipe";
 import {MatError, MatFormField} from "@angular/material/form-field";
 import {
   ManagerPositionSelectOptions, MinorPositionsSelectOptions
-} from "../../select-models/employee-position-select-model";
+} from "../../../../../view/select-models/employee-position-select-model";
 import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
-import {RestaurantControllerService} from "../../../../../api/api/restaurantController.service";
-import {SelectOptionModel} from "../../../../../shared/form/utils/select-options";
-import {Restaurant} from "../../../../../api/model/restaurant";
+import {RestaurantControllerService} from "../../../../../../../api/api/restaurantController.service";
+import {SelectOptionModel} from "../../../../../../../shared/form/utils/select-options";
+import {Restaurant} from "../../../../../../../api/model/restaurant";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MatLabel} from "@angular/material/input";
 import {map, Observable, switchMap} from "rxjs";

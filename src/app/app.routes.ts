@@ -70,7 +70,7 @@ export const routes: Routes = [
           {
             path: 'create',
             canActivate: [hasRoleRouteGuard('ADMIN')],
-            loadComponent: () => import('./domains/employees/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
+            loadComponent: () => import('./domains/employees/features/create-employee/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
           },
           {
             path: 'update/:id',

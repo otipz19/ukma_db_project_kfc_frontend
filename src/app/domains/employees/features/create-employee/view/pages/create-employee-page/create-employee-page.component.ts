@@ -1,15 +1,15 @@
 import {Component, inject} from '@angular/core';
 import {MatDialogTitle} from "@angular/material/dialog";
+import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
+import {Employee, EmployeeControllerService, EmployeeHiring, EmployeePosition} from "../../../../../../../api";
+import {UserPhonesControllerService} from "../../../../../../../api/api/userPhonesController.service";
+import {map, Observable, of, switchMap} from "rxjs";
+import {Restaurant} from "../../../../../../../api/model/restaurant";
+import {Location} from "@angular/common";
 import {
   EmployeeCreateFormComponent,
   EmployeeCreateFormResult
-} from "../../components/create-employee/employee-create-form.component";
-import {NotifyService} from "../../../../../shared/features/notify/data-access/services/notify.service";
-import {Employee, EmployeeControllerService, EmployeeHiring, EmployeePosition} from "../../../../../api";
-import {UserPhonesControllerService} from "../../../../../api/api/userPhonesController.service";
-import {map, Observable, of, switchMap} from "rxjs";
-import {Restaurant} from "../../../../../api/model/restaurant";
-import {Location} from "@angular/common";
+} from "../../components/create-employee-form/employee-create-form.component";
 
 @Component({
   selector: 'app-create-employee-page',
