@@ -8,16 +8,21 @@
   flex-direction: column;
   padding: 16px 16px 0 16px;
   gap: 16px;
-}
 
-.create-btn-container {
-  display: flex;
-  justify-content: end;
-  align-items: center;
-}
+  .title-wrapper {
+    display: flex;
+    justify-content: space-between;
 
-.search-bar-container {
-  width: 100%;
+    .create-btn-container {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+    }
+  }
+
+  .search-bar-container {
+    width: 100%;
+  }
 }
 
 .list-container {
