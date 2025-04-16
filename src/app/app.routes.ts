@@ -1,12 +1,16 @@
 import {Routes} from '@angular/router';
 import {MainLayoutComponent} from "./layouts/main/main-layout.component";
-import {hasRoleRouteGuard} from "./core/route-guards/has-role.route-guard";
+import {hasRoleRouteGuard} from "./core/route-guards/has-role-route.guard";
 import {unauthenticatedRouteGuard} from "./core/route-guards/unauthenticated.route-guard";
 import {authenticatedRouteGuard} from "./core/route-guards/authenticated.route-guard";
 import {
   UPDATE_EMPLOYEE_RESOLVER_KEY,
   updateEmployeeResolver
 } from "./domains/employees/features/update-employee/data-access/resolvers/update-employee.resolver";
+import {
+  RESTAURANT_RESOLVER_KEY,
+  restaurantResolver
+} from "./domains/restaurants/data-access/resolvers/restaurant.resolver";
 
 export const routes: Routes = [
   {
@@ -50,8 +54,21 @@ export const routes: Routes = [
       },
       {
         path: 'restaurants',
-        canActivate: [hasRoleRouteGuard('ADMIN')],
-        loadComponent: () => import('./domains/restaurants/view/pages/restaurants-page/restaurants-page.component').then(r => r.RestaurantsPageComponent)
+        children: [
+          {
+            path: '',
+            canActivate: [hasRoleRouteGuard('ADMIN')],
+            loadComponent: () => import('./domains/restaurants/view/pages/restaurants-page/restaurants-page.component').then(r => r.RestaurantsPageComponent)
+          },
+          {
+            path: ':restaurantId',
+            canActivate: [hasRoleRouteGuard('ADMIN', 'MANAGER')],
+            resolve: {
+              [RESTAURANT_RESOLVER_KEY]: restaurantResolver
+            },
+            loadComponent: () => import("./domains/restaurants/view/pages/restaurant-dashboard/restaurant-dashboard.component").then(r => r.RestaurantDashboardComponent)
+          }
+        ]
       },
       {
         path: 'employees',

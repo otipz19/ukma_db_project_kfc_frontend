@@ -3,12 +3,10 @@ import {inject} from "@angular/core";
 import {AuthService} from "../services/auth.service";
 import {UserRole} from "../../api/model/userRole";
 
-export const hasRoleRouteGuard = (allowedRole: UserRole): CanActivateFn => {
+export const hasRoleRouteGuard = (...allowedRoles: UserRole[]): CanActivateFn => {
   return () => {
     const authService = inject(AuthService);
-    const userRole = authService.$role();
-    const isAllowed = userRole === allowedRole;
-    if(isAllowed) {
+    if(authService.$isAuthenticated() && allowedRoles.includes(authService.$role()!)) {
       return true;
     }
     const router = inject(Router);
