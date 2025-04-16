@@ -2,9 +2,8 @@ import {RedirectCommand, ResolveFn, Router} from "@angular/router";
 import {Restaurant} from "../../../../api/model/restaurant";
 import {inject} from "@angular/core";
 import {RestaurantControllerService} from "../../../../api/api/restaurantController.service";
-import {catchError, EMPTY, forkJoin, of, switchMap} from "rxjs";
+import {catchError, EMPTY, of, switchMap} from "rxjs";
 import {AuthService} from "../../../../core/services/auth.service";
-import {EmployeeControllerService} from "../../../../api";
 
 export const RESTAURANT_RESOLVER_KEY = "RESTAURANT_RESOLVER_KEY";
 
@@ -18,21 +17,17 @@ export const restaurantResolver: ResolveFn<Restaurant> = (route) => {
 
   const authService = inject(AuthService);
 
-  const user = authService.$currentUser();
-  if(user == undefined) {
+  const employee = authService.$currentEmployee();
+  if(employee == undefined) {
     return new RedirectCommand(router.parseUrl('forbidden'));
   }
 
   const restaurantApi = inject(RestaurantControllerService);
-  const employeeApi = inject(EmployeeControllerService);
 
-  return forkJoin({
-    restaurant: restaurantApi.getRestaurantById(restaurantId),
-    employee: employeeApi.getEmployeeByUserId(user.id)
-  })
+  return restaurantApi.getRestaurantById(restaurantId)
     .pipe(
-      switchMap(({restaurant, employee}) => {
-        if (authService.$role() === 'ADMIN') {
+      switchMap(restaurant => {
+        if (employee.position === 'TOP_MANAGER') {
           return of(restaurant);
         }
 
