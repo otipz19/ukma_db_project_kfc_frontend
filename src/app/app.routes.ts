@@ -11,10 +11,7 @@ import {
   RESTAURANT_RESOLVER_KEY,
   restaurantResolver
 } from "./domains/restaurants/data-access/resolvers/restaurant.resolver";
-import {
-  restaurantsRedirectRouteGuard
-} from "./domains/restaurants/data-access/route-guards/restaurants-redirect-route-guard";
-import {employeesRedirectRouteGuard} from "./domains/employees/data-access/route-guards/employees-redirect-route-guard";
+import {managersRedirectRouteGuard} from "./core/route-guards/managers-redirect.route-guard";
 
 export const routes: Routes = [
   {
@@ -61,7 +58,7 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            canActivate: [restaurantsRedirectRouteGuard],
+            canActivate: [managersRedirectRouteGuard(['restaurants', e => e.restaurantId])],
             loadComponent: () => import('./domains/restaurants/view/pages/restaurants-page/restaurants-page.component').then(r => r.RestaurantsPageComponent)
           },
           {
@@ -104,7 +101,7 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            canActivate: [employeesRedirectRouteGuard],
+            canActivate: [managersRedirectRouteGuard(['restaurants', e => e.restaurantId, 'employees'])],
             loadComponent: () => import('./domains/employees/view/pages/employees-page/employees-page.component').then(r => r.EmployeesPageComponent)
           },
           {
