@@ -1,9 +1,11 @@
-import {Component, inject, output, signal} from '@angular/core';
+import {Component, DestroyRef, inject, input, OnInit, output, signal} from '@angular/core';
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {EmployeeControllerService, EmployeePosition} from "../../../../../../../api";
 import {ControlsOf} from "../../../../../../../shared/type-utils/controls-of";
-import {passwordsEqualValidator} from "../../../../../../auth/pages/registration/view/validators/passwordsEqual.validator";
+import {
+  passwordsEqualValidator
+} from "../../../../../../auth/pages/registration/view/validators/passwordsEqual.validator";
 import {
   CommonFormInputFieldComponent
 } from "../../../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
@@ -26,7 +28,9 @@ import {SelectOptionModel} from "../../../../../../../shared/form/utils/select-o
 import {Restaurant} from "../../../../../../../api/model/restaurant";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MatLabel} from "@angular/material/input";
-import {map, Observable, switchMap} from "rxjs";
+import {map, Observable, of, switchMap, tap} from "rxjs";
+import {voidOperator} from "../../../../../../../shared/rxjs/operators/void-operator";
+import {AuthService} from "../../../../../../../core/services/auth.service";
 
 type PersonalDataFormType = {
   passportNumber: string;
@@ -74,9 +78,13 @@ export type EmployeeCreateFormResult = Omit<PersonalDataFormType & HiringDataFor
   styleUrl: './employee-create-form.component.scss',
   templateUrl: './employee-create-form.component.html'
 })
-export class EmployeeCreateFormComponent {
+export class EmployeeCreateFormComponent implements OnInit {
   private readonly restaurantsApi = inject(RestaurantControllerService);
   private readonly employeeApi = inject(EmployeeControllerService);
+  private readonly authService = inject(AuthService);
+  private readonly destroyRef = inject(DestroyRef);
+
+  readonly $restaurant = input<Restaurant | undefined>(undefined, {alias: 'restaurant'});
 
   protected readonly submit = output<EmployeeCreateFormResult>();
   protected readonly cancel = output<void>();
@@ -123,33 +131,52 @@ export class EmployeeCreateFormComponent {
 
   protected readonly $restaurantsOptions = signal<Array<SelectOptionModel<Restaurant['id']>>>([]);
 
-  constructor() {
-    this.restaurantsApi.getAllRestaurants()
-      .pipe(
-        takeUntilDestroyed()
-      )
-      .subscribe(list => {
-        const options = list.map(r => ({value: r.id, label: r.address}));
-        this.$restaurantsOptions.set(options);
-      });
+  ngOnInit() {
+    const restaurant = this.$restaurant();
+    if (restaurant == undefined) {
+      this.restaurantsApi.getAllRestaurants()
+        .pipe(
+          takeUntilDestroyed(this.destroyRef)
+        )
+        .subscribe(list => {
+          const options = list.map(r => ({value: r.id, label: r.address}));
+          this.$restaurantsOptions.set(options);
+        });
 
-    this.hiringDataStepForm.controls.restaurantId.valueChanges
+      this.hiringDataStepForm.controls.restaurantId.valueChanges
+        .pipe(
+          switchMap(id => this.setPositionOptions$(id)),
+        )
+        .subscribe();
+    } else {
+      this.hiringDataStepForm.controls.restaurantId.setValue(restaurant.id);
+      this.hiringDataStepForm.controls.restaurantId.disable();
+      this.setPositionOptions$(restaurant.id).subscribe();
+    }
+  }
+
+  private setPositionOptions$(restaurantId: Restaurant['id']): Observable<void> {
+    return this.hasManager$(restaurantId)
       .pipe(
-        takeUntilDestroyed(),
-        switchMap(chosenRestaurantId => {
-          return this.hasManager$(chosenRestaurantId);
-        }),
+        takeUntilDestroyed(this.destroyRef),
         map(hasManager => {
           return hasManager ? MinorPositionsSelectOptions : ManagerPositionSelectOptions;
-        })
-      )
-      .subscribe(options => {
-        this.$employeePositionOptions.set(options);
-      });
+        }),
+        tap(options => {
+          this.$employeePositionOptions.set(options);
+        }),
+        voidOperator()
+      );
   }
 
   // TODO: Refactor when api is updated
   private hasManager$(restaurantId: Restaurant['id']): Observable<boolean> {
+    // If current user is manager then he is the manager of current restaurant
+    // because he only has access to restaurant where he has a role of manager
+    if (this.authService.$currentEmployee()?.position === 'MANAGER') {
+      return of(true);
+    }
+
     return this.employeeApi.getAllEmployees(restaurantId)
       .pipe(
         map(employees => {

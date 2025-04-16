@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {MatDialogTitle} from "@angular/material/dialog";
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
 import {Employee, EmployeeControllerService, EmployeeHiring, EmployeePosition} from "../../../../../../../api";
@@ -10,6 +10,9 @@ import {
   EmployeeCreateFormComponent,
   EmployeeCreateFormResult
 } from "../../components/create-employee-form/employee-create-form.component";
+import {ActivatedRoute} from "@angular/router";
+import {RESTAURANT_RESOLVER_KEY} from "../../../../../../restaurants/data-access/resolvers/restaurant.resolver";
+import {AuthService} from "../../../../../../../core/services/auth.service";
 
 @Component({
   selector: 'app-create-employee-page',
@@ -25,6 +28,10 @@ export class CreateEmployeePageComponent {
   private readonly notify = inject(NotifyService);
   private readonly employeeApi = inject(EmployeeControllerService);
   private readonly phoneApi = inject(UserPhonesControllerService);
+  private readonly authService = inject(AuthService);
+
+  private readonly route = inject(ActivatedRoute);
+  protected readonly $restaurant = signal<Restaurant | undefined>(this.route.snapshot.data[RESTAURANT_RESOLVER_KEY]);
 
   protected onSubmit(formResult: EmployeeCreateFormResult) {
     const managerIdRequest$ = formResult.position === EmployeePosition.MANAGER
@@ -57,6 +64,13 @@ export class CreateEmployeePageComponent {
 
   // TODO: Remove when api is updated
   private requestManagerId$(restaurantId: Restaurant['id']): Observable<Employee['userId']> {
+    // If current user is manager then he is the manager of current restaurant
+    // because he only has access to restaurant where he has a role of manager
+    const manager = this.authService.$currentEmployee();
+    if (manager?.position === 'MANAGER') {
+      return of(manager.id);
+    }
+
     return this.employeeApi.getAllEmployees(restaurantId)
       .pipe(
         map(employees => {

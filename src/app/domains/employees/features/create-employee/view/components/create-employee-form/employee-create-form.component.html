@@ -1,6 +1,6 @@
 <mat-vertical-stepper class="mat-elevation-z5"
                       labelPosition="end"
-                      [linear]="true">
+                      [linear]="false">
   <mat-step [stepControl]="personalDataStepForm">
     <ng-template matStepLabel>Персональні дані</ng-template>
 
@@ -61,14 +61,16 @@
     <ng-template matStepLabel>Дані про працевлаштування</ng-template>
 
     <form [formGroup]="hiringDataStepForm">
-      <mat-form-field class="default-form-input-field">
-        <mat-label>Ресторан</mat-label>
-        <mat-select [formControl]="hiringDataStepForm.controls.restaurantId">
-          @for (option of $restaurantsOptions(); track option.value) {
-            <mat-option [value]="option.value">{{ option.label }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+      @if (this.$restaurant() == undefined) {
+        <mat-form-field class="default-form-input-field">
+          <mat-label>Ресторан</mat-label>
+          <mat-select [formControl]="hiringDataStepForm.controls.restaurantId">
+            @for (option of $restaurantsOptions(); track option.value) {
+              <mat-option [value]="option.value">{{ option.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
 
       <mat-form-field class="default-form-input-field">
         <mat-label>Посада</mat-label>
