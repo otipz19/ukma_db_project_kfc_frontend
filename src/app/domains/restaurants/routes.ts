@@ -1,0 +1,52 @@
+import {Routes} from "@angular/router";
+import {managersRedirectRouteGuard} from "../../core/route-guards/managers-redirect.route-guard";
+import {hasRoleRouteGuard} from "../../core/route-guards/has-role-route.guard";
+import {RESTAURANT_RESOLVER_KEY, restaurantResolver} from "./data-access/resolvers/restaurant.resolver";
+import {
+  UPDATE_EMPLOYEE_RESOLVER_KEY,
+  updateEmployeeResolver
+} from "../employees/features/update-employee/data-access/resolvers/update-employee.resolver";
+
+export const RESTAURANT_ROUTES: Routes = [
+  {
+    path: 'restaurants',
+    children: [
+      {
+        path: '',
+        canActivate: [managersRedirectRouteGuard(['restaurants', e => e.restaurantId])],
+        loadComponent: () => import('./view/pages/restaurants-page/restaurants-page.component').then(r => r.RestaurantsPageComponent)
+      },
+      {
+        path: ':restaurantId',
+        canActivate: [hasRoleRouteGuard('ADMIN', 'MANAGER')],
+        resolve: {
+          [RESTAURANT_RESOLVER_KEY]: restaurantResolver
+        },
+        children: [
+          {
+            path: '',
+            loadComponent: () => import("./view/pages/restaurant-dashboard/restaurant-dashboard.component").then(r => r.RestaurantDashboardComponent)
+          },
+          {
+            path: 'employees',
+            children: [
+              {
+                path: '',
+                loadComponent: () => import("../employees/view/pages/employees-page/employees-page.component").then(r => r.EmployeesPageComponent)
+              },
+              {
+                path: 'create',
+                loadComponent: () => import('../employees/features/create-employee/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
+              },
+              {
+                path: 'update/:id',
+                resolve: {[UPDATE_EMPLOYEE_RESOLVER_KEY]: updateEmployeeResolver},
+                loadComponent: () => import('../employees/features/update-employee/view/pages/update-employee-page/update-employee-page.component').then(r => r.UpdateEmployeePageComponent)
+              }
+            ]
+          }
+        ]
+      },
+    ]
+  }
+]

@@ -1,17 +1,10 @@
 import {Routes} from '@angular/router';
 import {MainLayoutComponent} from "./layouts/main/main-layout.component";
 import {hasRoleRouteGuard} from "./core/route-guards/has-role-route.guard";
-import {unauthenticatedRouteGuard} from "./core/route-guards/unauthenticated.route-guard";
 import {authenticatedRouteGuard} from "./core/route-guards/authenticated.route-guard";
-import {
-  UPDATE_EMPLOYEE_RESOLVER_KEY,
-  updateEmployeeResolver
-} from "./domains/employees/features/update-employee/data-access/resolvers/update-employee.resolver";
-import {
-  RESTAURANT_RESOLVER_KEY,
-  restaurantResolver
-} from "./domains/restaurants/data-access/resolvers/restaurant.resolver";
-import {managersRedirectRouteGuard} from "./core/route-guards/managers-redirect.route-guard";
+import {AUTH_ROUTES} from "./domains/auth/routes";
+import {RESTAURANT_ROUTES} from "./domains/restaurants/routes";
+import {EMPLOYEES_ROUTES} from "./domains/employees/routes";
 
 export const routes: Routes = [
   {
@@ -23,26 +16,7 @@ export const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
-      {
-        path: 'auth',
-        redirectTo: 'auth/login',
-        pathMatch: 'full',
-      },
-      {
-        path: 'auth',
-        canActivateChild: [unauthenticatedRouteGuard],
-        loadComponent: () => import('./layouts/auth/auth-layout.component').then(r => r.AuthLayoutComponent),
-        children: [
-          {
-            path: 'registration',
-            loadComponent: () => import('./domains/auth/pages/registration/view/components/registration-form/registration-form.component').then(r => r.RegistrationFormComponent)
-          },
-          {
-            path: 'login',
-            loadComponent: () => import('./domains/auth/pages/login/view/components/login-form/login-form.component').then(r => r.LoginFormComponent)
-          }
-        ]
-      },
+      ...AUTH_ROUTES,
       {
         path: 'landing',
         canActivate: [authenticatedRouteGuard],
@@ -53,66 +27,8 @@ export const routes: Routes = [
         canActivate: [hasRoleRouteGuard('ADMIN')],
         loadComponent: () => import('./domains/ingredients/view/pages/ingredients-page/ingredients-page.component').then(r => r.IngredientsPageComponent)
       },
-      {
-        path: 'restaurants',
-        children: [
-          {
-            path: '',
-            canActivate: [managersRedirectRouteGuard(['restaurants', e => e.restaurantId])],
-            loadComponent: () => import('./domains/restaurants/view/pages/restaurants-page/restaurants-page.component').then(r => r.RestaurantsPageComponent)
-          },
-          {
-            path: ':restaurantId',
-            canActivate: [hasRoleRouteGuard('ADMIN', 'MANAGER')],
-            resolve: {
-              [RESTAURANT_RESOLVER_KEY]: restaurantResolver
-            },
-            children: [
-              {
-                path: '',
-                loadComponent: () => import("./domains/restaurants/view/pages/restaurant-dashboard/restaurant-dashboard.component").then(r => r.RestaurantDashboardComponent)
-              },
-              {
-                path: 'employees',
-                children: [
-                  {
-                    path: '',
-                    loadComponent: () => import("./domains/employees/view/pages/employees-page/employees-page.component").then(r => r.EmployeesPageComponent)
-                  },
-                  {
-                    path: 'create',
-                    loadComponent: () => import('./domains/employees/features/create-employee/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
-                  },
-                  {
-                    path: 'update/:id',
-                    resolve: {[UPDATE_EMPLOYEE_RESOLVER_KEY]: updateEmployeeResolver},
-                    loadComponent: () => import('./domains/employees/features/update-employee/view/pages/update-employee-page/update-employee-page.component').then(r => r.UpdateEmployeePageComponent)
-                  }
-                ]
-              }
-            ]
-          },
-        ]
-      },
-      {
-        path: 'employees',
-        canActivate: [managersRedirectRouteGuard(['restaurants', e => e.restaurantId, 'employees'])],
-        children: [
-          {
-            path: '',
-            loadComponent: () => import('./domains/employees/view/pages/employees-page/employees-page.component').then(r => r.EmployeesPageComponent)
-          },
-          {
-            path: 'create',
-            loadComponent: () => import('./domains/employees/features/create-employee/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
-          },
-          {
-            path: 'update/:id',
-            resolve: {[UPDATE_EMPLOYEE_RESOLVER_KEY]: updateEmployeeResolver},
-            loadComponent: () => import('./domains/employees/features/update-employee/view/pages/update-employee-page/update-employee-page.component').then(r => r.UpdateEmployeePageComponent)
-          }
-        ]
-      },
+      ...RESTAURANT_ROUTES,
+      ...EMPLOYEES_ROUTES,
       {
         path: 'forbidden',
         canActivate: [authenticatedRouteGuard],
