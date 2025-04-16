@@ -1,11 +1,12 @@
 import {computed, inject, Injectable, signal} from "@angular/core";
 import {AuthenticationControllerService} from "../../api/api/authenticationController.service";
-import {catchError, EMPTY, map, Observable, switchMap, tap, throwError} from "rxjs";
+import {catchError, EMPTY, map, Observable, shareReplay, switchMap, tap, throwError} from "rxjs";
 import {voidOperator} from "../../shared/rxjs/operators/void-operator";
 import {HttpContext, HttpErrorResponse} from "@angular/common/http";
 import {UserControllerService} from "../../api/api/userController.service";
 import {User} from "../../api/model/user";
 import {SKIP_AUTH_INTERCEPTOR} from "../interceptors/auth.interceptor";
+import {toObservable} from "@angular/core/rxjs-interop";
 
 type TokensDto = {
   accessToken: string,
@@ -25,6 +26,11 @@ export class AuthService {
 
   private readonly $currentUserInner = signal<User | undefined>(undefined);
   readonly $currentUser = this.$currentUserInner.asReadonly();
+  readonly currentUser$ = toObservable(this.$currentUser)
+    .pipe(
+      shareReplay(1)
+    );
+
   readonly $isAuthenticated = computed(() => Boolean(this.$currentUser()));
   readonly $role = computed(() => this.$currentUser()?.role);
 
