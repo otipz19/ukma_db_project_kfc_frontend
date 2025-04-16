@@ -20,6 +20,7 @@ export class SidenavLinksService {
 
   private readonly roleToAllowedLinks = new Map<UserRoleState, Array<LinkAlias>>([
     ['ADMIN', ['ingredients', 'restaurants', 'meals', 'employees']],
+    ['MANAGER', ['restaurants', 'employees']],
   ]);
 
   private readonly allLinks = new Map<LinkAlias, SidenavLinkModel>([

@@ -8,7 +8,7 @@ import {EmployeeControllerService} from "../../../../api";
 
 export const RESTAURANT_RESOLVER_KEY = "RESTAURANT_RESOLVER_KEY";
 
-export const restaurantResolver: ResolveFn<Restaurant> = (route, state) => {
+export const restaurantResolver: ResolveFn<Restaurant> = (route) => {
   const router = inject(Router);
 
   const restaurantId = Number(route.paramMap.get('restaurantId'));

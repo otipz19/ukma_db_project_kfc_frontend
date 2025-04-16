@@ -11,6 +11,9 @@ import {
   RESTAURANT_RESOLVER_KEY,
   restaurantResolver
 } from "./domains/restaurants/data-access/resolvers/restaurant.resolver";
+import {
+  restaurantsRedirectRouteGuard
+} from "./domains/restaurants/data-access/route-guards/restaurants-redirect-route-guard";
 
 export const routes: Routes = [
   {
@@ -57,7 +60,7 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            canActivate: [hasRoleRouteGuard('ADMIN')],
+            canActivate: [restaurantsRedirectRouteGuard],
             loadComponent: () => import('./domains/restaurants/view/pages/restaurants-page/restaurants-page.component').then(r => r.RestaurantsPageComponent)
           },
           {
