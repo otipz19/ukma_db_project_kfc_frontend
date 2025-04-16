@@ -12,15 +12,5 @@ import {RESTAURANT_RESOLVER_KEY} from "../../../data-access/resolvers/restaurant
 export class RestaurantDashboardComponent {
   private readonly activatedRoute = inject(ActivatedRoute);
 
-  protected readonly $restaurant = signal<Restaurant | undefined>(undefined);
-
-  constructor() {
-    this.activatedRoute.data
-      .subscribe(data => {
-        const restaurant = data[RESTAURANT_RESOLVER_KEY];
-        if(restaurant != undefined) {
-          this.$restaurant.set(restaurant);
-        }
-      })
-  }
+  protected readonly $restaurant = signal<Restaurant>(this.activatedRoute.snapshot.data[RESTAURANT_RESOLVER_KEY]);
 }

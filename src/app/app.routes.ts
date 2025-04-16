@@ -14,6 +14,7 @@ import {
 import {
   restaurantsRedirectRouteGuard
 } from "./domains/restaurants/data-access/route-guards/restaurants-redirect-route-guard";
+import {employeesRedirectRouteGuard} from "./domains/employees/data-access/route-guards/employees-redirect-route-guard";
 
 export const routes: Routes = [
   {
@@ -69,22 +70,41 @@ export const routes: Routes = [
             resolve: {
               [RESTAURANT_RESOLVER_KEY]: restaurantResolver
             },
-            loadComponent: () => import("./domains/restaurants/view/pages/restaurant-dashboard/restaurant-dashboard.component").then(r => r.RestaurantDashboardComponent)
-          }
+            children: [
+              {
+                path: '',
+                loadComponent: () => import("./domains/restaurants/view/pages/restaurant-dashboard/restaurant-dashboard.component").then(r => r.RestaurantDashboardComponent)
+              },
+              {
+                path: 'employees',
+                children: [
+                  {
+                    path: '',
+                    loadComponent: () => import("./domains/employees/view/pages/employees-page/employees-page.component").then(r => r.EmployeesPageComponent)
+                  },
+                  {
+                    path: 'create',
+                    canActivate: [hasRoleRouteGuard('ADMIN', 'MANAGER')],
+                    loadComponent: () => import('./domains/employees/features/create-employee/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
+                  },
+                  {
+                    path: 'update/:id',
+                    canActivate: [hasRoleRouteGuard('ADMIN', 'MANAGER')],
+                    resolve: {[UPDATE_EMPLOYEE_RESOLVER_KEY]: updateEmployeeResolver},
+                    loadComponent: () => import('./domains/employees/features/update-employee/view/pages/update-employee-page/update-employee-page.component').then(r => r.UpdateEmployeePageComponent)
+                  }
+                ]
+              }
+            ]
+          },
         ]
-      },
-      {
-        path: 'employees',
-        redirectTo: 'employees',
-        pathMatch: 'full',
-
       },
       {
         path: 'employees',
         children: [
           {
             path: '',
-            canActivate: [hasRoleRouteGuard('ADMIN')],
+            canActivate: [employeesRedirectRouteGuard],
             loadComponent: () => import('./domains/employees/view/pages/employees-page/employees-page.component').then(r => r.EmployeesPageComponent)
           },
           {
