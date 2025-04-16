@@ -3,8 +3,8 @@ import {SearchBarComponent} from "../../../../../shared/components/search-bar/se
 import {MatButton} from "@angular/material/button";
 import {EmployeesTableListComponent} from "../../components/employees-table-list/employees-table-list.component";
 import {EmployeesStore} from "../../../data-access/store/employees.store";
-import { EmployeeStoreEntity } from '../../../data-access/model/employee-store-entity';
-import {Router} from "@angular/router";
+import {EmployeeStoreEntity} from '../../../data-access/model/employee-store-entity';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-employees-page',
@@ -19,6 +19,7 @@ import {Router} from "@angular/router";
 export class EmployeesPageComponent implements OnInit {
   private readonly store = inject(EmployeesStore);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   protected readonly $employees: Signal<EmployeeStoreEntity[]> = this.store.$viewList;
 
@@ -27,7 +28,7 @@ export class EmployeesPageComponent implements OnInit {
   }
 
   protected onCreate() {
-    this.router.navigate(['/', 'employees', 'create']);
+    this.router.navigate(['create'], {relativeTo: this.route});
   }
 
   protected onSearch(query: string) {
