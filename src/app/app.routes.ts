@@ -81,12 +81,10 @@ export const routes: Routes = [
                   },
                   {
                     path: 'create',
-                    canActivate: [hasRoleRouteGuard('ADMIN', 'MANAGER')],
                     loadComponent: () => import('./domains/employees/features/create-employee/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
                   },
                   {
                     path: 'update/:id',
-                    canActivate: [hasRoleRouteGuard('ADMIN', 'MANAGER')],
                     resolve: {[UPDATE_EMPLOYEE_RESOLVER_KEY]: updateEmployeeResolver},
                     loadComponent: () => import('./domains/employees/features/update-employee/view/pages/update-employee-page/update-employee-page.component').then(r => r.UpdateEmployeePageComponent)
                   }
@@ -98,20 +96,18 @@ export const routes: Routes = [
       },
       {
         path: 'employees',
+        canActivate: [managersRedirectRouteGuard(['restaurants', e => e.restaurantId, 'employees'])],
         children: [
           {
             path: '',
-            canActivate: [managersRedirectRouteGuard(['restaurants', e => e.restaurantId, 'employees'])],
             loadComponent: () => import('./domains/employees/view/pages/employees-page/employees-page.component').then(r => r.EmployeesPageComponent)
           },
           {
             path: 'create',
-            canActivate: [hasRoleRouteGuard('ADMIN')],
             loadComponent: () => import('./domains/employees/features/create-employee/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
           },
           {
             path: 'update/:id',
-            canActivate: [hasRoleRouteGuard('ADMIN')],
             resolve: {[UPDATE_EMPLOYEE_RESOLVER_KEY]: updateEmployeeResolver},
             loadComponent: () => import('./domains/employees/features/update-employee/view/pages/update-employee-page/update-employee-page.component').then(r => r.UpdateEmployeePageComponent)
           }
