@@ -8,7 +8,6 @@ import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {authInterceptor} from "./core/interceptors/auth.interceptor";
 import {apiConfigProvider} from "./core/config/api-config";
 import {restoreSessionProvider} from "./core/providers/restore-session.provider";
-import {userRoleServiceInstantiateProvider} from "./core/providers/user-role-service-instantiate.provider";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +17,5 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])),
     apiConfigProvider,
     restoreSessionProvider,
-    userRoleServiceInstantiateProvider
   ]
 };

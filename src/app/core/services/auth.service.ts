@@ -1,12 +1,18 @@
 import {computed, inject, Injectable, signal} from "@angular/core";
 import {AuthenticationControllerService} from "../../api/api/authenticationController.service";
-import {catchError, EMPTY, map, Observable, shareReplay, switchMap, tap, throwError} from "rxjs";
+import {catchError, EMPTY, map, Observable, switchMap, tap, throwError} from "rxjs";
 import {voidOperator} from "../../shared/rxjs/operators/void-operator";
 import {HttpContext, HttpErrorResponse} from "@angular/common/http";
 import {UserControllerService} from "../../api/api/userController.service";
 import {User} from "../../api/model/user";
 import {SKIP_AUTH_INTERCEPTOR} from "../interceptors/auth.interceptor";
-import {toObservable} from "@angular/core/rxjs-interop";
+import {
+  EmployeeStoreEntity,
+  mapEmployeeToStoreEntity
+} from "../../domains/employees/data-access/model/employee-store-entity";
+import {Client} from "../../api/model/client";
+import {ClientControllerService} from "../../api/api/clientController.service";
+import {EmployeeControllerService} from "../../api";
 
 type TokensDto = {
   accessToken: string,
@@ -21,18 +27,23 @@ export class AuthService {
 
   private readonly authApi = inject(AuthenticationControllerService);
   private readonly userApi = inject(UserControllerService);
+  private readonly clientApi = inject(ClientControllerService);
+  private readonly employeeApi = inject(EmployeeControllerService);
 
   private _tokensDto: TokensDto | undefined;
 
   private readonly $currentUserInner = signal<User | undefined>(undefined);
   readonly $currentUser = this.$currentUserInner.asReadonly();
-  readonly currentUser$ = toObservable(this.$currentUser)
-    .pipe(
-      shareReplay(1)
-    );
 
   readonly $isAuthenticated = computed(() => Boolean(this.$currentUser()));
   readonly $role = computed(() => this.$currentUser()?.role);
+  readonly $isEmployee = computed(() => this.$role() !== 'CLIENT');
+
+  private readonly $currentEmployeeInner = signal<EmployeeStoreEntity | undefined>(undefined);
+  readonly $currentEmployee = this.$currentEmployeeInner.asReadonly();
+
+  private readonly $currentClientInner = signal<Client | undefined>(undefined);
+  readonly $currentClient = this.$currentClientInner.asReadonly();
 
   login$(username: string, password: string): Observable<void> {
     return this.authApi.loginUser({username, password})
@@ -60,6 +71,13 @@ export class AuthService {
         tap(user => {
           this.$currentUserInner.set(user);
         }),
+        switchMap(user => {
+          if (user.role === 'CLIENT') {
+            return this.setCurrentClient(user);
+          } else {
+            return this.setCurrentEmployee(user);
+          }
+        }),
         catchError(error => {
           // TODO: temporary workaround of session restoration by expired token
           if (error instanceof HttpErrorResponse && error.status === 401) {
@@ -68,6 +86,24 @@ export class AuthService {
           return throwError(() => error);
         }),
         voidOperator()
+      );
+  }
+
+  private setCurrentEmployee(user: User) {
+    return this.employeeApi.getEmployeeByUserId(user.id)
+      .pipe(
+        tap(employee => {
+          this.$currentEmployeeInner.set(mapEmployeeToStoreEntity(employee));
+        })
+      );
+  }
+
+  private setCurrentClient(user: User) {
+    return this.clientApi.getClientByUserId(user.id)
+      .pipe(
+        tap(client => {
+          this.$currentClientInner.set(client);
+        })
       );
   }
 
@@ -94,6 +130,8 @@ export class AuthService {
   closeSession() {
     this.clearTokens();
     this.$currentUserInner.set(undefined);
+    this.$currentClientInner.set(undefined);
+    this.$currentEmployeeInner.set(undefined);
   }
 
   get accessToken(): string | undefined {
