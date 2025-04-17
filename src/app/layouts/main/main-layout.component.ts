@@ -12,7 +12,7 @@ import {
 import {AuthService} from "../../core/services/auth.service";
 
 @Component({
-  selector: 'app-admin-layout',
+  selector: 'app-main-layout',
   imports: [
     MatSidenavContainer,
     MatIcon,
