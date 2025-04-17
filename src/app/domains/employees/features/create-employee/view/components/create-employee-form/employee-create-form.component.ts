@@ -56,24 +56,24 @@ type AuthDataFormType = {
 export type EmployeeCreateFormResult = Omit<PersonalDataFormType & HiringDataFormType & AuthDataFormType, 'passwordConfirm'>;
 
 @Component({
-  imports: [
-    MatStepper,
-    MatStep,
-    MatStepLabel,
-    ReactiveFormsModule,
-    CommonFormInputFieldComponent,
-    CommonFormDatepickerFieldComponent,
-    MatButton,
-    MatStepperNext,
-    MatStepperPrevious,
-    CommonFormPasswordFieldComponent,
-    ErrorMessagePipe,
-    MatError,
-    MatFormField,
-    MatSelect,
-    MatOption,
-    MatLabel
-  ],
+    imports: [
+        MatStepper,
+        MatStep,
+        MatStepLabel,
+        ReactiveFormsModule,
+        CommonFormInputFieldComponent,
+        CommonFormDatepickerFieldComponent,
+        MatButton,
+        MatStepperNext,
+        MatStepperPrevious,
+        CommonFormPasswordFieldComponent,
+        ErrorMessagePipe,
+        MatError,
+        MatFormField,
+        MatSelect,
+        MatOption,
+        MatLabel,
+    ],
   selector: 'app-employee-create-form',
   styleUrl: './employee-create-form.component.scss',
   templateUrl: './employee-create-form.component.html'

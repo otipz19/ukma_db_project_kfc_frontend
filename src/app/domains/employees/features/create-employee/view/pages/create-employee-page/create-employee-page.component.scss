@@ -1,18 +1,8 @@
 :host {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: start;
-  gap: 16px;
+  height: 100%;
 }
 
-.form-container {
+.create-form {
   width: 100%;
-  display: flex;
-  justify-content: center;
-
-  .create-form {
-    max-width: 600px;
-  }
+  height: 100%;
 }

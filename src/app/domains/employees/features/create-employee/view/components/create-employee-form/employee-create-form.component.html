@@ -1,140 +1,149 @@
-<mat-vertical-stepper class="mat-elevation-z5"
-                      labelPosition="end"
-                      [linear]="false">
+<h2 class="page-title">Створення працівника</h2>
+
+<mat-vertical-stepper class="mat-elevation-z0 stepper"
+                        labelPosition="bottom"
+                        [linear]="true">
   <mat-step [stepControl]="personalDataStepForm">
     <ng-template matStepLabel>Персональні дані</ng-template>
+    <div class="form-wrapper">
+      <form [formGroup]="personalDataStepForm" class="form-grid w-80">
+        <app-common-form-input-field class="default-form-input-field"
+                                     [control]="personalDataStepForm.controls.passportNumber"
+                                     label="Номер паспорта"
+                                     inputType="text"
+                                     [maxLength]="14"
+                                     iconSuffix="article"/>
 
-    <form [formGroup]="personalDataStepForm">
-      <app-common-form-input-field class="default-form-input-field"
-                                   [control]="personalDataStepForm.controls.passportNumber"
-                                   label="Номер паспорта"
-                                   inputType="text"
-                                   [maxLength]="14"
-                                   iconSuffix="article"/>
+        <app-common-form-input-field class="default-form-input-field"
+                                     [control]="personalDataStepForm.controls.surname"
+                                     label="Прізвище"
+                                     inputType="text"
+                                     [maxLength]="64"
+                                     iconSuffix="person"/>
 
-      <app-common-form-input-field class="default-form-input-field"
-                                   [control]="personalDataStepForm.controls.surname"
-                                   label="Прізвище"
-                                   inputType="text"
-                                   [maxLength]="64"
-                                   iconSuffix="person"/>
 
-      <app-common-form-input-field class="default-form-input-field"
-                                   [control]="personalDataStepForm.controls.firstName"
-                                   label="Ім'я"
-                                   inputType="text"
-                                   [maxLength]="64"
-                                   iconSuffix="person"/>
+        <app-common-form-input-field class="default-form-input-field"
+                                     [control]="personalDataStepForm.controls.firstName"
+                                     label="Ім'я"
+                                     inputType="text"
+                                     [maxLength]="64"
+                                     iconSuffix="person"/>
 
-      <app-common-form-input-field class="default-form-input-field"
-                                   [control]="personalDataStepForm.controls.middleName!"
-                                   label="По-батькові"
-                                   inputType="text"
-                                   [maxLength]="64"
-                                   iconSuffix="person"/>
 
-      <app-common-form-datepicker-field class="default-form-input-field"
-                                        [control]="personalDataStepForm.controls.birthDate"
-                                        label="Дата народження"/>
+        <app-common-form-input-field class="default-form-input-field"
+                                     [control]="personalDataStepForm.controls.middleName!"
+                                     label="По-батькові"
+                                     inputType="text"
+                                     [maxLength]="64"
+                                     iconSuffix="person"/>
 
-      <app-common-form-input-field class="default-form-input-field"
-                                   [control]="personalDataStepForm.controls.phoneNumber!"
-                                   inputType="tel"
-                                   label="Телефон"
-                                   labelFloat="always"
-                                   [maxLength]="10"
-                                   textPrefix="+38"/>
-    </form>
+        <app-common-form-datepicker-field class="default-form-input-field"
+                                          [control]="personalDataStepForm.controls.birthDate"
+                                          label="Дата народження"/>
 
-    <div class="stepper-buttons">
-      <button type="button" mat-raised-button color="primary" (click)="onCancel()">
-        Скасувати
-      </button>
+        <app-common-form-input-field class="default-form-input-field"
+                                     [control]="personalDataStepForm.controls.phoneNumber!"
+                                     inputType="tel"
+                                     label="Телефон"
+                                     labelFloat="always"
+                                     [maxLength]="10"
+                                     textPrefix="+38"/>
+      </form>
 
-      <button type="submit" class="stepper-btn-next" mat-raised-button color="accent" matStepperNext>
-        Далі
-      </button>
+      <div class="stepper-buttons w-80">
+        <button type="button" mat-raised-button color="primary" (click)="onCancel()">
+          Скасувати
+        </button>
+
+        <button type="submit" class="stepper-btn-next" mat-raised-button color="accent" matStepperNext>
+          Далі
+        </button>
+      </div>
     </div>
   </mat-step>
 
   <mat-step [stepControl]="hiringDataStepForm">
     <ng-template matStepLabel>Дані про працевлаштування</ng-template>
 
-    <form [formGroup]="hiringDataStepForm">
-      @if (this.$restaurant() == undefined) {
+    <div class="form-wrapper">
+      <form [formGroup]="hiringDataStepForm" class="w-40">
+        @if (this.$restaurant() == undefined) {
+          <mat-form-field class="default-form-input-field">
+            <mat-label>Ресторан</mat-label>
+            <mat-select [formControl]="hiringDataStepForm.controls.restaurantId">
+              @for (option of $restaurantsOptions(); track option.value) {
+                <mat-option [value]="option.value">{{ option.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
+
         <mat-form-field class="default-form-input-field">
-          <mat-label>Ресторан</mat-label>
-          <mat-select [formControl]="hiringDataStepForm.controls.restaurantId">
-            @for (option of $restaurantsOptions(); track option.value) {
+          <mat-label>Посада</mat-label>
+          <mat-select [formControl]="positionFormControl">
+            @for (option of $employeePositionOptions(); track option.value) {
               <mat-option [value]="option.value">{{ option.label }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
-      }
 
-      <mat-form-field class="default-form-input-field">
-        <mat-label>Посада</mat-label>
-        <mat-select [formControl]="positionFormControl">
-          @for (option of $employeePositionOptions(); track option.value) {
-            <mat-option [value]="option.value">{{ option.label }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+        <app-common-form-input-field class="default-form-input-field"
+                                     [control]="hiringDataStepForm.controls.salary"
+                                     label="Заробітна плата"
+                                     inputType="number"
+                                     iconSuffix="paid"/>
+      </form>
 
-      <app-common-form-input-field class="default-form-input-field"
-                                   [control]="hiringDataStepForm.controls.salary"
-                                   label="Заробітна плата"
-                                   inputType="number"
-                                   iconSuffix="paid"/>
-    </form>
+      <div class="stepper-buttons w-40">
+        <button type="button" mat-raised-button color="primary" matStepperPrevious>
+          Назад
+        </button>
 
-    <div class="stepper-buttons">
-      <button type="button" mat-raised-button color="primary" matStepperPrevious>
-        Назад
-      </button>
-
-      <button type="submit" class="stepper-btn-next" mat-raised-button color="accent" matStepperNext>
-        Далі
-      </button>
+        <button type="submit" class="stepper-btn-next" mat-raised-button color="accent" matStepperNext>
+          Далі
+        </button>
+      </div>
     </div>
   </mat-step>
 
   <mat-step [stepControl]="authDataStepForm">
     <ng-template matStepLabel>Дані аутентифікації</ng-template>
 
-    <form [formGroup]="authDataStepForm">
-      <app-common-form-input-field class="default-form-input-field"
-                                   [control]="authDataStepForm.controls.username"
-                                   label="Ім'я користувача"
-                                   inputType="text"
-                                   [maxLength]="320"
-                                   iconSuffix="person"/>
+    <div class="form-wrapper">
+      <form [formGroup]="authDataStepForm" class="w-40">
+        <app-common-form-input-field class="default-form-input-field"
+                                     [control]="authDataStepForm.controls.username"
+                                     label="Ім'я користувача"
+                                     inputType="text"
+                                     [maxLength]="320"
+                                     iconSuffix="person"/>
 
-      <app-common-form-password-field class="default-form-input-field"
-                                      [control]="authDataStepForm.controls.password"
-                                      label="Пароль"
-                                      [maxLength]="64"/>
+        <app-common-form-password-field class="default-form-input-field"
+                                        [control]="authDataStepForm.controls.password"
+                                        label="Пароль"
+                                        [maxLength]="64"/>
 
-      <app-common-form-password-field class="default-form-input-field"
-                                      [control]="authDataStepForm.controls.passwordConfirm"
-                                      label="Підтвердіть пароль"
-                                      [maxLength]="64"/>
+        <app-common-form-password-field class="default-form-input-field"
+                                        [control]="authDataStepForm.controls.passwordConfirm"
+                                        label="Підтвердіть пароль"
+                                        [maxLength]="64"/>
 
-      @if (authDataStepForm.errors) {
-        <mat-error>
-          {{ authDataStepForm.errors | errorMessage }}
-        </mat-error>
-      }
-    </form>
+        @if (authDataStepForm.errors) {
+          <mat-error>
+            {{ authDataStepForm.errors | errorMessage }}
+          </mat-error>
+        }
+      </form>
 
-    <div class="stepper-buttons">
-      <button type="button" mat-raised-button color="primary" matStepperPrevious>
-        Назад
-      </button>
+      <div class="stepper-buttons w-40">
+        <button type="button" mat-raised-button color="primary" matStepperPrevious>
+          Назад
+        </button>
 
-      <button type="submit" mat-raised-button color="accent" (click)="onSubmit()">
-        Підтвердити
-      </button>
+        <button type="submit" mat-raised-button color="accent" (click)="onSubmit()">
+          Підтвердити
+        </button>
+      </div>
     </div>
   </mat-step>
 </mat-vertical-stepper>
