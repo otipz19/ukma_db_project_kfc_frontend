@@ -21,6 +21,8 @@ import { Employee } from '../model/employee';
 // @ts-ignore
 import { EmployeeHiring } from '../model/employeeHiring';
 // @ts-ignore
+import { EmployeePosition } from '../model/employeePosition';
+// @ts-ignore
 import { UpdateEmployee } from '../model/updateEmployee';
 
 // @ts-ignore
@@ -94,17 +96,24 @@ export class EmployeeControllerService extends BaseService {
     /**
      * Get all employees
      * @param restaurantId 
+     * @param position 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllEmployees(restaurantId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<Employee>>;
-    public getAllEmployees(restaurantId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<Employee>>>;
-    public getAllEmployees(restaurantId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<Employee>>>;
-    public getAllEmployees(restaurantId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public getAllEmployees(restaurantId?: number, position?: Array<EmployeePosition>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<Employee>>;
+    public getAllEmployees(restaurantId?: number, position?: Array<EmployeePosition>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<Employee>>>;
+    public getAllEmployees(restaurantId?: number, position?: Array<EmployeePosition>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<Employee>>>;
+    public getAllEmployees(restaurantId?: number, position?: Array<EmployeePosition>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
           <any>restaurantId, 'restaurantId');
+        if (position) {
+            position.forEach((element) => {
+                localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+                  <any>element, 'position');
+            })
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -266,10 +275,10 @@ export class EmployeeControllerService extends BaseService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateEmployeeByUserId(userId: number, updateEmployee?: UpdateEmployee, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public updateEmployeeByUserId(userId: number, updateEmployee?: UpdateEmployee, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public updateEmployeeByUserId(userId: number, updateEmployee?: UpdateEmployee, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public updateEmployeeByUserId(userId: number, updateEmployee?: UpdateEmployee, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public updateEmployeeByUserId(userId: number, updateEmployee?: UpdateEmployee, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public updateEmployeeByUserId(userId: number, updateEmployee?: UpdateEmployee, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public updateEmployeeByUserId(userId: number, updateEmployee?: UpdateEmployee, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public updateEmployeeByUserId(userId: number, updateEmployee?: UpdateEmployee, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (userId === null || userId === undefined) {
             throw new Error('Required parameter userId was null or undefined when calling updateEmployeeByUserId.');
         }
@@ -277,6 +286,7 @@ export class EmployeeControllerService extends BaseService {
         let localVarHeaders = this.defaultHeaders;
 
         const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/json'
         ]);
         if (localVarHttpHeaderAcceptSelected !== undefined) {
             localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);

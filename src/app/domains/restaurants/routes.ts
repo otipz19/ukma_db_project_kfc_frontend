@@ -6,6 +6,7 @@ import {
   UPDATE_EMPLOYEE_RESOLVER_KEY,
   updateEmployeeResolver
 } from "../employees/features/update-employee/data-access/resolvers/update-employee.resolver";
+import {UserRole} from "../../api";
 
 export const RESTAURANT_ROUTES: Routes = [
   {
@@ -18,7 +19,7 @@ export const RESTAURANT_ROUTES: Routes = [
       },
       {
         path: ':restaurantId',
-        canActivate: [hasRoleRouteGuard('ADMIN', 'MANAGER')],
+        canActivate: [hasRoleRouteGuard(UserRole.ADMIN, UserRole.MANAGER)],
         resolve: {
           [RESTAURANT_RESOLVER_KEY]: restaurantResolver
         },

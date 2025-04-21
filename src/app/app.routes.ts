@@ -5,6 +5,7 @@ import {authenticatedRouteGuard} from "./core/route-guards/authenticated.route-g
 import {AUTH_ROUTES} from "./domains/auth/routes";
 import {RESTAURANT_ROUTES} from "./domains/restaurants/routes";
 import {EMPLOYEES_ROUTES} from "./domains/employees/routes";
+import {UserRole} from "./api";
 
 export const routes: Routes = [
   {
@@ -24,7 +25,7 @@ export const routes: Routes = [
       },
       {
         path: 'ingredients',
-        canActivate: [hasRoleRouteGuard('ADMIN')],
+        canActivate: [hasRoleRouteGuard(UserRole.ADMIN)],
         loadComponent: () => import('./domains/ingredients/view/pages/ingredients-page/ingredients-page.component').then(r => r.IngredientsPageComponent)
       },
       ...RESTAURANT_ROUTES,

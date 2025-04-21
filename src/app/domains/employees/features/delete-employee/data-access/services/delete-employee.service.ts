@@ -1,11 +1,11 @@
 import {inject, Injectable} from "@angular/core";
 import {DeleteDialogService} from "../../../../../../shared/features/delete-dialog/services/delete-dialog.service";
-import {EmployeeControllerService} from "../../../../../../api";
 import {EmployeesStore} from "../../../../data-access/store/employees.store";
 import {NotifyService} from "../../../../../../shared/features/notify/data-access/services/notify.service";
 import {EmployeeStoreEntity} from "../../../../data-access/model/employee-store-entity";
 import {switchMap} from "rxjs";
 import {mapEmployeePositionToLabel} from "../../../../view/pipes/employee-position.pipe";
+import {EmployeeControllerService} from "../../../../../../api/api/employeeController.service";
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,5 @@
 import {Component, inject, signal} from '@angular/core';
-import {MatDialogTitle} from "@angular/material/dialog";
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
-import {Employee, EmployeeControllerService, EmployeeHiring, EmployeePosition} from "../../../../../../../api";
 import {UserPhonesControllerService} from "../../../../../../../api/api/userPhonesController.service";
 import {map, Observable, of, switchMap} from "rxjs";
 import {Restaurant} from "../../../../../../../api/model/restaurant";
@@ -13,11 +11,14 @@ import {
 import {ActivatedRoute} from "@angular/router";
 import {RESTAURANT_RESOLVER_KEY} from "../../../../../../restaurants/data-access/resolvers/restaurant.resolver";
 import {AuthService} from "../../../../../../../core/services/auth.service";
+import {EmployeeControllerService} from "../../../../../../../api/api/employeeController.service";
+import {EmployeePosition} from "../../../../../../../api/model/employeePosition";
+import {EmployeeHiring} from "../../../../../../../api/model/employeeHiring";
+import {Employee} from "../../../../../../../api/model/employee";
 
 @Component({
   selector: 'app-create-employee-page',
   imports: [
-    MatDialogTitle,
     EmployeeCreateFormComponent
   ],
   templateUrl: './create-employee-page.component.html',

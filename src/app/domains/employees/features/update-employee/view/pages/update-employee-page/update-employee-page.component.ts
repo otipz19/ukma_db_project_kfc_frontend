@@ -1,5 +1,4 @@
 import {Component, inject, OnInit, signal} from '@angular/core';
-import {EmployeeControllerService, UpdateEmployee} from "../../../../../../../api";
 import {ActivatedRoute} from "@angular/router";
 import {EmployeeStoreEntity} from "../../../../../data-access/model/employee-store-entity";
 import {UpdateEmployeeFormComponent} from "../../components/update-employee-form/update-employee-form.component";
@@ -7,6 +6,8 @@ import {Location} from "@angular/common";
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
 import {UPDATE_EMPLOYEE_RESOLVER_KEY} from "../../../data-access/resolvers/update-employee.resolver";
 import {MatDialogTitle} from "@angular/material/dialog";
+import {EmployeeControllerService} from "../../../../../../../api/api/employeeController.service";
+import {UpdateEmployee} from "../../../../../../../api/model/updateEmployee";
 
 @Component({
   selector: 'app-update-employee-page',

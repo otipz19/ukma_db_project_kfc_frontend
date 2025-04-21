@@ -1,5 +1,5 @@
 /**
- * User Service
+ * Meal Service
  *
  * 
  *
@@ -9,16 +9,9 @@
  */
 
 
-export enum UserRole {
-
-    ADMIN = 'ADMIN',
-
-    CLIENT = 'CLIENT',
-
-    MANAGER = 'MANAGER',
-
-    COOK = 'COOK',
-
-    CASHIER = 'CASHIER'
+export interface MealIngredient { 
+    ingredientId: number;
+    amount: number;
+    isFixated: boolean;
 }
 

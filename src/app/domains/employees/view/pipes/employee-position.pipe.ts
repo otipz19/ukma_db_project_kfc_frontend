@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {EmployeePosition} from "../../../../api";
+import {EmployeePosition} from "../../../../api/model/employeePosition";
 
 const EmployeePositionLabels: Record<EmployeePosition, string> = {
   [EmployeePosition.TOP_MANAGER]: 'Топ-менеджер',

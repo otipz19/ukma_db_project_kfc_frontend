@@ -1,4 +1,4 @@
-import {Employee} from "../../../../api";
+import {Employee} from "../../../../api/model/employee";
 
 export type EmployeeStoreEntity = Omit<Employee, 'userId'> & { id: number };
 

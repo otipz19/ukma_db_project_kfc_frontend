@@ -3,8 +3,6 @@ import {AuthenticationControllerService} from "../../api/api/authenticationContr
 import {catchError, EMPTY, map, Observable, switchMap, tap, throwError} from "rxjs";
 import {voidOperator} from "../../shared/rxjs/operators/void-operator";
 import {HttpContext, HttpErrorResponse} from "@angular/common/http";
-import {UserControllerService} from "../../api/api/userController.service";
-import {User} from "../../api/model/user";
 import {SKIP_AUTH_INTERCEPTOR} from "../interceptors/auth.interceptor";
 import {
   EmployeeStoreEntity,
@@ -12,7 +10,8 @@ import {
 } from "../../domains/employees/data-access/model/employee-store-entity";
 import {Client} from "../../api/model/client";
 import {ClientControllerService} from "../../api/api/clientController.service";
-import {EmployeeControllerService} from "../../api";
+import {User, UserControllerService} from "../../api";
+import {EmployeeControllerService} from "../../api/api/employeeController.service";
 
 type TokensDto = {
   accessToken: string,

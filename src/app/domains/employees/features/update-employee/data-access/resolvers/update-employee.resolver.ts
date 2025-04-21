@@ -1,8 +1,8 @@
 import {RedirectCommand, ResolveFn, Router} from "@angular/router";
 import {EmployeeStoreEntity, mapEmployeeToStoreEntity} from "../../../../data-access/model/employee-store-entity";
 import {inject} from "@angular/core";
-import {EmployeeControllerService} from "../../../../../../api";
 import {catchError, map, of} from "rxjs";
+import {EmployeeControllerService} from "../../../../../../api/api/employeeController.service";
 
 export const UPDATE_EMPLOYEE_RESOLVER_KEY = "UPDATE_EMPLOYEE_RESOLVER_KEY";
 

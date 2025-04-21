@@ -1,7 +1,6 @@
 import {Component, inject, input, OnInit, output} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ControlsOf} from "../../../../../../../shared/type-utils/controls-of";
-import {UpdateEmployee} from "../../../../../../../api";
 import {EmployeeStoreEntity} from "../../../../../data-access/model/employee-store-entity";
 import {
   CommonFormDatepickerFieldComponent
@@ -11,6 +10,7 @@ import {
 } from "../../../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
 import {MatCard, MatCardActions, MatCardContent} from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
+import {UpdateEmployee} from "../../../../../../../api/model/updateEmployee";
 
 @Component({
   selector: 'app-update-employee-form',

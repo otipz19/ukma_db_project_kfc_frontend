@@ -1,7 +1,6 @@
 import {Component, DestroyRef, inject, input, OnInit, output, signal} from '@angular/core';
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
-import {EmployeeControllerService, EmployeePosition} from "../../../../../../../api";
 import {ControlsOf} from "../../../../../../../shared/type-utils/controls-of";
 import {
   passwordsEqualValidator
@@ -31,6 +30,8 @@ import {MatLabel} from "@angular/material/input";
 import {map, Observable, of, switchMap, tap} from "rxjs";
 import {voidOperator} from "../../../../../../../shared/rxjs/operators/void-operator";
 import {AuthService} from "../../../../../../../core/services/auth.service";
+import {EmployeePosition} from "../../../../../../../api/model/employeePosition";
+import {EmployeeControllerService} from "../../../../../../../api/api/employeeController.service";
 
 type PersonalDataFormType = {
   passportNumber: string;

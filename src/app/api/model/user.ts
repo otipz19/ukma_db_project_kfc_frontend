@@ -15,7 +15,6 @@ export interface User {
     username: string;
     role: UserRole;
 }
-export namespace User {
-}
+
 
 

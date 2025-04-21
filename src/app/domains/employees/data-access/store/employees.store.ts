@@ -3,8 +3,8 @@ import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
 import {EmployeesFiltersContainer} from "../filters/filters-container/employees-filters-container";
 import {EmployeeStoreEntity, mapEmployeeToStoreEntity} from "../model/employee-store-entity";
 import {computed, inject, Injectable} from "@angular/core";
-import {EmployeeControllerService} from "../../../../api";
 import {AuthService} from "../../../../core/services/auth.service";
+import {EmployeeControllerService} from "../../../../api/api/employeeController.service";
 
 @Injectable({
   providedIn: 'root'

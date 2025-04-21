@@ -1,5 +1,5 @@
 /**
- * Restaurant Service
+ * Meal Service
  *
  * 
  *
@@ -17,9 +17,9 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { Restaurant } from '../model/restaurant';
+import { Meal } from '../model/meal';
 // @ts-ignore
-import { UpdateRestaurant } from '../model/updateRestaurant';
+import { UpdateMeal } from '../model/updateMeal';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -31,22 +31,25 @@ import { BaseService } from '../api.base.service';
 @Injectable({
   providedIn: 'root'
 })
-export class RestaurantControllerService extends BaseService {
+export class MealControllerService extends BaseService {
 
     constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string|string[], @Optional() configuration?: Configuration) {
         super(basePath, configuration);
     }
 
     /**
-     * Create a new restaurant
-     * @param updateRestaurant 
+     * Create a new meal
+     * @param updateMeal 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createRestaurant(updateRestaurant?: UpdateRestaurant, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<number>;
-    public createRestaurant(updateRestaurant?: UpdateRestaurant, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<number>>;
-    public createRestaurant(updateRestaurant?: UpdateRestaurant, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<number>>;
-    public createRestaurant(updateRestaurant?: UpdateRestaurant, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public createMeal(updateMeal: UpdateMeal, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<number>;
+    public createMeal(updateMeal: UpdateMeal, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<number>>;
+    public createMeal(updateMeal: UpdateMeal, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<number>>;
+    public createMeal(updateMeal: UpdateMeal, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (updateMeal === null || updateMeal === undefined) {
+            throw new Error('Required parameter updateMeal was null or undefined when calling createMeal.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -82,11 +85,11 @@ export class RestaurantControllerService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/restaurant`;
+        let localVarPath = `/api/meal`;
         return this.httpClient.request<number>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: updateRestaurant,
+                body: updateMeal,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -98,23 +101,22 @@ export class RestaurantControllerService extends BaseService {
     }
 
     /**
-     * Delete restaurant by id
-     * @param restaurantId 
+     * Delete meal by id
+     * @param mealId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteRestaurantById(restaurantId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public deleteRestaurantById(restaurantId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public deleteRestaurantById(restaurantId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public deleteRestaurantById(restaurantId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (restaurantId === null || restaurantId === undefined) {
-            throw new Error('Required parameter restaurantId was null or undefined when calling deleteRestaurantById.');
+    public deleteMeal(mealId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public deleteMeal(mealId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public deleteMeal(mealId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public deleteMeal(mealId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (mealId === null || mealId === undefined) {
+            throw new Error('Required parameter mealId was null or undefined when calling deleteMeal.');
         }
 
         let localVarHeaders = this.defaultHeaders;
 
         const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
-            'application/json'
         ]);
         if (localVarHttpHeaderAcceptSelected !== undefined) {
             localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
@@ -136,7 +138,7 @@ export class RestaurantControllerService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/restaurant/${this.configuration.encodeParam({name: "restaurantId", value: restaurantId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
+        let localVarPath = `/api/meal/${this.configuration.encodeParam({name: "mealId", value: mealId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
         return this.httpClient.request<any>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -151,14 +153,14 @@ export class RestaurantControllerService extends BaseService {
     }
 
     /**
-     * Get all restaurants
+     * Get all meals
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllRestaurants(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<Restaurant>>;
-    public getAllRestaurants(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<Restaurant>>>;
-    public getAllRestaurants(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<Restaurant>>>;
-    public getAllRestaurants(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public getAllMeals(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<Meal>>;
+    public getAllMeals(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<Meal>>>;
+    public getAllMeals(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<Meal>>>;
+    public getAllMeals(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -185,8 +187,8 @@ export class RestaurantControllerService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/restaurant`;
-        return this.httpClient.request<Array<Restaurant>>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/meal`;
+        return this.httpClient.request<Array<Meal>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -200,17 +202,17 @@ export class RestaurantControllerService extends BaseService {
     }
 
     /**
-     * Get restaurant by id
-     * @param restaurantId 
+     * Get meal by id
+     * @param mealId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRestaurantById(restaurantId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Restaurant>;
-    public getRestaurantById(restaurantId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Restaurant>>;
-    public getRestaurantById(restaurantId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Restaurant>>;
-    public getRestaurantById(restaurantId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (restaurantId === null || restaurantId === undefined) {
-            throw new Error('Required parameter restaurantId was null or undefined when calling getRestaurantById.');
+    public getMealById(mealId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Meal>;
+    public getMealById(mealId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Meal>>;
+    public getMealById(mealId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Meal>>;
+    public getMealById(mealId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (mealId === null || mealId === undefined) {
+            throw new Error('Required parameter mealId was null or undefined when calling getMealById.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -238,8 +240,8 @@ export class RestaurantControllerService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/restaurant/${this.configuration.encodeParam({name: "restaurantId", value: restaurantId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
-        return this.httpClient.request<Restaurant>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/meal/${this.configuration.encodeParam({name: "mealId", value: mealId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
+        return this.httpClient.request<Meal>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -253,18 +255,74 @@ export class RestaurantControllerService extends BaseService {
     }
 
     /**
-     * Update restaurant by id
-     * @param restaurantId 
-     * @param updateRestaurant 
+     * Get meal by title
+     * @param title 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateRestaurantById(restaurantId: number, updateRestaurant?: UpdateRestaurant, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public updateRestaurantById(restaurantId: number, updateRestaurant?: UpdateRestaurant, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public updateRestaurantById(restaurantId: number, updateRestaurant?: UpdateRestaurant, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public updateRestaurantById(restaurantId: number, updateRestaurant?: UpdateRestaurant, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (restaurantId === null || restaurantId === undefined) {
-            throw new Error('Required parameter restaurantId was null or undefined when calling updateRestaurantById.');
+    public getMealByTitle(title: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Meal>;
+    public getMealByTitle(title: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Meal>>;
+    public getMealByTitle(title: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Meal>>;
+    public getMealByTitle(title: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (title === null || title === undefined) {
+            throw new Error('Required parameter title was null or undefined when calling getMealByTitle.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/json'
+        ]);
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        const localVarHttpContext: HttpContext = options?.context ?? new HttpContext();
+
+        const localVarTransferCache: boolean = options?.transferCache ?? true;
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/meal/by-title/${this.configuration.encodeParam({name: "title", value: title, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<Meal>('get', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Update meal by id
+     * @param mealId 
+     * @param updateMeal 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateMeal(mealId: number, updateMeal: UpdateMeal, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<number>;
+    public updateMeal(mealId: number, updateMeal: UpdateMeal, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<number>>;
+    public updateMeal(mealId: number, updateMeal: UpdateMeal, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<number>>;
+    public updateMeal(mealId: number, updateMeal: UpdateMeal, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (mealId === null || mealId === undefined) {
+            throw new Error('Required parameter mealId was null or undefined when calling updateMeal.');
+        }
+        if (updateMeal === null || updateMeal === undefined) {
+            throw new Error('Required parameter updateMeal was null or undefined when calling updateMeal.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -301,11 +359,11 @@ export class RestaurantControllerService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/restaurant/${this.configuration.encodeParam({name: "restaurantId", value: restaurantId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
-        return this.httpClient.request<any>('put', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/meal/${this.configuration.encodeParam({name: "mealId", value: mealId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
+        return this.httpClient.request<number>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: updateRestaurant,
+                body: updateMeal,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
