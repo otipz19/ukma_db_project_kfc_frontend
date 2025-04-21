@@ -1,13 +1,13 @@
-<mat-card class="ingredient-card">
+<mat-card class="item-list-card">
   <mat-card-header>
-    <mat-card-title class="ingredient-card-title">{{ $ingredient().title }}</mat-card-title>
+    <mat-card-title class="item-list-card-title">{{ $ingredient().title }}</mat-card-title>
   </mat-card-header>
 
   <!-- TODO: add images from entity when api is updated -->
-  <img class="ingredient-img" mat-card-image src="https://placehold.co/1200x800.png?text=Ingredient+Placeholder" alt="{{ $ingredient().title }}"/>
+  <img class="item-list-card-img" mat-card-image src="https://placehold.co/1200x800.png?text=Ingredient+Placeholder" alt="{{ $ingredient().title }}"/>
 
   <mat-card-content>
-    <div class="info-container">
+    <div class="item-list-card-info-container">
       <p>
         <strong>Ціна: </strong> {{ $ingredient().price }} грн
       </p>
@@ -20,7 +20,7 @@
     </div>
   </mat-card-content>
 
-  <mat-card-actions class="actions-container">
+  <mat-card-actions class="item-list-card-actions-container">
     <button mat-button color="primary" (click)="onEditClick()">
       <mat-icon>edit</mat-icon>
       <span>Редагувати</span>

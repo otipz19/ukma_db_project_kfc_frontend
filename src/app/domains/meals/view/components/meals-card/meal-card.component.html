@@ -1,0 +1,45 @@
+<mat-card class="item-list-card">
+  <mat-card-header>
+    <mat-card-title class="item-list-card-title">
+      {{ $meal().title }}
+    </mat-card-title>
+  </mat-card-header>
+
+  <!-- TODO: add images from entity when api is updated -->
+  <img class="item-list-card-img" mat-card-image src="https://placehold.co/1200x800.png?text=Ingredient+Placeholder" alt="{{ $meal().title }}"/>
+
+  <mat-card-content>
+    <div class="item-list-card-info-container">
+      <!-- TODO: improve description and recipe view for big text -->
+      <p>
+        <strong>Опис: </strong> {{ $meal().description }} грн
+      </p>
+      <p>
+        <strong>Рецепт: </strong> {{ $meal().recipe }} грн
+      </p>
+      <p>
+        <strong>Ціна: </strong> {{ $meal().price }} грн
+      </p>
+      <p>
+        <strong>Додана вартість: </strong> {{ $meal().additionalPrice }} грн
+      </p>
+      <p>
+        <strong>Енергетична цінність:</strong> {{ $meal().energeticValue }} ккал
+      </p>
+      <p>
+        <strong>Вага:</strong> {{ $meal().weight }} г
+      </p>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="item-list-card-actions-container">
+    <button mat-button color="primary" (click)="onEdit()">
+      <mat-icon>edit</mat-icon>
+      <span>Редагувати</span>
+    </button>
+    <button mat-button color="warn" (click)="onDelete()">
+      <mat-icon>delete</mat-icon>
+      <span>Видалити</span>
+    </button>
+  </mat-card-actions>
+</mat-card>

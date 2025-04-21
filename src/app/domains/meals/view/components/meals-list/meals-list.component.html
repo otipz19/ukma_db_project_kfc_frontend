@@ -1,0 +1,7 @@
+<div class="item-list-grid">
+  @for (meal of $meals(); track meal.id) {
+    <div class="ingredient-item">
+      <app-meal-card [meal]="meal"></app-meal-card>
+    </div>
+  }
+</div>

@@ -6,6 +6,7 @@ import {AUTH_ROUTES} from "./domains/auth/routes";
 import {RESTAURANT_ROUTES} from "./domains/restaurants/routes";
 import {EMPLOYEES_ROUTES} from "./domains/employees/routes";
 import {UserRole} from "./api";
+import {MEALS_ROUTES} from "./domains/meals/routes";
 
 export const routes: Routes = [
   {
@@ -30,6 +31,7 @@ export const routes: Routes = [
       },
       ...RESTAURANT_ROUTES,
       ...EMPLOYEES_ROUTES,
+      ...MEALS_ROUTES,
       {
         path: 'forbidden',
         canActivate: [authenticatedRouteGuard],

@@ -1,0 +1,13 @@
+<div class="title-wrapper">
+  <h2>Страви</h2>
+
+  <button mat-raised-button color="accent" (click)="onCreate()">
+    Створити нову
+  </button>
+</div>
+
+<div class="search-bar-container">
+  <app-search-bar class="search-bar" label="Пошук страви" (search)="onSearch($event)"/>
+</div>
+
+<app-meals-list [meals]="$meals()"/>
