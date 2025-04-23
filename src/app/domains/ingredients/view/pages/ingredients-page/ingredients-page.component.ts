@@ -23,6 +23,7 @@ export class IngredientsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.loadAll();
+    this.store.cleanFilters();
   }
 
   onCreateClick() {

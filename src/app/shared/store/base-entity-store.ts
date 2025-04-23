@@ -45,6 +45,11 @@ export abstract class BaseEntityStore<TEntity extends {id: number}, TFiltersCont
     });
   }
 
+  cleanFilters() {
+    this.filters.cleanFilters();
+    this.forceSignalReload();
+  }
+
   forceSignalReload() {
     this.$responseList.update(val => [...val]);
   }

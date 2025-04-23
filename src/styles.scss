@@ -42,3 +42,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     gap: 20px;
   }
 }
+
+.w-80 {
+  width: 80%;
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 16px;
+  gap: 16px;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}

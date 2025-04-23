@@ -1,4 +1,4 @@
-import {Component, inject, input} from '@angular/core';
+import {booleanAttribute, Component, computed, inject, input} from '@angular/core';
 import {
   MatCard,
   MatCardActions,
@@ -33,6 +33,11 @@ export class IngredientCardComponent {
   private readonly editIngredientService = inject(EditIngredientService);
 
   readonly $ingredient = input.required<Ingredient>({alias: 'ingredient'});
+  readonly $hideActions = input(false, {transform: booleanAttribute, alias: 'hideActions'});
+
+  protected readonly $shouldShowActions = computed(() => {
+    return !this.$hideActions();
+  });
 
   onDeleteClick(): void {
     this.deleteIngredientService.delete(this.$ingredient());

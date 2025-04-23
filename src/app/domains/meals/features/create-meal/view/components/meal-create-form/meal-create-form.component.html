@@ -1,0 +1,74 @@
+<mat-horizontal-stepper class="mat-elevation-z0"
+                        labelPosition="bottom"
+                        [linear]="false">
+  <mat-step [stepControl]="mealDataStepForm">
+    <ng-template matStepLabel>Опис страви</ng-template>
+
+    <div class="form-wrapper">
+      <form [formGroup]="mealDataStepForm" class="form-grid-2 w-80">
+        <app-common-form-input-field class="default-form-input-field"
+                                     [control]="mealDataStepForm.controls.title"
+                                     label="Назва"
+                                     inputType="text"
+                                     [maxLength]="64"
+                                     iconSuffix="title"/>
+
+        <app-common-form-input-field class="default-form-input-field"
+                                     [control]="mealDataStepForm.controls.additionalPrice"
+                                     label="Додана вартість"
+                                     inputType="number"
+                                     iconSuffix="paid"/>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Опис</mat-label>
+
+          <textarea matInput [formControl]="mealDataStepForm.controls.description"
+                    cdkTextareaAutosize [cdkAutosizeMinRows]="2">
+          </textarea>
+
+          <mat-icon matSuffix>list_alt</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Рецепт</mat-label>
+
+          <textarea matInput [formControl]="mealDataStepForm.controls.recipe"
+                    cdkTextareaAutosize [cdkAutosizeMinRows]="2">
+          </textarea>
+
+          <mat-icon matSuffix>menu_book</mat-icon>
+        </mat-form-field>
+      </form>
+
+      <div class="stepper-buttons w-80">
+        <button type="button" mat-raised-button color="primary" (click)="onCancel()">
+          Скасувати
+        </button>
+
+        <button type="submit" class="stepper-btn-next" mat-raised-button color="accent" matStepperNext>
+          Далі
+        </button>
+      </div>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Інгредієнти</ng-template>
+
+    <div class="form-wrapper">
+      <button type="button" mat-raised-button color="accent" (click)="onAddIngredient()">
+        Додати інгредієнт
+      </button>
+
+      <div class="stepper-buttons w-80">
+        <button type="button" mat-raised-button color="primary" (click)="onCancel()">
+          Скасувати
+        </button>
+
+        <button type="submit" class="stepper-btn-next" mat-raised-button color="accent" matStepperNext>
+          Далі
+        </button>
+      </div>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

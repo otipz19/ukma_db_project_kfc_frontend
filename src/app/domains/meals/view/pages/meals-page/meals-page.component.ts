@@ -4,6 +4,7 @@ import {SearchBarComponent} from "../../../../../shared/components/search-bar/se
 import {MatButton} from "@angular/material/button";
 import {MealsListComponent} from "../../components/meals-list/meals-list.component";
 import {Meal} from "../../../../../api/model/meal";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-meals-page',
@@ -17,6 +18,9 @@ import {Meal} from "../../../../../api/model/meal";
 })
 export class MealsPageComponent implements OnInit {
   private readonly store = inject(MealsStore);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+
   protected readonly $meals: Signal<Meal[]> = this.store.$viewList;
 
   ngOnInit() {
@@ -24,7 +28,7 @@ export class MealsPageComponent implements OnInit {
   }
 
   onCreate() {
-
+    this.router.navigate(['create'], {relativeTo: this.route});
   }
 
   onSearch(query: string) {

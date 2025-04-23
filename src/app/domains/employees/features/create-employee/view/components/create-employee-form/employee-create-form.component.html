@@ -6,7 +6,7 @@
   <mat-step [stepControl]="personalDataStepForm">
     <ng-template matStepLabel>Персональні дані</ng-template>
     <div class="form-wrapper">
-      <form [formGroup]="personalDataStepForm" class="form-grid w-80">
+      <form [formGroup]="personalDataStepForm" class="form-grid-2 w-80">
         <app-common-form-input-field class="default-form-input-field"
                                      [control]="personalDataStepForm.controls.passportNumber"
                                      label="Номер паспорта"
@@ -21,14 +21,12 @@
                                      [maxLength]="64"
                                      iconSuffix="person"/>
 
-
         <app-common-form-input-field class="default-form-input-field"
                                      [control]="personalDataStepForm.controls.firstName"
                                      label="Ім'я"
                                      inputType="text"
                                      [maxLength]="64"
                                      iconSuffix="person"/>
-
 
         <app-common-form-input-field class="default-form-input-field"
                                      [control]="personalDataStepForm.controls.middleName!"

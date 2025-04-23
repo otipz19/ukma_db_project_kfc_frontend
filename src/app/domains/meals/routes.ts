@@ -10,6 +10,10 @@ export const MEALS_ROUTES: Routes = [
       {
         path: '',
         loadComponent: () => import('./view/pages/meals-page/meals-page.component').then(r => r.MealsPageComponent)
+      },
+      {
+        path: 'create',
+        loadComponent: () => import('./features/create-meal/view/pages/meal-create-page/meal-create-page.component').then(r => r.MealCreatePageComponent)
       }
     ]
   }

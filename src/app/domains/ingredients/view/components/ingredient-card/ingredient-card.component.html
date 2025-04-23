@@ -20,14 +20,16 @@
     </div>
   </mat-card-content>
 
-  <mat-card-actions class="item-list-card-actions-container">
-    <button mat-button color="primary" (click)="onEditClick()">
-      <mat-icon>edit</mat-icon>
-      <span>Редагувати</span>
-    </button>
-    <button mat-button color="warn" (click)="onDeleteClick()">
-      <mat-icon>delete</mat-icon>
-      <span>Видалити</span>
-    </button>
-  </mat-card-actions>
+  @if($shouldShowActions()){
+    <mat-card-actions class="item-list-card-actions-container">
+      <button mat-button color="primary" (click)="onEditClick()">
+        <mat-icon>edit</mat-icon>
+        <span>Редагувати</span>
+      </button>
+      <button mat-button color="warn" (click)="onDeleteClick()">
+        <mat-icon>delete</mat-icon>
+        <span>Видалити</span>
+      </button>
+    </mat-card-actions>
+  }
 </mat-card>

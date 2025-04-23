@@ -22,4 +22,10 @@ export abstract class FiltersContainer<TEntity> {
       });
     });
   }
+
+  cleanFilters() {
+    for(const model of this.filterModels) {
+      model.cleanFilter();
+    }
+  }
 }

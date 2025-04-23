@@ -20,6 +20,10 @@ export abstract class PrimitivePropertySubstringFilterModel<TEntity extends obje
   setFilter(filter: string) {
     this.curFilter = filter.trim().toLowerCase();
   }
+
+  cleanFilter() {
+    this.curFilter = undefined;
+  }
 }
 
 const CHECKED_PRIMITIVE_TYPES = ['string', 'number'];
