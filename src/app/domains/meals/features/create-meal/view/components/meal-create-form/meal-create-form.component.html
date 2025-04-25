@@ -60,7 +60,7 @@
         Додати інгредієнт
       </button>
 
-      <app-meal-ingredient-card [ingredient]="ingredientMock" [amount]="1" [isFixated]="false"/>
+      <app-meal-ingredients-lists [ingredientsLists]="$ingredientsLists()" (updateLists)="onUpdateLists($event)"/>
 
       <div class="stepper-buttons w-80">
         <button type="button" mat-raised-button color="primary" (click)="onCancel()">

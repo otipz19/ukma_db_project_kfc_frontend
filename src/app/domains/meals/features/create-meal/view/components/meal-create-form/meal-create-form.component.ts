@@ -1,4 +1,4 @@
-import {Component, inject, output} from '@angular/core';
+import {Component, inject, OnInit, output, signal} from '@angular/core';
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext} from "@angular/material/stepper";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UpdateMeal} from "../../../../../../../api/model/updateMeal";
@@ -18,6 +18,10 @@ import {
 import {Ingredient} from "../../../../../../../api/model/ingredient";
 import {MealIngredientCardComponent} from "../meal-ingredient-card/meal-ingredient-card.component";
 import {MealIngredient} from "../../../../../../../api/model/mealIngredient";
+import {MealIngredientsListsComponent} from "../meal-ingredients-lists/meal-ingredients-lists.component";
+import {MealIngredientsService} from "../../../data-access/services/meal-ingredients.service";
+import {MealIngredientFullData} from "../../../data-access/types/meal-ingredient-full-data";
+import {MealIngredientsLists} from "../../../data-access/types/meal-ingredients-lists";
 
 type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
 
@@ -37,7 +41,8 @@ type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
     MatLabel,
     MatIcon,
     MatSuffix,
-    MealIngredientCardComponent
+    MealIngredientCardComponent,
+    MealIngredientsListsComponent
   ],
   templateUrl: './meal-create-form.component.html',
   styleUrl: './meal-create-form.component.scss'
@@ -56,8 +61,18 @@ export class MealCreateFormComponent {
     recipe: this.fb.control('', [Validators.required, Validators.maxLength(1024)])
   });
 
+  protected readonly $ingredientsLists = signal<MealIngredientsLists>({
+    required: [],
+    optional: [],
+    additional: []
+  });
+
   protected onCancel(){
     this.cancel.emit();
+  }
+
+  protected onUpdateLists(lists: MealIngredientsLists) {
+    this.$ingredientsLists.set({...lists});
   }
 
   protected onAddIngredient() {
@@ -72,15 +87,25 @@ export class MealCreateFormComponent {
 
     dialogRef.afterClosed()
       .subscribe(ingredient => {
-
+        if(ingredient) {
+          this.addNew(ingredient);
+        }
       });
   }
 
-  protected readonly ingredientMock: Ingredient = {
-    title: 'Назва страви',
-    weight: 1488,
-    id: 4242,
-    price: 228,
-    energeticValue: 69
-  };
+  private addNew(ingredient: Ingredient) {
+    this.$ingredientsLists.update(lists => {
+      const fullData: MealIngredientFullData = {
+        ingredient: ingredient,
+        mealIngredient: {
+          ingredientId: ingredient.id,
+          isFixated: false,
+          amount: 1
+        }
+      };
+
+      lists.optional.unshift(fullData);
+      return lists;
+    });
+  }
 }
