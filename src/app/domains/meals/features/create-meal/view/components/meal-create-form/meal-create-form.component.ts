@@ -16,6 +16,8 @@ import {
   AddIngredientDialogData
 } from "../add-ingredient-dialog/add-ingredient-dialog.component";
 import {Ingredient} from "../../../../../../../api/model/ingredient";
+import {MealIngredientCardComponent} from "../meal-ingredient-card/meal-ingredient-card.component";
+import {MealIngredient} from "../../../../../../../api/model/mealIngredient";
 
 type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
 
@@ -34,7 +36,8 @@ type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
     CdkTextareaAutosize,
     MatLabel,
     MatIcon,
-    MatSuffix
+    MatSuffix,
+    MealIngredientCardComponent
   ],
   templateUrl: './meal-create-form.component.html',
   styleUrl: './meal-create-form.component.scss'
@@ -72,4 +75,12 @@ export class MealCreateFormComponent {
 
       });
   }
+
+  protected readonly ingredientMock: Ingredient = {
+    title: 'Назва страви',
+    weight: 1488,
+    id: 4242,
+    price: 228,
+    energeticValue: 69
+  };
 }

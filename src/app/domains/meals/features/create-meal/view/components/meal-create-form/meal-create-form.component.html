@@ -60,6 +60,8 @@
         Додати інгредієнт
       </button>
 
+      <app-meal-ingredient-card [ingredient]="ingredientMock" [amount]="1" [isFixated]="false"/>
+
       <div class="stepper-buttons w-80">
         <button type="button" mat-raised-button color="primary" (click)="onCancel()">
           Скасувати

@@ -1,0 +1,48 @@
+.ingredient-card {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 160px;
+}
+
+.image-section {
+  height: 100%;
+
+  img {
+    height: 160px;
+    width: 160px;
+  }
+}
+
+.main-content {
+  display: flex;
+
+  .info-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px 16px 8px 16px;
+
+    .data-section {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .counter-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-left-style: dotted;
+    border-left-width: 2px;
+    border-left-color: rgba(189, 189, 186, 0.54);
+
+    .counter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+}
