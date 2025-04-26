@@ -8,7 +8,7 @@ import {
   MatCardImage,
   MatCardTitle
 } from "@angular/material/card";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
 import {DeleteMealService} from "../../../features/delete-meal/data-access/services/delete-meal.service";
@@ -24,7 +24,8 @@ import {DeleteMealService} from "../../../features/delete-meal/data-access/servi
     MatCardActions,
     MatIcon,
     MatCardTitle,
-    RouterLink
+    RouterLink,
+    MatIconButton
   ],
   templateUrl: './meal-card.component.html',
   styleUrl: './meal-card.component.scss'

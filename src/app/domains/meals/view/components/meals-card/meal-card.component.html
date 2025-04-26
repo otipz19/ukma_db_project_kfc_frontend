@@ -1,8 +1,14 @@
 <mat-card class="item-list-card">
-  <mat-card-header>
+  <mat-card-header class="header-wrapper">
     <mat-card-title class="item-list-card-title">
       {{ $meal().title }}
     </mat-card-title>
+
+    <div class="item-list-view-page-link">
+      <button mat-icon-button color="primary" [routerLink]="[$meal().id]">
+        <mat-icon>visibility</mat-icon>
+      </button>
+    </div>
   </mat-card-header>
 
   <!-- TODO: add images from entity when api is updated -->

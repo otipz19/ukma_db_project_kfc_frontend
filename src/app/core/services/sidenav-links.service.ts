@@ -19,11 +19,19 @@ export class SidenavLinksService {
   private readonly authService = inject(AuthService);
 
   private readonly roleToAllowedLinks = new Map<UserRoleState, Array<LinkAlias>>([
-    [UserRole.ADMIN, ['ingredients', 'restaurants', 'meals', 'employees']],
+    [UserRole.ADMIN, ['meals', 'ingredients', 'restaurants', 'employees']],
     [UserRole.MANAGER, ['restaurants', 'employees']],
   ]);
 
   private readonly allLinks = new Map<LinkAlias, SidenavLinkModel>([
+    [
+      'meals',
+      {
+        routerLink: ['/', 'meals'],
+        icon: 'lunch_dining',
+        label: 'Страви'
+      }
+    ],
     [
       'ingredients',
       {
@@ -38,14 +46,6 @@ export class SidenavLinksService {
         routerLink: ['/', 'restaurants'],
         icon: 'restaurant',
         label: 'Ресторани'
-      }
-    ],
-    [
-      'meals',
-      {
-        routerLink: ['/', 'meals'],
-        icon: 'lunch_dining',
-        label: 'Страви'
       }
     ],
     [

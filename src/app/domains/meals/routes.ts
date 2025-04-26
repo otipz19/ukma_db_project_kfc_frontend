@@ -21,6 +21,10 @@ export const MEALS_ROUTES: Routes = [
         resolve: {[MEAL_RESOLVER_KEY]: mealResolver},
         children: [
           {
+            path: '',
+            loadComponent: () => import('./view/pages/view-meal-page/view-meal-page.component').then(r => r.ViewMealPageComponent)
+          },
+          {
             path: 'update',
             loadComponent: () => import('./features/create-meal/view/pages/meal-update-page/meal-update-page.component').then(r => r.MealUpdatePageComponent)
           }
