@@ -12,6 +12,8 @@ import {MatIcon} from "@angular/material/icon";
 import {DeleteIngredientService} from "../../../features/delete-ingredient/services/delete-ingredient.service";
 import {EditIngredientService} from "../../../features/edit-ingredient/services/edit-ingredient.service";
 import {Ingredient} from "../../../../../api/model/ingredient";
+import {AuthService} from "../../../../../core/services/auth.service";
+import {UserRole} from "../../../../../api";
 
 @Component({
   selector: 'app-ingredient-card',
@@ -31,12 +33,14 @@ import {Ingredient} from "../../../../../api/model/ingredient";
 export class IngredientCardComponent {
   private readonly deleteIngredientService = inject(DeleteIngredientService);
   private readonly editIngredientService = inject(EditIngredientService);
+  private readonly authService = inject(AuthService);
+  protected readonly $userRole = this.authService.$role;
 
   readonly $ingredient = input.required<Ingredient>({alias: 'ingredient'});
   readonly $hideActions = input(false, {transform: booleanAttribute, alias: 'hideActions'});
 
   protected readonly $shouldShowActions = computed(() => {
-    return !this.$hideActions();
+    return !this.$hideActions() && this.$userRole() === UserRole.ADMIN;
   });
 
   onDeleteClick(): void {

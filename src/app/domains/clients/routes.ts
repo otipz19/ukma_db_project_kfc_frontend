@@ -5,10 +5,10 @@ import {UserRole} from "../../api";
 export const CLIENTS_ROUTES: Routes = [
   {
     path: 'clients',
-    canActivate: [hasRoleRouteGuard(UserRole.ADMIN)],
     children: [
       {
         path: '',
+        canActivate: [hasRoleRouteGuard(UserRole.ADMIN, UserRole.MANAGER)],
         loadComponent: () => import('./view/pages/clients-page/clients-page.component').then(r => r.ClientsPageComponent)
       }
     ]

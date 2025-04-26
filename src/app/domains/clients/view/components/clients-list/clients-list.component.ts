@@ -12,6 +12,8 @@ import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {ClientStoreEntity} from "../../../data-access/model/client-store-entity";
 import {DeleteClientService} from "../../../features/delete-client/data-access/services/delete-client.service";
+import {AuthService} from "../../../../../core/services/auth.service";
+import {UserRole} from "../../../../../api";
 
 type ClientColumn = (keyof Omit<ClientStoreEntity, 'id' | 'username'>) | 'actions';
 
@@ -45,6 +47,8 @@ const ClientColumns: Record<ClientColumn, ClientColumn> = {
 })
 export class ClientsListComponent {
   private readonly deleteService = inject(DeleteClientService);
+  private readonly authService = inject(AuthService);
+  protected readonly $userRole = this.authService.$role;
 
   readonly $clients = input.required<Array<ClientStoreEntity>>({alias: 'clients'});
 
@@ -56,4 +60,6 @@ export class ClientsListComponent {
   onDelete(client: ClientStoreEntity) {
     this.deleteService.deleteClient(client);
   }
+
+  protected readonly UserRole = UserRole;
 }

@@ -5,6 +5,8 @@ import {MatButton} from "@angular/material/button";
 import {MealsListComponent} from "../../components/meals-list/meals-list.component";
 import {Meal} from "../../../../../api/model/meal";
 import {ActivatedRoute, Router} from "@angular/router";
+import {AuthService} from "../../../../../core/services/auth.service";
+import {UserRole} from "../../../../../api";
 
 @Component({
   selector: 'app-meals-page',
@@ -20,8 +22,11 @@ export class MealsPageComponent implements OnInit {
   private readonly store = inject(MealsStore);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly authService = inject(AuthService);
 
   protected readonly $meals: Signal<Meal[]> = this.store.$viewList;
+
+  protected readonly $userRole = this.authService.$role;
 
   ngOnInit() {
     this.store.loadAll();
@@ -35,4 +40,6 @@ export class MealsPageComponent implements OnInit {
     this.store.filters.search.setFilter(query);
     this.store.forceSignalReload();
   }
+
+  protected readonly UserRole = UserRole;
 }

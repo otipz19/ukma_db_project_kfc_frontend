@@ -26,7 +26,7 @@ export const routes: Routes = [
       ...CLIENTS_ROUTES,
       {
         path: 'ingredients',
-        canActivate: [hasRoleRouteGuard(UserRole.ADMIN)],
+        canActivate: [hasRoleRouteGuard(UserRole.ADMIN, UserRole.MANAGER, UserRole.COOK)],
         loadComponent: () => import('./domains/ingredients/view/pages/ingredients-page/ingredients-page.component').then(r => r.IngredientsPageComponent)
       },
       {

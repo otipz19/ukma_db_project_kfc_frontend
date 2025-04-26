@@ -6,7 +6,6 @@ import {MEAL_RESOLVER_KEY, mealResolver} from "./data-access/resolvers/meal.reso
 export const MEALS_ROUTES: Routes = [
   {
     path: 'meals',
-    canActivate: [hasRoleRouteGuard(UserRole.ADMIN)],
     children: [
       {
         path: '',
@@ -14,6 +13,7 @@ export const MEALS_ROUTES: Routes = [
       },
       {
         path: 'create',
+        canActivate: [hasRoleRouteGuard(UserRole.ADMIN)],
         loadComponent: () => import('./features/create-meal/view/pages/meal-create-page/meal-create-page.component').then(r => r.MealCreatePageComponent)
       },
       {
@@ -26,6 +26,7 @@ export const MEALS_ROUTES: Routes = [
           },
           {
             path: 'update',
+            canActivate: [hasRoleRouteGuard(UserRole.ADMIN)],
             loadComponent: () => import('./features/create-meal/view/pages/meal-update-page/meal-update-page.component').then(r => r.MealUpdatePageComponent)
           }
         ]

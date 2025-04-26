@@ -12,6 +12,8 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
 import {DeleteMealService} from "../../../features/delete-meal/data-access/services/delete-meal.service";
+import {AuthService} from "../../../../../core/services/auth.service";
+import {UserRole} from "../../../../../api";
 
 @Component({
   selector: 'app-meal-card',
@@ -32,10 +34,15 @@ import {DeleteMealService} from "../../../features/delete-meal/data-access/servi
 })
 export class MealCardComponent {
   private readonly deleteService = inject(DeleteMealService);
+  private readonly authService = inject(AuthService);
+
+  protected readonly $userRole = this.authService.$role;
 
   readonly $meal = input.required<Meal>({alias: 'meal'});
 
   onDelete() {
     this.deleteService.delete(this.$meal());
   }
+
+  protected readonly UserRole = UserRole;
 }

@@ -1,9 +1,11 @@
 <div class="title-wrapper">
   <h2>Інгредієнти</h2>
 
-  <button mat-raised-button color="accent" (click)="onCreateClick()">
-    Створити новий
-  </button>
+  @if ($userRole() === UserRole.ADMIN) {
+    <button mat-raised-button color="accent" (click)="onCreateClick()">
+      Створити новий
+    </button>
+  }
 </div>
 
 <div class="search-bar-container">
