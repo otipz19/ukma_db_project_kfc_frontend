@@ -32,9 +32,10 @@ import {MealIngredient} from "../../../../../../../api/model/mealIngredient";
 import {Meal} from "../../../../../../../api/model/meal";
 import {IngredientControllerService} from "../../../../../../../api/api/ingredientController.service";
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
 import {MealStats, MealStatsComponent} from "../meal-stats/meal-stats.component";
 import {MealIngredientCombinedDto} from "../../../../../data-access/types/meal-ingredient-combined-dto";
+import {map} from "rxjs";
 
 type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
 
@@ -81,12 +82,16 @@ export class MealUpsertFormComponent implements OnInit {
 
   protected readonly $ingredients = signal<MealIngredientCombinedDto[]>([]);
   protected readonly $mealIngredientCards = viewChildren(MealIngredientCardComponent);
+  protected readonly $additionalPrice = toSignal(
+    this.mealDataStepForm.controls.additionalPrice.valueChanges
+      .pipe(
+        map(val => Number(val) ?? 0)
+      )
+  );
 
   protected readonly $mealStats = computed(() => {
-    const {additionalPrice} = this.mealDataStepForm.getRawValue();
-
     const mealStats: MealStats = {
-      price: additionalPrice,
+      price: this.$additionalPrice() ?? 0,
       weight: 0,
       energeticValue: 0
     };
