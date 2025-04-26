@@ -1,0 +1,25 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 0 16px;
+  gap: 16px;
+
+  .title-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .search-bar-container {
+    width: 100%;
+  }
+}
+
+.list-container {
+  padding: 16px;
+  overflow-x: auto;
+}

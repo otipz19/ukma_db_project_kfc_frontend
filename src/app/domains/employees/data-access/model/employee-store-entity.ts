@@ -9,7 +9,7 @@ export function mapEmployeeToStoreEntity(employee: Employee): EmployeeStoreEntit
   return {id: userId, birthDate, ...rest};
 }
 
-function mapDateFromArrayResponse(arrDate: [number, number, number]): string {
+export function mapDateFromArrayResponse(arrDate: [number, number, number]): string {
   const dateObj = new Date(arrDate[0], arrDate[1] - 1, arrDate[2]);
   // Format it as a string (e.g., YYYY-MM-DD)
   return dateObj.toISOString().split('T')[0];

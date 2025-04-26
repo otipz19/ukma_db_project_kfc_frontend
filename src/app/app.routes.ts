@@ -7,6 +7,7 @@ import {RESTAURANT_ROUTES} from "./domains/restaurants/routes";
 import {EMPLOYEES_ROUTES} from "./domains/employees/routes";
 import {UserRole} from "./api";
 import {MEALS_ROUTES} from "./domains/meals/routes";
+import {CLIENTS_ROUTES} from "./domains/clients/routes";
 
 export const routes: Routes = [
   {
@@ -19,19 +20,20 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       ...AUTH_ROUTES,
-      {
-        path: 'landing',
-        canActivate: [authenticatedRouteGuard],
-        loadComponent: () => import('./domains/dumb-pages/view/pages/landing-page/landing-page.component').then(r => r.LandingPageComponent)
-      },
+      ...RESTAURANT_ROUTES,
+      ...EMPLOYEES_ROUTES,
+      ...MEALS_ROUTES,
+      ...CLIENTS_ROUTES,
       {
         path: 'ingredients',
         canActivate: [hasRoleRouteGuard(UserRole.ADMIN)],
         loadComponent: () => import('./domains/ingredients/view/pages/ingredients-page/ingredients-page.component').then(r => r.IngredientsPageComponent)
       },
-      ...RESTAURANT_ROUTES,
-      ...EMPLOYEES_ROUTES,
-      ...MEALS_ROUTES,
+      {
+        path: 'landing',
+        canActivate: [authenticatedRouteGuard],
+        loadComponent: () => import('./domains/dumb-pages/view/pages/landing-page/landing-page.component').then(r => r.LandingPageComponent)
+      },
       {
         path: 'forbidden',
         canActivate: [authenticatedRouteGuard],

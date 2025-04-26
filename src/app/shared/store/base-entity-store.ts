@@ -10,6 +10,11 @@ export abstract class BaseEntityStore<TEntity extends {id: number}, TFiltersCont
 
   protected abstract buildFiltersContainer(): TFiltersContainer;
 
+  initialLoad() {
+    this.cleanFilters();
+    this.loadAll();
+  }
+
   loadAll() {
     this.getAllFromApi()
       .subscribe(result => {

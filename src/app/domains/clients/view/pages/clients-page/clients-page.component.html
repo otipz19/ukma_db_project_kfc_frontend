@@ -1,0 +1,15 @@
+<div class="header-container">
+  <div class="title-wrapper">
+    <div>
+      <h2>Клієнти</h2>
+    </div>
+  </div>
+
+  <div class="search-bar-container">
+    <app-search-bar class="search-bar" label="Пошук клієнта" (search)="onSearch($event)"/>
+  </div>
+</div>
+
+<div class="list-container">
+  <app-clients-list [clients]="$clients()"/>
+</div>
