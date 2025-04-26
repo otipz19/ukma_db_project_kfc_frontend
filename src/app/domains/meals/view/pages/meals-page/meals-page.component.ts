@@ -32,6 +32,7 @@ export class MealsPageComponent implements OnInit {
   }
 
   onSearch(query: string) {
-
+    this.store.filters.search.setFilter(query);
+    this.store.forceSignalReload();
   }
 }
