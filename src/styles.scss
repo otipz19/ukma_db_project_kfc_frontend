@@ -11,6 +11,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  button {
+    min-width: 160px;
+  }
 }
 
 .item-list-grid {
@@ -49,6 +53,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .w-40 {
   width: 40%;
+}
+
+.w-100 {
+  width: 100%;
 }
 
 .form-wrapper {

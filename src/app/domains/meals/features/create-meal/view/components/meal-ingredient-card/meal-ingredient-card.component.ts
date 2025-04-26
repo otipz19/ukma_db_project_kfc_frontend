@@ -1,44 +1,45 @@
-import {Component, computed, DestroyRef, inject, input, OnInit, output, signal} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {MatCard} from "@angular/material/card";
 import {MatIconButton} from "@angular/material/button";
-import {MealIngredientFullData} from "../../../data-access/types/meal-ingredient-full-data";
 import {Ingredient} from "../../../../../../../api/model/ingredient";
-import {MealIngredientsService} from "../../../data-access/services/meal-ingredients.service";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {MealIngredient} from "../../../../../../../api/model/mealIngredient";
+import {MatCheckbox} from "@angular/material/checkbox";
 
 @Component({
   selector: 'app-meal-ingredient-card',
   imports: [
     MatCard,
-    MatIconButton
+    MatIconButton,
+    MatCheckbox
   ],
   templateUrl: './meal-ingredient-card.component.html',
   styleUrl: './meal-ingredient-card.component.scss'
 })
-export class MealIngredientCardComponent implements OnInit {
-  private readonly ingredientsService = inject(MealIngredientsService);
-  private readonly destroyRef = inject(DestroyRef);
+export class MealIngredientCardComponent {
+  readonly $ingredient = input.required<Ingredient>({alias: 'ingredient'});
+  readonly $mealIngredient = input.required<MealIngredient>({alias: 'mealIngredient'});
 
-  readonly $id = input.required<Ingredient['id']>({alias: 'id'});
-  protected readonly $fullData = signal<MealIngredientFullData | undefined>(undefined);
-
-  ngOnInit() {
-    this.ingredientsService.getDataById(this.$id())
-      .pipe(
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(data => {
-        this.$fullData.set(data);
-      });
+  getMealIngredient(): MealIngredient {
+    return this.$mealIngredient();
   }
 
-  increase() {
-    this.amountChange.emit(this.$amount() + 1);
+  protected onIncrease() {
+    this.$mealIngredient().amount++;
   }
 
-  decrease() {
-    if (this.$amount() > 0) {
-      this.amountChange.emit(this.$amount() - 1);
-    }
+  protected onDecrease() {
+    this.$mealIngredient().amount--;
+  }
+
+  protected onFixatedChange() {
+    this.$mealIngredient().isFixated = !this.$mealIngredient().isFixated;
+  }
+
+  protected shouldDisableCheckbox(): boolean {
+    return !this.$mealIngredient().isFixated && this.$mealIngredient().amount === 0;
+  }
+
+  protected shouldDisableDecrease(): boolean {
+    return this.$mealIngredient().amount === 0 || (this.$mealIngredient().amount === 1 && this.$mealIngredient().isFixated);
   }
 }

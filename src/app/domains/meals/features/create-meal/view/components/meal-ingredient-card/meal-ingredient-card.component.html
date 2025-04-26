@@ -1,6 +1,7 @@
-@let ingredient = $ingredientFullData().ingredient;
+@let ingredient = $ingredient();
+@let mealIngredient = $mealIngredient();
 
-<mat-card class="ingredient-card">
+<mat-card class="ingredient-card mat-elevation-z7">
   <div class="image-section">
     <!-- TODO: add images from entity when api is updated -->
     <img src="https://placehold.co/800x800.png?text=Ingredient+Placeholder" alt="Ingredient image"/>
@@ -16,16 +17,27 @@
       </div>
     </div>
 
-    <div class="counter-container" [class.invisible]="$amount() === 0">
-      <div>
-        <span><strong>Кількість:</strong></span>
+    <div class="actions-container">
+      <div class="counter-container">
+        <div>
+          <span><strong>Кількість:</strong></span>
+        </div>
+        <div class="counter">
+          <button mat-icon-button color="primary" (click)="onDecrease()" [disabled]="shouldDisableDecrease()">−</button>
+          <span>{{ mealIngredient.amount }}</span>
+          <button mat-icon-button color="primary" (click)="onIncrease()">+</button>
+        </div>
       </div>
-      <div class="counter">
-        <button mat-icon-button color="primary" (click)="decrease()" [disabled]="$amount() === 1">−</button>
-        <span>{{ $amount() }}</span>
-        <button mat-icon-button color="primary" (click)="increase()">+</button>
+
+      <div>
+        <mat-checkbox
+          [checked]="mealIngredient.isFixated"
+          (change)="onFixatedChange()"
+          [disabled]="shouldDisableCheckbox()"
+        >
+          Зафіксований
+        </mat-checkbox>
       </div>
     </div>
-
   </div>
 </mat-card>

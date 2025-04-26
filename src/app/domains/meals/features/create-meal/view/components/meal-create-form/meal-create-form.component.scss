@@ -1,1 +1,15 @@
+.meal-ingredients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
+.add-ingredient-button {
+  align-self: end;
+}
+
+//.ingredients-list-header {
+//  display: flex;
+//  justify-content: space-between;
+//  width: 100%;
+//}

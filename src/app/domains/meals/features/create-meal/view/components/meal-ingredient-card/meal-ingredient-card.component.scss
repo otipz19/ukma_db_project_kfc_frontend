@@ -30,19 +30,28 @@
     }
   }
 
-  .counter-container {
+  .actions-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    padding: 16px 16px 8px 8px;
     border-left-style: dotted;
     border-left-width: 2px;
     border-left-color: rgba(189, 189, 186, 0.54);
 
-    .counter {
+    .counter-container {
       display: flex;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      gap: 8px;
+
+      .counter {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        gap: 8px;
+      }
     }
   }
 }

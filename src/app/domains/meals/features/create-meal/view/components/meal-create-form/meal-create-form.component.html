@@ -56,19 +56,28 @@
     <ng-template matStepLabel>Інгредієнти</ng-template>
 
     <div class="form-wrapper">
-      <button type="button" mat-raised-button color="accent" (click)="onAddIngredient()">
+      <button class="add-ingredient-button" type="button" mat-raised-button color="accent" (click)="onAddIngredient()">
         Додати інгредієнт
       </button>
 
-      <app-meal-ingredients-lists [ingredientsLists]="$ingredientsLists()" (updateLists)="onUpdateLists($event)"/>
+      <div>
+        <h2>
+          Інгредієнти
+        </h2>
+        <div class="meal-ingredients-list">
+          @for (dto of $ingredients(); track dto.ingredient.id) {
+            <app-meal-ingredient-card [ingredient]="dto.ingredient" [mealIngredient]="dto.mealIngredient"/>
+          }
+        </div>
+      </div>
 
-      <div class="stepper-buttons w-80">
+      <div class="stepper-buttons w-100">
         <button type="button" mat-raised-button color="primary" (click)="onCancel()">
           Скасувати
         </button>
 
-        <button type="submit" class="stepper-btn-next" mat-raised-button color="accent" matStepperNext>
-          Далі
+        <button type="button" class="stepper-btn-next" mat-raised-button color="accent" (click)="onSubmit()">
+          Створити
         </button>
       </div>
     </div>

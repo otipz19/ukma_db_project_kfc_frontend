@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, output, signal} from '@angular/core';
+import {Component, inject, output, signal, viewChildren} from '@angular/core';
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext} from "@angular/material/stepper";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UpdateMeal} from "../../../../../../../api/model/updateMeal";
@@ -18,12 +18,13 @@ import {
 import {Ingredient} from "../../../../../../../api/model/ingredient";
 import {MealIngredientCardComponent} from "../meal-ingredient-card/meal-ingredient-card.component";
 import {MealIngredient} from "../../../../../../../api/model/mealIngredient";
-import {MealIngredientsListsComponent} from "../meal-ingredients-lists/meal-ingredients-lists.component";
-import {MealIngredientsService} from "../../../data-access/services/meal-ingredients.service";
-import {MealIngredientFullData} from "../../../data-access/types/meal-ingredient-full-data";
-import {MealIngredientsLists} from "../../../data-access/types/meal-ingredients-lists";
 
 type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
+
+type MealIngredientCombinedDto = {
+  ingredient: Ingredient,
+  mealIngredient: MealIngredient
+};
 
 @Component({
   selector: 'app-meal-create-form',
@@ -42,7 +43,6 @@ type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
     MatIcon,
     MatSuffix,
     MealIngredientCardComponent,
-    MealIngredientsListsComponent
   ],
   templateUrl: './meal-create-form.component.html',
   styleUrl: './meal-create-form.component.scss'
@@ -61,51 +61,53 @@ export class MealCreateFormComponent {
     recipe: this.fb.control('', [Validators.required, Validators.maxLength(1024)])
   });
 
-  protected readonly $ingredientsLists = signal<MealIngredientsLists>({
-    required: [],
-    optional: [],
-    additional: []
-  });
+  protected readonly $ingredients = signal<MealIngredientCombinedDto[]>([]);
+  protected readonly $mealIngredientCards = viewChildren(MealIngredientCardComponent);
 
-  protected onCancel(){
+  protected onSubmit() {
+    // if(this.mealDataStepForm.invalid) {
+    //   this.mealDataStepForm.markAllAsTouched();
+    //   return;
+    // }
+
+    const mealIngredients = this.$mealIngredientCards()
+      .map(card => card.getMealIngredient());
+
+    console.log(mealIngredients);
+  }
+
+  protected onCancel() {
     this.cancel.emit();
   }
 
-  protected onUpdateLists(lists: MealIngredientsLists) {
-    this.$ingredientsLists.set({...lists});
-  }
-
   protected onAddIngredient() {
-    const dialogRef= this.matDialog.open<AddIngredientDialogComponent, AddIngredientDialogData, Ingredient>(
+    const dialogRef = this.matDialog.open<AddIngredientDialogComponent, AddIngredientDialogData, Ingredient>(
       AddIngredientDialogComponent,
       {
         data: {
-          alreadyPresentIngredientsIdList: []
+          alreadyPresentIngredientsIdList: this.$ingredients().map(dto => dto.ingredient.id)
         }
       }
     );
 
     dialogRef.afterClosed()
       .subscribe(ingredient => {
-        if(ingredient) {
+        if (ingredient) {
           this.addNew(ingredient);
         }
       });
   }
 
   private addNew(ingredient: Ingredient) {
-    this.$ingredientsLists.update(lists => {
-      const fullData: MealIngredientFullData = {
-        ingredient: ingredient,
-        mealIngredient: {
-          ingredientId: ingredient.id,
-          isFixated: false,
-          amount: 1
-        }
-      };
+    const mealIngredient: MealIngredient = {
+      ingredientId: ingredient.id,
+      isFixated: false,
+      amount: 1
+    };
 
-      lists.optional.unshift(fullData);
-      return lists;
-    });
+    this.$ingredients.update(list => {
+      list.unshift({mealIngredient, ingredient});
+      return list;
+    })
   }
 }
