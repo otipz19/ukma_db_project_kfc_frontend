@@ -34,39 +34,15 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
+    align-items: start;
     padding: 16px 32px 8px 8px;
     border-left-style: dotted;
     border-left-width: 2px;
     border-left-color: var(--minor-border-color);
 
-    .ingredient-delete-button {
-      position: absolute;
-      top: -8px;
-      left: 75%;
-    }
-
-    .ingredient-order-buttons {
-      position: absolute;
-      left: 75%;
-      top: 25%;
-      display: flex;
-      flex-direction: column;
-    }
-
     .counter-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      .counter {
-        display: flex;
-        align-items: center;
-        justify-content: end;
-        gap: 8px;
-      }
+      padding-left: 10px;
     }
   }
 }

@@ -34,13 +34,9 @@ import {IngredientControllerService} from "../../../../../../../api/api/ingredie
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MealStats, MealStatsComponent} from "../meal-stats/meal-stats.component";
+import {MealIngredientCombinedDto} from "../../../../../data-access/types/meal-ingredient-combined-dto";
 
 type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
-
-type MealIngredientCombinedDto = {
-  ingredient: Ingredient,
-  mealIngredient: MealIngredient
-};
 
 @Component({
   selector: 'app-meal-upsert-form',

@@ -1,1 +1,73 @@
-<p>view-meal-page works!</p>
+<h2>Страва {{ $meal().title }}</h2>
+
+<div class="main-container">
+  <div class="long-info-cards-container">
+    <mat-card>
+      <!-- TODO: add images from entity when api is updated -->
+      <img class="meal-image" mat-card-image src="https://placehold.co/1200x800.png?text=Ingredient+Placeholder"
+           alt="{{ $meal().title }}"/>
+    </mat-card>
+
+    <mat-card class="long-info-card">
+      <mat-card-header class="bordered-card-header">
+        <mat-card-title>
+          Опис
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="long-info-card-content">
+        {{ $meal().description }}
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="long-info-card">
+      <mat-card-header class="bordered-card-header">
+        <mat-card-title>
+          Рецепт
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="long-info-card-content">
+        {{ $meal().recipe }}
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="ingredients-stats-container">
+    <mat-card class="stats-card">
+      <mat-card-header>
+        <mat-card-title class="stats-card-title">
+          Характеристики страви
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="stats-card-info-container">
+          <p>
+            <strong>Додана вартість: </strong> {{ $meal().additionalPrice }} грн
+          </p>
+          <p>
+            <strong>Ціна: </strong> {{ $meal().price }} грн
+          </p>
+          <p>
+            <strong>Енергетична цінність:</strong> {{ $meal().energeticValue }} ккал
+          </p>
+          <p>
+            <strong>Вага:</strong> {{ $meal().weight }} г
+          </p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="ingredients-list-wrapper">
+      <h2>
+        Інгредієнти
+      </h2>
+      <div class="ingredients-list">
+        @for (dto of $mealIngredients(); track dto.ingredient.id) {
+          <app-meal-ingredient-view-card [ingredient]="dto.ingredient" [mealIngredient]="dto.mealIngredient"/>
+        }
+      </div>
+    </div>
+  </div>
+</div>

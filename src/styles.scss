@@ -3,6 +3,10 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+:root {
+  --minor-border-color: rgba(189, 189, 186, 0.54);
+}
+
 .default-form-input-field {
   width: 100%;
 }
