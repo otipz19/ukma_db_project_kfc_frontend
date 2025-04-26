@@ -12,12 +12,6 @@
     <div class="item-list-card-info-container">
       <!-- TODO: improve description and recipe view for big text -->
       <p>
-        <strong>Опис: </strong> {{ $meal().description }} грн
-      </p>
-      <p>
-        <strong>Рецепт: </strong> {{ $meal().recipe }} грн
-      </p>
-      <p>
         <strong>Ціна: </strong> {{ $meal().price }} грн
       </p>
       <p>
@@ -28,6 +22,12 @@
       </p>
       <p>
         <strong>Вага:</strong> {{ $meal().weight }} г
+      </p>
+      <p>
+        <strong>Опис: </strong> {{ $meal().description }}
+      </p>
+      <p>
+        <strong>Рецепт: </strong> {{ $meal().recipe }}
       </p>
     </div>
   </mat-card-content>
