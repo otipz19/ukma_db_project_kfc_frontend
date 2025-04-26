@@ -19,25 +19,17 @@
                                      inputType="number"
                                      iconSuffix="paid"/>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Опис</mat-label>
+        <app-common-form-text-area [control]="mealDataStepForm.controls.description"
+                                   label="Опис"
+                                   iconSuffix="list_alt"
+                                   [minRows]="5"
+                                   [maxLength]="512"/>
 
-          <textarea matInput [formControl]="mealDataStepForm.controls.description"
-                    cdkTextareaAutosize [cdkAutosizeMinRows]="2">
-          </textarea>
-
-          <mat-icon matSuffix>list_alt</mat-icon>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Рецепт</mat-label>
-
-          <textarea matInput [formControl]="mealDataStepForm.controls.recipe"
-                    cdkTextareaAutosize [cdkAutosizeMinRows]="2">
-          </textarea>
-
-          <mat-icon matSuffix>menu_book</mat-icon>
-        </mat-form-field>
+        <app-common-form-text-area [control]="mealDataStepForm.controls.recipe"
+                                   label="Рецепт"
+                                   iconSuffix="menu_book"
+                                   [minRows]="5"
+                                   [maxLength]="1024"/>
       </form>
 
       <div class="stepper-buttons w-80">

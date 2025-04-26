@@ -18,9 +18,6 @@ import {MatButton} from "@angular/material/button";
 import {
   CommonFormInputFieldComponent
 } from "../../../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
-import {MatFormField, MatInput, MatLabel, MatSuffix} from "@angular/material/input";
-import {CdkTextareaAutosize} from "@angular/cdk/text-field";
-import {MatIcon} from "@angular/material/icon";
 import {MatDialog} from "@angular/material/dialog";
 import {
   AddIngredientDialogComponent,
@@ -36,6 +33,9 @@ import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
 import {MealStats, MealStatsComponent} from "../meal-stats/meal-stats.component";
 import {MealIngredientCombinedDto} from "../../../../../data-access/types/meal-ingredient-combined-dto";
 import {map} from "rxjs";
+import {
+  CommonFormTextAreaComponent
+} from "../../../../../../../shared/form/components/common-form-text-area/common-form-text-area.component";
 
 type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
 
@@ -49,14 +49,9 @@ type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
     MatButton,
     MatStepperNext,
     CommonFormInputFieldComponent,
-    MatFormField,
-    MatInput,
-    CdkTextareaAutosize,
-    MatLabel,
-    MatIcon,
-    MatSuffix,
     MealIngredientCardComponent,
     MealStatsComponent,
+    CommonFormTextAreaComponent,
   ],
   templateUrl: './meal-upsert-form.component.html',
   styleUrl: './meal-upsert-form.component.scss'
