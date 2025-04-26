@@ -56,12 +56,20 @@
     <ng-template matStepLabel>Інгредієнти</ng-template>
 
     <div class="form-wrapper">
-      <button class="add-ingredient-button" type="button" mat-raised-button color="accent" (click)="onAddIngredient()">
-        Додати інгредієнт
-      </button>
+      <div class="top-part">
+        <div class="meal-stats-container">
+          <app-meal-stats [stats]="$mealStats()" class="meal-stats"/>
+        </div>
+
+        <div class="add-btn-container">
+          <button type="button" mat-raised-button color="accent" (click)="onAddIngredient()">
+            Додати інгредієнт
+          </button>
+        </div>
+      </div>
 
       @if ($ingredients().length > 0) {
-        <div>
+        <div class="ingredients-list-container">
           <h2>
             Інгредієнти
           </h2>

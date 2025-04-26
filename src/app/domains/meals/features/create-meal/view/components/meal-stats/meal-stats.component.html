@@ -1,0 +1,21 @@
+<mat-card class="item-list-card">
+  <mat-card-header>
+    <mat-card-title class="item-list-card-title">
+      Сумарні характеристики страви
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="item-list-card-info-container">
+      <p>
+        <strong>Ціна: </strong> {{ $stats().price }} грн
+      </p>
+      <p>
+        <strong>Енергетична цінність:</strong> {{ $stats().energeticValue }} ккал
+      </p>
+      <p>
+        <strong>Вага:</strong> {{ $stats().weight }} г
+      </p>
+    </div>
+  </mat-card-content>
+</mat-card>

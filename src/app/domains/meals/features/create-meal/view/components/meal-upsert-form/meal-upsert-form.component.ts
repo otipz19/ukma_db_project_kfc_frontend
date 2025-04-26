@@ -1,4 +1,15 @@
-import {Component, DestroyRef, inject, input, OnInit, output, signal, viewChild, viewChildren} from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  input,
+  OnInit,
+  output,
+  signal,
+  viewChild,
+  viewChildren
+} from '@angular/core';
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext} from "@angular/material/stepper";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UpdateMeal} from "../../../../../../../api/model/updateMeal";
@@ -22,6 +33,7 @@ import {Meal} from "../../../../../../../api/model/meal";
 import {IngredientControllerService} from "../../../../../../../api/api/ingredientController.service";
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {MealStats, MealStatsComponent} from "../meal-stats/meal-stats.component";
 
 type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
 
@@ -47,6 +59,7 @@ type MealIngredientCombinedDto = {
     MatIcon,
     MatSuffix,
     MealIngredientCardComponent,
+    MealStatsComponent,
   ],
   templateUrl: './meal-upsert-form.component.html',
   styleUrl: './meal-upsert-form.component.scss'
@@ -72,6 +85,24 @@ export class MealUpsertFormComponent implements OnInit {
 
   protected readonly $ingredients = signal<MealIngredientCombinedDto[]>([]);
   protected readonly $mealIngredientCards = viewChildren(MealIngredientCardComponent);
+
+  protected readonly $mealStats = computed(() => {
+    const {additionalPrice} = this.mealDataStepForm.getRawValue();
+
+    const mealStats: MealStats = {
+      price: additionalPrice,
+      weight: 0,
+      energeticValue: 0
+    };
+
+    for(const dto of this.$ingredients()) {
+      mealStats.price += dto.ingredient.price * dto.mealIngredient.amount;
+      mealStats.energeticValue += dto.ingredient.energeticValue * dto.mealIngredient.amount;
+      mealStats.weight += dto.ingredient.weight * dto.mealIngredient.amount;
+    }
+
+    return mealStats;
+  });
 
   private readonly $matStepper = viewChild(MatStepper);
 
