@@ -20,13 +20,13 @@ export class ClientRegistrationService {
 
     return this.clientApi.registerClient(clientRegistrationDto)
       .pipe(
-        switchMap(userId => {
-          const phonesArray = phoneNumber ? [phoneNumber] : undefined;
-          return this.userPhonesApi.setUserPhones(userId, phonesArray);
-        }),
         switchMap(() => {
           return this.authService.login$(username, password);
+        }),
+        switchMap(() => {
+          const phonesArray = phoneNumber ? [phoneNumber] : undefined;
+          return this.userPhonesApi.setUserPhones(this.authService.$currentUser()!.id, phonesArray);
         })
-      )
+      );
   }
 }
