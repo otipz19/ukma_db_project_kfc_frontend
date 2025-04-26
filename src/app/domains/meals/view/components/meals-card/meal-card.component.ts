@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import { Meal } from '../../../../../api/model/meal';
 import {
   MatCard,
@@ -11,6 +11,7 @@ import {
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
+import {DeleteMealService} from "../../../features/delete-meal/data-access/services/delete-meal.service";
 
 @Component({
   selector: 'app-meal-card',
@@ -29,13 +30,11 @@ import {RouterLink} from "@angular/router";
   styleUrl: './meal-card.component.scss'
 })
 export class MealCardComponent {
+  private readonly deleteService = inject(DeleteMealService);
+
   readonly $meal = input.required<Meal>({alias: 'meal'});
 
-  onEdit() {
-
-  }
-
   onDelete() {
-
+    this.deleteService.delete(this.$meal());
   }
 }
