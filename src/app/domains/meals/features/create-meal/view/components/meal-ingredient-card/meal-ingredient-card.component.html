@@ -18,6 +18,20 @@
     </div>
 
     <div class="actions-container">
+      <button mat-icon-button color="warn" class="ingredient-delete-button" (click)="onDelete()">
+        <mat-icon>close</mat-icon>
+      </button>
+
+      <div class="ingredient-order-buttons">
+        <button mat-icon-button color="primary" (click)="onUp()" [disabled]="$disableUp()">
+          <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+
+        <button mat-icon-button color="primary" (click)="onDown()" [disabled]="$disableDown()">
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+      </div>
+
       <div class="counter-container">
         <div>
           <span><strong>Кількість:</strong></span>

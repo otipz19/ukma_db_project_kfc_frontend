@@ -1,16 +1,18 @@
-import {Component, input} from '@angular/core';
+import {Component, input, output} from '@angular/core';
 import {MatCard} from "@angular/material/card";
 import {MatIconButton} from "@angular/material/button";
 import {Ingredient} from "../../../../../../../api/model/ingredient";
 import {MealIngredient} from "../../../../../../../api/model/mealIngredient";
 import {MatCheckbox} from "@angular/material/checkbox";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-meal-ingredient-card',
   imports: [
     MatCard,
     MatIconButton,
-    MatCheckbox
+    MatCheckbox,
+    MatIcon
   ],
   templateUrl: './meal-ingredient-card.component.html',
   styleUrl: './meal-ingredient-card.component.scss'
@@ -18,6 +20,13 @@ import {MatCheckbox} from "@angular/material/checkbox";
 export class MealIngredientCardComponent {
   readonly $ingredient = input.required<Ingredient>({alias: 'ingredient'});
   readonly $mealIngredient = input.required<MealIngredient>({alias: 'mealIngredient'});
+
+  readonly $disableUp = input<boolean>(false, {alias: 'disableUp'});
+  readonly $disableDown = input<boolean>(false, {alias: 'disableDown'});
+
+  protected readonly delete = output<Ingredient['id']>();
+  protected readonly up = output<void>();
+  protected readonly down = output<void>();
 
   getMealIngredient(): MealIngredient {
     return this.$mealIngredient();
@@ -29,6 +38,18 @@ export class MealIngredientCardComponent {
 
   protected onDecrease() {
     this.$mealIngredient().amount--;
+  }
+
+  protected onDelete() {
+    this.delete.emit(this.$ingredient().id);
+  }
+
+  protected onUp() {
+    this.up.emit();
+  }
+
+  protected onDown() {
+    this.down.emit();
   }
 
   protected onFixatedChange() {

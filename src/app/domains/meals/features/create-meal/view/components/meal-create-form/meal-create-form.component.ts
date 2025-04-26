@@ -110,4 +110,36 @@ export class MealCreateFormComponent {
       return list;
     })
   }
+
+  protected onDeleteIngredient(id: Ingredient['id']) {
+    this.$ingredients.update(list => {
+      return list.filter(i => i.ingredient.id !== id);
+    });
+  }
+
+  protected onIngredientUp(id: Ingredient['id']) {
+    this.$ingredients.update(list => {
+      const index = list.findIndex(i => i.ingredient.id === id);
+      if(index > 0) {
+        const aux = list[index];
+        list[index] = list[index - 1];
+        list[index - 1] = aux;
+      }
+
+      return [...list];
+    });
+  }
+
+  protected onIngredientDown(id: Ingredient['id']) {
+    this.$ingredients.update(list => {
+      const index = list.findIndex(i => i.ingredient.id === id);
+      if(index < list.length - 1) {
+        const aux = list[index];
+        list[index] = list[index + 1];
+        list[index + 1] = aux;
+      }
+
+      return [...list];
+    });
+  }
 }

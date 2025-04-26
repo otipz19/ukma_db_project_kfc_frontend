@@ -31,14 +31,29 @@
   }
 
   .actions-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 16px 8px 8px;
+    padding: 16px 32px 8px 8px;
     border-left-style: dotted;
     border-left-width: 2px;
     border-left-color: rgba(189, 189, 186, 0.54);
+
+    .ingredient-delete-button {
+      position: absolute;
+      top: -8px;
+      left: 75%;
+    }
+
+    .ingredient-order-buttons {
+      position: absolute;
+      left: 75%;
+      top: 25%;
+      display: flex;
+      flex-direction: column;
+    }
 
     .counter-container {
       display: flex;

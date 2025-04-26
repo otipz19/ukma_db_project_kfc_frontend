@@ -60,26 +60,34 @@
         Додати інгредієнт
       </button>
 
-      <div>
-        <h2>
-          Інгредієнти
-        </h2>
-        <div class="meal-ingredients-list">
-          @for (dto of $ingredients(); track dto.ingredient.id) {
-            <app-meal-ingredient-card [ingredient]="dto.ingredient" [mealIngredient]="dto.mealIngredient"/>
-          }
+      @if ($ingredients().length > 0) {
+        <div>
+          <h2>
+            Інгредієнти
+          </h2>
+          <div class="meal-ingredients-list">
+            @for (dto of $ingredients(); track dto.ingredient.id) {
+              <app-meal-ingredient-card [ingredient]="dto.ingredient"
+                                        [mealIngredient]="dto.mealIngredient"
+                                        [disableUp]="$first"
+                                        [disableDown]="$last"
+                                        (delete)="onDeleteIngredient($event)"
+                                        (up)="onIngredientUp(dto.ingredient.id)"
+                                        (down)="onIngredientDown(dto.ingredient.id)"/>
+            }
+          </div>
         </div>
-      </div>
 
-      <div class="stepper-buttons w-100">
-        <button type="button" mat-raised-button color="primary" (click)="onCancel()">
-          Скасувати
-        </button>
+        <div class="stepper-buttons w-100">
+          <button type="button" mat-raised-button color="primary" (click)="onCancel()">
+            Скасувати
+          </button>
 
-        <button type="button" class="stepper-btn-next" mat-raised-button color="accent" (click)="onSubmit()">
-          Створити
-        </button>
-      </div>
+          <button type="button" class="stepper-btn-next" mat-raised-button color="accent" (click)="onSubmit()">
+            Створити
+          </button>
+        </div>
+      }
     </div>
   </mat-step>
 </mat-horizontal-stepper>
