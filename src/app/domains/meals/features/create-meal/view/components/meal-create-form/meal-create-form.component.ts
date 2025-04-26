@@ -65,15 +65,22 @@ export class MealCreateFormComponent {
   protected readonly $mealIngredientCards = viewChildren(MealIngredientCardComponent);
 
   protected onSubmit() {
-    // if(this.mealDataStepForm.invalid) {
-    //   this.mealDataStepForm.markAllAsTouched();
-    //   return;
-    // }
+    if(this.mealDataStepForm.invalid) {
+      this.mealDataStepForm.markAllAsTouched();
+      return;
+    }
 
     const mealIngredients = this.$mealIngredientCards()
       .map(card => card.getMealIngredient());
 
-    console.log(mealIngredients);
+    const dataFormValue = this.mealDataStepForm.getRawValue();
+
+    const updateMealDto: UpdateMeal = {
+      ingredients: mealIngredients,
+      ...dataFormValue
+    };
+
+    this.submit.emit(updateMealDto);
   }
 
   protected onCancel() {
