@@ -178,8 +178,12 @@ export class MealUpsertFormComponent implements OnInit {
 
     this.$ingredients.update(list => {
       list.unshift({mealIngredient, ingredient});
-      return list;
+      return [...list];
     })
+  }
+
+  protected onAmountChange() {
+    this.$ingredients.update(list => [...list]);
   }
 
   protected onDeleteIngredient(id: Ingredient['id']) {

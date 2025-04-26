@@ -79,6 +79,7 @@
                                         [mealIngredient]="dto.mealIngredient"
                                         [disableUp]="$first"
                                         [disableDown]="$last"
+                                        (amountChange)="onAmountChange()"
                                         (delete)="onDeleteIngredient($event)"
                                         (up)="onIngredientUp(dto.ingredient.id)"
                                         (down)="onIngredientDown(dto.ingredient.id)"/>

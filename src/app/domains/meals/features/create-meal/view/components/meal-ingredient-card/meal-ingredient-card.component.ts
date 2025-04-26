@@ -24,6 +24,7 @@ export class MealIngredientCardComponent {
   readonly $disableUp = input<boolean>(false, {alias: 'disableUp'});
   readonly $disableDown = input<boolean>(false, {alias: 'disableDown'});
 
+  protected readonly amountChange = output<void>();
   protected readonly delete = output<Ingredient['id']>();
   protected readonly up = output<void>();
   protected readonly down = output<void>();
@@ -34,10 +35,12 @@ export class MealIngredientCardComponent {
 
   protected onIncrease() {
     this.$mealIngredient().amount++;
+    this.amountChange.emit();
   }
 
   protected onDecrease() {
     this.$mealIngredient().amount--;
+    this.amountChange.emit();
   }
 
   protected onDelete() {
