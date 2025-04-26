@@ -77,17 +77,19 @@
             }
           </div>
         </div>
-
-        <div class="stepper-buttons w-100">
-          <button type="button" mat-raised-button color="primary" (click)="onCancel()">
-            Скасувати
-          </button>
-
-          <button type="button" class="stepper-btn-next" mat-raised-button color="accent" (click)="onSubmit()">
-            Створити
-          </button>
-        </div>
       }
+
+      <div class="stepper-buttons w-100">
+        <button type="button" mat-raised-button color="primary" (click)="onCancel()">
+          Скасувати
+        </button>
+
+        <button type="button" class="stepper-btn-next" mat-raised-button color="accent"
+                (click)="onSubmit()"
+                [disabled]="$ingredients().length === 0">
+          Підтвердити
+        </button>
+      </div>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

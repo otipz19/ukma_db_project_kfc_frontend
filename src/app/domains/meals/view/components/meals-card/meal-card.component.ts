@@ -10,6 +10,7 @@ import {
 } from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-meal-card',
@@ -21,7 +22,8 @@ import {MatIcon} from "@angular/material/icon";
     MatButton,
     MatCardActions,
     MatIcon,
-    MatCardTitle
+    MatCardTitle,
+    RouterLink
   ],
   templateUrl: './meal-card.component.html',
   styleUrl: './meal-card.component.scss'

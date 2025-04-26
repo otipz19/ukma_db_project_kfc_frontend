@@ -1,4 +1,4 @@
-import {Component, inject, output, signal, viewChildren} from '@angular/core';
+import {Component, DestroyRef, inject, input, OnInit, output, signal, viewChild, viewChildren} from '@angular/core';
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext} from "@angular/material/stepper";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UpdateMeal} from "../../../../../../../api/model/updateMeal";
@@ -18,6 +18,10 @@ import {
 import {Ingredient} from "../../../../../../../api/model/ingredient";
 import {MealIngredientCardComponent} from "../meal-ingredient-card/meal-ingredient-card.component";
 import {MealIngredient} from "../../../../../../../api/model/mealIngredient";
+import {Meal} from "../../../../../../../api/model/meal";
+import {IngredientControllerService} from "../../../../../../../api/api/ingredientController.service";
+import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
 
@@ -27,7 +31,7 @@ type MealIngredientCombinedDto = {
 };
 
 @Component({
-  selector: 'app-meal-create-form',
+  selector: 'app-meal-upsert-form',
   imports: [
     MatStepper,
     MatStep,
@@ -44,12 +48,17 @@ type MealIngredientCombinedDto = {
     MatSuffix,
     MealIngredientCardComponent,
   ],
-  templateUrl: './meal-create-form.component.html',
-  styleUrl: './meal-create-form.component.scss'
+  templateUrl: './meal-upsert-form.component.html',
+  styleUrl: './meal-upsert-form.component.scss'
 })
-export class MealCreateFormComponent {
+export class MealUpsertFormComponent implements OnInit {
+  private readonly ingredientsApi = inject(IngredientControllerService);
   private readonly fb = inject(FormBuilder).nonNullable;
   private readonly matDialog = inject(MatDialog);
+  private readonly notify = inject(NotifyService);
+  private readonly destroyRef = inject(DestroyRef);
+
+  readonly $initialValue = input<Meal | undefined>(undefined, {alias: 'initialValue'});
 
   protected readonly submit = output<UpdateMeal>();
   protected readonly cancel = output<void>();
@@ -64,9 +73,33 @@ export class MealCreateFormComponent {
   protected readonly $ingredients = signal<MealIngredientCombinedDto[]>([]);
   protected readonly $mealIngredientCards = viewChildren(MealIngredientCardComponent);
 
+  private readonly $matStepper = viewChild(MatStepper);
+
+  ngOnInit() {
+    const initValue = this.$initialValue();
+    if(initValue) {
+      const {title, additionalPrice, description, recipe, ingredients: mealIngredients} = initValue;
+      this.mealDataStepForm.patchValue({title, additionalPrice, description, recipe});
+      this.ingredientsApi.getAllIngredients([...mealIngredients.map(i => i.ingredientId)])
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          this.notify.notifyError()
+        )
+        .subscribe(ingredients => {
+          const dtos: MealIngredientCombinedDto[] = ingredients.map(ingredient => {
+            const mealIngredient = mealIngredients
+              .find(m => m.ingredientId === ingredient.id)!;
+            return {ingredient, mealIngredient};
+          });
+          this.$ingredients.set(dtos);
+        });
+    }
+  }
+
   protected onSubmit() {
     if(this.mealDataStepForm.invalid) {
       this.mealDataStepForm.markAllAsTouched();
+      this.$matStepper()?.previous();
       return;
     }
 
