@@ -2,8 +2,7 @@ import {Component, inject, OnInit, signal} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {CLIENT_RESOLVER_KEY} from "../../../data-access/resolvers/client.resolver";
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
-import {ClientStoreEntity} from "../../../data-access/model/client-store-entity";
-import {MatAnchor, MatButton, MatIconButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {UserRole} from "../../../../../api";
 import {AuthService} from "../../../../../core/services/auth.service";
 import {DeleteClientService} from "../../../features/delete-client/data-access/services/delete-client.service";
@@ -11,6 +10,10 @@ import {Location} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 import {UpdateClientService} from "../../../features/update-client/data-access/services/update-client.service";
 import {ClientProfileStore} from "../../../data-access/store/client-profile.store";
+import {EmailsCardComponent} from "../../../../contacts/view/components/emails-card/emails-card.component";
+import {PhonesCardComponent} from "../../../../contacts/view/components/phones-card/phones-card.component";
+import {getFromResolver} from "../../../../../shared/resolvers/get-from-resolver";
+import {ClientStoreEntity} from "../../../data-access/model/client-store-entity";
 
 @Component({
   selector: 'app-client-profile-page',
@@ -19,10 +22,11 @@ import {ClientProfileStore} from "../../../data-access/store/client-profile.stor
     MatCardHeader,
     MatCardContent,
     MatCardTitle,
-    MatAnchor,
     MatButton,
     MatIconButton,
     MatIcon,
+    EmailsCardComponent,
+    PhonesCardComponent,
   ],
   templateUrl: './client-profile-page.component.html',
   styleUrl: './client-profile-page.component.scss'
@@ -36,13 +40,11 @@ export class ClientProfilePageComponent implements OnInit {
 
   protected readonly authService = inject(AuthService);
 
-  protected readonly $clientId = signal<ClientStoreEntity['id']>(this.route.snapshot.data[CLIENT_RESOLVER_KEY].id);
+  private readonly clientFromResolver: ClientStoreEntity = getFromResolver(CLIENT_RESOLVER_KEY);
   protected readonly $client = this.store.$client;
-  protected readonly $phones = this.store.$phones;
-  protected readonly $emails = this.store.$emails;
 
   ngOnInit() {
-    this.store.load(this.$clientId());
+    this.store.load(this.clientFromResolver);
   }
 
   protected readonly UserRole = UserRole;

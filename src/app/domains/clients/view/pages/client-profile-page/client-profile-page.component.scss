@@ -4,35 +4,3 @@
   padding: 16px;
   gap: 16px;
 }
-
-.horizontal-container {
-  display: flex;
-  justify-content: space-around;
-  gap: 16px;
-}
-
-.cards-vertical-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-  gap: 16px;
-}
-
-.data-card {
-  min-width: 400px;
-
-  .card-header {
-    padding-bottom: 5px;
-  }
-
-  .card-content-wrapper {
-    padding-top: 16px;
-  }
-}
-
-.contact-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
