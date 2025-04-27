@@ -1,16 +1,18 @@
-import {Component, inject, input, OnInit, output} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ControlsOf} from "../../../../../../../shared/type-utils/controls-of";
-import {EmployeeStoreEntity} from "../../../../../data-access/model/employee-store-entity";
 import {
   CommonFormDatepickerFieldComponent
 } from "../../../../../../../shared/form/components/common-form-datepicker-field/common-form-datepicker-field.component";
 import {
   CommonFormInputFieldComponent
 } from "../../../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
-import {MatCard, MatCardActions, MatCardContent} from "@angular/material/card";
-import {MatButton} from "@angular/material/button";
 import {UpdateEmployee} from "../../../../../../../api/model/updateEmployee";
+import {
+  UpsertDialogFormComponent
+} from "../../../../../../../shared/features/upsert-dialog/components/upsert-dialog/upsert-dialog.component";
+
+export type UpdateEmployeeDataFormValue = Omit<UpdateEmployee, 'salary'>;
 
 @Component({
   selector: 'app-update-employee-form',
@@ -18,47 +20,35 @@ import {UpdateEmployee} from "../../../../../../../api/model/updateEmployee";
     ReactiveFormsModule,
     CommonFormDatepickerFieldComponent,
     CommonFormInputFieldComponent,
-    MatCard,
-    MatCardContent,
-    MatCardActions,
-    MatButton
   ],
   templateUrl: './update-employee-form.component.html',
   styleUrl: './update-employee-form.component.scss'
 })
-export class UpdateEmployeeFormComponent implements OnInit {
+export class UpdateEmployeeFormComponent implements UpsertDialogFormComponent<UpdateEmployeeDataFormValue> {
   private readonly fb = inject(FormBuilder).nonNullable;
 
-  protected readonly form = this.fb.group<ControlsOf<UpdateEmployee>>({
+  protected readonly form = this.fb.group<ControlsOf<UpdateEmployeeDataFormValue>>({
     passportNumber: this.fb.control('', [Validators.required, Validators.minLength(14), Validators.maxLength(14)]),
     firstName: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
     surname: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
     middleName: this.fb.control('', [Validators.maxLength(64)]),
     birthDate: this.fb.control('', [Validators.required]),
-    salary: this.fb.control(null as any, [Validators.required])
   });
 
-  readonly $initialValue = input.required<EmployeeStoreEntity>({alias: 'initialValue'});
-
-  protected readonly submit = output<UpdateEmployee>();
-  protected readonly cancel = output<void>();
-
-  ngOnInit() {
-    const {passportNumber, firstName, surname, middleName, birthDate, salary} = this.$initialValue();
-    this.form.patchValue({passportNumber, firstName, salary, middleName, birthDate, surname});
+  initByValue(value: UpdateEmployeeDataFormValue): void {
+    this.form.patchValue(value);
   }
 
-  onSubmit() {
+  validate(): boolean {
     if(this.form.invalid) {
       this.form.markAllAsTouched();
-      return;
+      return false;
     }
 
-    const value = this.form.getRawValue();
-    this.submit.emit(value);
+    return true;
   }
 
-  onCancel() {
-    this.cancel.emit();
+  getFormValue(): UpdateEmployeeDataFormValue {
+    return this.form.getRawValue();
   }
 }

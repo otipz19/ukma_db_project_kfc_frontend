@@ -13,7 +13,9 @@ import {EmployeePositionPipe} from "../../pipes/employee-position.pipe";
 import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {DeleteEmployeeService} from "../../../features/delete-employee/data-access/services/delete-employee.service";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {RouterLink} from "@angular/router";
+import {UpdateEmployeeService} from "../../../features/update-employee/data-access/services/update-employee.service";
+import {EmployeesStore} from "../../../data-access/store/employees.store";
 
 type EmployeeColumn = (keyof Omit<EmployeeStoreEntity, 'id' | 'username'>) | 'actions';
 
@@ -52,9 +54,9 @@ const EmployeeColumns: Record<EmployeeColumn, EmployeeColumn> = {
   styleUrl: './employees-table-list.component.scss'
 })
 export class EmployeesTableListComponent {
+  private readonly store = inject(EmployeesStore);
   private readonly deleteService = inject(DeleteEmployeeService);
-  private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
+  private readonly editService = inject(UpdateEmployeeService);
 
   readonly $employees = input.required<Array<EmployeeStoreEntity>>({alias: 'employees'});
 
@@ -65,7 +67,10 @@ export class EmployeesTableListComponent {
   protected readonly EmployeeColumns = EmployeeColumns;
 
   onEdit(employee: EmployeeStoreEntity) {
-    this.router.navigate(['update', employee.id], {relativeTo: this.route});
+    this.editService.update$(employee)
+      .subscribe(() => {
+        this.store.update(employee.id, employee.id);
+      });
   }
 
   onDelete(employee: EmployeeStoreEntity) {

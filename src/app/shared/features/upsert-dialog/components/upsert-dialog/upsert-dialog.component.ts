@@ -27,8 +27,8 @@ export type UpsertDialogData<TFormValue extends object> = {
   templateUrl: './upsert-dialog.component.html',
   styleUrl: './upsert-dialog.component.scss'
 })
-export class UpsertDialogComponent<TFormValue extends object> implements AfterViewInit {
-  private readonly dialogRef = inject(MatDialogRef<void>);
+export class UpsertDialogComponent<TFormValue extends object, TResult> implements AfterViewInit {
+  private readonly dialogRef = inject(MatDialogRef<TFormValue, TResult>);
   protected readonly data: UpsertDialogData<TFormValue> = inject(MAT_DIALOG_DATA);
 
   private readonly formContainer = viewChild.required('formContainer', {
@@ -50,7 +50,7 @@ export class UpsertDialogComponent<TFormValue extends object> implements AfterVi
     if (this.formComponentInstance.validate()) {
       const formValue = this.formComponentInstance.getFormValue();
       this.data.submitCallback(formValue)
-        .subscribe(() => this.dialogRef.close());
+        .subscribe(result => this.dialogRef.close(result));
     }
   }
 

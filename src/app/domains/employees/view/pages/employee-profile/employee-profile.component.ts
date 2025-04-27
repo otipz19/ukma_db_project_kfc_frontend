@@ -11,6 +11,7 @@ import {EmployeeStoreEntity} from "../../../data-access/model/employee-store-ent
 import {UserRole} from "../../../../../api";
 import {AuthService} from "../../../../../core/services/auth.service";
 import {EmployeePositionPipe} from "../../pipes/employee-position.pipe";
+import {UpdateEmployeeService} from "../../../features/update-employee/data-access/services/update-employee.service";
 
 @Component({
   selector: 'app-employees-profile',
@@ -32,6 +33,7 @@ import {EmployeePositionPipe} from "../../pipes/employee-position.pipe";
 export class EmployeeProfileComponent implements OnInit {
   protected readonly authService = inject(AuthService);
   private readonly store = inject(EmployeeProfileStore);
+  private readonly updateService = inject(UpdateEmployeeService);
 
   private readonly employeeFromResolver = getFromResolver<EmployeeStoreEntity>(EMPLOYEE_RESOLVER_KEY);
   protected readonly $employee = this.store.$employee;
@@ -59,13 +61,13 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   protected onEdit() {
-    // const client = this.$client();
-    // if(!client) {
-    //   return;
-    // }
-    // this.updateService.update$(client)
-    //   .subscribe(() => {
-    //     this.store.reloadClientData();
-    //   });
+    const employee = this.$employee();
+    if(!employee) {
+      return;
+    }
+    this.updateService.update$(employee)
+      .subscribe(() => {
+        this.store.reloadData();
+      });
   }
 }

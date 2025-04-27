@@ -1,7 +1,0 @@
-<h2 mat-dialog-title>Редагування працівника</h2>
-<div class="form-container">
-  @let employee = $employee();
-  @if (employee) {
-    <app-update-employee-form class="update-form" [initialValue]="employee" (submit)="onSubmit($event)" (cancel)="onCancel()"/>
-  }
-</div>
