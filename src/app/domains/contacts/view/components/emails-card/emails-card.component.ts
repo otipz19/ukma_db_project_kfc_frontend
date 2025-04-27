@@ -1,7 +1,8 @@
 import {Component, inject, input, OnInit} from '@angular/core';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
-import {MatAnchor} from "@angular/material/button";
+import {MatAnchor, MatIconButton} from "@angular/material/button";
 import {ContactsStore} from "../../../data-access/store/contacts.store";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-emails-card',
@@ -10,7 +11,9 @@ import {ContactsStore} from "../../../data-access/store/contacts.store";
     MatCardHeader,
     MatCardContent,
     MatCardTitle,
-    MatAnchor
+    MatAnchor,
+    MatIcon,
+    MatIconButton
   ],
   templateUrl: './emails-card.component.html',
   styleUrl: './emails-card.component.scss'
@@ -24,5 +27,9 @@ export class EmailsCardComponent implements OnInit {
 
   ngOnInit() {
     this.store.load(this.$userId());
+  }
+
+  protected onEdit() {
+
   }
 }

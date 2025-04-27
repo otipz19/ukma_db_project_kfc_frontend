@@ -1,5 +1,4 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {Component, inject, OnInit} from '@angular/core';
 import {CLIENT_RESOLVER_KEY} from "../../../data-access/resolvers/client.resolver";
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatButton, MatIconButton} from "@angular/material/button";
@@ -32,7 +31,6 @@ import {ClientStoreEntity} from "../../../data-access/model/client-store-entity"
   styleUrl: './client-profile-page.component.scss'
 })
 export class ClientProfilePageComponent implements OnInit {
-  private readonly route = inject(ActivatedRoute);
   private readonly store = inject(ClientProfileStore);
   private readonly clientDeleteService = inject(DeleteClientService);
   private readonly location = inject(Location);
