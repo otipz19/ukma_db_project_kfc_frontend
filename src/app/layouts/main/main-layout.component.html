@@ -14,6 +14,9 @@
 
   <div class="toolbar-right">
     @if ($isAuthenticated()) {
+      @if (authService.$role() === UserRole.CLIENT) {
+        <app-select-restaurant-button/>
+      }
       <app-toolbar-user-menu/>
     }
   </div>

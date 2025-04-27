@@ -22,6 +22,7 @@ export class RestaurantCardComponent {
   private deleteService = inject(DeleteRestaurantService);
 
   readonly $restaurant = input.required<Restaurant>({alias: 'restaurant'});
+  readonly $hideActions = input<boolean>(false, {alias: 'hideActions'});
 
   onEdit() {
     this.editService.edit(this.$restaurant());

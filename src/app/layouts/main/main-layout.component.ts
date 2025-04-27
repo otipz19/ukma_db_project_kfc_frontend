@@ -10,6 +10,10 @@ import {
   ToolbarUserMenuComponent
 } from "../../domains/user/view/components/toolbar-user-menu/toolbar-user-menu.component";
 import {AuthService} from "../../core/services/auth.service";
+import {
+  SelectRestaurantButtonComponent
+} from "../../domains/restaurants/features/current-restaurant/view/components/select-restaurant-button/select-restaurant-button.component";
+import {UserRole} from "../../api";
 
 @Component({
   selector: 'app-main-layout',
@@ -25,12 +29,13 @@ import {AuthService} from "../../core/services/auth.service";
     MatSidenavContent,
     MatIconButton,
     ToolbarUserMenuComponent,
+    SelectRestaurantButtonComponent,
   ],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss'
 })
 export class MainLayoutComponent {
-  private readonly authService = inject(AuthService);
+  protected readonly authService = inject(AuthService);
   private readonly sidenavLinksService = inject(SidenavLinksService);
 
   protected readonly $sidenavLinks = this.sidenavLinksService.$sidenavLinks;
@@ -62,4 +67,6 @@ export class MainLayoutComponent {
       this.$isSidenavExpanded.set(isExpanded);
     }
   }
+
+  protected readonly UserRole = UserRole;
 }

@@ -1,3 +1,7 @@
 @for (restaurant of $restaurants(); track restaurant.id) {
-  <app-restaurant-card class="list-item" [restaurant]="restaurant"/>
+  <app-restaurant-card class="list-item" [restaurant]="restaurant"
+                       [hideActions]="$hideActions()"
+                       (click)="select.emit(restaurant)"/>
+} @empty {
+  <app-restaurant-card style="visibility: hidden" [restaurant]="dummyRestaurantSkeleton"/>
 }
