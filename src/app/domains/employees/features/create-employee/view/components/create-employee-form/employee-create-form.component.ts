@@ -2,9 +2,7 @@ import {Component, DestroyRef, inject, input, OnInit, output, signal} from '@ang
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ControlsOf} from "../../../../../../../shared/type-utils/controls-of";
-import {
-  passwordsEqualValidator
-} from "../../../../../../../shared/form/validators/passwords-equal.validator";
+import {passwordsEqualValidator} from "../../../../../../../shared/form/validators/passwords-equal.validator";
 import {
   CommonFormInputFieldComponent
 } from "../../../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
@@ -18,7 +16,8 @@ import {
 import {ErrorMessagePipe} from "../../../../../../../shared/form/pipes/error-message.pipe";
 import {MatError, MatFormField} from "@angular/material/form-field";
 import {
-  ManagerPositionSelectOptions, MinorPositionsSelectOptions
+  ManagerPositionSelectOptions,
+  MinorPositionsSelectOptions
 } from "../../../../../view/select-models/employee-position-select-model";
 import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
@@ -56,24 +55,24 @@ type AuthDataFormType = {
 export type EmployeeCreateFormResult = Omit<PersonalDataFormType & HiringDataFormType & AuthDataFormType, 'passwordConfirm'>;
 
 @Component({
-    imports: [
-        MatStepper,
-        MatStep,
-        MatStepLabel,
-        ReactiveFormsModule,
-        CommonFormInputFieldComponent,
-        CommonFormDatepickerFieldComponent,
-        MatButton,
-        MatStepperNext,
-        MatStepperPrevious,
-        CommonFormPasswordFieldComponent,
-        ErrorMessagePipe,
-        MatError,
-        MatFormField,
-        MatSelect,
-        MatOption,
-        MatLabel,
-    ],
+  imports: [
+    MatStepper,
+    MatStep,
+    MatStepLabel,
+    ReactiveFormsModule,
+    CommonFormInputFieldComponent,
+    CommonFormDatepickerFieldComponent,
+    MatButton,
+    MatStepperNext,
+    MatStepperPrevious,
+    CommonFormPasswordFieldComponent,
+    ErrorMessagePipe,
+    MatError,
+    MatFormField,
+    MatSelect,
+    MatOption,
+    MatLabel,
+  ],
   selector: 'app-employee-create-form',
   styleUrl: './employee-create-form.component.scss',
   templateUrl: './employee-create-form.component.html'
@@ -104,7 +103,7 @@ export class EmployeeCreateFormComponent implements OnInit {
     .group<ControlsOf<HiringDataFormType>>({
       position: this.fb.control(null as any, [Validators.required]),
       restaurantId: this.fb.control(null as any, [Validators.required]),
-      salary: this.fb.control(null as any, [Validators.required])
+      salary: this.fb.control(null as any, [Validators.required, Validators.min(0)])
     })
 
   // For some buggy reasons code analyzer sees this.hiringDataStepForm.controls.position as FormGroup
@@ -168,7 +167,6 @@ export class EmployeeCreateFormComponent implements OnInit {
       );
   }
 
-  // TODO: Refactor when api is updated
   private hasManager$(restaurantId: Restaurant['id']): Observable<boolean> {
     // If current user is manager then he is the manager of current restaurant
     // because he only has access to restaurant where he has a role of manager
@@ -176,10 +174,9 @@ export class EmployeeCreateFormComponent implements OnInit {
       return of(true);
     }
 
-    return this.employeeApi.getAllEmployees(restaurantId)
+    return this.employeeApi.getAllEmployees(restaurantId, [EmployeePosition.MANAGER])
       .pipe(
-        map(employees => {
-          const managers = employees.filter(e => e.position == EmployeePosition.MANAGER);
+        map(managers => {
           return managers.length > 0;
         })
       )

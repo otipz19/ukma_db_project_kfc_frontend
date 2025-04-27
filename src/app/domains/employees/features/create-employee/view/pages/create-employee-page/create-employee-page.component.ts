@@ -50,7 +50,6 @@ export class CreateEmployeePageComponent {
       })
   }
 
-  // TODO: Remove when api is updated
   private requestManagerId$(restaurantId: Restaurant['id']): Observable<Employee['userId']> {
     // If current user is manager then he is the manager of current restaurant
     // because he only has access to restaurant where he has a role of manager
@@ -59,10 +58,9 @@ export class CreateEmployeePageComponent {
       return of(manager.id);
     }
 
-    return this.employeeApi.getAllEmployees(restaurantId)
+    return this.employeeApi.getAllEmployees(restaurantId, [EmployeePosition.MANAGER])
       .pipe(
-        map(employees => {
-          const managers = employees.filter(e => e.position == EmployeePosition.MANAGER);
+        map(managers => {
           if (managers.length === 0) {
             throw new Error(`No managers in restaurant ${restaurantId} while creating non-manager employee. Shouldn't happen`);
           }
@@ -71,16 +69,14 @@ export class CreateEmployeePageComponent {
       )
   }
 
-  // TODO: Remove when api is updated
   private requestTopManagerId$(): Observable<Employee['userId']> {
-    return this.employeeApi.getAllEmployees()
+    return this.employeeApi.getAllEmployees(undefined, [EmployeePosition.TOP_MANAGER])
       .pipe(
-        map(employees => {
-          const managers = employees.filter(e => e.position == EmployeePosition.TOP_MANAGER);
-          if (managers.length === 0) {
+        map(result => {
+          if (result.length === 0) {
             throw new Error(`Top manager doesn't exist. Must never happen`);
           }
-          return managers[0].userId;
+          return result[0].userId;
         })
       )
   }
