@@ -4,6 +4,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatIconButton} from "@angular/material/button";
 import {AuthService} from "../../../../../core/services/auth.service";
 import {Router} from "@angular/router";
+import {UserRole} from "../../../../../api";
 
 @Component({
   selector: 'app-toolbar-user-menu',
@@ -18,11 +19,18 @@ import {Router} from "@angular/router";
   styleUrl: './toolbar-user-menu.component.scss'
 })
 export class ToolbarUserMenuComponent {
-  private readonly authService = inject(AuthService);
+  protected readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
   protected onLogoutClick() {
     this.authService.closeSession();
     this.router.navigate(['/', 'auth', 'login']);
   }
+
+  protected onProfileClick() {
+    const entityPart = this.authService.$role() === UserRole.CLIENT ? 'clients' : 'employees';
+    this.router.navigate(['/', entityPart, this.authService.$currentUser()!.id]);
+  }
+
+  protected readonly UserRole = UserRole;
 }

@@ -2,6 +2,12 @@
   <mat-icon>person</mat-icon>
 </button>
 <mat-menu #userMenu="matMenu">
+  @if (authService.hasRole(UserRole.CLIENT)) {
+    <button mat-menu-item (click)="onProfileClick()">
+      <mat-icon>person</mat-icon>
+      <span>Мій профіль</span>
+    </button>
+  }
   <button mat-menu-item (click)="onLogoutClick()">
     <mat-icon>logout</mat-icon>
     <span>Вийти з акаунту</span>
