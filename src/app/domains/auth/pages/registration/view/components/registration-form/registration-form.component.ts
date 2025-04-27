@@ -18,6 +18,7 @@ import {ClientRegistrationService} from "../../../../../data-access/services/cli
 import {Router} from "@angular/router";
 import {phoneNumberFormatValidator} from "../../../../../../../shared/form/validators/phone-number-format.validator";
 import {emailFormatValidator} from "../../../../../../../shared/form/validators/email-format.validator";
+import {minAgeValidator} from "../../../../../../../shared/form/validators/minAge.validator";
 
 @Component({
   selector: 'app-registration-form',
@@ -55,7 +56,7 @@ export class RegistrationFormComponent {
     firstName: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
     surname: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
     middleName: this.fb.control("", [Validators.maxLength(64)]),
-    birthDate: this.fb.control("")
+    birthDate: this.fb.control("", [minAgeValidator(14)])
   });
 
   protected readonly contactsStepForm = this.fb.group({

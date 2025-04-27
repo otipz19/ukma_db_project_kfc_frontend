@@ -11,6 +11,7 @@ import {UpdateEmployee} from "../../../../../../../api/model/updateEmployee";
 import {
   UpsertDialogFormComponent
 } from "../../../../../../../shared/features/upsert-dialog/components/upsert-dialog/upsert-dialog.component";
+import {minAgeValidator} from "../../../../../../../shared/form/validators/minAge.validator";
 
 export type UpdateEmployeeDataFormValue = Omit<UpdateEmployee, 'salary'>;
 
@@ -32,7 +33,7 @@ export class UpdateEmployeeFormComponent implements UpsertDialogFormComponent<Up
     firstName: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
     surname: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
     middleName: this.fb.control('', [Validators.maxLength(64)]),
-    birthDate: this.fb.control('', [Validators.required]),
+    birthDate: this.fb.control('', [Validators.required, minAgeValidator(18)]),
   });
 
   initByValue(value: UpdateEmployeeDataFormValue): void {

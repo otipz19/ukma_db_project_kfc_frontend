@@ -1,7 +1,7 @@
 import {ValidationErrors} from "@angular/forms";
 
 export function getValidationErrorMessage(errors: ValidationErrors | null): string {
-  if(!errors) {
+  if (!errors) {
     return '';
   }
   const [errorName, errorData] = Object.entries(errors)[0];
@@ -18,9 +18,16 @@ export type CustomValidationErrorKey =
   | 'invalidPhoneFormat'
   | 'phoneExists'
   | 'emailExists'
-  | 'usernameExists';
+  | 'usernameExists'
+  | 'minAge';
 
-type DefaultValidationErrorKey = 'required' | 'pattern' | 'maxlength' | 'minlength';
+type DefaultValidationErrorKey =
+  'required'
+  | 'pattern'
+  | 'maxlength'
+  | 'minlength'
+  | 'min'
+  | 'max';
 
 type ValidationErrorKey = DefaultValidationErrorKey | CustomValidationErrorKey;
 
@@ -30,7 +37,8 @@ export const CUSTOM_VALIDATION_ERROR_KEY: Record<CustomValidationErrorKey, Custo
   invalidPhoneFormat: 'invalidPhoneFormat',
   phoneExists: 'phoneExists',
   emailExists: 'emailExists',
-  usernameExists: 'usernameExists'
+  usernameExists: 'usernameExists',
+  minAge: 'minAge'
 };
 
 const ERROR_TO_MESSAGE: Record<ValidationErrorKey, string | ((error: any) => string)> = {
@@ -38,10 +46,13 @@ const ERROR_TO_MESSAGE: Record<ValidationErrorKey, string | ((error: any) => str
   pattern: "Неправильний формат",
   maxlength: ({requiredLength}: any) => `Максимальна довжина ${requiredLength} символів`,
   minlength: ({requiredLength}: any) => `Мінімальна довжина ${requiredLength} символів`,
+  min: ({min}: any) => `Мінімальне значення: ${min}`,
+  max: ({max}: any) => `Максимальне значення: ${max}`,
   passwordsAreNotEqual: "Паролі мають співпадати",
   invalidEmailFormat: 'Неправильний формат пошти',
   invalidPhoneFormat: 'Неправильний формат номеру телефону',
   phoneExists: 'Номер телефону вже використовується',
   emailExists: 'Пошта вже використовується',
-  usernameExists: "Ім'я користувача зайняте"
+  usernameExists: "Ім'я користувача зайняте",
+  minAge: (minAge: any) => `Мінімальний вік: ${minAge}`
 } as const;

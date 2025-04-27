@@ -31,6 +31,7 @@ import {voidOperator} from "../../../../../../../shared/rxjs/operators/void-oper
 import {AuthService} from "../../../../../../../core/services/auth.service";
 import {EmployeePosition} from "../../../../../../../api/model/employeePosition";
 import {EmployeeControllerService} from "../../../../../../../api/api/employeeController.service";
+import {minAgeValidator} from "../../../../../../../shared/form/validators/minAge.validator";
 
 type PersonalDataFormType = {
   passportNumber: string;
@@ -96,14 +97,14 @@ export class EmployeeCreateFormComponent implements OnInit {
       firstName: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
       surname: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
       middleName: this.fb.control('', [Validators.maxLength(64)]),
-      birthDate: this.fb.control('', [Validators.required]),
+      birthDate: this.fb.control('', [Validators.required, minAgeValidator(18)]),
     });
 
   protected readonly hiringDataStepForm = this.fb
     .group<ControlsOf<HiringDataFormType>>({
       position: this.fb.control(null as any, [Validators.required]),
       restaurantId: this.fb.control(null as any, [Validators.required]),
-      salary: this.fb.control(null as any, [Validators.required, Validators.min(0)])
+      salary: this.fb.control(null as any, [Validators.required, Validators.min(1)])
     })
 
   // For some buggy reasons code analyzer sees this.hiringDataStepForm.controls.position as FormGroup

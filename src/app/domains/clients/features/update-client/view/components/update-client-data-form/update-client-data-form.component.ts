@@ -11,6 +11,7 @@ import {
 import {
   CommonFormInputFieldComponent
 } from "../../../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
+import {minAgeValidator} from "../../../../../../../shared/form/validators/minAge.validator";
 
 @Component({
   selector: 'app-update-client-data-form',
@@ -29,7 +30,7 @@ export class UpdateClientDataFormComponent implements UpsertDialogFormComponent<
     firstName: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
     surname: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
     middleName: this.fb.control("", [Validators.maxLength(64)]),
-    birthDate: this.fb.control("")
+    birthDate: this.fb.control("", [minAgeValidator(14)])
   });
 
   initByValue(value: UpdateClient): void {
