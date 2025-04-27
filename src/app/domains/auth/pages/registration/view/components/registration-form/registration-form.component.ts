@@ -15,10 +15,9 @@ import {
   CommonFormDatepickerFieldComponent
 } from "../../../../../../../shared/form/components/common-form-datepicker-field/common-form-datepicker-field.component";
 import {ClientRegistrationService} from "../../../../../data-access/services/client-registration.service";
-import {RegisterClientDto} from "../../../../../data-access/model/register-client.dto";
 import {Router} from "@angular/router";
-import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
 import {phoneNumberFormatValidator} from "../../../../../../../shared/form/validators/phone-number-format.validator";
+import {emailFormatValidator} from "../../../../../../../shared/form/validators/email-format.validator";
 
 @Component({
   selector: 'app-registration-form',
@@ -42,7 +41,6 @@ import {phoneNumberFormatValidator} from "../../../../../../../shared/form/valid
 export class RegistrationFormComponent {
   private readonly registrationService = inject(ClientRegistrationService);
   private readonly router = inject(Router);
-  private readonly notifyService = inject(NotifyService);
   private readonly fb = inject(FormBuilder).nonNullable;
 
   protected readonly firstStepForm = this.fb.group({
@@ -57,24 +55,29 @@ export class RegistrationFormComponent {
     firstName: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
     surname: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
     middleName: this.fb.control("", [Validators.maxLength(64)]),
-    phoneNumber: this.fb.control("", [phoneNumberFormatValidator()]),
     birthDate: this.fb.control("")
   });
 
+  protected readonly contactsStepForm = this.fb.group({
+    phoneNumber: this.fb.control("", [phoneNumberFormatValidator()]),
+    email: this.fb.control('', [emailFormatValidator()])
+  });
+
   protected onSubmit() {
-    if (this.firstStepForm.invalid || this.secondStepForm.invalid) {
+    if (this.firstStepForm.invalid || this.secondStepForm.invalid || this.contactsStepForm.invalid) {
       this.firstStepForm.markAllAsTouched();
       this.secondStepForm.markAllAsTouched();
+      this.contactsStepForm.markAllAsTouched();
       return;
     }
 
     const {username, password} = this.firstStepForm.getRawValue();
-    const dto: RegisterClientDto = {username, password, ...this.secondStepForm.getRawValue()};
+    const {firstName, surname, middleName, birthDate} = this.secondStepForm.getRawValue();
+    const {phoneNumber, email} = this.contactsStepForm.getRawValue();
+
+    const dto = {username, password, firstName, surname, middleName, birthDate, phoneNumber, email};
 
     this.registrationService.register$(dto)
-      .pipe(
-        this.notifyService.notifyHttpError()
-      )
       .subscribe(() => {
         this.router.navigate(['/', 'landing']);
       });

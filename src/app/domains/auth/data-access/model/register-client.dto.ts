@@ -1,9 +1,6 @@
-export type RegisterClientDto = {
-  username: string;
-  password: string;
-  surname: string;
-  firstName: string;
-  middleName?: string;
-  birthDate?: string;
-  phoneNumber?: string;
+import {ClientRegistration} from "../../../../api/model/clientRegistration";
+
+export type RegisterClientDto = ClientRegistration & {
+  phoneNumber?: string,
+  email?: string
 };

@@ -1,6 +1,6 @@
 <mat-horizontal-stepper class="mat-elevation-z5"
                         labelPosition="bottom"
-                        [linear]="true">
+                        [linear]="false">
   <mat-step [stepControl]="firstStepForm">
     <ng-template matStepLabel>Облікові дані</ng-template>
 
@@ -62,11 +62,34 @@
       <app-common-form-datepicker-field class="default-form-input-field"
                                         [control]="secondStepForm.controls.birthDate"
                                         label="Дата народження"/>
+    </form>
+
+    <div class="stepper-buttons">
+      <button type="button" mat-raised-button color="primary" matStepperPrevious>
+        Назад
+      </button>
+
+      <button type="submit" class="stepper-btn-next" mat-raised-button color="accent" matStepperNext>
+        Далі
+      </button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="secondStepForm">
+    <ng-template matStepLabel>Персональні дані</ng-template>
+
+    <form [formGroup]="secondStepForm">
+      <app-common-form-input-field class="default-form-input-field"
+                                   [control]="contactsStepForm.controls.email"
+                                   label="Пошта"
+                                   inputType="email"
+                                   [maxLength]="320"
+                                   iconSuffix="mail"/>
 
       <app-common-form-input-field class="default-form-input-field"
-                                   [control]="secondStepForm.controls.phoneNumber"
+                                   [control]="contactsStepForm.controls.phoneNumber"
                                    inputType="tel"
-                                   label="Телефон"
+                                   label="Номер телефону"
                                    labelFloat="always"
                                    [maxLength]="10"
                                    textPrefix="+38"/>
