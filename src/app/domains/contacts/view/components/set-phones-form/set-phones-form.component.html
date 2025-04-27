@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  @for (control of contacts.controls; track control) {
+    <app-common-form-input-field class="default-form-input-field"
+                                 [control]="control"
+                                 inputType="tel"
+                                 label="Номер телефону"
+                                 labelFloat="always"
+                                 [maxLength]="10"
+                                 textPrefix="+38"/>
+  }
+</form>

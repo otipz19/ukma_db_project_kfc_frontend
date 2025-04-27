@@ -3,6 +3,7 @@ import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/mat
 import {MatAnchor, MatIconButton} from "@angular/material/button";
 import {ContactsStore} from "../../../data-access/store/contacts.store";
 import {MatIcon} from "@angular/material/icon";
+import {SetPhonesService} from "../../../data-access/services/set-phones.service";
 
 @Component({
   selector: 'app-phones-card',
@@ -20,6 +21,7 @@ import {MatIcon} from "@angular/material/icon";
 })
 export class PhonesCardComponent implements OnInit {
   private readonly store = inject(ContactsStore);
+  private readonly editService = inject(SetPhonesService);
 
   readonly $userId = input.required<number>({alias: 'userId'});
 
@@ -30,6 +32,6 @@ export class PhonesCardComponent implements OnInit {
   }
 
   protected onEdit() {
-
+    this.editService.set(this.$userId(), this.$phones());
   }
 }
