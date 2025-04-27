@@ -23,8 +23,7 @@ export class ToolbarUserMenuComponent {
   private readonly router = inject(Router);
 
   protected onLogoutClick() {
-    this.authService.closeSession();
-    this.router.navigate(['/', 'auth', 'login']);
+    this.authService.unLogin();
   }
 
   protected onProfileClick() {

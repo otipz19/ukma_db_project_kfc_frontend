@@ -9,8 +9,9 @@ import {
 import {MatButton} from "@angular/material/button";
 
 export type DeleteDialogData = {
-  entityTypeName: string,
-  entityInstanceName: string
+  entityTypeName?: string,
+  entityInstanceName?: string,
+  customMessage?: string
 };
 
 @Component({

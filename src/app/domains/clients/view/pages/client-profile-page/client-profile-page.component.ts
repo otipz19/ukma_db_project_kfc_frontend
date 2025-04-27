@@ -71,7 +71,11 @@ export class ClientProfilePageComponent implements OnInit {
   onDelete() {
     this.clientDeleteService.deleteClient$(this.$client())
       .subscribe(() => {
-        this.location.back();
+        if (this.authService.hasRole(UserRole.CLIENT)) {
+          this.authService.unLogin();
+        } else {
+          this.location.back();
+        }
       });
   }
 }

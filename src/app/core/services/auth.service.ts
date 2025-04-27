@@ -12,6 +12,7 @@ import {Client} from "../../api/model/client";
 import {ClientControllerService} from "../../api/api/clientController.service";
 import {User, UserControllerService, UserRole} from "../../api";
 import {EmployeeControllerService} from "../../api/api/employeeController.service";
+import {Router} from "@angular/router";
 
 type TokensDto = {
   accessToken: string,
@@ -28,6 +29,8 @@ export class AuthService {
   private readonly userApi = inject(UserControllerService);
   private readonly clientApi = inject(ClientControllerService);
   private readonly employeeApi = inject(EmployeeControllerService);
+
+  private readonly router = inject(Router);
 
   private _tokensDto: TokensDto | undefined;
 
@@ -129,6 +132,11 @@ export class AuthService {
           this.setTokens(accessToken, refreshToken);
         })
       )
+  }
+
+  unLogin() {
+    this.closeSession();
+    this.router.navigate(['/', 'auth', 'login']);
   }
 
   closeSession() {
