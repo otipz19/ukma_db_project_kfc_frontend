@@ -4,7 +4,7 @@ import {MatButton} from "@angular/material/button";
 import {EmployeesTableListComponent} from "../../components/employees-table-list/employees-table-list.component";
 import {EmployeesStore} from "../../../data-access/store/employees.store";
 import {EmployeeStoreEntity} from '../../../data-access/model/employee-store-entity';
-import {ActivatedRoute, Router} from "@angular/router";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-employees-page',
@@ -12,23 +12,18 @@ import {ActivatedRoute, Router} from "@angular/router";
     MatButton,
     SearchBarComponent,
     EmployeesTableListComponent,
+    RouterLink,
   ],
   templateUrl: './employees-page.component.html',
   styleUrl: './employees-page.component.scss'
 })
 export class EmployeesPageComponent implements OnInit {
   private readonly store = inject(EmployeesStore);
-  private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
 
   protected readonly $employees: Signal<EmployeeStoreEntity[]> = this.store.$viewList;
 
   ngOnInit() {
     this.store.loadAll();
-  }
-
-  protected onCreate() {
-    this.router.navigate(['create'], {relativeTo: this.route});
   }
 
   protected onSearch(query: string) {

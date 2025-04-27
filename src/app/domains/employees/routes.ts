@@ -17,14 +17,14 @@ export const EMPLOYEES_ROUTES: Routes = [
         loadComponent: () => import('./view/pages/employees-page/employees-page.component').then(r => r.EmployeesPageComponent)
       },
       {
-        path: ':employeeId',
-        resolve: {[EMPLOYEE_RESOLVER_KEY]: employeeResolver},
-        loadComponent: () => import('./view/pages/employee-profile/employee-profile.component').then(r => r.EmployeeProfileComponent)
-      },
-      {
         path: 'create',
         canActivate: [hasRoleRouteGuard(UserRole.ADMIN)],
         loadComponent: () => import('./features/create-employee/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
+      },
+      {
+        path: ':employeeId',
+        resolve: {[EMPLOYEE_RESOLVER_KEY]: employeeResolver},
+        loadComponent: () => import('./view/pages/employee-profile/employee-profile.component').then(r => r.EmployeeProfileComponent)
       },
     ]
   }

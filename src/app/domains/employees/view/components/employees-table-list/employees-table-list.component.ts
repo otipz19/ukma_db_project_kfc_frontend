@@ -54,9 +54,7 @@ const EmployeeColumns: Record<EmployeeColumn, EmployeeColumn> = {
   styleUrl: './employees-table-list.component.scss'
 })
 export class EmployeesTableListComponent {
-  private readonly store = inject(EmployeesStore);
   private readonly deleteService = inject(DeleteEmployeeService);
-  private readonly editService = inject(UpdateEmployeeService);
 
   readonly $employees = input.required<Array<EmployeeStoreEntity>>({alias: 'employees'});
 
@@ -65,13 +63,6 @@ export class EmployeesTableListComponent {
 
   protected readonly displayedColumns: Array<EmployeeColumn> = Object.values(EmployeeColumns);
   protected readonly EmployeeColumns = EmployeeColumns;
-
-  onEdit(employee: EmployeeStoreEntity) {
-    this.editService.update$(employee)
-      .subscribe(() => {
-        this.store.update(employee.id, employee.id);
-      });
-  }
 
   onDelete(employee: EmployeeStoreEntity) {
     this.deleteService.deleteEmployee(employee);
