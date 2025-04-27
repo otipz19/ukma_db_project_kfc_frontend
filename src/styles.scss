@@ -115,3 +115,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   justify-content: space-between;
   align-items: center;
 }
+
+.relative-card-header {
+  position: relative;
+
+  .card-header-absolute-action {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px;
+  }
+}

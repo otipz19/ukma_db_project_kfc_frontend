@@ -1,0 +1,23 @@
+<form [formGroup]="form">
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.surname"
+                               label="Прізвище"
+                               [maxLength]="64"
+                               iconSuffix="person"/>
+
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.firstName"
+                               label="Ім'я"
+                               [maxLength]="64"
+                               iconSuffix="person"/>
+
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.middleName!"
+                               label="По-батькові"
+                               [maxLength]="64"
+                               iconSuffix="person"/>
+
+  <app-common-form-datepicker-field class="default-form-input-field"
+                                    [control]="form.controls.birthDate!"
+                                    label="Дата народження"/>
+</form>

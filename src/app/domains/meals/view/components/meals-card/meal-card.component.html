@@ -1,10 +1,10 @@
 <mat-card class="item-list-card">
-  <mat-card-header class="header-wrapper">
+  <mat-card-header class="relative-card-header">
     <mat-card-title class="item-list-card-title">
       {{ $meal().title }}
     </mat-card-title>
 
-    <div class="item-list-view-page-link">
+    <div class="card-header-absolute-action">
       <button mat-icon-button color="primary" [routerLink]="[$meal().id]">
         <mat-icon>visibility</mat-icon>
       </button>

@@ -11,30 +11,36 @@
 <div class="horizontal-container">
   <div class="cards-vertical-container">
     <mat-card class="data-card">
-      <mat-card-header class="bordered-card-header card-header">
+      <mat-card-header class="bordered-card-header card-header relative-card-header">
         <mat-card-title>
           Персональні дані
         </mat-card-title>
+
+        <div class="card-header-absolute-action">
+          <button mat-icon-button color="primary" (click)="onEdit()">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
       </mat-card-header>
 
       <mat-card-content>
         <div class="card-content-wrapper">
           <p>
-            <strong>Прізвище: </strong> {{ $client().surname }}
+            <strong>Прізвище: </strong> {{ $client()?.surname }}
           </p>
           <p>
-            <strong>Ім'я: </strong> {{ $client().firstName }}
+            <strong>Ім'я: </strong> {{ $client()?.firstName }}
           </p>
-          @if ($client().middleName) {
+          @if ($client()?.middleName) {
             <p>
-              <strong>По-батькові: </strong> {{ $client().middleName }}
+              <strong>По-батькові: </strong> {{ $client()?.middleName }}
             </p>
           }
           <p>
-            <strong>Дата народження: </strong> {{ $client().birthDate }}
+            <strong>Дата народження: </strong> {{ $client()?.birthDate }}
           </p>
           <p>
-            <strong>Бонуси:</strong> {{ $client().bonuses }}
+            <strong>Бонуси:</strong> {{ $client()?.bonuses }}
           </p>
         </div>
       </mat-card-content>
