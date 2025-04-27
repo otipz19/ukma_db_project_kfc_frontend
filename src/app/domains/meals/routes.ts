@@ -2,10 +2,12 @@ import {Routes} from "@angular/router";
 import {hasRoleRouteGuard} from "../../core/route-guards/has-role-route.guard";
 import {UserRole} from "../../api";
 import {MEAL_RESOLVER_KEY, mealResolver} from "./data-access/resolvers/meal.resolver";
+import {authenticatedRouteGuard} from "../../core/route-guards/authenticated.route-guard";
 
 export const MEALS_ROUTES: Routes = [
   {
     path: 'meals',
+    canActivate: [authenticatedRouteGuard],
     children: [
       {
         path: '',
