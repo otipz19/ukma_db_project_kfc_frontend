@@ -1,6 +1,5 @@
 import {Component, inject, signal} from '@angular/core';
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
-import {UserPhonesControllerService} from "../../../../../../../api/api/userPhonesController.service";
 import {map, Observable, of, switchMap} from "rxjs";
 import {Restaurant} from "../../../../../../../api/model/restaurant";
 import {Location} from "@angular/common";
@@ -28,7 +27,6 @@ export class CreateEmployeePageComponent {
   private readonly location = inject(Location);
   private readonly notify = inject(NotifyService);
   private readonly employeeApi = inject(EmployeeControllerService);
-  private readonly phoneApi = inject(UserPhonesControllerService);
   private readonly authService = inject(AuthService);
 
   private readonly route = inject(ActivatedRoute);
@@ -39,22 +37,11 @@ export class CreateEmployeePageComponent {
       ? this.requestTopManagerId$()
       : this.requestManagerId$(formResult.restaurantId);
 
-    const {phoneNumber, ...restFormResult} = formResult;
-
     managerIdRequest$
       .pipe(
         switchMap(managerId => {
-          const hiringEmployee: EmployeeHiring = {managerUserId: managerId, ...restFormResult};
+          const hiringEmployee: EmployeeHiring = {managerUserId: managerId, ...formResult};
           return this.employeeApi.hireEmployee(hiringEmployee);
-        }),
-        switchMap(createdUserId => {
-          if(phoneNumber) {
-            return this.phoneApi.setUserPhones(createdUserId, [phoneNumber])
-              .pipe(
-                map(() => createdUserId)
-              );
-          }
-          return of(createdUserId);
         }),
         this.notify.notifyHttpRequest()
       )

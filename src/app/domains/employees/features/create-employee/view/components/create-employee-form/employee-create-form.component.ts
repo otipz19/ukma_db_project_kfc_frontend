@@ -39,7 +39,6 @@ type PersonalDataFormType = {
   firstName: string;
   middleName?: string;
   birthDate: string;
-  phoneNumber?: string;
 };
 
 type HiringDataFormType = {
@@ -99,7 +98,6 @@ export class EmployeeCreateFormComponent implements OnInit {
       surname: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
       middleName: this.fb.control('', [Validators.maxLength(64)]),
       birthDate: this.fb.control('', [Validators.required]),
-      phoneNumber: this.fb.control(''),
     });
 
   protected readonly hiringDataStepForm = this.fb

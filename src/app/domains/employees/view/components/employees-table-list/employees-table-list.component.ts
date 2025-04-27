@@ -14,8 +14,6 @@ import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {DeleteEmployeeService} from "../../../features/delete-employee/data-access/services/delete-employee.service";
 import {RouterLink} from "@angular/router";
-import {UpdateEmployeeService} from "../../../features/update-employee/data-access/services/update-employee.service";
-import {EmployeesStore} from "../../../data-access/store/employees.store";
 
 type EmployeeColumn = (keyof Omit<EmployeeStoreEntity, 'id' | 'username'>) | 'actions';
 
