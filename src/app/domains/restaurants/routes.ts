@@ -3,9 +3,9 @@ import {managersRedirectRouteGuard} from "../../core/route-guards/managers-redir
 import {hasRoleRouteGuard} from "../../core/route-guards/has-role-route.guard";
 import {RESTAURANT_RESOLVER_KEY, restaurantResolver} from "./data-access/resolvers/restaurant.resolver";
 import {
-  UPDATE_EMPLOYEE_RESOLVER_KEY,
-  updateEmployeeResolver
-} from "../employees/features/update-employee/data-access/resolvers/update-employee.resolver";
+  EMPLOYEE_RESOLVER_KEY,
+  employeeResolver
+} from "../employees/data-access/resolvers/employee.resolver";
 import {UserRole} from "../../api";
 
 export const RESTAURANT_ROUTES: Routes = [
@@ -36,12 +36,17 @@ export const RESTAURANT_ROUTES: Routes = [
                 loadComponent: () => import("../employees/view/pages/employees-page/employees-page.component").then(r => r.EmployeesPageComponent)
               },
               {
+                path: ':employeeId',
+                resolve: {[EMPLOYEE_RESOLVER_KEY]: employeeResolver},
+                loadComponent: () => import('../employees/view/pages/employee-profile/employee-profile.component').then(r => r.EmployeeProfileComponent)
+              },
+              {
                 path: 'create',
                 loadComponent: () => import('../employees/features/create-employee/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
               },
               {
                 path: 'update/:id',
-                resolve: {[UPDATE_EMPLOYEE_RESOLVER_KEY]: updateEmployeeResolver},
+                resolve: {[EMPLOYEE_RESOLVER_KEY]: employeeResolver},
                 loadComponent: () => import('../employees/features/update-employee/view/pages/update-employee-page/update-employee-page.component').then(r => r.UpdateEmployeePageComponent)
               }
             ]

@@ -13,7 +13,7 @@ import {EmployeePositionPipe} from "../../pipes/employee-position.pipe";
 import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {DeleteEmployeeService} from "../../../features/delete-employee/data-access/services/delete-employee.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 
 type EmployeeColumn = (keyof Omit<EmployeeStoreEntity, 'id' | 'username'>) | 'actions';
 
@@ -45,7 +45,8 @@ const EmployeeColumns: Record<EmployeeColumn, EmployeeColumn> = {
     MatRowDef,
     EmployeePositionPipe,
     MatIcon,
-    MatIconButton
+    MatIconButton,
+    RouterLink
   ],
   templateUrl: './employees-table-list.component.html',
   styleUrl: './employees-table-list.component.scss'

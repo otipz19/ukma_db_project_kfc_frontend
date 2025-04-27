@@ -4,7 +4,7 @@ import {EmployeeStoreEntity} from "../../../../../data-access/model/employee-sto
 import {UpdateEmployeeFormComponent} from "../../components/update-employee-form/update-employee-form.component";
 import {Location} from "@angular/common";
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
-import {UPDATE_EMPLOYEE_RESOLVER_KEY} from "../../../data-access/resolvers/update-employee.resolver";
+import {EMPLOYEE_RESOLVER_KEY} from "../../../../../data-access/resolvers/employee.resolver";
 import {MatDialogTitle} from "@angular/material/dialog";
 import {EmployeeControllerService} from "../../../../../../../api/api/employeeController.service";
 import {UpdateEmployee} from "../../../../../../../api/model/updateEmployee";
@@ -27,7 +27,7 @@ export class UpdateEmployeePageComponent implements OnInit {
   protected readonly $employee = signal<EmployeeStoreEntity | undefined>(undefined);
 
   ngOnInit() {
-    const data = this.route.snapshot.data[UPDATE_EMPLOYEE_RESOLVER_KEY];
+    const data = this.route.snapshot.data[EMPLOYEE_RESOLVER_KEY];
     this.$employee.set(data);
   }
 
