@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from "@angular/core";
 import {ValidationErrors} from "@angular/forms";
-import {getErrorMessage} from "../utils/get-error-message";
+import {getValidationErrorMessage} from "../utils/get-validation-error-message";
 
 @Pipe({
   name: 'errorMessage',
@@ -8,6 +8,6 @@ import {getErrorMessage} from "../utils/get-error-message";
 })
 export class ErrorMessagePipe implements PipeTransform {
     transform(value: ValidationErrors | null): string {
-        return getErrorMessage(value);
+        return getValidationErrorMessage(value);
     }
 }

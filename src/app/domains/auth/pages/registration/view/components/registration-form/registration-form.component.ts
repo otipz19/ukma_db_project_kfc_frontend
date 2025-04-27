@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
-import {passwordsEqualValidator} from "../../validators/passwordsEqual.validator";
+import {passwordsEqualValidator} from "../../../../../../../shared/form/validators/passwords-equal.validator";
 import {MatError} from "@angular/material/form-field";
 import {ErrorMessagePipe} from "../../../../../../../shared/form/pipes/error-message.pipe";
 import {
@@ -18,6 +18,7 @@ import {ClientRegistrationService} from "../../../../../data-access/services/cli
 import {RegisterClientDto} from "../../../../../data-access/model/register-client.dto";
 import {Router} from "@angular/router";
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
+import {phoneNumberFormatValidator} from "../../../../../../../shared/form/validators/phone-number-format.validator";
 
 @Component({
   selector: 'app-registration-form',
@@ -56,9 +57,7 @@ export class RegistrationFormComponent {
     firstName: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
     surname: this.fb.control("", [Validators.required, Validators.maxLength(64)]),
     middleName: this.fb.control("", [Validators.maxLength(64)]),
-    // TODO: fix phoneNumber format validator
-    // phoneNumber: this.fb.control("", [Validators.pattern("\d{10}")]),
-    phoneNumber: this.fb.control(""),
+    phoneNumber: this.fb.control("", [phoneNumberFormatValidator()]),
     birthDate: this.fb.control("")
   });
 

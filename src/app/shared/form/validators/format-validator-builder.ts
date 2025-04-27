@@ -1,0 +1,20 @@
+import {CustomValidationErrorKey} from "../utils/get-validation-error-message";
+import {AbstractControl, ValidationErrors, ValidatorFn} from "@angular/forms";
+
+export function buildFormatValidator(regex: RegExp, errorKey: CustomValidationErrorKey): () => ValidatorFn {
+  return () => {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if(!control.value) {
+        return null;
+      }
+
+      if(!regex.test(control.value)) {
+        return {
+          [errorKey]: {value: true}
+        };
+      }
+
+      return null;
+    };
+  };
+}

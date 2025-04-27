@@ -4,7 +4,7 @@ import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angula
 import {ControlsOf} from "../../../../../../../shared/type-utils/controls-of";
 import {
   passwordsEqualValidator
-} from "../../../../../../auth/pages/registration/view/validators/passwordsEqual.validator";
+} from "../../../../../../../shared/form/validators/passwords-equal.validator";
 import {
   CommonFormInputFieldComponent
 } from "../../../../../../../shared/form/components/common-form-input-field/common-form-input-field.component";
