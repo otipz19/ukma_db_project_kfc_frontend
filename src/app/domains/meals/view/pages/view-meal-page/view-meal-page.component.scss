@@ -5,7 +5,7 @@
   gap: 16px;
 }
 
-.main-container {
+.horizontal-container {
   display: flex;
   justify-content: space-around;
   gap: 16px;
@@ -45,13 +45,6 @@
 
 .meal-image {
   width: 400px;
-}
-
-.bordered-card-header {
-  border-bottom-style: dotted;
-  border-width: 2px;
-  border-bottom-color: var(--minor-border-color);
-  padding-bottom: 3px;
 }
 
 .stats-card {

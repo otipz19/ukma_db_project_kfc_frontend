@@ -14,6 +14,7 @@ import {ClientStoreEntity} from "../../../data-access/model/client-store-entity"
 import {DeleteClientService} from "../../../features/delete-client/data-access/services/delete-client.service";
 import {AuthService} from "../../../../../core/services/auth.service";
 import {UserRole} from "../../../../../api";
+import {RouterLink} from "@angular/router";
 
 type ClientColumn = (keyof Omit<ClientStoreEntity, 'id' | 'username'>) | 'actions';
 
@@ -40,7 +41,8 @@ const ClientColumns: Record<ClientColumn, ClientColumn> = {
     MatRowDef,
     MatTable,
     MatColumnDef,
-    MatHeaderCellDef
+    MatHeaderCellDef,
+    RouterLink
   ],
   templateUrl: './clients-list.component.html',
   styleUrl: './clients-list.component.scss'

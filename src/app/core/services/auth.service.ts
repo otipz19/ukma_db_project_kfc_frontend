@@ -10,7 +10,7 @@ import {
 } from "../../domains/employees/data-access/model/employee-store-entity";
 import {Client} from "../../api/model/client";
 import {ClientControllerService} from "../../api/api/clientController.service";
-import {User, UserControllerService} from "../../api";
+import {User, UserControllerService, UserRole} from "../../api";
 import {EmployeeControllerService} from "../../api/api/employeeController.service";
 
 type TokensDto = {
@@ -43,6 +43,11 @@ export class AuthService {
 
   private readonly $currentClientInner = signal<Client | undefined>(undefined);
   readonly $currentClient = this.$currentClientInner.asReadonly();
+
+  hasRole(...roles: UserRole[]): boolean {
+    const role = this.$role();
+    return Boolean(role && roles.includes(role));
+  }
 
   login$(username: string, password: string): Observable<void> {
     return this.authApi.loginUser({username, password})

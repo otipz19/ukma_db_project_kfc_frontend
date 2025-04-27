@@ -1,0 +1,89 @@
+<div class="title-wrapper">
+  <h2>Страви</h2>
+
+  @if (authService.hasRole(UserRole.ADMIN, UserRole.CLIENT)) {
+    <button mat-raised-button color="warn" (click)="onDelete()">
+      Видалити акаунт
+    </button>
+  }
+</div>
+
+<div class="horizontal-container">
+  <div class="cards-vertical-container">
+    <mat-card class="data-card">
+      <mat-card-header class="bordered-card-header card-header">
+        <mat-card-title>
+          Персональні дані
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="card-content-wrapper">
+          <p>
+            <strong>Прізвище: </strong> {{ $client().surname }}
+          </p>
+          <p>
+            <strong>Ім'я: </strong> {{ $client().firstName }}
+          </p>
+          @if ($client().middleName) {
+            <p>
+              <strong>По-батькові: </strong> {{ $client().middleName }}
+            </p>
+          }
+          <p>
+            <strong>Дата народження: </strong> {{ $client().birthDate }}
+          </p>
+          <p>
+            <strong>Бонуси:</strong> {{ $client().bonuses }}
+          </p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="cards-vertical-container">
+    <mat-card class="data-card">
+      <mat-card-header class="bordered-card-header card-header">
+        <mat-card-title>
+          Пошта
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="card-content-wrapper">
+          @for (email of $emails(); track email; ) {
+            <div class="contact-wrapper">
+              <strong>{{ $index + 1 }}.</strong> <a mat-button color="primary" [href]="'mailto:' + email">{{ email }}</a>
+            </div>
+          } @empty {
+            <p>
+              Немає контактів електронної пошти
+            </p>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="data-card">
+      <mat-card-header class="bordered-card-header card-header">
+        <mat-card-title>
+          Номери телефонів
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="card-content-wrapper">
+          @for (phone of $phones(); track phone; ) {
+            <div class="contact-wrapper">
+              <strong>{{ $index + 1 }}.</strong> <a mat-button color="primary" [href]="'tel:' + phone">+38{{ phone }}</a>
+            </div>
+          } @empty {
+            <p>
+              Немає жодного номеру телефону
+            </p>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

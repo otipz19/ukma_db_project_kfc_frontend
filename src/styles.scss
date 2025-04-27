@@ -102,3 +102,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   justify-content: center;
   align-items: center;
 }
+
+.bordered-card-header {
+  border-bottom-style: dotted;
+  border-width: 2px;
+  border-bottom-color: var(--minor-border-color);
+  padding-bottom: 3px;
+}
+
+.title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

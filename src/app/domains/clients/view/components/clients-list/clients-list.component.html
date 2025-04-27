@@ -27,13 +27,16 @@
   <ng-container [matColumnDef]="ClientColumns.actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let client">
-      @if ($userRole() === UserRole.ADMIN) {
-        <div class="table-list-actions-container">
+      <div class="table-list-actions-container">
+        <button mat-icon-button color="primary" [routerLink]="[client.id]">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        @if ($userRole() === UserRole.ADMIN) {
           <button mat-icon-button color="warn" (click)="onDelete(client)">
             <mat-icon>delete</mat-icon>
           </button>
-        </div>
-      }
+        }
+      </div>
     </td>
   </ng-container>
 
