@@ -12,6 +12,9 @@ import {
   UpsertDialogFormComponent
 } from "../../../../../../../shared/features/upsert-dialog/components/upsert-dialog/upsert-dialog.component";
 import {minAgeValidator} from "../../../../../../../shared/form/validators/minAge.validator";
+import {
+  passportNumberFormatValidator
+} from "../../../../../../../shared/form/validators/passport-number-format.validator";
 
 export type UpdateEmployeeDataFormValue = Omit<UpdateEmployee, 'salary'>;
 
@@ -29,7 +32,7 @@ export class UpdateEmployeeFormComponent implements UpsertDialogFormComponent<Up
   private readonly fb = inject(FormBuilder).nonNullable;
 
   protected readonly form = this.fb.group<ControlsOf<UpdateEmployeeDataFormValue>>({
-    passportNumber: this.fb.control('', [Validators.required, Validators.minLength(14), Validators.maxLength(14)]),
+    passportNumber: this.fb.control('', [Validators.required, passportNumberFormatValidator()]),
     firstName: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
     surname: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
     middleName: this.fb.control('', [Validators.maxLength(64)]),

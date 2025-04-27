@@ -19,7 +19,8 @@ export type CustomValidationErrorKey =
   | 'phoneExists'
   | 'emailExists'
   | 'usernameExists'
-  | 'minAge';
+  | 'minAge'
+  | 'invalidPassportFormat';
 
 type DefaultValidationErrorKey =
   'required'
@@ -38,7 +39,8 @@ export const CUSTOM_VALIDATION_ERROR_KEY: Record<CustomValidationErrorKey, Custo
   phoneExists: 'phoneExists',
   emailExists: 'emailExists',
   usernameExists: 'usernameExists',
-  minAge: 'minAge'
+  minAge: 'minAge',
+  invalidPassportFormat: 'invalidPassportFormat'
 };
 
 const ERROR_TO_MESSAGE: Record<ValidationErrorKey, string | ((error: any) => string)> = {
@@ -49,10 +51,20 @@ const ERROR_TO_MESSAGE: Record<ValidationErrorKey, string | ((error: any) => str
   min: ({min}: any) => `Мінімальне значення: ${min}`,
   max: ({max}: any) => `Максимальне значення: ${max}`,
   passwordsAreNotEqual: "Паролі мають співпадати",
-  invalidEmailFormat: 'Неправильний формат пошти',
-  invalidPhoneFormat: 'Неправильний формат номеру телефону',
+  invalidEmailFormat: ({tip}: any) => buildMessageWithTip('Неправильний формат пошти', tip),
+  invalidPhoneFormat: ({tip}: any) => buildMessageWithTip('Неправильний формат номеру телефону', tip),
+  invalidPassportFormat: ({tip}: any) => buildMessageWithTip('Неправильний формат номеру паспорту', tip),
   phoneExists: 'Номер телефону вже використовується',
   emailExists: 'Пошта вже використовується',
   usernameExists: "Ім'я користувача зайняте",
   minAge: (minAge: any) => `Мінімальний вік: ${minAge}`
 } as const;
+
+function buildMessageWithTip(msg: string, tip?: string): string {
+  let result = msg;
+  if(tip) {
+    result += '. '
+    result += tip;
+  }
+  return result;
+}

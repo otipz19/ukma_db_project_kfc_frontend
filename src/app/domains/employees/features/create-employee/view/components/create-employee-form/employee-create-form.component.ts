@@ -32,6 +32,9 @@ import {AuthService} from "../../../../../../../core/services/auth.service";
 import {EmployeePosition} from "../../../../../../../api/model/employeePosition";
 import {EmployeeControllerService} from "../../../../../../../api/api/employeeController.service";
 import {minAgeValidator} from "../../../../../../../shared/form/validators/minAge.validator";
+import {
+  passportNumberFormatValidator
+} from "../../../../../../../shared/form/validators/passport-number-format.validator";
 
 type PersonalDataFormType = {
   passportNumber: string;
@@ -93,7 +96,7 @@ export class EmployeeCreateFormComponent implements OnInit {
 
   protected readonly personalDataStepForm = this.fb
     .group<ControlsOf<PersonalDataFormType>>({
-      passportNumber: this.fb.control('', [Validators.required, Validators.minLength(14), Validators.maxLength(14)]),
+      passportNumber: this.fb.control('', [Validators.required, passportNumberFormatValidator()]),
       firstName: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
       surname: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
       middleName: this.fb.control('', [Validators.maxLength(64)]),
