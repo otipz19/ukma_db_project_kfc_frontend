@@ -12,6 +12,8 @@ import {UserRole} from "../../../../../api";
 import {AuthService} from "../../../../../core/services/auth.service";
 import {EmployeePositionPipe} from "../../pipes/employee-position.pipe";
 import {UpdateEmployeeService} from "../../../features/update-employee/data-access/services/update-employee.service";
+import {DeleteEmployeeService} from "../../../features/delete-employee/data-access/services/delete-employee.service";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-employees-profile',
@@ -34,6 +36,8 @@ export class EmployeeProfileComponent implements OnInit {
   protected readonly authService = inject(AuthService);
   private readonly store = inject(EmployeeProfileStore);
   private readonly updateService = inject(UpdateEmployeeService);
+  private readonly deleteService = inject(DeleteEmployeeService);
+  private readonly location = inject(Location);
 
   private readonly employeeFromResolver = getFromResolver<EmployeeStoreEntity>(EMPLOYEE_RESOLVER_KEY);
   protected readonly $employee = this.store.$employee;
@@ -46,18 +50,14 @@ export class EmployeeProfileComponent implements OnInit {
   protected readonly UserRole = UserRole;
 
   protected onDelete() {
-    // const client = this.$client();
-    // if(!client) {
-    //   return;
-    // }
-    // this.clientDeleteService.deleteClient$(client)
-    //   .subscribe(() => {
-    //     if (this.authService.hasRole(UserRole.CLIENT)) {
-    //       this.authService.unLogin();
-    //     } else {
-    //       this.location.back();
-    //     }
-    //   });
+    const employee = this.$employee();
+    if(!employee) {
+      return;
+    }
+    this.deleteService.deleteEmployee$(employee)
+      .subscribe(() => {
+        this.location.back();
+      });
   }
 
   protected onEdit() {

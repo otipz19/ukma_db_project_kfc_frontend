@@ -3,7 +3,7 @@ import {DeleteDialogService} from "../../../../../../shared/features/delete-dial
 import {EmployeesStore} from "../../../../data-access/store/employees.store";
 import {NotifyService} from "../../../../../../shared/features/notify/data-access/services/notify.service";
 import {EmployeeStoreEntity} from "../../../../data-access/model/employee-store-entity";
-import {switchMap} from "rxjs";
+import {Observable, switchMap} from "rxjs";
 import {mapEmployeePositionToLabel} from "../../../../view/pipes/employee-position.pipe";
 import {EmployeeControllerService} from "../../../../../../api/api/employeeController.service";
 
@@ -17,7 +17,14 @@ export class DeleteEmployeeService {
   private readonly notify = inject(NotifyService);
 
   deleteEmployee(employee: EmployeeStoreEntity) {
-    this.deleteDialog.confirmDelete$({
+    this.deleteEmployee$(employee)
+      .subscribe(() => {
+        this.store.remove(employee.id);
+      });
+  }
+
+  deleteEmployee$(employee: EmployeeStoreEntity): Observable<void> {
+    return this.deleteDialog.confirmDelete$({
       entityTypeName: mapEmployeePositionToLabel(employee.position),
       entityInstanceName: `${employee.surname} ${employee.firstName}`
     })
@@ -26,9 +33,6 @@ export class DeleteEmployeeService {
           return this.api.fireEmployeeByUserId(employee.id);
         }),
         this.notify.notifyHttpRequest()
-      )
-      .subscribe(() => {
-        this.store.remove(employee.id);
-      });
+      );
   }
 }
