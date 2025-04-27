@@ -1,1 +1,82 @@
-<p>employees-profile works!</p>
+<div class="title-wrapper">
+  <h2>Профіль працівника</h2>
+
+  @if (authService.hasRole(UserRole.ADMIN, UserRole.MANAGER)) {
+    <button mat-raised-button color="warn" (click)="onDelete()">
+      Звільнити
+    </button>
+  }
+</div>
+
+<div class="horizontal-container">
+  <div class="cards-vertical-container">
+    <mat-card class="data-card">
+      <mat-card-header class="bordered-card-header card-header relative-card-header">
+        <mat-card-title>
+          Дані працевлаштування
+        </mat-card-title>
+
+<!--        <div class="card-header-absolute-action">-->
+<!--          <button mat-icon-button color="primary" (click)="onEdit()">-->
+<!--            <mat-icon>edit</mat-icon>-->
+<!--          </button>-->
+<!--        </div>-->
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="card-content-wrapper">
+          <p>
+            <strong>Посада:</strong> {{ $employee()?.position | employeePositionPipe }}
+          </p>
+          <p>
+            <strong>Ресторан: </strong> {{ $restaurant()?.address }}
+          </p>
+          <p>
+            <strong>Заробітна плата: </strong> {{ $employee()?.salary }}
+          </p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="data-card">
+      <mat-card-header class="bordered-card-header card-header relative-card-header">
+        <mat-card-title>
+          Персональні дані
+        </mat-card-title>
+
+        <div class="card-header-absolute-action">
+          <button mat-icon-button color="primary" (click)="onEdit()">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="card-content-wrapper">
+          <p>
+            <strong>Номер паспорта:</strong> {{ $employee()?.passportNumber }}
+          </p>
+          <p>
+            <strong>Прізвище: </strong> {{ $employee()?.surname }}
+          </p>
+          <p>
+            <strong>Ім'я: </strong> {{ $employee()?.firstName }}
+          </p>
+          @if ($employee()?.middleName) {
+            <p>
+              <strong>По-батькові: </strong> {{ $employee()?.middleName }}
+            </p>
+          }
+          <p>
+            <strong>Дата народження: </strong> {{ $employee()?.birthDate }}
+          </p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="cards-vertical-container">
+    <app-emails-card [userId]="$employee()!.id"/>
+    <app-phones-card [userId]="$employee()!.id"/>
+  </div>
+</div>

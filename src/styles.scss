@@ -128,7 +128,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .data-card {
-  min-width: 400px;
+  width: 600px;
+
+  a, p, span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
   .card-header {
     position: relative;

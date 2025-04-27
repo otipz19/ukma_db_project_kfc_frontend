@@ -17,7 +17,7 @@ export function mapEmployeePositionToLabel(value: EmployeePosition): string {
   standalone: true
 })
 export class EmployeePositionPipe implements PipeTransform {
-  transform(value: EmployeePosition): string {
-    return mapEmployeePositionToLabel(value);
+  transform(value: EmployeePosition | undefined): string {
+    return value ? mapEmployeePositionToLabel(value) : '';
   }
 }

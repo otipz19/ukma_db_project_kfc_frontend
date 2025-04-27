@@ -27,7 +27,7 @@ export const EMPLOYEES_ROUTES: Routes = [
         loadComponent: () => import('./features/create-employee/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
       },
       {
-        path: 'update/:id',
+        path: 'update/:employeeId',
         canActivate: [hasRoleRouteGuard(UserRole.ADMIN)],
         resolve: {[EMPLOYEE_RESOLVER_KEY]: employeeResolver},
         loadComponent: () => import('./features/update-employee/view/pages/update-employee-page/update-employee-page.component').then(r => r.UpdateEmployeePageComponent)
