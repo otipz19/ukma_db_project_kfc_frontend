@@ -12,7 +12,13 @@ export function getValidationErrorMessage(errors: ValidationErrors | null): stri
   return "Помилка";
 }
 
-export type CustomValidationErrorKey = 'passwordsAreNotEqual' | 'invalidEmailFormat' | 'invalidPhoneFormat';
+export type CustomValidationErrorKey =
+  'passwordsAreNotEqual'
+  | 'invalidEmailFormat'
+  | 'invalidPhoneFormat'
+  | 'phoneExists'
+  | 'emailExists'
+  | 'usernameExists';
 
 type DefaultValidationErrorKey = 'required' | 'pattern' | 'maxlength' | 'minlength';
 
@@ -21,7 +27,10 @@ type ValidationErrorKey = DefaultValidationErrorKey | CustomValidationErrorKey;
 export const CUSTOM_VALIDATION_ERROR_KEY: Record<CustomValidationErrorKey, CustomValidationErrorKey> = {
   invalidEmailFormat: 'invalidEmailFormat',
   passwordsAreNotEqual: 'passwordsAreNotEqual',
-  invalidPhoneFormat: 'invalidPhoneFormat'
+  invalidPhoneFormat: 'invalidPhoneFormat',
+  phoneExists: 'phoneExists',
+  emailExists: 'emailExists',
+  usernameExists: 'usernameExists'
 };
 
 const ERROR_TO_MESSAGE: Record<ValidationErrorKey, string | ((error: any) => string)> = {
@@ -32,4 +41,7 @@ const ERROR_TO_MESSAGE: Record<ValidationErrorKey, string | ((error: any) => str
   passwordsAreNotEqual: "Паролі мають співпадати",
   invalidEmailFormat: 'Неправильний формат пошти',
   invalidPhoneFormat: 'Неправильний формат номеру телефону',
+  phoneExists: 'Номер телефону вже використовується',
+  emailExists: 'Пошта вже використовується',
+  usernameExists: "Ім'я користувача зайняте"
 } as const;
