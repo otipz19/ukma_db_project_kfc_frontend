@@ -1,5 +1,5 @@
 import {EmployeeStoreEntity} from "../../../../data-access/model/employee-store-entity";
-import {buildPageTableColumns, PageTableColumn} from "./page-table-column";
+import {buildPageTableColumns, PageTableColumn} from "../../../../../../shared/features/reports/data-access/model/page-table-column";
 
 export type EmployeeColumn = (keyof Omit<EmployeeStoreEntity, 'id' | 'username' | 'restaurantId' | 'managerUserId'>);
 

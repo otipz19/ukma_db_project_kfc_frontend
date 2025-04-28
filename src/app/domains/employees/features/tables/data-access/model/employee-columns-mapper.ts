@@ -1,4 +1,4 @@
-import {ColumnMapperFn, ColumnsMapper} from "./columns-mapper";
+import {ColumnMapperFn, ColumnsMapper} from "../../../../../../shared/features/reports/data-access/model/columns-mapper";
 import {EmployeeStoreEntity} from "../../../../data-access/model/employee-store-entity";
 import {mapEmployeePositionToLabel} from "../../../../view/pipes/employee-position.pipe";
 import {EmployeePosition} from "../../../../../../api/model/employeePosition";

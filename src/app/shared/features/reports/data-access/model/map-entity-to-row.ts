@@ -1,4 +1,4 @@
-import {ColumnsMapper, DEFAULT_COLUMNS_MAPPER, DefaultColumnsMapper} from "./columns-mapper";
+import {ColumnsMapper, DEFAULT_COLUMNS_MAPPER} from "./columns-mapper";
 
 export function mapEntityToRow<TEntity extends object, TKey extends keyof TEntity>(entity: TEntity, header: Array<TKey>, mapper: ColumnsMapper<TEntity> = DEFAULT_COLUMNS_MAPPER): Array<TEntity[TKey]> {
   const result = [];
