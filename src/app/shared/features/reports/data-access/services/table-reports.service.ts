@@ -37,6 +37,6 @@ export class TableReportsService {
         fontStyle: 'normal',
       }
     });
-    doc.save();
+    doc.save(config.title + '.pdf');
   }
 }

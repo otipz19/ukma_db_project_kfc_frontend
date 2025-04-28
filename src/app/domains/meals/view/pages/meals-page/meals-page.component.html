@@ -1,11 +1,18 @@
 <div class="title-wrapper">
   <h2>Страви</h2>
 
-  @if ($userRole() === UserRole.ADMIN) {
-    <button mat-raised-button color="accent" (click)="onCreate()">
-      Створити нову
+  <div class="right-end-toolbar">
+    <button mat-raised-button color="primary" (click)="onExportReport()">
+      <mat-icon>print</mat-icon>
+      <span>Експортувати звіт</span>
     </button>
-  }
+
+    @if ($userRole() === UserRole.ADMIN) {
+      <button mat-raised-button color="accent" (click)="onCreate()">
+        Створити нову
+      </button>
+    }
+  </div>
 </div>
 
 <div class="search-bar-container">

@@ -7,6 +7,11 @@ import {CreateIngredientService} from "../../../features/create-ingredient/servi
 import {Ingredient} from "../../../../../api/model/ingredient";
 import {AuthService} from "../../../../../core/services/auth.service";
 import {UserRole} from "../../../../../api";
+import {TableReportsService} from "../../../../../shared/features/reports/data-access/services/table-reports.service";
+import {IngredientsColumnsMapper} from "../../../features/tables/data-access/model/ingredients-columns-mapper";
+import {IngredientsColumns} from "../../../features/tables/data-access/model/ingredients-columns";
+import {IngredientTableHeaderMapper} from "../../../features/tables/data-access/model/ingredient-table-header-mapper";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-ingredients-page',
@@ -14,6 +19,7 @@ import {UserRole} from "../../../../../api";
     IngredientsListComponent,
     SearchBarComponent,
     MatButton,
+    MatIcon,
   ],
   templateUrl: './ingredients-page.component.html',
   styleUrl: './ingredients-page.component.scss',
@@ -22,6 +28,8 @@ export class IngredientsPageComponent implements OnInit {
   private readonly store = inject(IngredientsStore);
   private readonly createService = inject(CreateIngredientService);
   private readonly authService = inject(AuthService);
+  private readonly reportsService = inject(TableReportsService);
+  private readonly columnsMapper = new IngredientsColumnsMapper();
 
   protected readonly $ingredients: Signal<Ingredient[]> = this.store.$viewList;
 
@@ -39,6 +47,16 @@ export class IngredientsPageComponent implements OnInit {
   protected onSearch(query: string) {
     this.store.filters.titleFilter.setFilter(query);
     this.store.forceSignalReload();
+  }
+
+  protected onExportReport() {
+    this.reportsService.exportReport({
+      title: 'Звіт інгредієнтів',
+      entities: this.$ingredients(),
+      columnsMapper: this.columnsMapper,
+      headerMapper: IngredientTableHeaderMapper,
+      headerColumns: Object.values(IngredientsColumns)
+    });
   }
 
   protected readonly UserRole = UserRole;
