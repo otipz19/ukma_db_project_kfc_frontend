@@ -1,9 +1,16 @@
 <div class="title-wrapper">
   <h2>Ресторани</h2>
 
-  <button mat-raised-button color="accent" (click)="onCreate()">
-    Створити новий
-  </button>
+  <div class="right-end-toolbar">
+    <button mat-raised-button color="primary" (click)="onExportReport()">
+      <mat-icon>print</mat-icon>
+      <span>Експортувати звіт</span>
+    </button>
+
+    <button mat-raised-button color="accent" (click)="onCreate()">
+      Створити новий
+    </button>
+  </div>
 </div>
 
 <div class="search-bar-container">

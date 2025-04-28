@@ -166,3 +166,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   gap: 16px;
 }
 
+.right-end-toolbar {
+  display: flex;
+  gap: 16px;
+  justify-content: end;
+  align-items: center;
+}
+

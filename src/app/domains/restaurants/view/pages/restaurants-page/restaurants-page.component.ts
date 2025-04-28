@@ -1,25 +1,33 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, Signal} from '@angular/core';
 import {RestaurantsStore} from "../../../data-access/store/restaurants.store";
 import {CreateRestaurantService} from "../../../features/create/create-restaurant.service";
 import {RestaurantsListComponent} from "../../components/restaurants-list/restaurants-list.component";
 import {MatButton} from "@angular/material/button";
 import {SearchBarComponent} from "../../../../../shared/components/search-bar/search-bar.component";
+import {TableReportsService} from "../../../../../shared/features/reports/data-access/services/table-reports.service";
+import {RestaurantColumns} from "../../../features/tables/data-access/model/restaurant-columns";
+import {DEFAULT_COLUMNS_MAPPER} from "../../../../../shared/features/reports/data-access/model/columns-mapper";
+import {RestaurantTableHeaderMapper} from "../../../features/tables/data-access/model/restaurant-table-header-mapper";
+import {MatIcon} from "@angular/material/icon";
+import {Restaurant} from "../../../../../api/model/restaurant";
 
 @Component({
-  selector: 'app-restaurants-page',
   imports: [
     RestaurantsListComponent,
     MatButton,
-    SearchBarComponent
+    SearchBarComponent,
+    MatIcon
   ],
-  templateUrl: './restaurants-page.component.html',
-  styleUrl: './restaurants-page.component.scss'
+  selector: 'app-restaurants-page',
+  styleUrl: './restaurants-page.component.scss',
+  templateUrl: './restaurants-page.component.html'
 })
 export class RestaurantsPageComponent implements OnInit {
   private readonly store = inject(RestaurantsStore);
   private readonly createService = inject(CreateRestaurantService);
+  private readonly reportsService = inject(TableReportsService);
 
-  protected readonly $restaurants = this.store.$viewList;
+  protected readonly $restaurants: Signal<Restaurant[]> = this.store.$viewList;
 
   ngOnInit() {
     this.store.loadAll();
@@ -32,5 +40,15 @@ export class RestaurantsPageComponent implements OnInit {
   protected onSearch(query: string) {
     this.store.filters.addressFilter.setFilter(query);
     this.store.forceSignalReload();
+  }
+
+  protected onExportReport() {
+    this.reportsService.exportReport({
+      title: 'Звіт ресторанів',
+      entities: this.$restaurants(),
+      columnsMapper: DEFAULT_COLUMNS_MAPPER,
+      headerMapper: RestaurantTableHeaderMapper,
+      headerColumns: Object.values(RestaurantColumns)
+    });
   }
 }
