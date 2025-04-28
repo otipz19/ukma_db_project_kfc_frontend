@@ -4,7 +4,7 @@ export abstract class ColumnsMapper<TEntity extends object, TKey extends keyof T
   protected abstract mappers: Map<TKey, ColumnMapperFn<TEntity>>;
 
   map(key: TKey, value: TEntity[TKey]): string {
-    if (!value) {
+    if (value == undefined) {
       return '';
     }
     const mapper = this.mappers.get(key);

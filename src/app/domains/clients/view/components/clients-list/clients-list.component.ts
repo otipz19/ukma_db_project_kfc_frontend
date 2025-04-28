@@ -15,17 +15,10 @@ import {DeleteClientService} from "../../../features/delete-client/data-access/s
 import {AuthService} from "../../../../../core/services/auth.service";
 import {UserRole} from "../../../../../api";
 import {RouterLink} from "@angular/router";
-
-type ClientColumn = (keyof Omit<ClientStoreEntity, 'id' | 'username'>) | 'actions';
-
-const ClientColumns: Record<ClientColumn, ClientColumn> = {
-  surname: 'surname',
-  firstName: 'firstName',
-  middleName: 'middleName',
-  birthDate: 'birthDate',
-  bonuses: 'bonuses',
-  actions: 'actions'
-};
+import {
+  ClientPageTableColumn,
+  ClientPageTableColumns
+} from "../../../features/tables/data-access/model/client-columns";
 
 @Component({
   selector: 'app-clients-list',
@@ -56,8 +49,8 @@ export class ClientsListComponent {
 
   protected readonly $dataSource = computed(() => this.$clients());
 
-  protected readonly displayedColumns: Array<ClientColumn> = Object.values(ClientColumns);
-  protected readonly ClientColumns = ClientColumns;
+  protected readonly displayedColumns: Array<ClientPageTableColumn> = Object.values(ClientPageTableColumns);
+  protected readonly ClientColumns = ClientPageTableColumns;
 
   onDelete(client: ClientStoreEntity) {
     this.deleteService.deleteClient(client);
