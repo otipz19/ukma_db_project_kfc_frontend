@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Вибір страви</h2>
+
+<mat-dialog-content>
+  <div class="content-wrapper">
+    <div class="search-bar-container">
+      <app-search-bar class="search-bar" label="Пошук страви" (search)="onSearch($event)"/>
+    </div>
+
+    <div class="item-list-grid">
+      @for (meal of $meals(); track meal.id) {
+        <app-meal-card [meal]="meal"
+                             hideActions
+                             (click)="onSelect(meal)"/>
+      }
+    </div>
+  </div>
+</mat-dialog-content>

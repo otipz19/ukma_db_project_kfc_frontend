@@ -1,5 +1,5 @@
-import {Component, inject, input} from '@angular/core';
-import { Meal } from '../../../../../api/model/meal';
+import {booleanAttribute, Component, inject, input} from '@angular/core';
+import {Meal} from '../../../../../api/model/meal';
 import {
   MatCard,
   MatCardActions,
@@ -27,7 +27,8 @@ import {UserRole} from "../../../../../api";
     MatIcon,
     MatCardTitle,
     RouterLink,
-    MatIconButton
+    MatIconButton,
+    MatCardTitle
   ],
   templateUrl: './meal-card.component.html',
   styleUrl: './meal-card.component.scss'
@@ -39,6 +40,7 @@ export class MealCardComponent {
   protected readonly $userRole = this.authService.$role;
 
   readonly $meal = input.required<Meal>({alias: 'meal'});
+  readonly $hideActions = input(false, {transform: booleanAttribute, alias: 'hideActions'});
 
   onDelete() {
     this.deleteService.delete(this.$meal());

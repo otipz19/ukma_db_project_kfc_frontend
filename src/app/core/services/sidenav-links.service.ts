@@ -2,7 +2,7 @@ import {computed, inject, Injectable} from "@angular/core";
 import {AuthService} from "./auth.service";
 import {UserRole} from "../../api";
 
-type LinkAlias = 'ingredients' | 'restaurants' | 'meals' | 'employees' | 'clients';
+type LinkAlias = 'ingredients' | 'restaurants' | 'meals' | 'employees' | 'clients' | 'orders';
 
 type UserRoleState = UserRole | 'UNAUTHENTICATED';
 
@@ -19,11 +19,11 @@ export class SidenavLinksService {
   private readonly authService = inject(AuthService);
 
   private readonly roleToAllowedLinks = new Map<UserRoleState, Array<LinkAlias>>([
-    [UserRole.ADMIN, ['meals', 'ingredients', 'restaurants', 'employees', 'clients']],
-    [UserRole.MANAGER, ['meals', 'ingredients', 'restaurants', 'employees', 'clients']],
-    [UserRole.CASHIER, ['meals']],
+    [UserRole.ADMIN, ['meals', 'ingredients', 'restaurants', 'employees', 'clients', 'orders']],
+    [UserRole.MANAGER, ['meals', 'ingredients', 'restaurants', 'employees', 'clients', 'orders']],
+    [UserRole.CASHIER, ['meals', 'orders']],
     [UserRole.COOK, ['meals', 'ingredients']],
-    [UserRole.CLIENT, ['meals']],
+    [UserRole.CLIENT, ['meals', 'orders']],
   ]);
 
   private readonly allLinks = new Map<LinkAlias, SidenavLinkModel>([
@@ -65,6 +65,14 @@ export class SidenavLinksService {
         routerLink: ['/', 'clients'],
         icon: 'person',
         label: 'Клієнти'
+      }
+    ],
+    [
+      'orders',
+      {
+        routerLink: ['/', 'orders'],
+        icon: 'shopping_cart',
+        label: 'Замовлення'
       }
     ]
   ]);
