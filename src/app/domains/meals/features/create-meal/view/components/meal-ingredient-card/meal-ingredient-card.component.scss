@@ -3,6 +3,7 @@
   flex-direction: row;
   align-items: stretch;
   height: 160px;
+  width: 650px;
 }
 
 .image-section {
@@ -16,9 +17,10 @@
 
 .main-content {
   display: flex;
+  flex-grow: 1;
 
   .info-section {
-    flex: 1;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -69,4 +71,10 @@
       }
     }
   }
+}
+
+a, p, span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
