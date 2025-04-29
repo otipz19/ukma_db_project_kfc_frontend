@@ -7,12 +7,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { CreateClientMeal } from './createClientMeal';
 
 
 export interface CreateOrder { 
     restaurantId: number;
     employeeUserId?: number;
     clientUserId?: number;
-    clientMeals: Array<{ [key: string]: any | undefined; }>;
+    clientMeals: Array<CreateClientMeal>;
 }
 

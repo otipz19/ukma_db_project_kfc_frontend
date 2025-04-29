@@ -9,13 +9,8 @@
  */
 
 
-export interface Order { 
-    restaurantId: number;
-    employeeUserId?: number;
-    clientUserId?: number;
-    id: number;
-    cost: number;
-    dateCreated: string;
-    isCompleted: boolean;
+export interface BaseClientMeal { 
+    mealId: number;
+    amountInOrder: number;
 }
 

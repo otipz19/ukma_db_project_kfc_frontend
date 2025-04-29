@@ -7,15 +7,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ClientMealIngredient } from './clientMealIngredient';
 
 
-export interface Order { 
-    restaurantId: number;
-    employeeUserId?: number;
-    clientUserId?: number;
-    id: number;
-    cost: number;
-    dateCreated: string;
-    isCompleted: boolean;
+export interface CreateClientMeal { 
+    mealId: number;
+    amountInOrder: number;
+    ingredientOverrides?: Array<ClientMealIngredient>;
 }
 
