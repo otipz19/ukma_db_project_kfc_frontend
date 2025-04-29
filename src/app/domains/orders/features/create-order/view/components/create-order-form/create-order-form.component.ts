@@ -1,6 +1,6 @@
-import {Component, computed, DestroyRef, inject, OnInit, signal} from '@angular/core';
+import {Component, computed, DestroyRef, inject, OnInit, output, signal} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {OrderMeal} from "../../../data-access/types/order-meal";
 import {SelectMealDialogComponent, SelectMealDialogData} from "../select-meal-dialog/select-meal-dialog.component";
 import {Meal} from "../../../../../../../api/model/meal";
@@ -9,12 +9,16 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
 import {OrderMealIngredient} from "../../../data-access/types/order-meal-ingredient";
 import {OrderMealCardComponent} from "../order-meal-card/order-meal-card.component";
+import {Location} from "@angular/common";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-create-order-form',
   imports: [
     MatButton,
-    OrderMealCardComponent
+    OrderMealCardComponent,
+    MatIconButton,
+    MatIcon
   ],
   templateUrl: './create-order-form.component.html',
   styleUrl: './create-order-form.component.scss'
@@ -26,6 +30,9 @@ export class CreateOrderFormComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly ingredientsApi = inject(IngredientControllerService);
   private readonly notify = inject(NotifyService);
+  private readonly location = inject(Location);
+
+  protected readonly submit = output<OrderMeal[]>();
 
   protected readonly $meals = signal<OrderMeal[]>([]);
 
@@ -91,23 +98,41 @@ export class CreateOrderFormComponent implements OnInit {
           list.push(orderMeal);
           return [...list];
         });
-        this.saveChangesToLS();
+        CreateOrderFormComponent.saveOrderMealsToLS(this.$meals());
       });
   }
 
   protected onUpdate() {
     this.$meals.update(v => [...v]);
-    this.saveChangesToLS();
+    CreateOrderFormComponent.saveOrderMealsToLS(this.$meals());
   }
 
   protected onDelete(id: OrderMeal['id']) {
     this.$meals.update(list => {
       return list.filter(m => m.id !== id);
     });
-    this.saveChangesToLS();
+    CreateOrderFormComponent.saveOrderMealsToLS(this.$meals());
   }
 
-  protected saveChangesToLS() {
-    localStorage.setItem(CreateOrderFormComponent.LS_KEY, JSON.stringify(this.$meals()));
+  protected onClear() {
+    this.$meals.set([]);
+    CreateOrderFormComponent.clearOrderMealsFromLS();
+  }
+
+  protected onCancel() {
+    localStorage.removeItem(CreateOrderFormComponent.LS_KEY);
+    this.location.back();
+  }
+
+  protected onSubmit() {
+    this.submit.emit(this.$meals());
+  }
+
+  static clearOrderMealsFromLS() {
+    localStorage.removeItem(CreateOrderFormComponent.LS_KEY);
+  }
+
+  static saveOrderMealsToLS(meals: OrderMeal[]) {
+    localStorage.setItem(CreateOrderFormComponent.LS_KEY, JSON.stringify(meals));
   }
 }

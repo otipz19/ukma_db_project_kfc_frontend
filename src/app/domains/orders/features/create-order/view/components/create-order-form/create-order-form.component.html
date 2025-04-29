@@ -3,7 +3,12 @@
     <div>
       <h2>Вартість: {{ $totalPrice() }} грн</h2>
     </div>
-    <div class="add-btn-container">
+    <div class="right-actions-container">
+      @if ($meals().length > 0) {
+        <button mat-icon-button color="warn" (click)="onClear()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      }
       <button mat-raised-button color="accent" (click)="onAddMeal()">
         Додати страву
       </button>
@@ -25,5 +30,15 @@
       </div>
     </div>
   }
+
+  <div class="submit-form-buttons-container">
+    <button mat-raised-button color="primary" (click)="onCancel()">
+      Скасувати
+    </button>
+
+    <button mat-raised-button color="accent" (click)="onSubmit()" [disabled]="$meals().length === 0">
+      Підтвердити замовлення
+    </button>
+  </div>
 </div>
 

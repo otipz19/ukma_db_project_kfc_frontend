@@ -1,7 +1,19 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {
   CreateOrderFormComponent
 } from "../../../features/create-order/view/components/create-order-form/create-order-form.component";
+import {OrderMeal} from "../../../features/create-order/data-access/types/order-meal";
+import {OrderControllerService} from "../../../../../api/api/orderController.service";
+import {CreateClientMeal} from "../../../../../api/model/createClientMeal";
+import {ClientMealIngredient} from "../../../../../api/model/clientMealIngredient";
+import {
+  CurrentRestaurantService
+} from "../../../../restaurants/features/current-restaurant/data-access/services/current-restaurant.service";
+import {AuthService} from "../../../../../core/services/auth.service";
+import {CreateOrder} from "../../../../../api/model/createOrder";
+import {map, switchMap, tap} from "rxjs";
+import {NotifyService} from "../../../../../shared/features/notify/data-access/services/notify.service";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-create-order-page',
@@ -12,5 +24,53 @@ import {
   styleUrl: './create-order-page.component.scss'
 })
 export class CreateOrderPageComponent {
+  private readonly orderApi = inject(OrderControllerService);
+  private readonly currentRestaurantService = inject(CurrentRestaurantService);
+  private readonly authService = inject(AuthService);
+  private readonly notify = inject(NotifyService);
+  private readonly location = inject(Location);
 
+  protected onSubmit(meals: OrderMeal[]) {
+    const apiMeals: CreateClientMeal[] = meals.map(m => {
+      const apiIngredients: ClientMealIngredient[] = m.ingredients.map(i => {
+        const {id, amount} = i;
+        return {ingredientId: id, amount};
+      });
+
+      return {
+        mealId: m.id,
+        amountInOrder: m.amount,
+        ingredientOverrides: apiIngredients
+      };
+    });
+
+    this.currentRestaurantService.getCurrentRestaurant$()
+      .pipe(
+        map(restaurant => {
+          const order: CreateOrder = {
+            clientMeals: apiMeals,
+            restaurantId: restaurant.id,
+          };
+
+          const userId = this.authService.$currentUser()!.id;
+          if (this.authService.$isEmployee()) {
+            order.employeeUserId = userId;
+          } else {
+            order.clientUserId = userId;
+          }
+
+          return order;
+        }),
+        switchMap(order => {
+          return this.orderApi.createOrder(order);
+        }),
+        this.notify.notifyHttpRequest(),
+        tap(() => {
+          CreateOrderFormComponent.clearOrderMealsFromLS();
+        })
+      )
+      .subscribe(() => {
+        this.location.back();
+      });
+  }
 }

@@ -25,7 +25,20 @@
   }
 }
 
-.add-btn-container {
+.right-actions-container {
   display: flex;
+  gap: 16px;
   justify-content: end;
+  align-items: center;
+}
+
+.submit-form-buttons-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    min-width: 160px;
+  }
 }
