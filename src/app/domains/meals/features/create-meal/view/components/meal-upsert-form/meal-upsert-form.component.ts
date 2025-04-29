@@ -10,7 +10,7 @@ import {
   viewChild,
   viewChildren
 } from '@angular/core';
-import {MatStep, MatStepLabel, MatStepper, MatStepperNext} from "@angular/material/stepper";
+import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UpdateMeal} from "../../../../../../../api/model/updateMeal";
 import {ControlsOf} from "../../../../../../../shared/type-utils/controls-of";
@@ -52,6 +52,7 @@ type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
     MealIngredientCardComponent,
     MealStatsComponent,
     CommonFormTextAreaComponent,
+    MatStepperPrevious,
   ],
   templateUrl: './meal-upsert-form.component.html',
   styleUrl: './meal-upsert-form.component.scss'
