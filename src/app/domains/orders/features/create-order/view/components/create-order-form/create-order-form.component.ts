@@ -9,8 +9,8 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
 import {OrderMealIngredient} from "../../../data-access/types/order-meal-ingredient";
 import {OrderMealCardComponent} from "../order-meal-card/order-meal-card.component";
-import {Location} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
+import {OrderStateService} from "../../../data-access/services/order-state.service";
 
 @Component({
   selector: 'app-create-order-form',
@@ -24,15 +24,14 @@ import {MatIcon} from "@angular/material/icon";
   styleUrl: './create-order-form.component.scss'
 })
 export class CreateOrderFormComponent implements OnInit {
-  private static LS_KEY = 'CREATE_ORDER_FORM_LS_KEY';
-
   private readonly matDialog = inject(MatDialog);
   private readonly destroyRef = inject(DestroyRef);
   private readonly ingredientsApi = inject(IngredientControllerService);
   private readonly notify = inject(NotifyService);
-  private readonly location = inject(Location);
+  private readonly orderStateService = inject(OrderStateService);
 
   protected readonly submit = output<OrderMeal[]>();
+  protected readonly cancel = output<void>();
 
   protected readonly $meals = signal<OrderMeal[]>([]);
 
@@ -42,11 +41,7 @@ export class CreateOrderFormComponent implements OnInit {
   });
 
   ngOnInit() {
-    const fromLS = localStorage.getItem(CreateOrderFormComponent.LS_KEY);
-    if(fromLS) {
-      const meals: OrderMeal[] = JSON.parse(fromLS);
-      this.$meals.set(meals);
-    }
+    this.$meals.set(this.orderStateService.getOrderState());
   }
 
   protected onAddMeal() {
@@ -98,41 +93,32 @@ export class CreateOrderFormComponent implements OnInit {
           list.push(orderMeal);
           return [...list];
         });
-        CreateOrderFormComponent.saveOrderMealsToLS(this.$meals());
+        this.orderStateService.saveOrderState(this.$meals());
       });
   }
 
   protected onUpdate() {
     this.$meals.update(v => [...v]);
-    CreateOrderFormComponent.saveOrderMealsToLS(this.$meals());
+    this.orderStateService.saveOrderState(this.$meals());
   }
 
   protected onDelete(id: OrderMeal['id']) {
     this.$meals.update(list => {
       return list.filter(m => m.id !== id);
     });
-    CreateOrderFormComponent.saveOrderMealsToLS(this.$meals());
+    this.orderStateService.saveOrderState(this.$meals());
   }
 
   protected onClear() {
     this.$meals.set([]);
-    CreateOrderFormComponent.clearOrderMealsFromLS();
+    this.orderStateService.clearOrderState();
   }
 
   protected onCancel() {
-    localStorage.removeItem(CreateOrderFormComponent.LS_KEY);
-    this.location.back();
+    this.cancel.emit();
   }
 
   protected onSubmit() {
     this.submit.emit(this.$meals());
-  }
-
-  static clearOrderMealsFromLS() {
-    localStorage.removeItem(CreateOrderFormComponent.LS_KEY);
-  }
-
-  static saveOrderMealsToLS(meals: OrderMeal[]) {
-    localStorage.setItem(CreateOrderFormComponent.LS_KEY, JSON.stringify(meals));
   }
 }

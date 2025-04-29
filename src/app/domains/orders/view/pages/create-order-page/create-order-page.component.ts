@@ -11,9 +11,10 @@ import {
 } from "../../../../restaurants/features/current-restaurant/data-access/services/current-restaurant.service";
 import {AuthService} from "../../../../../core/services/auth.service";
 import {CreateOrder} from "../../../../../api/model/createOrder";
-import {map, switchMap, tap} from "rxjs";
+import {map, switchMap} from "rxjs";
 import {NotifyService} from "../../../../../shared/features/notify/data-access/services/notify.service";
 import {Location} from "@angular/common";
+import {OrderStateService} from "../../../features/create-order/data-access/services/order-state.service";
 
 @Component({
   selector: 'app-create-order-page',
@@ -29,6 +30,12 @@ export class CreateOrderPageComponent {
   private readonly authService = inject(AuthService);
   private readonly notify = inject(NotifyService);
   private readonly location = inject(Location);
+  private readonly orderStateService = inject(OrderStateService);
+
+  protected onCancel() {
+    this.orderStateService.clearOrderState();
+    this.location.back();
+  }
 
   protected onSubmit(meals: OrderMeal[]) {
     const apiMeals: CreateClientMeal[] = meals.map(m => {
@@ -64,12 +71,10 @@ export class CreateOrderPageComponent {
         switchMap(order => {
           return this.orderApi.createOrder(order);
         }),
-        this.notify.notifyHttpRequest(),
-        tap(() => {
-          CreateOrderFormComponent.clearOrderMealsFromLS();
-        })
+        this.notify.notifyHttpRequest()
       )
       .subscribe(() => {
+        this.orderStateService.clearOrderState();
         this.location.back();
       });
   }
