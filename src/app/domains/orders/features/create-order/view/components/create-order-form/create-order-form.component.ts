@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, signal} from '@angular/core';
+import {Component, computed, DestroyRef, inject, signal} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
 import {OrderMeal} from "../../../data-access/types/order-meal";
@@ -26,6 +26,11 @@ export class CreateOrderFormComponent {
   private readonly notify = inject(NotifyService);
 
   protected readonly $meals = signal<OrderMeal[]>([]);
+
+  protected readonly $totalPrice = computed(() => {
+    return this.$meals()
+      .reduce((sum, meal) => sum + meal.price * meal.amount, 0);
+  });
 
   protected onAddMeal() {
     const dialogRef = this.matDialog.open<SelectMealDialogComponent, SelectMealDialogData, Meal>(
@@ -80,5 +85,15 @@ export class CreateOrderFormComponent {
           return [...list];
         });
       });
+  }
+
+  protected onUpdate() {
+    this.$meals.update(v => [...v]);
+  }
+
+  protected onDelete(id: OrderMeal['id']) {
+    this.$meals.update(list => {
+      return list.filter(m => m.id !== id);
+    });
   }
 }

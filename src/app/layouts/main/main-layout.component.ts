@@ -4,7 +4,7 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {MatIcon} from "@angular/material/icon";
-import {MatIconButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {SidenavLinksService} from "../../core/services/sidenav-links.service";
 import {
   ToolbarUserMenuComponent
@@ -30,6 +30,7 @@ import {UserRole} from "../../api";
     MatIconButton,
     ToolbarUserMenuComponent,
     SelectRestaurantButtonComponent,
+    MatButton,
   ],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss'

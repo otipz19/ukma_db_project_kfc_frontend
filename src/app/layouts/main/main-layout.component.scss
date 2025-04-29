@@ -26,6 +26,11 @@
       gap: 10px;
     }
   }
+
+  .toolbar-right {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .sidenav-container {

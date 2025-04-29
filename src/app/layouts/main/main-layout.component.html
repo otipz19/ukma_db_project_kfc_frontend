@@ -14,7 +14,12 @@
 
   <div class="toolbar-right">
     @if ($isAuthenticated()) {
-      @if (authService.$role() === UserRole.CLIENT) {
+      @if (!authService.hasRole(UserRole.COOK)) {
+        <button mat-raised-button color="accent" [routerLink]="['/', 'orders', 'create']">
+          Замовити
+        </button>
+      }
+      @if (authService.hasRole(UserRole.CLIENT)) {
         <app-select-restaurant-button/>
       }
       <app-toolbar-user-menu/>

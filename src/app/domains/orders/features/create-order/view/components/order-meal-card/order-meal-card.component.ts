@@ -19,7 +19,7 @@ export class OrderMealCardComponent {
   readonly $meal = input.required<OrderMeal>({alias: 'meal'});
 
   protected readonly update = output<void>();
-  protected readonly delete = output<OrderMeal['id']>();
+  protected readonly delete = output<void>();
 
   protected onIncrease() {
     this.$meal().amount++;
@@ -36,7 +36,7 @@ export class OrderMealCardComponent {
   }
 
   protected onDelete() {
-    this.delete.emit(this.$meal().id);
+    this.delete.emit();
   }
 
   protected onModify() {

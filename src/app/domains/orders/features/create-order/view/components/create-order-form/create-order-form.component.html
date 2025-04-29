@@ -1,9 +1,28 @@
-<button mat-raised-button color="accent" (click)="onAddMeal()">
-  Додати страву
-</button>
+<div class="content-wrapper">
+  <div class="top-part">
+    <div>
+      <h2>Вартість: {{ $totalPrice() }}</h2>
+    </div>
+    <div class="add-btn-container">
+      <button mat-raised-button color="accent" (click)="onAddMeal()">
+        Додати страву
+      </button>
+    </div>
+  </div>
 
-<div>
-  @for (meal of $meals(); track meal.id) {
-    <app-order-meal-card [meal]="meal"/>
-  }
+
+  <div class="cards-list-container">
+    <h2>
+      Страви
+    </h2>
+    <div class="cards-list">
+      @for (meal of $meals(); track meal.id) {
+        <app-order-meal-card [meal]="meal"
+                             (update)="onUpdate()"
+                             (delete)="onDelete(meal.id)"/>
+      }
+    </div>
+  </div>
+
 </div>
+
