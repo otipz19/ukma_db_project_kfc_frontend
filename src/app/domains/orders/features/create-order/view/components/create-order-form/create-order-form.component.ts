@@ -1,4 +1,4 @@
-import {Component, computed, DestroyRef, inject, signal} from '@angular/core';
+import {Component, computed, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
 import {OrderMeal} from "../../../data-access/types/order-meal";
@@ -19,7 +19,9 @@ import {OrderMealCardComponent} from "../order-meal-card/order-meal-card.compone
   templateUrl: './create-order-form.component.html',
   styleUrl: './create-order-form.component.scss'
 })
-export class CreateOrderFormComponent {
+export class CreateOrderFormComponent implements OnInit {
+  private static LS_KEY = 'CREATE_ORDER_FORM_LS_KEY';
+
   private readonly matDialog = inject(MatDialog);
   private readonly destroyRef = inject(DestroyRef);
   private readonly ingredientsApi = inject(IngredientControllerService);
@@ -31,6 +33,14 @@ export class CreateOrderFormComponent {
     return this.$meals()
       .reduce((sum, meal) => sum + meal.price * meal.amount, 0);
   });
+
+  ngOnInit() {
+    const fromLS = localStorage.getItem(CreateOrderFormComponent.LS_KEY);
+    if(fromLS) {
+      const meals: OrderMeal[] = JSON.parse(fromLS);
+      this.$meals.set(meals);
+    }
+  }
 
   protected onAddMeal() {
     const dialogRef = this.matDialog.open<SelectMealDialogComponent, SelectMealDialogData, Meal>(
@@ -81,16 +91,23 @@ export class CreateOrderFormComponent {
           list.push(orderMeal);
           return [...list];
         });
+        this.saveChangesToLS();
       });
   }
 
   protected onUpdate() {
     this.$meals.update(v => [...v]);
+    this.saveChangesToLS();
   }
 
   protected onDelete(id: OrderMeal['id']) {
     this.$meals.update(list => {
       return list.filter(m => m.id !== id);
     });
+    this.saveChangesToLS();
+  }
+
+  protected saveChangesToLS() {
+    localStorage.setItem(CreateOrderFormComponent.LS_KEY, JSON.stringify(this.$meals()));
   }
 }
