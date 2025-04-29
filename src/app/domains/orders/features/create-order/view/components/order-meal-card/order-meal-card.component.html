@@ -27,9 +27,11 @@
       </div>
 
       <div>
-        <button mat-raised-button color="primary" (click)="onModify()">
-          Змінити
-        </button>
+        @if($meal().ingredients.length !== 0) {
+          <button mat-raised-button color="primary" (click)="onModify()">
+            Інгредієнти
+          </button>
+        }
       </div>
     </div>
 

@@ -53,19 +53,16 @@ export class CreateOrderFormComponent {
   }
 
   private loadNewOrderMeal(meal: Meal) {
-    const notFixatedIngredientsIds = meal.ingredients
-      .filter(i => !i.isFixated)
-      .map(i => i.ingredientId);
-
-    this.ingredientsApi.getAllIngredients(notFixatedIngredientsIds)
+    const ingredientsIds = meal.ingredients.map(m => m.ingredientId);
+    this.ingredientsApi.getAllIngredients(ingredientsIds)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         this.notify.notifyError()
       )
       .subscribe(ingredients => {
         const orderMealIngredients: OrderMealIngredient[] = ingredients.map(i => {
-          const mealIngredient = meal.ingredients.find(mi => mi.ingredientId === i.id);
-          return {...i, amount: mealIngredient!.amount};
+          const mealIngredient = meal.ingredients.find(mi => mi.ingredientId === i.id)!;
+          return {...i, ...mealIngredient};
         });
 
         const {id, title, additionalPrice, price, weight, energeticValue} = meal;

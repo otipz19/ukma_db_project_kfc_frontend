@@ -1,7 +1,7 @@
 <div class="content-wrapper">
   <div class="top-part">
     <div>
-      <h2>Вартість: {{ $totalPrice() }}</h2>
+      <h2>Вартість: {{ $totalPrice() }} грн</h2>
     </div>
     <div class="add-btn-container">
       <button mat-raised-button color="accent" (click)="onAddMeal()">
@@ -11,18 +11,19 @@
   </div>
 
 
-  <div class="cards-list-container">
-    <h2>
-      Страви
-    </h2>
-    <div class="cards-list">
-      @for (meal of $meals(); track meal.id) {
-        <app-order-meal-card [meal]="meal"
-                             (update)="onUpdate()"
-                             (delete)="onDelete(meal.id)"/>
-      }
+  @if ($meals().length > 0) {
+    <div class="cards-list-container">
+      <h2>
+        Страви
+      </h2>
+      <div class="cards-list">
+        @for (meal of $meals(); track meal.id) {
+          <app-order-meal-card [meal]="meal"
+                               (update)="onUpdate()"
+                               (delete)="onDelete(meal.id)"/>
+        }
+      </div>
     </div>
-  </div>
-
+  }
 </div>
 

@@ -1,0 +1,32 @@
+@let ingredient = $ingredient();
+
+<mat-card class="ingredient-card mat-elevation-z7">
+  <div class="image-section">
+    <!-- TODO: add images from entity when api is updated -->
+    <img src="https://placehold.co/800x800.png?text=Ingredient+Placeholder" alt="Ingredient image"/>
+  </div>
+
+  <div class="main-content">
+    <div class="info-section">
+      <h2>{{ ingredient.title }}</h2>
+      <div class="data-section">
+        <p><strong>Ціна:</strong> {{ ingredient.price }} грн</p>
+        <p><strong>Вага:</strong> {{ ingredient.weight }} г</p>
+        <p><strong>Енергетична цінність:</strong> {{ ingredient.energeticValue }} ккал</p>
+      </div>
+    </div>
+
+    <div class="actions-container">
+      <div class="counter-container">
+        <div>
+          <span><strong>Кількість:</strong></span>
+        </div>
+        <div class="counter">
+          <button mat-icon-button color="primary" (click)="onDecrease()" [disabled]="shouldDisableDecrease()">−</button>
+          <span>{{ ingredient.amount }}</span>
+          <button mat-icon-button color="primary" (click)="onIncrease()">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>
