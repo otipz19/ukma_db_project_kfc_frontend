@@ -72,12 +72,12 @@ export class NotifyService {
   /**
    * Completes instead of throwing error
    */
-  notifyError<T>(): (innerObservable: Observable<T>) => Observable<T> {
+  notifyError<T>(errorMessage?: string): (innerObservable: Observable<T>) => Observable<T> {
     return (innerObservable: Observable<T>) => {
       return innerObservable
         .pipe(
           catchError(error => {
-            const dialogRef = this.openErrorDialog({error});
+            const dialogRef = this.openErrorDialog(errorMessage ? {error: errorMessage} : {error});
             return dialogRef.afterClosed()
               .pipe(
                 switchMap(() => EMPTY)

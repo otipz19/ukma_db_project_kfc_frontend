@@ -1,1 +1,58 @@
-<h2>Замовлення {{$order().id}}</h2>
+<div class="title-wrapper">
+  <h2>Замовлення номер {{ $order().id }}</h2>
+
+  @if (!$order().isCompleted && authService.hasRole(UserRole.COOK, UserRole.MANAGER, UserRole.ADMIN)) {
+    <button mat-raised-button color="accent" (click)="onComplete()">
+      Завершити замовлення
+    </button>
+  }
+</div>
+
+<div class="horizontal-container">
+  <div class="cards-vertical-container">
+    <app-common-data-card class="common-data-card-absolute-width">
+      <span title>Опис замовлення</span>
+      <p><strong>Вартість:</strong> {{ $order().cost }}</p>
+      <p><strong>Створено:</strong> {{ $order().dateCreated }}</p>
+      <p><strong>Статус:</strong> {{ $order().isCompleted ? 'Завершено' : 'В обробці' }}</p>
+    </app-common-data-card>
+
+    @let restaurant = $restaurant();
+    @if (restaurant) {
+      <app-common-data-card class="common-data-card-absolute-width">
+        <span title>Ресторан</span>
+        <p><strong>Адреса:</strong> {{ restaurant.address }}</p>
+      </app-common-data-card>
+    }
+
+    @let client = $client();
+    @if (client) {
+      <app-common-data-card class="common-data-card-absolute-width">
+        <span title>Клієнт</span>
+        <p><strong>Прізвище:</strong> {{ client.surname }}</p>
+        <p><strong>Ім'я:</strong> {{ client.firstName }}</p>
+        <p><strong>По-батькові:</strong> {{ client.middleName }}</p>
+        <p><strong>Дата народження:</strong> {{ client.birthDate }}</p>
+        <p><strong>Бонуси:</strong> {{ client.bonuses }}</p>
+      </app-common-data-card>
+    }
+
+    @let employee = $employee();
+    @if (employee) {
+      <app-common-data-card class="common-data-card-absolute-width">
+        <span title>Працівник</span>
+        <p><strong>Прізвище:</strong> {{ employee.surname }}</p>
+        <p><strong>Ім'я:</strong> {{ employee.firstName }}</p>
+        <p><strong>По-батькові:</strong> {{ employee.middleName }}</p>
+        <p><strong>Дата народження:</strong> {{ employee.position | employeePositionPipe }}</p>
+      </app-common-data-card>
+    }
+  </div>
+
+  <div class="cards-vertical-container">
+    <h2>Страви</h2>
+    @for (meal of $meals(); track meal.id) {
+      <app-order-meal-view-card [meal]="meal"/>
+    }
+  </div>
+</div>

@@ -161,6 +161,7 @@ body {
 .horizontal-container {
   display: flex;
   justify-content: space-around;
+  align-items: start;
   gap: 16px;
 }
 

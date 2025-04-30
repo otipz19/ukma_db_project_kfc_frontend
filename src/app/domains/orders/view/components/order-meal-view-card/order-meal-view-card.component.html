@@ -1,0 +1,29 @@
+<mat-card class="meal-card mat-elevation-z7">
+  <div class="image-section">
+    <!-- TODO: add images from entity when api is updated -->
+    <img src="https://placehold.co/800x800.png?text=Meal+Placeholder" alt="Meal image"/>
+  </div>
+
+  <div class="main-content">
+    <div class="info-section">
+      <h2>{{ $meal().title }}</h2>
+      <div class="data-section">
+        <p><strong>Ціна:</strong> {{ $meal().price }} грн</p>
+        <p><strong>Вага:</strong> {{ $meal().weight }} г</p>
+        <p><strong>Енергетична цінність:</strong> {{ $meal().energeticValue }} ккал</p>
+      </div>
+    </div>
+
+    <div class="actions-container">
+      <div class="counter-container">
+        <span><strong>Кількість:</strong> {{ $meal().amountInOrder }}</span>
+      </div>
+    </div>
+
+    <div class="card-controls-container">
+      <button mat-icon-button color="primary" (click)="onView()">
+        <mat-icon>visibility</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>
