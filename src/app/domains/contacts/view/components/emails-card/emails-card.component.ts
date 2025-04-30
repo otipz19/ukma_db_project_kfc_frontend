@@ -1,20 +1,17 @@
 import {Component, inject, input, OnInit} from '@angular/core';
-import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatAnchor, MatIconButton} from "@angular/material/button";
 import {ContactsStore} from "../../../data-access/store/contacts.store";
 import {MatIcon} from "@angular/material/icon";
 import {SetEmailsService} from "../../../data-access/services/set-emails.service";
+import {CommonDataCardComponent} from "../../../../../shared/components/common-data-card/common-data-card.component";
 
 @Component({
   selector: 'app-emails-card',
   imports: [
-    MatCard,
-    MatCardHeader,
-    MatCardContent,
-    MatCardTitle,
     MatAnchor,
     MatIcon,
-    MatIconButton
+    MatIconButton,
+    CommonDataCardComponent
   ],
   templateUrl: './emails-card.component.html',
   styleUrl: './emails-card.component.scss'

@@ -1,21 +1,18 @@
 import {Component, inject, input, OnInit} from '@angular/core';
-import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatAnchor, MatIconButton} from "@angular/material/button";
 import {ContactsStore} from "../../../data-access/store/contacts.store";
 import {MatIcon} from "@angular/material/icon";
 import {SetPhonesService} from "../../../data-access/services/set-phones.service";
+import {CommonDataCardComponent} from "../../../../../shared/components/common-data-card/common-data-card.component";
 
 @Component({
   selector: 'app-phones-card',
-  imports: [
-    MatCard,
-    MatCardHeader,
-    MatCardContent,
-    MatCardTitle,
-    MatAnchor,
-    MatIcon,
-    MatIconButton,
-  ],
+    imports: [
+        MatAnchor,
+        MatIcon,
+        MatIconButton,
+        CommonDataCardComponent,
+    ],
   templateUrl: './phones-card.component.html',
   styleUrl: './phones-card.component.scss'
 })

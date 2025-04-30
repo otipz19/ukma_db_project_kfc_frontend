@@ -1,27 +1,15 @@
-<mat-card class="data-card">
-  <mat-card-header class="bordered-card-header card-header">
-    <mat-card-title>
-      Номери телефонів
-    </mat-card-title>
-
-    <div class="card-header-absolute-action">
-      <button mat-icon-button color="primary" (click)="onEdit()">
-        <mat-icon>edit</mat-icon>
-      </button>
+<app-common-data-card class="phones-card">
+  <span title>Номери телефонів</span>
+  <button relativeAction mat-icon-button color="primary" (click)="onEdit()">
+    <mat-icon>edit</mat-icon>
+  </button>
+  @for (phone of $phones(); track phone; ) {
+    <div class="contact-wrapper">
+      <strong>{{ $index + 1 }}.</strong> <a mat-button color="primary" [href]="'tel:' + phone">+38{{ phone }}</a>
     </div>
-  </mat-card-header>
-
-  <mat-card-content>
-    <div class="card-content-wrapper">
-      @for (phone of $phones(); track phone; ) {
-        <div class="contact-wrapper">
-          <strong>{{ $index + 1 }}.</strong> <a mat-button color="primary" [href]="'tel:' + phone">+38{{ phone }}</a>
-        </div>
-      } @empty {
-        <p>
-          Немає жодного номеру телефону
-        </p>
-      }
-    </div>
-  </mat-card-content>
-</mat-card>
+  } @empty {
+    <p>
+      Немає жодного номеру телефону
+    </p>
+  }
+</app-common-data-card>
