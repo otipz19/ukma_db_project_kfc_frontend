@@ -2,7 +2,7 @@ import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Meal} from "../../../../../api/model/meal";
 import {MEAL_RESOLVER_KEY} from "../../../data-access/resolvers/meal.resolver";
-import {MatCard, MatCardContent, MatCardHeader, MatCardImage, MatCardTitle} from "@angular/material/card";
+import {MatCard, MatCardImage} from "@angular/material/card";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {IngredientControllerService} from "../../../../../api/api/ingredientController.service";
 import {NotifyService} from "../../../../../shared/features/notify/data-access/services/notify.service";
@@ -10,16 +10,15 @@ import {MealIngredientCombinedDto} from "../../../data-access/types/meal-ingredi
 import {
   MealIngredientViewCardComponent
 } from "../../components/meal-ingredient-view-card/meal-ingredient-view-card.component";
+import {CommonDataCardComponent} from "../../../../../shared/components/common-data-card/common-data-card.component";
 
 @Component({
   selector: 'app-view-meal-page',
   imports: [
     MatCard,
-    MatCardHeader,
-    MatCardContent,
-    MatCardTitle,
     MatCardImage,
-    MealIngredientViewCardComponent
+    MealIngredientViewCardComponent,
+    CommonDataCardComponent
   ],
   templateUrl: './view-meal-page.component.html',
   styleUrl: './view-meal-page.component.scss'

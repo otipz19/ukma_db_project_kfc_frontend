@@ -8,56 +8,33 @@
            alt="{{ $meal().title }}"/>
     </mat-card>
 
-    <mat-card class="long-info-card">
-      <mat-card-header class="bordered-card-header">
-        <mat-card-title>
-          Опис
-        </mat-card-title>
-      </mat-card-header>
+    <app-common-data-card class="common-data-card-absolute-width">
+      <span title>Опис</span>
+      <p>{{ $meal().description }}</p>
+    </app-common-data-card>
 
-      <mat-card-content class="long-info-card-content">
-        {{ $meal().description }}
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="long-info-card">
-      <mat-card-header class="bordered-card-header">
-        <mat-card-title>
-          Рецепт
-        </mat-card-title>
-      </mat-card-header>
-
-      <mat-card-content class="long-info-card-content">
-        {{ $meal().recipe }}
-      </mat-card-content>
-    </mat-card>
+    <app-common-data-card class="common-data-card-absolute-width">
+      <span title>Рецепт</span>
+      <p>{{ $meal().recipe }}</p>
+    </app-common-data-card>
   </div>
 
   <div class="ingredients-stats-container">
-    <mat-card class="stats-card">
-      <mat-card-header>
-        <mat-card-title class="stats-card-title">
-          Характеристики страви
-        </mat-card-title>
-      </mat-card-header>
-
-      <mat-card-content>
-        <div class="stats-card-info-container">
-          <p>
-            <strong>Додана вартість: </strong> {{ $meal().additionalPrice }} грн
-          </p>
-          <p>
-            <strong>Ціна: </strong> {{ $meal().price }} грн
-          </p>
-          <p>
-            <strong>Енергетична цінність:</strong> {{ $meal().energeticValue }} ккал
-          </p>
-          <p>
-            <strong>Вага:</strong> {{ $meal().weight }} г
-          </p>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    <app-common-data-card>
+      <span title>Характеристики страви</span>
+      <p>
+        <strong>Додана вартість: </strong> {{ $meal().additionalPrice }} грн
+      </p>
+      <p>
+        <strong>Ціна: </strong> {{ $meal().price }} грн
+      </p>
+      <p>
+        <strong>Енергетична цінність:</strong> {{ $meal().energeticValue }} ккал
+      </p>
+      <p>
+        <strong>Вага:</strong> {{ $meal().weight }} г
+      </p>
+    </app-common-data-card>
 
     <div class="ingredients-list-wrapper">
       <h2>

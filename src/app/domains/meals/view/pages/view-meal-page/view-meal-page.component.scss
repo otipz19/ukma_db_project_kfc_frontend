@@ -7,7 +7,8 @@
 
 .horizontal-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  align-items: start;
   gap: 16px;
 
   .long-info-cards-container {
