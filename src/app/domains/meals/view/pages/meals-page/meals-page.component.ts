@@ -28,7 +28,7 @@ export class MealsPageComponent implements OnInit {
   private readonly store = inject(MealsStore);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-  private readonly authService = inject(AuthService);
+  protected readonly authService = inject(AuthService);
   private readonly reportsService = inject(TableReportsService);
   private readonly columnsMapper = new MealColumnsMapper();
 

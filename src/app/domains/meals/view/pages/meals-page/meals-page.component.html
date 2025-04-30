@@ -2,12 +2,14 @@
   <h2>Страви</h2>
 
   <div class="right-end-toolbar">
-    <button mat-raised-button color="primary" (click)="onExportReport()">
-      <mat-icon>print</mat-icon>
-      <span>Експортувати звіт</span>
-    </button>
+    @if (authService.hasRole(UserRole.ADMIN, UserRole.MANAGER)) {
+      <button mat-raised-button color="primary" (click)="onExportReport()">
+        <mat-icon>print</mat-icon>
+        <span>Експортувати звіт</span>
+      </button>
+    }
 
-    @if ($userRole() === UserRole.ADMIN) {
+    @if (authService.hasRole(UserRole.ADMIN)) {
       <button mat-raised-button color="accent" (click)="onCreate()">
         Створити нову
       </button>
