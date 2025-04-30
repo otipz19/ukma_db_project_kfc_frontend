@@ -1,7 +1,7 @@
 <div class="title-wrapper">
   <h2>Профіль працівника</h2>
 
-  @if (authService.hasRole(UserRole.ADMIN, UserRole.MANAGER)) {
+  @if (authService.hasRole(UserRole.ADMIN, UserRole.MANAGER) && $employee()?.id != authService.$currentUser()?.id) {
     <button mat-raised-button color="warn" (click)="onDelete()">
       Звільнити
     </button>

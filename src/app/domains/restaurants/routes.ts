@@ -36,14 +36,14 @@ export const RESTAURANT_ROUTES: Routes = [
                 loadComponent: () => import("../employees/view/pages/employees-page/employees-page.component").then(r => r.EmployeesPageComponent)
               },
               {
-                path: ':employeeId',
-                resolve: {[EMPLOYEE_RESOLVER_KEY]: employeeResolver},
-                loadComponent: () => import('../employees/view/pages/employee-profile/employee-profile.component').then(r => r.EmployeeProfileComponent)
-              },
-              {
                 path: 'create',
                 loadComponent: () => import('../employees/features/create-employee/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
               },
+              {
+                path: ':employeeId',
+                resolve: {[EMPLOYEE_RESOLVER_KEY]: employeeResolver},
+                loadComponent: () => import('../employees/view/pages/employee-profile/employee-profile.component').then(r => r.EmployeeProfileComponent)
+              }
             ]
           }
         ]
