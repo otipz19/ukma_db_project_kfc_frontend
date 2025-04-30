@@ -10,6 +10,11 @@ export const ORDERS_ROUTES: Routes = [
     canActivate: [authenticatedRouteGuard],
     children: [
       {
+        path: '',
+        canActivate: [hasRoleRouteGuard(UserRole.ADMIN)],
+        loadComponent: () => import('./view/pages/orders-page/orders-page.component').then(r => r.OrdersPageComponent)
+      },
+      {
         path: 'create',
         canActivate: [hasRoleRouteGuard(UserRole.CLIENT, UserRole.CASHIER, UserRole.MANAGER)],
         loadComponent: () => import('./view/pages/create-order-page/create-order-page.component').then(r => r.CreateOrderPageComponent)

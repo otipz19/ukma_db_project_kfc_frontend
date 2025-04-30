@@ -22,9 +22,9 @@ export class EmployeesStore extends BaseEntityStore<EmployeeStoreEntity, Employe
   }
 
   protected override getAllFromApi(): Observable<EmployeeStoreEntity[]> {
-    return this.api.getAllEmployees()
+    return this.api.getEmployeesByFilter()
       .pipe(
-        map(list => list.map(e => mapEmployeeToStoreEntity(e)))
+        map(list => list.items.map(e => mapEmployeeToStoreEntity(e)))
       );
   }
 

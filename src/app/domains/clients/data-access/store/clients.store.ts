@@ -18,10 +18,10 @@ export class ClientsStore extends BaseEntityStore<ClientStoreEntity, ClientsFilt
   }
 
   protected override getAllFromApi(): Observable<ClientStoreEntity[]> {
-    return this.api.getAllClients()
+    return this.api.getClientsByFilter()
       .pipe(
         map(list => {
-          return list.map(c => mapClientToStoreEntity(c));
+          return list.items.map(c => mapClientToStoreEntity(c));
         })
       );
   }

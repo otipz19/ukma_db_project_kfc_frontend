@@ -136,12 +136,12 @@ export class EmployeeCreateFormComponent implements OnInit {
   ngOnInit() {
     const restaurant = this.$restaurant();
     if (restaurant == undefined) {
-      this.restaurantsApi.getAllRestaurants()
+      this.restaurantsApi.getRestaurantsByFilter()
         .pipe(
           takeUntilDestroyed(this.destroyRef)
         )
         .subscribe(list => {
-          const options = list.map(r => ({value: r.id, label: r.address}));
+          const options = list.items.map(r => ({value: r.id, label: r.address}));
           this.$restaurantsOptions.set(options);
         });
 
@@ -178,10 +178,10 @@ export class EmployeeCreateFormComponent implements OnInit {
       return of(true);
     }
 
-    return this.employeeApi.getAllEmployees(restaurantId, [EmployeePosition.MANAGER])
+    return this.employeeApi.getEmployeesByFilter({restaurantId: restaurantId, positions: [EmployeePosition.MANAGER]})
       .pipe(
         map(managers => {
-          return managers.length > 0;
+          return managers.items.length > 0;
         })
       )
   }

@@ -1,7 +1,7 @@
 import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
 import {OrdersFiltersContainer} from "../filters/filters-container/orders.filters-container";
 import {forkJoin, map, Observable, of, switchMap} from "rxjs";
-import {inject} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {OrderControllerService} from "../../../../api/api/orderController.service";
 import {ListOrderDto} from "../types/list-order-dto";
 import {OrderLoadHelperService} from "../services/order-load-helper.service";
@@ -17,6 +17,9 @@ type JoinedResponse = {
   employee?: EmployeeStoreEntity
 }
 
+@Injectable({
+  providedIn: 'root'
+})
 export class OrdersStore extends BaseEntityStore<ListOrderDto, OrdersFiltersContainer> {
   private readonly ordersApi = inject(OrderControllerService);
   private readonly orderLoadHelper = inject(OrderLoadHelperService);

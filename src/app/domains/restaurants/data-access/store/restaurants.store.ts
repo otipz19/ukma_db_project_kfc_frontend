@@ -1,6 +1,6 @@
 import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
 import {RestaurantsFiltersContainer} from "../filters/filters-container/restaurants-filters-container";
-import { Observable } from "rxjs";
+import {map, Observable} from "rxjs";
 import {inject, Injectable} from "@angular/core";
 import {Restaurant} from "../../../../api/model/restaurant";
 import {RestaurantControllerService} from "../../../../api/api/restaurantController.service";
@@ -18,7 +18,12 @@ export class RestaurantsStore extends BaseEntityStore<Restaurant, RestaurantsFil
   }
 
   protected override getAllFromApi(): Observable<Restaurant[]> {
-    return this.api.getAllRestaurants();
+    return this.api.getRestaurantsByFilter()
+      .pipe(
+        map(list => {
+          return list.items;
+        })
+      );
   }
 
   protected override getByIdFromApi(id: number): Observable<Restaurant> {

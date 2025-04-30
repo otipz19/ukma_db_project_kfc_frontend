@@ -58,25 +58,25 @@ export class CreateEmployeePageComponent {
       return of(manager.id);
     }
 
-    return this.employeeApi.getAllEmployees(restaurantId, [EmployeePosition.MANAGER])
+    return this.employeeApi.getEmployeesByFilter({restaurantId, positions: [EmployeePosition.MANAGER]})
       .pipe(
         map(managers => {
-          if (managers.length === 0) {
+          if (managers.items.length === 0) {
             throw new Error(`No managers in restaurant ${restaurantId} while creating non-manager employee. Shouldn't happen`);
           }
-          return managers[0].userId;
+          return managers.items[0].userId;
         })
       )
   }
 
   private requestTopManagerId$(): Observable<Employee['userId']> {
-    return this.employeeApi.getAllEmployees(undefined, [EmployeePosition.TOP_MANAGER])
+    return this.employeeApi.getEmployeesByFilter({positions: [EmployeePosition.TOP_MANAGER]})
       .pipe(
         map(result => {
-          if (result.length === 0) {
+          if (result.items.length === 0) {
             throw new Error(`Top manager doesn't exist. Must never happen`);
           }
-          return result[0].userId;
+          return result.items[0].userId;
         })
       )
   }

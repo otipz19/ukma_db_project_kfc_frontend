@@ -1,7 +1,6 @@
 import {Component, computed, input} from '@angular/core';
 import {Order} from "../../../../../api/model/order";
 import {OrderPageTableColumn, OrderPageTableColumns} from "../../../features/tables/data-access/model/order-columns";
-import {EmployeePositionPipe} from "../../../../employees/view/pipes/employee-position.pipe";
 import {
   MatCell,
   MatCellDef, MatColumnDef,
@@ -18,7 +17,6 @@ import {RouterLink} from "@angular/router";
 @Component({
   selector: 'app-orders-list',
   imports: [
-    EmployeePositionPipe,
     MatCell,
     MatCellDef,
     MatHeaderCell,
