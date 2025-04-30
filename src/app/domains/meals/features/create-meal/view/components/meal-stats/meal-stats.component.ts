@@ -1,10 +1,7 @@
 import {Component, input} from '@angular/core';
 import {
-    MatCard,
-    MatCardContent,
-    MatCardHeader,
-    MatCardTitle
-} from "@angular/material/card";
+  CommonDataCardComponent
+} from "../../../../../../../shared/components/common-data-card/common-data-card.component";
 
 export type MealStats = {
   price: number,
@@ -14,12 +11,9 @@ export type MealStats = {
 
 @Component({
   selector: 'app-meal-stats',
-    imports: [
-        MatCard,
-        MatCardContent,
-        MatCardHeader,
-        MatCardTitle,
-    ],
+  imports: [
+    CommonDataCardComponent,
+  ],
   templateUrl: './meal-stats.component.html',
   styleUrl: './meal-stats.component.scss'
 })
