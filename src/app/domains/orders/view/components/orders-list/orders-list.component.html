@@ -1,0 +1,50 @@
+<table mat-table [dataSource]="$dataSource()" class="mat-elevation-z3">
+  <ng-container [matColumnDef]="TableColumns.id">
+    <th mat-header-cell *matHeaderCellDef>Номер</th>
+    <td mat-cell *matCellDef="let order">{{ order.id }}</td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="TableColumns.restaurantAddress">
+    <th mat-header-cell *matHeaderCellDef>Ресторан</th>
+    <td mat-cell *matCellDef="let order">{{ order.restaurantAddress }}</td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="TableColumns.employeeSurname">
+    <th mat-header-cell *matHeaderCellDef>Працівник</th>
+    <td mat-cell *matCellDef="let order">{{ order.employeeSurname }}</td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="TableColumns.clientSurname">
+    <th mat-header-cell *matHeaderCellDef>Клієнт</th>
+    <td mat-cell *matCellDef="let order">{{ order.clientSurname }}</td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="TableColumns.dateCreated">
+    <th mat-header-cell *matHeaderCellDef>Дата створення</th>
+    <td mat-cell *matCellDef="let order">{{ order.dateCreated }}</td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="TableColumns.cost">
+    <th mat-header-cell *matHeaderCellDef>Вартість</th>
+    <td mat-cell *matCellDef="let order">{{ order.cost }}</td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="TableColumns.isCompleted">
+    <th mat-header-cell *matHeaderCellDef>Статус</th>
+    <td mat-cell *matCellDef="let order">{{ order.isCompleted ? "Завершено" : "В обробці" }}</td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="TableColumns.actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let order">
+      <div class="table-list-actions-container">
+        <button mat-icon-button color="primary" [routerLink]="[order.id]">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

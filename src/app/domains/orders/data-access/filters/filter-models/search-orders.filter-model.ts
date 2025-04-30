@@ -1,8 +1,8 @@
 import {
   PrimitivePropertySubstringFilterModel
 } from "../../../../../shared/features/filters/generic-filters/primitive-property-substring-filter-model";
-import {Order} from "../../../../../api/model/order";
+import {ListOrderDto} from "../../types/list-order-dto";
 
-export class SearchOrdersFilterModel extends PrimitivePropertySubstringFilterModel<Order> {
+export class SearchOrdersFilterModel extends PrimitivePropertySubstringFilterModel<ListOrderDto> {
 
 }
