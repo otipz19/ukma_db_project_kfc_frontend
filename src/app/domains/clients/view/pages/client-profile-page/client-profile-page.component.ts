@@ -1,6 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CLIENT_RESOLVER_KEY} from "../../../data-access/resolvers/client.resolver";
-import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {UserRole} from "../../../../../api";
 import {AuthService} from "../../../../../core/services/auth.service";
@@ -13,19 +12,17 @@ import {EmailsCardComponent} from "../../../../contacts/view/components/emails-c
 import {PhonesCardComponent} from "../../../../contacts/view/components/phones-card/phones-card.component";
 import {getFromResolver} from "../../../../../shared/resolvers/get-from-resolver";
 import {ClientStoreEntity} from "../../../data-access/model/client-store-entity";
+import {CommonDataCardComponent} from "../../../../../shared/components/common-data-card/common-data-card.component";
 
 @Component({
   selector: 'app-client-profile-page',
   imports: [
-    MatCard,
-    MatCardHeader,
-    MatCardContent,
-    MatCardTitle,
     MatButton,
     MatIconButton,
     MatIcon,
     EmailsCardComponent,
     PhonesCardComponent,
+    CommonDataCardComponent,
   ],
   templateUrl: './client-profile-page.component.html',
   styleUrl: './client-profile-page.component.scss'

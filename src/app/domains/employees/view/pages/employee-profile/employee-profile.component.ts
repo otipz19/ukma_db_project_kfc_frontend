@@ -1,6 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {EmailsCardComponent} from "../../../../contacts/view/components/emails-card/emails-card.component";
-import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {PhonesCardComponent} from "../../../../contacts/view/components/phones-card/phones-card.component";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
@@ -14,20 +13,18 @@ import {EmployeePositionPipe} from "../../pipes/employee-position.pipe";
 import {UpdateEmployeeService} from "../../../features/update-employee/data-access/services/update-employee.service";
 import {DeleteEmployeeService} from "../../../features/delete-employee/data-access/services/delete-employee.service";
 import {Location} from "@angular/common";
+import {CommonDataCardComponent} from "../../../../../shared/components/common-data-card/common-data-card.component";
 
 @Component({
   selector: 'app-employees-profile',
   imports: [
     EmailsCardComponent,
     MatButton,
-    MatCard,
-    MatCardContent,
-    MatCardHeader,
-    MatCardTitle,
     MatIcon,
     MatIconButton,
     PhonesCardComponent,
-    EmployeePositionPipe
+    EmployeePositionPipe,
+    CommonDataCardComponent
   ],
   templateUrl: './employee-profile.component.html',
   styleUrl: './employee-profile.component.scss'

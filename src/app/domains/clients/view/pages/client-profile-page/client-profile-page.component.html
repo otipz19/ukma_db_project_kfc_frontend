@@ -10,41 +10,31 @@
 
 <div class="horizontal-container">
   <div class="cards-vertical-container">
-    <mat-card class="data-card">
-      <mat-card-header class="bordered-card-header card-header relative-card-header">
-        <mat-card-title>
-          Персональні дані
-        </mat-card-title>
+    <app-common-data-card class="common-data-card-absolute-width">
+      <span title>Персональні дані</span>
 
-        <div class="card-header-absolute-action">
-          <button mat-icon-button color="primary" (click)="onEdit()">
-            <mat-icon>edit</mat-icon>
-          </button>
-        </div>
-      </mat-card-header>
+      <button relativeAction mat-icon-button color="primary" (click)="onEdit()">
+        <mat-icon>edit</mat-icon>
+      </button>
 
-      <mat-card-content>
-        <div class="card-content-wrapper">
-          <p>
-            <strong>Прізвище: </strong> {{ $client()?.surname }}
-          </p>
-          <p>
-            <strong>Ім'я: </strong> {{ $client()?.firstName }}
-          </p>
-          @if ($client()?.middleName) {
-            <p>
-              <strong>По-батькові: </strong> {{ $client()?.middleName }}
-            </p>
-          }
-          <p>
-            <strong>Дата народження: </strong> {{ $client()?.birthDate }}
-          </p>
-          <p>
-            <strong>Бонуси:</strong> {{ $client()?.bonuses }}
-          </p>
-        </div>
-      </mat-card-content>
-    </mat-card>
+      <p>
+        <strong>Прізвище: </strong> {{ $client()?.surname }}
+      </p>
+      <p>
+        <strong>Ім'я: </strong> {{ $client()?.firstName }}
+      </p>
+      @if ($client()?.middleName) {
+        <p>
+          <strong>По-батькові: </strong> {{ $client()?.middleName }}
+        </p>
+      }
+      <p>
+        <strong>Дата народження: </strong> {{ $client()?.birthDate }}
+      </p>
+      <p>
+        <strong>Бонуси:</strong> {{ $client()?.bonuses }}
+      </p>
+    </app-common-data-card>
   </div>
 
   <div class="cards-vertical-container">
