@@ -27,7 +27,7 @@
       </div>
 
       <div>
-        @if($meal().ingredients.length !== 0) {
+        @if(shouldDisplayModifyBtn()) {
           <button mat-raised-button color="primary" (click)="onModify()">
             Інгредієнти
           </button>

@@ -73,4 +73,8 @@ export class OrderMealCardComponent {
   private sumIngredients(ingredients: OrderMealIngredient[], selector: (i: OrderMealIngredient) => number): number {
     return ingredients.reduce((sum, i) => sum + selector(i) * i.amount, 0);
   }
+
+  protected shouldDisplayModifyBtn(): boolean {
+    return this.$meal().ingredients.filter(i => !i.isFixated).length !== 0;
+  }
 }
