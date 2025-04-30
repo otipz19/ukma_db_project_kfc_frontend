@@ -3,6 +3,13 @@
   flex-direction: row;
   align-items: stretch;
   height: 160px;
+  width: 600px;
+}
+
+h2 {
+  overflow-x: clip;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .image-section {
@@ -16,9 +23,12 @@
 
 .main-content {
   display: flex;
+  flex-grow: 1;
+  min-width: 0;
 
   .info-section {
-    flex: 1;
+    flex-grow: 2;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
