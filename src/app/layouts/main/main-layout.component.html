@@ -14,7 +14,7 @@
 
   <div class="toolbar-right">
     @if ($isAuthenticated()) {
-      @if (!authService.hasRole(UserRole.COOK)) {
+      @if (!authService.hasRole(UserRole.COOK, UserRole.ADMIN)) {
         <button mat-raised-button color="accent" [routerLink]="['/', 'orders', 'create']">
           Замовити
         </button>
