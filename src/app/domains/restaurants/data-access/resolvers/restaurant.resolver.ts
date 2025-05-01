@@ -31,7 +31,7 @@ export const restaurantResolver: ResolveFn<Restaurant> = (route) => {
           return of(restaurant);
         }
 
-        if(employee.position === 'MANAGER' && employee.restaurantId === restaurant.id) {
+        if(employee.restaurantId === restaurant.id) {
           return of(restaurant);
         }
 
