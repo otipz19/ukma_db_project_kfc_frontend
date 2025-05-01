@@ -36,13 +36,13 @@ export class ViewMealPageComponent implements OnInit {
      const mealIngredients = this.$meal().ingredients;
      const ids = mealIngredients.map(i => i.ingredientId);
 
-     this.ingredientsApi.getAllIngredients(ids)
+     this.ingredientsApi.getIngredientsByFilter({ids: ids})
        .pipe(
          takeUntilDestroyed(this.destroyRef),
          this.notify.notifyError()
        )
        .subscribe(ingredients => {
-         const dtos: MealIngredientCombinedDto[] = ingredients.map(ingredient => {
+         const dtos: MealIngredientCombinedDto[] = ingredients.items.map(ingredient => {
            const mealIngredient = mealIngredients
              .find(m => m.ingredientId === ingredient.id)!;
            return {ingredient, mealIngredient};

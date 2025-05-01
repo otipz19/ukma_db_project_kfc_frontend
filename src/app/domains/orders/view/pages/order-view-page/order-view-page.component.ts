@@ -64,18 +64,18 @@ export class OrderViewPageComponent {
 
   // TODO: Fix when api is updated
   private loadMeals(order: Order) {
-    this.clientMealsApi.getAllClientMeals(order.id)
+    this.clientMealsApi.getClientMealsByFilter({orderId: order.id})
       .pipe(
         takeUntilDestroyed(),
         switchMap(clientMeals => {
-          const clientMealsIds = clientMeals.map(cm => cm.mealId);
-          return this.mealsApi.getAllMeals()
+          const clientMealsIds = clientMeals.items.map(cm => cm.mealId);
+          return this.mealsApi.getMealsByFilter()
             .pipe(
               map(meals => {
-                return meals
+                return meals.items
                   .filter(m => clientMealsIds.includes(m.id))
                   .map(m => {
-                    const clientMeal = clientMeals.find(cm => cm.mealId === m.id)!;
+                    const clientMeal = clientMeals.items.find(cm => cm.mealId === m.id)!;
                     const clientMealInfo: ClientMealInfo = {...m, ...clientMeal};
                     return clientMealInfo;
                   });

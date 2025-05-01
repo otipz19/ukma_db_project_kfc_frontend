@@ -108,13 +108,13 @@ export class MealUpsertFormComponent implements OnInit {
     if(initValue) {
       const {title, additionalPrice, description, recipe, ingredients: mealIngredients} = initValue;
       this.mealDataStepForm.patchValue({title, additionalPrice, description, recipe});
-      this.ingredientsApi.getAllIngredients([...mealIngredients.map(i => i.ingredientId)])
+      this.ingredientsApi.getIngredientsByFilter({ids: mealIngredients.map(i => i.ingredientId)})
         .pipe(
           takeUntilDestroyed(this.destroyRef),
           this.notify.notifyError()
         )
         .subscribe(ingredients => {
-          const dtos: MealIngredientCombinedDto[] = ingredients.map(ingredient => {
+          const dtos: MealIngredientCombinedDto[] = ingredients.items.map(ingredient => {
             const mealIngredient = mealIngredients
               .find(m => m.ingredientId === ingredient.id)!;
             return {ingredient, mealIngredient};

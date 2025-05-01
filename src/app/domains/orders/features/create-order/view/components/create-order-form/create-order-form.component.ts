@@ -66,13 +66,13 @@ export class CreateOrderFormComponent implements OnInit {
 
   private loadNewOrderMeal(meal: Meal) {
     const ingredientsIds = meal.ingredients.map(m => m.ingredientId);
-    this.ingredientsApi.getAllIngredients(ingredientsIds)
+    this.ingredientsApi.getIngredientsByFilter({ids: ingredientsIds})
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         this.notify.notifyError()
       )
       .subscribe(ingredients => {
-        const orderMealIngredients: OrderMealIngredient[] = ingredients.map(i => {
+        const orderMealIngredients: OrderMealIngredient[] = ingredients.items.map(i => {
           const mealIngredient = meal.ingredients.find(mi => mi.ingredientId === i.id)!;
           return {...i, ...mealIngredient};
         });
