@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
+import {BaseEntityStore, StoreSort} from "../../../../shared/store/base-entity-store";
 import {ListOrderDto} from "../types/list-order-dto";
 import {OrdersFiltersContainer} from "../filters/filters-container/orders.filters-container";
 import {OrderControllerService} from "../../../../api/api/orderController.service";
@@ -8,6 +8,7 @@ import {forkJoin, map, Observable, of, switchMap} from "rxjs";
 import {Order} from "../../../../api/model/order";
 import {Restaurant} from "../../../../api/model/restaurant";
 import {ClientStoreEntity} from "../../../clients/data-access/model/client-store-entity";
+import {StorePage} from "../../../../shared/features/pagination/data-access/model/paginator-model";
 
 type JoinedResponse = {
   order: Order,
@@ -32,8 +33,8 @@ export class ClientOrdersStore extends BaseEntityStore<ListOrderDto, OrdersFilte
     return new OrdersFiltersContainer();
   }
 
-  protected override getAllFromApi(): Observable<ListOrderDto[]> {
-    return this.ordersApi.getOrdersByFilter({clientUserId: this.clientId})
+  protected override getAllFromApi(sort: StoreSort, page: StorePage): Observable<ListOrderDto[]> {
+    return this.ordersApi.getOrdersByFilter({clientUserId: this.clientId, ...sort, ...page})
       .pipe(
         switchMap(ordersList => {
           const orders = ordersList.items;

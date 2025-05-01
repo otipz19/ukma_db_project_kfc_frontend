@@ -18,5 +18,8 @@
 </div>
 
 <div class="list-container">
-  <app-orders-list [orders]="$orders()" [displayedColumns]="displayedColumns"/>
+  <app-orders-list [orders]="$orders()"
+                   [displayedColumns]="displayedColumns"
+                   [paginator]="store.paginatorModel"
+                   (page)="onPagination($event)"/>
 </div>

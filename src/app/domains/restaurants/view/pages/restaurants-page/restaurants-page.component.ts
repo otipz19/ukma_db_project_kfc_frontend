@@ -10,26 +10,36 @@ import {DEFAULT_COLUMNS_MAPPER} from "../../../../../shared/features/reports/dat
 import {RestaurantTableHeaderMapper} from "../../../features/tables/data-access/model/restaurant-table-header-mapper";
 import {MatIcon} from "@angular/material/icon";
 import {Restaurant} from "../../../../../api/model/restaurant";
+import {
+    CommonPaginatorComponent
+} from "../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
-  imports: [
-    RestaurantsListComponent,
-    MatButton,
-    SearchBarComponent,
-    MatIcon
-  ],
+    imports: [
+        RestaurantsListComponent,
+        MatButton,
+        SearchBarComponent,
+        MatIcon,
+        CommonPaginatorComponent
+    ],
   selector: 'app-restaurants-page',
   styleUrl: './restaurants-page.component.scss',
   templateUrl: './restaurants-page.component.html'
 })
 export class RestaurantsPageComponent implements OnInit {
-  private readonly store = inject(RestaurantsStore);
+  protected readonly store = inject(RestaurantsStore);
   private readonly createService = inject(CreateRestaurantService);
   private readonly reportsService = inject(TableReportsService);
 
   protected readonly $restaurants: Signal<Restaurant[]> = this.store.$viewList;
 
   ngOnInit() {
+    this.store.loadAll();
+  }
+
+  protected onPagination(page: PageEvent) {
+    this.store.paginatorModel.setPageEvent(page);
     this.store.loadAll();
   }
 

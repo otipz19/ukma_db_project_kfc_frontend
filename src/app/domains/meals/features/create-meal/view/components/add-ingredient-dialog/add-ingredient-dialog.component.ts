@@ -11,6 +11,10 @@ import {
   IngredientCardComponent
 } from "../../../../../../ingredients/view/components/ingredient-card/ingredient-card.component";
 import {SearchBarComponent} from "../../../../../../../shared/components/search-bar/search-bar.component";
+import {
+  CommonPaginatorComponent
+} from "../../../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
+import {PageEvent} from "@angular/material/paginator";
 
 export type AddIngredientDialogData = {
   alreadyPresentIngredientsIdList: Array<Ingredient['id']>,
@@ -22,14 +26,15 @@ export type AddIngredientDialogData = {
     MatDialogContent,
     MatDialogTitle,
     IngredientCardComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    CommonPaginatorComponent
   ],
   templateUrl: './add-ingredient-dialog.component.html',
   styleUrl: './add-ingredient-dialog.component.scss'
 })
 export class AddIngredientDialogComponent implements OnInit {
   private readonly dialogRef = inject(MatDialogRef<AddIngredientDialogComponent, Ingredient>);
-  private readonly ingredientsStore = inject(IngredientsStore);
+  protected readonly ingredientsStore = inject(IngredientsStore);
   private readonly data: AddIngredientDialogData = inject(MAT_DIALOG_DATA);
 
   protected readonly $ingredients: Signal<Ingredient[]> = computed(() => {
@@ -46,6 +51,11 @@ export class AddIngredientDialogComponent implements OnInit {
 
   ngOnInit() {
     this.ingredientsStore.cleanFilters();
+    this.ingredientsStore.loadAll();
+  }
+
+  protected onPagination(page: PageEvent) {
+    this.ingredientsStore.paginatorModel.setPageEvent(page);
     this.ingredientsStore.loadAll();
   }
 

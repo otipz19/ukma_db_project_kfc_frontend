@@ -1,9 +1,10 @@
-import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
+import {BaseEntityStore, StoreSort} from "../../../../shared/store/base-entity-store";
 import {Meal} from "../../../../api/model/meal";
 import {MealsFiltersContainer} from "../filters/filters-container/meals.filters-container";
 import {map, Observable} from "rxjs";
 import {inject, Injectable} from "@angular/core";
 import {MealControllerService} from "../../../../api/api/mealController.service";
+import {StorePage} from "../../../../shared/features/pagination/data-access/model/paginator-model";
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,11 @@ export class MealsStore extends BaseEntityStore<Meal, MealsFiltersContainer> {
     return new MealsFiltersContainer();
   }
 
-  protected override getAllFromApi(): Observable<Meal[]> {
-    return this.mealsApi.getMealsByFilter({isActual: true})
+  protected override getAllFromApi(sort: StoreSort, page: StorePage): Observable<Meal[]> {
+    return this.mealsApi.getMealsByFilter({isActual: true, ...sort, ...page})
       .pipe(
         map(list => {
+          this.setTotalItems(list.total);
           return list.items;
         })
       );

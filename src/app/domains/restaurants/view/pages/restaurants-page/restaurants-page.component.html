@@ -20,3 +20,7 @@
 <div class="list-container">
   <app-restaurants-list [restaurants]="$restaurants()"/>
 </div>
+
+<div class="mat-elevation-z3">
+  <app-common-paginator [paginator]="store.paginatorModel" (page)="onPagination($event)"/>
+</div>

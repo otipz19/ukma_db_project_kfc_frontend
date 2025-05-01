@@ -10,7 +10,7 @@ export type StoreSort = Pick<BaseFilter, 'sortBy' | 'descendingOrder'>;
 export abstract class BaseEntityStore<TEntity extends {id: number}, TFiltersContainer extends FiltersContainer<TEntity>> {
   readonly filters: TFiltersContainer = this.buildFiltersContainer();
 
-  private storeSort?: StoreSort;
+  private storeSort: StoreSort = {};
   readonly paginatorModel = new PaginatorModel();
 
   protected readonly $responseList = signal<Array<TEntity>>([]);
@@ -41,7 +41,7 @@ export abstract class BaseEntityStore<TEntity extends {id: number}, TFiltersCont
       });
   }
 
-  protected abstract getAllFromApi(sort?: StoreSort, page?: StorePage): Observable<Array<TEntity>>;
+  protected abstract getAllFromApi(sort: StoreSort, page: StorePage): Observable<Array<TEntity>>;
 
   load(id: number) {
     this.getByIdFromApi(id)

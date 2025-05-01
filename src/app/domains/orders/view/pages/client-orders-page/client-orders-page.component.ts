@@ -4,7 +4,7 @@ import {OrderColumnsMapper} from "../../../features/tables/data-access/model/ord
 import {ListOrderDto} from "../../../data-access/types/list-order-dto";
 import {OrderTableHeaderMapper} from "../../../features/tables/data-access/model/order-table-header-mapper";
 import {
-  ClientOrderColumnsArray, ClientOrderDisplayedColumnsArray,
+    ClientOrderColumnsArray, ClientOrderDisplayedColumnsArray,
 } from "../../../features/tables/data-access/model/order-columns";
 import {ClientOrdersStore} from "../../../data-access/store/client-orders.store";
 import {OrdersListComponent} from "../../components/orders-list/orders-list.component";
@@ -14,6 +14,7 @@ import {MatIcon} from "@angular/material/icon";
 import {getFromResolver} from "../../../../../shared/resolvers/get-from-resolver";
 import {ClientStoreEntity} from "../../../../clients/data-access/model/client-store-entity";
 import {CLIENT_RESOLVER_KEY} from "../../../../clients/data-access/resolvers/client.resolver";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-client-orders-page',
@@ -27,7 +28,7 @@ import {CLIENT_RESOLVER_KEY} from "../../../../clients/data-access/resolvers/cli
   styleUrl: './client-orders-page.component.scss'
 })
 export class ClientOrdersPageComponent implements OnInit {
-  private readonly store = inject(ClientOrdersStore);
+  protected readonly store = inject(ClientOrdersStore);
   private readonly reportsService = inject(TableReportsService);
 
   private readonly columnsMapper = new OrderColumnsMapper();
@@ -40,6 +41,11 @@ export class ClientOrdersPageComponent implements OnInit {
   ngOnInit() {
     this.store.setClientId(this.client.id);
     this.store.initialLoad();
+  }
+
+  protected onPagination(page: PageEvent) {
+    this.store.paginatorModel.setPageEvent(page);
+    this.store.loadAll();
   }
 
   protected onSearch(query: string) {

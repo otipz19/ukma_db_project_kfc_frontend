@@ -4,6 +4,10 @@ import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle} from "@
 import {MealCardComponent} from "../../../../../../meals/view/components/meals-card/meal-card.component";
 import {MealsStore} from "../../../../../../meals/data-access/store/meals.store";
 import {Meal} from "../../../../../../../api/model/meal";
+import {
+  CommonPaginatorComponent
+} from "../../../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
+import {PageEvent} from "@angular/material/paginator";
 
 export type SelectMealDialogData = {
   alreadyPresentMealsIdList: Array<Meal['id']>,
@@ -15,13 +19,14 @@ export type SelectMealDialogData = {
     MatDialogContent,
     MealCardComponent,
     MatDialogTitle,
+    CommonPaginatorComponent,
   ],
   selector: 'app-select-meal-dialog',
   styleUrl: './select-meal-dialog.component.scss',
   templateUrl: './select-meal-dialog.component.html'
 })
 export class SelectMealDialogComponent implements OnInit {
-  private readonly store = inject(MealsStore);
+  protected readonly store = inject(MealsStore);
   private readonly dialogRef = inject(MatDialogRef<SelectMealDialogData, Meal>);
   private readonly data: SelectMealDialogData = inject(MAT_DIALOG_DATA);
 
@@ -31,6 +36,11 @@ export class SelectMealDialogComponent implements OnInit {
 
   ngOnInit() {
     this.store.initialLoad();
+  }
+
+  protected onPagination(page: PageEvent) {
+    this.store.paginatorModel.setPageEvent(page);
+    this.store.loadAll();
   }
 
   protected onSearch(query: string) {

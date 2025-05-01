@@ -20,3 +20,7 @@
 </div>
 
 <app-ingredients-list [ingredients]="$ingredients()"/>
+
+<div class="mat-elevation-z3">
+  <app-common-paginator [paginator]="store.paginatorModel" (page)="onPagination($event)"/>
+</div>

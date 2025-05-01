@@ -1,3 +1,5 @@
+import {PageEvent} from "@angular/material/paginator";
+
 export type StorePage = {
   page: number,
   size: number
@@ -38,5 +40,10 @@ export class PaginatorModel {
 
   get storePage(): StorePage {
     return this._storePage;
+  }
+
+  setPageEvent(pageEvent: PageEvent) {
+    this._storePage.page = pageEvent.pageIndex;
+    this._storePage.size = pageEvent.pageSize;
   }
 }

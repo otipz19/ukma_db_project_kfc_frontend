@@ -19,6 +19,11 @@ import {
   EmployeePageTableColumns
 } from "../../../features/tables/data-access/model/employee-columns";
 import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
+import {
+  CommonPaginatorComponent
+} from "../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
+import {PaginatorModel} from "../../../../../shared/features/pagination/data-access/model/paginator-model";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-employees-table-list',
@@ -39,6 +44,7 @@ import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
     RouterLink,
     MatSort,
     MatSortHeader,
+    CommonPaginatorComponent,
   ],
   templateUrl: './employees-table-list.component.html',
   styleUrl: './employees-table-list.component.scss'
@@ -47,7 +53,9 @@ export class EmployeesTableListComponent {
   private readonly deleteService = inject(DeleteEmployeeService);
 
   readonly $employees = input.required<Array<EmployeeStoreEntity>>({alias: 'employees'});
+  readonly $paginator = input.required<PaginatorModel>({alias: 'paginator'});
 
+  protected readonly page = output<PageEvent>();
   protected readonly sort = output<Sort>();
 
   // Separate for potential more complex dataSource

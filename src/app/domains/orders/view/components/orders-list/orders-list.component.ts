@@ -1,4 +1,4 @@
-import {Component, computed, input} from '@angular/core';
+import {Component, computed, input, output} from '@angular/core';
 import {Order} from "../../../../../api/model/order";
 import {OrderPageTableColumn, OrderPageTableColumns} from "../../../features/tables/data-access/model/order-columns";
 import {
@@ -13,31 +13,40 @@ import {
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {RouterLink} from "@angular/router";
+import {
+    CommonPaginatorComponent
+} from "../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
+import {PaginatorModel} from "../../../../../shared/features/pagination/data-access/model/paginator-model";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-orders-list',
-  imports: [
-    MatCell,
-    MatCellDef,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatIcon,
-    MatIconButton,
-    MatRow,
-    MatRowDef,
-    MatTable,
-    MatColumnDef,
-    MatHeaderCellDef,
-    RouterLink
-  ],
+    imports: [
+        MatCell,
+        MatCellDef,
+        MatHeaderCell,
+        MatHeaderRow,
+        MatHeaderRowDef,
+        MatIcon,
+        MatIconButton,
+        MatRow,
+        MatRowDef,
+        MatTable,
+        MatColumnDef,
+        MatHeaderCellDef,
+        RouterLink,
+        CommonPaginatorComponent
+    ],
   templateUrl: './orders-list.component.html',
   styleUrl: './orders-list.component.scss'
 })
 export class OrdersListComponent {
   readonly $orders = input.required<Order[]>({alias: 'orders'});
   readonly $displayedColumns = input.required<Array<OrderPageTableColumn>>({alias: 'displayedColumns'});
+  readonly $paginator = input.required<PaginatorModel>({alias: 'paginator'});
   protected readonly $dataSource = computed(() => this.$orders());
+
+  protected readonly page = output<PageEvent>();
 
   protected readonly TableColumns = OrderPageTableColumns;
 }

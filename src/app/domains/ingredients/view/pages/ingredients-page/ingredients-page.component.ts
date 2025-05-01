@@ -12,20 +12,25 @@ import {IngredientsColumnsMapper} from "../../../features/tables/data-access/mod
 import {IngredientsColumns} from "../../../features/tables/data-access/model/ingredients-columns";
 import {IngredientTableHeaderMapper} from "../../../features/tables/data-access/model/ingredient-table-header-mapper";
 import {MatIcon} from "@angular/material/icon";
+import {
+    CommonPaginatorComponent
+} from "../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-ingredients-page',
-  imports: [
-    IngredientsListComponent,
-    SearchBarComponent,
-    MatButton,
-    MatIcon,
-  ],
+    imports: [
+        IngredientsListComponent,
+        SearchBarComponent,
+        MatButton,
+        MatIcon,
+        CommonPaginatorComponent,
+    ],
   templateUrl: './ingredients-page.component.html',
   styleUrl: './ingredients-page.component.scss',
 })
 export class IngredientsPageComponent implements OnInit {
-  private readonly store = inject(IngredientsStore);
+  protected readonly store = inject(IngredientsStore);
   private readonly createService = inject(CreateIngredientService);
   private readonly authService = inject(AuthService);
   private readonly reportsService = inject(TableReportsService);
@@ -38,6 +43,11 @@ export class IngredientsPageComponent implements OnInit {
   ngOnInit(): void {
     this.store.loadAll();
     this.store.cleanFilters();
+  }
+
+  protected onPagination(page: PageEvent) {
+    this.store.paginatorModel.setPageEvent(page);
+    this.store.loadAll();
   }
 
   protected onCreateClick() {

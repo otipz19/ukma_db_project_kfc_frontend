@@ -12,6 +12,10 @@ import {MealColumnsMapper} from "../../../features/tables/data-access/model/meal
 import {MatIcon} from "@angular/material/icon";
 import {MealColumns} from "../../../features/tables/data-access/model/meal-columns";
 import {MealTableHeaderMapper} from "../../../features/tables/data-access/model/meal-table-header-mapper";
+import {
+  CommonPaginatorComponent
+} from "../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-meals-page',
@@ -19,13 +23,14 @@ import {MealTableHeaderMapper} from "../../../features/tables/data-access/model/
     MatButton,
     SearchBarComponent,
     MealsListComponent,
-    MatIcon
+    MatIcon,
+    CommonPaginatorComponent
   ],
   templateUrl: './meals-page.component.html',
   styleUrl: './meals-page.component.scss'
 })
 export class MealsPageComponent implements OnInit {
-  private readonly store = inject(MealsStore);
+  protected readonly store = inject(MealsStore);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   protected readonly authService = inject(AuthService);
@@ -37,6 +42,11 @@ export class MealsPageComponent implements OnInit {
   protected readonly $userRole = this.authService.$role;
 
   ngOnInit() {
+    this.store.loadAll();
+  }
+
+  protected onPagination(page: PageEvent) {
+    this.store.paginatorModel.setPageEvent(page);
     this.store.loadAll();
   }
 

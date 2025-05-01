@@ -1,4 +1,4 @@
-import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
+import {BaseEntityStore, StoreSort} from "../../../../shared/store/base-entity-store";
 import {OrdersFiltersContainer} from "../filters/filters-container/orders.filters-container";
 import {forkJoin, map, Observable, of, switchMap} from "rxjs";
 import {inject, Injectable} from "@angular/core";
@@ -9,6 +9,7 @@ import {Order} from "../../../../api/model/order";
 import {Restaurant} from "../../../../api/model/restaurant";
 import {EmployeeStoreEntity} from "../../../employees/data-access/model/employee-store-entity";
 import {ClientStoreEntity} from "../../../clients/data-access/model/client-store-entity";
+import {StorePage} from "../../../../shared/features/pagination/data-access/model/paginator-model";
 
 type JoinedResponse = {
   order: Order,
@@ -35,8 +36,8 @@ export class EmployeeOrdersStore extends BaseEntityStore<ListOrderDto, OrdersFil
     return new OrdersFiltersContainer();
   }
 
-  protected override getAllFromApi(): Observable<ListOrderDto[]> {
-    return this.ordersApi.getOrdersByFilter({restaurantId: this.restaurantId})
+  protected override getAllFromApi(sort: StoreSort, page: StorePage): Observable<ListOrderDto[]> {
+    return this.ordersApi.getOrdersByFilter({restaurantId: this.restaurantId, ...sort, ...page})
       .pipe(
         switchMap(ordersList => {
           const orders = ordersList.items;

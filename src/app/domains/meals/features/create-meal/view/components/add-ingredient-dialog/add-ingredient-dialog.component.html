@@ -15,5 +15,7 @@
         <app-ingredient-card style="visibility: hidden" [ingredient]="skeletonDummyIngredient"/>
       }
     </div>
+
+    <app-common-paginator [paginator]="ingredientsStore.paginatorModel" (page)="onPagination($event)"/>
   </div>
 </mat-dialog-content>

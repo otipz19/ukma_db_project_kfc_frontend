@@ -11,6 +11,7 @@ import {EmployeeColumnsMapper} from "../../../features/tables/data-access/model/
 import {EmployeeColumns} from "../../../features/tables/data-access/model/employee-columns";
 import {MatIcon} from "@angular/material/icon";
 import {Sort} from "@angular/material/sort";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-employees-page',
@@ -25,13 +26,18 @@ import {Sort} from "@angular/material/sort";
   styleUrl: './employees-page.component.scss'
 })
 export class EmployeesPageComponent implements OnInit {
-  private readonly store = inject(EmployeesStore);
+  protected readonly store = inject(EmployeesStore);
   private readonly reportsService = inject(TableReportsService);
   private readonly columnsMapper = new EmployeeColumnsMapper();
 
   protected readonly $employees: Signal<EmployeeStoreEntity[]> = this.store.$viewList;
 
   ngOnInit() {
+    this.store.loadAll();
+  }
+
+  protected onPagination(page: PageEvent) {
+    this.store.paginatorModel.setPageEvent(page);
     this.store.loadAll();
   }
 

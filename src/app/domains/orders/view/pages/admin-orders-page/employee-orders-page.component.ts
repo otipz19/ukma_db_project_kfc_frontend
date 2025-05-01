@@ -15,6 +15,7 @@ import {
 import {getFromResolver} from "../../../../../shared/resolvers/get-from-resolver";
 import {RESTAURANT_RESOLVER_KEY} from "../../../../restaurants/data-access/resolvers/restaurant.resolver";
 import {Restaurant} from "../../../../../api/model/restaurant";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-orders-page',
@@ -28,7 +29,7 @@ import {Restaurant} from "../../../../../api/model/restaurant";
   styleUrl: './employee-orders-page.component.scss'
 })
 export class EmployeeOrdersPageComponent implements OnInit {
-  private readonly store = inject(EmployeeOrdersStore);
+  protected readonly store = inject(EmployeeOrdersStore);
   private readonly reportsService = inject(TableReportsService);
   private readonly columnsMapper = new OrderColumnsMapper();
   protected readonly displayedColumns = EmployeeOrderDisplayedColumnsArray;
@@ -42,6 +43,11 @@ export class EmployeeOrdersPageComponent implements OnInit {
       this.store.setRestaurantId(this.restaurant.id);
     }
     this.store.initialLoad();
+  }
+
+  protected onPagination(page: PageEvent) {
+    this.store.paginatorModel.setPageEvent(page);
+    this.store.loadAll();
   }
 
   protected onSearch(query: string) {

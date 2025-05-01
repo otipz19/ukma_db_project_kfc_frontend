@@ -5,7 +5,7 @@ import {MealCardComponent} from "../meals-card/meal-card.component";
 @Component({
   selector: 'app-meals-list',
   imports: [
-    MealCardComponent
+    MealCardComponent,
   ],
   templateUrl: './meals-list.component.html',
   styleUrl: './meals-list.component.scss'
