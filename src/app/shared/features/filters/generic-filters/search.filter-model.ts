@@ -7,6 +7,10 @@ export abstract class SearchFilterModel<TFilterDto extends { query?: string }> i
     this.query = query;
   }
 
+  hasFilter(): boolean {
+    return this.query != undefined && this.query.trim() != '';
+  }
+
   getFilterDtoPart(): Partial<TFilterDto> {
     return {query: this.query} as Partial<TFilterDto>;
   }

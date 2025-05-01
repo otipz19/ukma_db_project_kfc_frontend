@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.minAdditionalPrice!"
+                               inputType="number"
+                               label="Мінімальна додана вартість"/>
+
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.maxAdditionalPrice!"
+                               inputType="number"
+                               label="Максимальна додана вартість"/>
+</form>

@@ -8,6 +8,7 @@ import {
   CommonPaginatorComponent
 } from "../../../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
 import {PageEvent} from "@angular/material/paginator";
+import {MealsFiltersComponent} from "../../../../../../meals/view/components/meals-filters/meals-filters.component";
 
 export type SelectMealDialogData = {
   alreadyPresentMealsIdList: Array<Meal['id']>,
@@ -20,6 +21,7 @@ export type SelectMealDialogData = {
     MealCardComponent,
     MatDialogTitle,
     CommonPaginatorComponent,
+    MealsFiltersComponent,
   ],
   selector: 'app-select-meal-dialog',
   styleUrl: './select-meal-dialog.component.scss',

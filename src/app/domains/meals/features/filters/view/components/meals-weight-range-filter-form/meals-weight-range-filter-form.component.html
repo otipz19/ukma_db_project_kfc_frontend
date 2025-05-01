@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.minWeight!"
+                               inputType="number"
+                               label="Мінімальна вага"/>
+
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.maxWeight!"
+                               inputType="number"
+                               label="Максимальна вага"/>
+</form>

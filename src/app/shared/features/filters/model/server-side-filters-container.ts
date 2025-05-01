@@ -11,7 +11,9 @@ export class ServerSideFiltersContainer<TFilterDto> {
   getAllFilters(): Partial<TFilterDto> {
     let result: Partial<TFilterDto> = {};
     for (const model of this.filterModels) {
-      result = {...result, ...model.getFilterDtoPart()};
+      if(model.hasFilter()) {
+        result = {...result, ...model.getFilterDtoPart()};
+      }
     }
     return result;
   }

@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.minEnergeticValue!"
+                               inputType="number"
+                               label="Мінімальна енергетична цінність"/>
+
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.maxEnergeticValue!"
+                               inputType="number"
+                               label="Максимальна енергетична цінність"/>
+</form>

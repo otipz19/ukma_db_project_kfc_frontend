@@ -6,6 +6,8 @@
       <app-search-bar class="search-bar" label="Пошук страви" (search)="onSearch($event)"/>
     </div>
 
+    <app-meals-filters/>
+
     <div class="item-list-grid">
       @for (meal of $meals(); track meal.id) {
         <app-meal-card [meal]="meal"

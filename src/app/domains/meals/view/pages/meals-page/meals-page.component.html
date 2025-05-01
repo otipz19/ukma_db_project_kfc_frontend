@@ -21,6 +21,10 @@
   <app-search-bar class="search-bar" label="Пошук страви" (search)="onSearch($event)"/>
 </div>
 
+<div>
+  <app-meals-filters/>
+</div>
+
 <app-meals-list [meals]="$meals()"/>
 
 <div class="mat-elevation-z3">

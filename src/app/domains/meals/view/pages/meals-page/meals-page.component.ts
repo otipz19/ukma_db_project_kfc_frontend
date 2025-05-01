@@ -16,6 +16,7 @@ import {
   CommonPaginatorComponent
 } from "../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
 import {PageEvent} from "@angular/material/paginator";
+import {MealsFiltersComponent} from "../../components/meals-filters/meals-filters.component";
 
 @Component({
   selector: 'app-meals-page',
@@ -24,7 +25,8 @@ import {PageEvent} from "@angular/material/paginator";
     SearchBarComponent,
     MealsListComponent,
     MatIcon,
-    CommonPaginatorComponent
+    CommonPaginatorComponent,
+    MealsFiltersComponent
   ],
   templateUrl: './meals-page.component.html',
   styleUrl: './meals-page.component.scss'
