@@ -19,6 +19,8 @@
   <app-search-bar class="search-bar" label="Пошук інгредієнта" (search)="onSearch($event)"/>
 </div>
 
+<app-ingredients-chip-filters/>
+
 <app-ingredients-list [ingredients]="$ingredients()"/>
 
 <div class="mat-elevation-z3">

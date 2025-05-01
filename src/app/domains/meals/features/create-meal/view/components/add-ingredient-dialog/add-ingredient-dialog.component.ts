@@ -15,6 +15,9 @@ import {
   CommonPaginatorComponent
 } from "../../../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
 import {PageEvent} from "@angular/material/paginator";
+import {
+    IngredientsChipFiltersComponent
+} from "../../../../../../ingredients/view/components/ingredients-chip-filters/ingredients-chip-filters.component";
 
 export type AddIngredientDialogData = {
   alreadyPresentIngredientsIdList: Array<Ingredient['id']>,
@@ -22,13 +25,14 @@ export type AddIngredientDialogData = {
 
 @Component({
   selector: 'app-add-ingredient-dialog',
-  imports: [
-    MatDialogContent,
-    MatDialogTitle,
-    IngredientCardComponent,
-    SearchBarComponent,
-    CommonPaginatorComponent
-  ],
+    imports: [
+        MatDialogContent,
+        MatDialogTitle,
+        IngredientCardComponent,
+        SearchBarComponent,
+        CommonPaginatorComponent,
+        IngredientsChipFiltersComponent
+    ],
   templateUrl: './add-ingredient-dialog.component.html',
   styleUrl: './add-ingredient-dialog.component.scss'
 })

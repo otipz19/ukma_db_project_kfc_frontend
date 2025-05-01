@@ -16,16 +16,20 @@ import {
     CommonPaginatorComponent
 } from "../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
 import {PageEvent} from "@angular/material/paginator";
+import {
+  IngredientsChipFiltersComponent
+} from "../../components/ingredients-chip-filters/ingredients-chip-filters.component";
 
 @Component({
   selector: 'app-ingredients-page',
-    imports: [
-        IngredientsListComponent,
-        SearchBarComponent,
-        MatButton,
-        MatIcon,
-        CommonPaginatorComponent,
-    ],
+  imports: [
+    IngredientsListComponent,
+    SearchBarComponent,
+    MatButton,
+    MatIcon,
+    CommonPaginatorComponent,
+    IngredientsChipFiltersComponent,
+  ],
   templateUrl: './ingredients-page.component.html',
   styleUrl: './ingredients-page.component.scss',
 })

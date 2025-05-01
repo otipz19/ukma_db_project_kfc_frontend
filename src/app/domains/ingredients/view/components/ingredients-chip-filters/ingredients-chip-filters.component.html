@@ -1,0 +1,14 @@
+<mat-chip-listbox multiple>
+  <mat-chip-option (click)="onPriceRangeToggle()">
+    Ціна
+    <mat-icon matChipRemove (click)="onPriceRangeForm()">menu</mat-icon>
+  </mat-chip-option>
+  <mat-chip-option (click)="onWeightRangeToggle()">
+    Вага
+    <mat-icon matChipRemove (click)="onWeightRangeForm()">menu</mat-icon>
+  </mat-chip-option>
+  <mat-chip-option (click)="onEnergeticValueToggle()">
+    Енергетична цінність
+    <mat-icon matChipRemove (click)="onEnergeticValueForm()">menu</mat-icon>
+  </mat-chip-option>
+</mat-chip-listbox>
