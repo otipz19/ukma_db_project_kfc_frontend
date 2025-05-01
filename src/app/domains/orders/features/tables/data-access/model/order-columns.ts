@@ -25,8 +25,8 @@ export const ClientOrderColumns: Partial<Record<OrderColumn, OrderColumn>> = {
 
 export const OrderPageTableColumns = buildPageTableColumns(OrderColumns);
 
-export const AdminOrderColumnsArray = Object.values(OrderColumns);
-export const AdminOrderDisplayedColumnsArray = Object.values(OrderPageTableColumns);
+export const EmployeeOrderColumnsArray = Object.values(OrderColumns);
+export const EmployeeOrderDisplayedColumnsArray = Object.values(OrderPageTableColumns);
 
 export const ClientOrderColumnsArray = Object.values(ClientOrderColumns);
 export const ClientPageTableColumns = buildPageTableColumns(ClientOrderColumns);

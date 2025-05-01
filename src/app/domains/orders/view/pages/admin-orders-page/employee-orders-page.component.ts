@@ -1,5 +1,5 @@
 import {Component, inject, OnInit, Signal} from '@angular/core';
-import {AdminOrdersStore} from "../../../data-access/store/admin-orders.store";
+import {EmployeeOrdersStore} from "../../../data-access/store/employee-orders.store";
 import {SearchBarComponent} from "../../../../../shared/components/search-bar/search-bar.component";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
@@ -9,9 +9,12 @@ import {TableReportsService} from "../../../../../shared/features/reports/data-a
 import {OrderColumnsMapper} from "../../../features/tables/data-access/model/order-columns-mapper";
 import {OrderTableHeaderMapper} from "../../../features/tables/data-access/model/order-table-header-mapper";
 import {
-  AdminOrderColumnsArray,
-  AdminOrderDisplayedColumnsArray,
+  EmployeeOrderColumnsArray,
+  EmployeeOrderDisplayedColumnsArray,
 } from "../../../features/tables/data-access/model/order-columns";
+import {getFromResolver} from "../../../../../shared/resolvers/get-from-resolver";
+import {RESTAURANT_RESOLVER_KEY} from "../../../../restaurants/data-access/resolvers/restaurant.resolver";
+import {Restaurant} from "../../../../../api/model/restaurant";
 
 @Component({
   selector: 'app-orders-page',
@@ -21,18 +24,23 @@ import {
     SearchBarComponent,
     OrdersListComponent,
   ],
-  templateUrl: './admin-orders-page.component.html',
-  styleUrl: './admin-orders-page.component.scss'
+  templateUrl: './employee-orders-page.component.html',
+  styleUrl: './employee-orders-page.component.scss'
 })
-export class AdminOrdersPageComponent implements OnInit {
-  private readonly store = inject(AdminOrdersStore);
+export class EmployeeOrdersPageComponent implements OnInit {
+  private readonly store = inject(EmployeeOrdersStore);
   private readonly reportsService = inject(TableReportsService);
   private readonly columnsMapper = new OrderColumnsMapper();
-  protected readonly displayedColumns = AdminOrderDisplayedColumnsArray;
+  protected readonly displayedColumns = EmployeeOrderDisplayedColumnsArray;
 
   protected readonly $orders: Signal<ListOrderDto[]> = this.store.$viewList;
 
+  private readonly restaurant = getFromResolver<Restaurant | undefined>(RESTAURANT_RESOLVER_KEY);
+
   ngOnInit() {
+    if(this.restaurant) {
+      this.store.setRestaurantId(this.restaurant.id);
+    }
     this.store.initialLoad();
   }
 
@@ -47,7 +55,7 @@ export class AdminOrdersPageComponent implements OnInit {
       entities: this.$orders(),
       columnsMapper: this.columnsMapper,
       headerMapper: OrderTableHeaderMapper,
-      headerColumns: AdminOrderColumnsArray
+      headerColumns: EmployeeOrderColumnsArray
     });
   }
 }

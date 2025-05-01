@@ -1,4 +1,4 @@
-import {booleanAttribute, Component, input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatCard} from "@angular/material/card";
 import {Ingredient} from "../../../../../api/model/ingredient";

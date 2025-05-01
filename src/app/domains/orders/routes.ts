@@ -14,10 +14,13 @@ export const ORDERS_ROUTES: Routes = [
         path: '',
         canActivate: [
           roleRedirectRouteGuard([
-            [UserRole.CLIENT, ['clients', client => client.id, 'orders']]
+            [UserRole.CLIENT, ['clients', client => client.id, 'orders']],
+            [UserRole.MANAGER, ['restaurants', employee => employee.restaurantId, 'orders']],
+            [UserRole.COOK, ['restaurants', employee => employee.restaurantId, 'orders']],
+            [UserRole.CASHIER, ['restaurants', employee => employee.restaurantId, 'orders']],
           ])
         ],
-        loadComponent: () => import('./view/pages/admin-orders-page/admin-orders-page.component').then(r => r.AdminOrdersPageComponent)
+        loadComponent: () => import('./view/pages/admin-orders-page/employee-orders-page.component').then(r => r.EmployeeOrdersPageComponent)
       },
       {
         path: 'create',
@@ -26,7 +29,6 @@ export const ORDERS_ROUTES: Routes = [
       },
       {
         path: ':orderId',
-        canActivate: [authenticatedRouteGuard],
         resolve: {[ORDER_RESOLVER_KEY]: orderResolver},
         loadComponent: () => import('./view/pages/order-view-page/order-view-page.component').then(r => r.OrderViewPageComponent)
       }

@@ -20,18 +20,23 @@ type JoinedResponse = {
 @Injectable({
   providedIn: 'root'
 })
-export class AdminOrdersStore extends BaseEntityStore<ListOrderDto, OrdersFiltersContainer> {
+export class EmployeeOrdersStore extends BaseEntityStore<ListOrderDto, OrdersFiltersContainer> {
   private readonly ordersApi = inject(OrderControllerService);
   private readonly orderLoadHelper = inject(OrderLoadHelperService);
+  private restaurantId: Restaurant['id'] | undefined;
 
   readonly $viewList = this.$filteredList;
+
+  setRestaurantId(id: Restaurant['id']) {
+    this.restaurantId = id;
+  }
 
   protected override buildFiltersContainer(): OrdersFiltersContainer {
     return new OrdersFiltersContainer();
   }
 
   protected override getAllFromApi(): Observable<ListOrderDto[]> {
-    return this.ordersApi.getOrdersByFilter()
+    return this.ordersApi.getOrdersByFilter({restaurantId: this.restaurantId})
       .pipe(
         switchMap(ordersList => {
           const orders = ordersList.items;
