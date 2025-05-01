@@ -45,6 +45,9 @@ export class ErrorDialogComponent implements OnInit {
 
   private getHttpErrorMessage(response: HttpErrorResponse): string {
     const error = response.error;
+    if (!error) {
+      return ErrorDialogComponent.DEFAULT_MSG;
+    }
     if (error.constructor === Array) {
       if (error.length === 0) {
         return ErrorDialogComponent.DEFAULT_MSG;
