@@ -10,6 +10,7 @@ import {TableReportsService} from "../../../../../shared/features/reports/data-a
 import {EmployeeColumnsMapper} from "../../../features/tables/data-access/model/employee-columns-mapper";
 import {EmployeeColumns} from "../../../features/tables/data-access/model/employee-columns";
 import {MatIcon} from "@angular/material/icon";
+import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-employees-page',
@@ -37,6 +38,11 @@ export class EmployeesPageComponent implements OnInit {
   protected onSearch(query: string) {
     this.store.filters.searchFilter.setFilter(query);
     this.store.forceSignalReload();
+  }
+
+  protected onSort(sort: Sort) {
+    this.store.sort(sort);
+    this.store.loadAll();
   }
 
   protected onExportReport() {

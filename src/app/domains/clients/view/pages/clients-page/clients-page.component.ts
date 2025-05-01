@@ -9,6 +9,7 @@ import {DEFAULT_COLUMNS_MAPPER} from "../../../../../shared/features/reports/dat
 import {ClientTableHeaderMapper} from "../../../features/tables/data-access/model/client-table-header-mapper";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
+import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-clients-page',
@@ -34,6 +35,11 @@ export class ClientsPageComponent implements OnInit {
   protected onSearch(query: string) {
     this.store.filters.search.setFilter(query);
     this.store.forceSignalReload();
+  }
+
+  protected onSort(sort: Sort) {
+    this.store.sort(sort);
+    this.store.loadAll();
   }
 
   protected onExportReport() {

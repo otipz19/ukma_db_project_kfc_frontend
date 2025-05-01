@@ -22,5 +22,5 @@
 </div>
 
 <div class="list-container">
-  <app-employees-table-list [employees]="$employees()"/>
+  <app-employees-table-list [employees]="$employees()" (sort)="onSort($event)"/>
 </div>

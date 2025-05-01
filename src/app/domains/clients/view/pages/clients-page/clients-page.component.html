@@ -18,5 +18,6 @@
 </div>
 
 <div class="list-container">
-  <app-clients-list [clients]="$clients()"/>
+  <app-clients-list [clients]="$clients()"
+                    (sort)="onSort($event)"/>
 </div>

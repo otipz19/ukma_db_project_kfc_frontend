@@ -1,4 +1,4 @@
-import {Component, computed, inject, input} from '@angular/core';
+import {Component, computed, inject, input, output} from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -18,6 +18,7 @@ import {
   EmployeePageTableColumn,
   EmployeePageTableColumns
 } from "../../../features/tables/data-access/model/employee-columns";
+import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-employees-table-list',
@@ -36,6 +37,8 @@ import {
     MatIcon,
     MatIconButton,
     RouterLink,
+    MatSort,
+    MatSortHeader,
   ],
   templateUrl: './employees-table-list.component.html',
   styleUrl: './employees-table-list.component.scss'
@@ -44,6 +47,8 @@ export class EmployeesTableListComponent {
   private readonly deleteService = inject(DeleteEmployeeService);
 
   readonly $employees = input.required<Array<EmployeeStoreEntity>>({alias: 'employees'});
+
+  protected readonly sort = output<Sort>();
 
   // Separate for potential more complex dataSource
   protected readonly $dataSource = computed(() => this.$employees());

@@ -1,14 +1,27 @@
 import {signal} from "@angular/core";
 import {FiltersContainer} from "../features/filters/model/filters-container";
 import {Observable} from "rxjs";
+import {BaseFilter} from "../../api/model/baseFilter";
+import {Sort} from "@angular/material/sort";
+
+export type StoreSort = Pick<BaseFilter, 'sortBy' | 'descendingOrder'>;
 
 export abstract class BaseEntityStore<TEntity extends {id: number}, TFiltersContainer extends FiltersContainer<TEntity>> {
   readonly filters: TFiltersContainer = this.buildFiltersContainer();
+
+  private readonly $sort = signal<StoreSort | undefined>(undefined);
 
   protected readonly $responseList = signal<Array<TEntity>>([]);
   protected readonly $filteredList = this.filters.$filterSignal(this.$responseList);
 
   protected abstract buildFiltersContainer(): TFiltersContainer;
+
+  sort(sort: Sort) {
+    this.$sort.set({
+      sortBy: sort.active,
+      descendingOrder: sort.direction === 'desc'
+    });
+  }
 
   initialLoad() {
     this.cleanFilters();
@@ -16,13 +29,13 @@ export abstract class BaseEntityStore<TEntity extends {id: number}, TFiltersCont
   }
 
   loadAll() {
-    this.getAllFromApi()
+    this.getAllFromApi(this.$sort())
       .subscribe(result => {
         this.$responseList.set(result);
       });
   }
 
-  protected abstract getAllFromApi(): Observable<Array<TEntity>>;
+  protected abstract getAllFromApi(sort?: StoreSort): Observable<Array<TEntity>>;
 
   load(id: number) {
     this.getByIdFromApi(id)

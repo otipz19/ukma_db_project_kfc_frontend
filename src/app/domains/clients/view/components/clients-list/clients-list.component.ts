@@ -1,4 +1,4 @@
-import {Component, computed, inject, input} from '@angular/core';
+import {Component, computed, inject, input, output} from '@angular/core';
 import {
   MatCell,
   MatCellDef, MatColumnDef,
@@ -19,6 +19,7 @@ import {
   ClientPageTableColumn,
   ClientPageTableColumns
 } from "../../../features/tables/data-access/model/client-columns";
+import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-clients-list',
@@ -35,7 +36,9 @@ import {
     MatTable,
     MatColumnDef,
     MatHeaderCellDef,
-    RouterLink
+    RouterLink,
+    MatSort,
+    MatSortHeader
   ],
   templateUrl: './clients-list.component.html',
   styleUrl: './clients-list.component.scss'
@@ -46,13 +49,14 @@ export class ClientsListComponent {
   protected readonly $userRole = this.authService.$role;
 
   readonly $clients = input.required<Array<ClientStoreEntity>>({alias: 'clients'});
-
   protected readonly $dataSource = computed(() => this.$clients());
+
+  protected readonly sort = output<Sort>();
 
   protected readonly displayedColumns: Array<ClientPageTableColumn> = Object.values(ClientPageTableColumns);
   protected readonly ClientColumns = ClientPageTableColumns;
 
-  onDelete(client: ClientStoreEntity) {
+  protected onDelete(client: ClientStoreEntity) {
     this.deleteService.deleteClient(client);
   }
 

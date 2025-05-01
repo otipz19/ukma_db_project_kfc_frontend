@@ -1,26 +1,26 @@
-<table mat-table [dataSource]="$dataSource()" class="mat-elevation-z3">
+<table mat-table [dataSource]="$dataSource()" matSort class="mat-elevation-z3" (matSortChange)="sort.emit($event)">
   <ng-container [matColumnDef]="ClientColumns.surname">
-    <th mat-header-cell *matHeaderCellDef>Прізвище</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Прізвище</th>
     <td mat-cell *matCellDef="let client">{{ client.surname }}</td>
   </ng-container>
 
   <ng-container [matColumnDef]="ClientColumns.firstName">
-    <th mat-header-cell *matHeaderCellDef>Ім'я</th>
+    <th mat-header-cell *matHeaderCellDef  mat-sort-header>Ім'я</th>
     <td mat-cell *matCellDef="let client">{{ client.firstName }}</td>
   </ng-container>
 
   <ng-container [matColumnDef]="ClientColumns.middleName!">
-    <th mat-header-cell *matHeaderCellDef>По-батькові</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>По-батькові</th>
     <td mat-cell *matCellDef="let client">{{ client.middleName }}</td>
   </ng-container>
 
   <ng-container [matColumnDef]="ClientColumns.birthDate">
-    <th mat-header-cell *matHeaderCellDef>Дата народження</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Дата народження</th>
     <td mat-cell *matCellDef="let client">{{ client.birthDate }}</td>
   </ng-container>
 
   <ng-container [matColumnDef]="ClientColumns.bonuses">
-    <th mat-header-cell *matHeaderCellDef>Бонуси</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Бонуси</th>
     <td mat-cell *matCellDef="let client">{{ client.bonuses }}</td>
   </ng-container>
 

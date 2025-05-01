@@ -1,5 +1,5 @@
 import {map, Observable} from "rxjs";
-import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
+import {BaseEntityStore, StoreSort} from "../../../../shared/store/base-entity-store";
 import {EmployeesFiltersContainer} from "../filters/filters-container/employees-filters-container";
 import {EmployeeStoreEntity, mapEmployeeToStoreEntity} from "../model/employee-store-entity";
 import {computed, inject, Injectable} from "@angular/core";
@@ -21,8 +21,8 @@ export class EmployeesStore extends BaseEntityStore<EmployeeStoreEntity, Employe
     return new EmployeesFiltersContainer();
   }
 
-  protected override getAllFromApi(): Observable<EmployeeStoreEntity[]> {
-    return this.api.getEmployeesByFilter()
+  protected override getAllFromApi(sort?: StoreSort): Observable<EmployeeStoreEntity[]> {
+    return this.api.getEmployeesByFilter({...sort})
       .pipe(
         map(list => list.items.map(e => mapEmployeeToStoreEntity(e)))
       );

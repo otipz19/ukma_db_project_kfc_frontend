@@ -1,4 +1,4 @@
-import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
+import {BaseEntityStore, StoreSort} from "../../../../shared/store/base-entity-store";
 import {ClientsFiltersContainer} from "../filters/filters-container/clients.filters-container";
 import {map, Observable} from "rxjs";
 import {ClientStoreEntity, mapClientToStoreEntity} from "../model/client-store-entity";
@@ -17,8 +17,8 @@ export class ClientsStore extends BaseEntityStore<ClientStoreEntity, ClientsFilt
     return new ClientsFiltersContainer();
   }
 
-  protected override getAllFromApi(): Observable<ClientStoreEntity[]> {
-    return this.api.getClientsByFilter()
+  protected override getAllFromApi(sort?: StoreSort): Observable<ClientStoreEntity[]> {
+    return this.api.getClientsByFilter({...sort})
       .pipe(
         map(list => {
           return list.items.map(c => mapClientToStoreEntity(c));
