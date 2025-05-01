@@ -1,9 +1,10 @@
 import {BaseEntityStore, StoreSort} from "../../../../shared/store/base-entity-store";
 import {ClientsFiltersContainer} from "../filters/filters-container/clients.filters-container";
-import {map, Observable} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {ClientStoreEntity, mapClientToStoreEntity} from "../model/client-store-entity";
 import {inject, Injectable} from "@angular/core";
 import {ClientControllerService} from "../../../../api/api/clientController.service";
+import {StorePage} from "../../../../shared/features/pagination/data-access/model/paginator-model";
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,12 @@ export class ClientsStore extends BaseEntityStore<ClientStoreEntity, ClientsFilt
     return new ClientsFiltersContainer();
   }
 
-  protected override getAllFromApi(sort?: StoreSort): Observable<ClientStoreEntity[]> {
-    return this.api.getClientsByFilter({...sort})
+  protected override getAllFromApi(sort?: StoreSort, page?: StorePage): Observable<ClientStoreEntity[]> {
+    return this.api.getClientsByFilter({...sort, ...page})
       .pipe(
+        tap(list => {
+          this.setTotalItems(list.total)
+        }),
         map(list => {
           return list.items.map(c => mapClientToStoreEntity(c));
         })

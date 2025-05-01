@@ -10,6 +10,8 @@ import {ClientTableHeaderMapper} from "../../../features/tables/data-access/mode
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {Sort} from "@angular/material/sort";
+import {PageEvent} from "@angular/material/paginator";
+import {PAGE_SIZE_OPTIONS} from "../../../../../shared/features/pagination/data-access/model/paginator-model";
 
 @Component({
   selector: 'app-clients-page',
@@ -23,7 +25,7 @@ import {Sort} from "@angular/material/sort";
   styleUrl: './clients-page.component.scss'
 })
 export class ClientsPageComponent implements OnInit {
-  private readonly store = inject(ClientsStore);
+  protected readonly store = inject(ClientsStore);
   private readonly reportsService = inject(TableReportsService);
 
   protected readonly $clients: Signal<ClientStoreEntity[]> = this.store.$viewList;
@@ -42,6 +44,12 @@ export class ClientsPageComponent implements OnInit {
     this.store.loadAll();
   }
 
+  protected onPagination(event: PageEvent) {
+    this.store.paginatorModel.pageSize = event.pageSize;
+    this.store.paginatorModel.pageIndex = event.pageIndex;
+    this.store.loadAll();
+  }
+
   protected onExportReport() {
     this.reportsService.exportReport({
       title: 'Звіт клієнтів',
@@ -51,4 +59,6 @@ export class ClientsPageComponent implements OnInit {
       headerColumns: Object.values(ClientColumns)
     });
   }
+
+  protected readonly PAGE_SIZE_OPTIONS = PAGE_SIZE_OPTIONS;
 }

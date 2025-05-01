@@ -1,0 +1,42 @@
+export type StorePage = {
+  page: number,
+  size: number
+};
+
+export const PAGE_SIZE_OPTIONS = [1, 2, 3] as const;
+
+export class PaginatorModel {
+  private _total?: number;
+  private readonly _storePage: StorePage = {
+    page: 0,
+    size: PAGE_SIZE_OPTIONS[0],
+  };
+
+  set total(total: number) {
+    this._total = total;
+  }
+
+  get total(): number {
+    return this._total ?? 0;
+  }
+
+  get pageIndex(): number {
+    return this._storePage.page;
+  }
+
+  get pageSize(): number {
+    return this._storePage.size;
+  }
+
+  set pageSize(size: number) {
+    this._storePage.size = size;
+  }
+
+  set pageIndex(index: number) {
+    this._storePage.page = index;
+  }
+
+  get storePage(): StorePage {
+    return this._storePage;
+  }
+}

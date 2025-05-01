@@ -19,5 +19,17 @@
 
 <div class="list-container">
   <app-clients-list [clients]="$clients()"
-                    (sort)="onSort($event)"/>
+                    [paginator]="store.paginatorModel"
+                    (sort)="onSort($event)"
+                    (page)="onPagination($event)"/>
+
+  <!--  <mat-card>-->
+  <!--    <mat-paginator (page)="onPagination($event)"-->
+  <!--                   [length]="store.paginatorModel.total"-->
+  <!--                   [pageIndex]="store.paginatorModel.pageIndex"-->
+  <!--                   [pageSize]="store.paginatorModel.pageSize"-->
+  <!--                   [pageSizeOptions]="PAGE_SIZE_OPTIONS"-->
+  <!--                   showFirstLastButtons>-->
+  <!--    </mat-paginator>-->
+  <!--  </mat-card>-->
 </div>
