@@ -24,6 +24,7 @@ import {
 } from "../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
 import {PaginatorModel} from "../../../../../shared/features/pagination/data-access/model/paginator-model";
 import {PageEvent} from "@angular/material/paginator";
+import {AuthService} from "../../../../../core/services/auth.service";
 
 @Component({
   selector: 'app-employees-table-list',
@@ -51,6 +52,7 @@ import {PageEvent} from "@angular/material/paginator";
 })
 export class EmployeesTableListComponent {
   private readonly deleteService = inject(DeleteEmployeeService);
+  protected readonly authService = inject(AuthService);
 
   readonly $employees = input.required<Array<EmployeeStoreEntity>>({alias: 'employees'});
   readonly $paginator = input.required<PaginatorModel>({alias: 'paginator'});
