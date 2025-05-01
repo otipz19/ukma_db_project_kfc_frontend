@@ -1,5 +1,4 @@
 import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
 import {Meal} from "../../../../../api/model/meal";
 import {MEAL_RESOLVER_KEY} from "../../../data-access/resolvers/meal.resolver";
 import {MatCard, MatCardImage} from "@angular/material/card";
@@ -11,6 +10,8 @@ import {
   MealIngredientViewCardComponent
 } from "../../components/meal-ingredient-view-card/meal-ingredient-view-card.component";
 import {CommonDataCardComponent} from "../../../../../shared/components/common-data-card/common-data-card.component";
+import {getFromResolver} from "../../../../../shared/resolvers/get-from-resolver";
+import {CLIENT_MEAL_RESOLVER_KEY} from "../../../data-access/resolvers/client-meal.resolver";
 
 @Component({
   selector: 'app-view-meal-page',
@@ -24,12 +25,12 @@ import {CommonDataCardComponent} from "../../../../../shared/components/common-d
   styleUrl: './view-meal-page.component.scss'
 })
 export class ViewMealPageComponent implements OnInit {
-  private readonly route = inject(ActivatedRoute);
   private readonly ingredientsApi = inject(IngredientControllerService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly notify = inject(NotifyService);
 
-  protected readonly $meal = signal<Meal>(this.route.snapshot.data[MEAL_RESOLVER_KEY]);
+  protected readonly $meal = signal<Meal>(getFromResolver(MEAL_RESOLVER_KEY) ?? getFromResolver(CLIENT_MEAL_RESOLVER_KEY));
+  protected readonly isClientMeal = getFromResolver(CLIENT_MEAL_RESOLVER_KEY) != undefined;
   protected readonly $mealIngredients = signal<MealIngredientCombinedDto[]>([]);
 
    ngOnInit() {

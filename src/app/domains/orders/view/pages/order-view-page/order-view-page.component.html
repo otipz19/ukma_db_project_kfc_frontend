@@ -49,10 +49,12 @@
     }
   </div>
 
-  <div class="cards-vertical-container">
+  <div>
     <h2>Страви</h2>
-    @for (meal of $meals(); track meal.id) {
-      <app-order-meal-view-card [meal]="meal"/>
-    }
+    <div class="cards-vertical-container">
+      @for (meal of $meals(); track meal.id) {
+        <app-order-meal-view-card [meal]="meal"/>
+      }
+    </div>
   </div>
 </div>

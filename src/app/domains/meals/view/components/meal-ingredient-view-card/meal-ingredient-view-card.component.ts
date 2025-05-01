@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {booleanAttribute, Component, input} from '@angular/core';
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatCard} from "@angular/material/card";
 import {Ingredient} from "../../../../../api/model/ingredient";
@@ -16,4 +16,5 @@ import {MealIngredient} from "../../../../../api/model/mealIngredient";
 export class MealIngredientViewCardComponent {
   readonly $ingredient = input.required<Ingredient>({alias: 'ingredient'});
   readonly $mealIngredient = input.required<MealIngredient>({alias: 'mealIngredient'});
+  readonly $hideFixated = input(false, {alias: 'hideFixated'});
 }

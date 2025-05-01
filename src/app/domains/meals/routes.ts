@@ -3,8 +3,20 @@ import {hasRoleRouteGuard} from "../../core/route-guards/has-role-route.guard";
 import {UserRole} from "../../api";
 import {MEAL_RESOLVER_KEY, mealResolver} from "./data-access/resolvers/meal.resolver";
 import {authenticatedRouteGuard} from "../../core/route-guards/authenticated.route-guard";
+import {CLIENT_MEAL_RESOLVER_KEY, clientMealResolver} from "./data-access/resolvers/client-meal.resolver";
 
 export const MEALS_ROUTES: Routes = [
+  {
+    path: 'clientMeals',
+    canActivate: [authenticatedRouteGuard],
+    children: [
+      {
+        path: ':clientMealId',
+        resolve: {[CLIENT_MEAL_RESOLVER_KEY]: clientMealResolver},
+        loadComponent: () => import('./view/pages/view-meal-page/view-meal-page.component').then(r => r.ViewMealPageComponent)
+      }
+    ]
+  },
   {
     path: 'meals',
     canActivate: [authenticatedRouteGuard],

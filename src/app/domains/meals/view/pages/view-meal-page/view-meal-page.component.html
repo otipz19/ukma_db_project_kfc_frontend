@@ -42,7 +42,9 @@
       </h2>
       <div class="ingredients-list">
         @for (dto of $mealIngredients(); track dto.ingredient.id) {
-          <app-meal-ingredient-view-card [ingredient]="dto.ingredient" [mealIngredient]="dto.mealIngredient"/>
+          <app-meal-ingredient-view-card [ingredient]="dto.ingredient"
+                                         [mealIngredient]="dto.mealIngredient"
+                                         [hideFixated]="isClientMeal"/>
         }
       </div>
     </div>

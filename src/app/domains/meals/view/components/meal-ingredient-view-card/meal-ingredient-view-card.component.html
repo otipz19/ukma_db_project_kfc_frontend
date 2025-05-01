@@ -19,17 +19,19 @@
 
     <div class="actions-container">
       <div class="counter-container">
-        <span><strong>Кількість:</strong> {{ mealIngredient.amount }}</span>
+        <span class="count-label"><strong>Кількість:</strong> {{ mealIngredient.amount }}</span>
       </div>
 
-      <div>
-        <mat-checkbox
-          [checked]="mealIngredient.isFixated"
-          [disabled]="true"
-        >
-          Обов'язковий
-        </mat-checkbox>
-      </div>
+      @if(!$hideFixated()) {
+        <div>
+          <mat-checkbox
+            [checked]="mealIngredient.isFixated"
+            [disabled]="true"
+          >
+            Обов'язковий
+          </mat-checkbox>
+        </div>
+      }
     </div>
   </div>
 </mat-card>
