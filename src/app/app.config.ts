@@ -9,6 +9,7 @@ import {authInterceptor} from "./core/interceptors/auth.interceptor";
 import {apiConfigProvider} from "./core/config/api-config";
 import {restoreSessionProvider} from "./core/providers/restore-session.provider";
 import {jspdfFontProvider} from "./core/providers/jspdf-font.provider";
+import {paginatorLocalizationProvider} from "./shared/features/pagination/data-access/model/paginator-localization";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])),
     apiConfigProvider,
     restoreSessionProvider,
-    jspdfFontProvider
+    jspdfFontProvider,
+    paginatorLocalizationProvider
   ]
 };
