@@ -9,6 +9,8 @@ import {Order} from "../../../../api/model/order";
 import {Restaurant} from "../../../../api/model/restaurant";
 import {ClientStoreEntity} from "../../../clients/data-access/model/client-store-entity";
 import {StorePage} from "../../../../shared/features/pagination/data-access/model/paginator-model";
+import {join} from "@angular/compiler-cli";
+import {convertUnixTimestampToDateString} from "../../../../shared/utils/convert-unix-timestamp-to-date-string";
 
 type JoinedResponse = {
   order: Order,
@@ -70,6 +72,7 @@ export class ClientOrdersStore extends BaseEntityStore<ListOrderDto, OrdersFilte
   }
 
   private buildListOrderDto(joined: JoinedResponse): ListOrderDto {
+    joined.order.dateCreated = convertUnixTimestampToDateString(joined.order.dateCreated);
     return {
       ...joined.order,
       restaurantAddress: joined.restaurant.address,
