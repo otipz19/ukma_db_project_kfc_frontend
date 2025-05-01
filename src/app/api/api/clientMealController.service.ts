@@ -138,7 +138,7 @@ export class ClientMealControllerService extends BaseService {
         }
 
         let localVarPath = `/api/client-meal`;
-        return this.httpClient.request<ClientMealsList>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<ClientMealsList>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: clientMealsFilter,

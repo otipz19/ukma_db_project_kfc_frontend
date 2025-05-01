@@ -194,7 +194,7 @@ export class EmployeeControllerService extends BaseService {
         }
 
         let localVarPath = `/api/employee`;
-        return this.httpClient.request<EmployeesList>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<EmployeesList>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: employeesFilter,

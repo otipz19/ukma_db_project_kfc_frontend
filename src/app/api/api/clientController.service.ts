@@ -194,7 +194,7 @@ export class ClientControllerService extends BaseService {
         }
 
         let localVarPath = `/api/client`;
-        return this.httpClient.request<ClientsList>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<ClientsList>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: clientsFilter,

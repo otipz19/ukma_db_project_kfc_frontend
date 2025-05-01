@@ -255,7 +255,7 @@ export class OrderControllerService extends BaseService {
         }
 
         let localVarPath = `/api/order`;
-        return this.httpClient.request<OrdersList>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<OrdersList>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: ordersFilter,

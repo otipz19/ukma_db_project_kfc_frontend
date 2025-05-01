@@ -262,7 +262,7 @@ export class IngredientControllerService extends BaseService {
         }
 
         let localVarPath = `/api/ingredient`;
-        return this.httpClient.request<IngredientsList>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<IngredientsList>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: ingredientsFilter,

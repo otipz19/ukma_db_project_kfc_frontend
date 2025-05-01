@@ -253,7 +253,7 @@ export class RestaurantControllerService extends BaseService {
         }
 
         let localVarPath = `/api/restaurant`;
-        return this.httpClient.request<RestaurantsList>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<RestaurantsList>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: restaurantsFilter,
