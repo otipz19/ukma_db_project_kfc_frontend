@@ -1,0 +1,22 @@
+<div class="header-container">
+  <div class="title-wrapper">
+    <div>
+      <h2>Замовлення клієнта</h2>
+    </div>
+
+    <div class="right-end-toolbar">
+      <button mat-raised-button color="primary" (click)="onExportReport()">
+        <mat-icon>print</mat-icon>
+        <span>Експортувати звіт</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="search-bar-container">
+    <app-search-bar class="search-bar" label="Пошук замовлення" (search)="onSearch($event)"/>
+  </div>
+</div>
+
+<div class="list-container">
+  <app-orders-list [orders]="$orders()" [displayedColumns]="displayedColumns"/>
+</div>

@@ -20,7 +20,7 @@ type JoinedResponse = {
 @Injectable({
   providedIn: 'root'
 })
-export class OrdersStore extends BaseEntityStore<ListOrderDto, OrdersFiltersContainer> {
+export class AdminOrdersStore extends BaseEntityStore<ListOrderDto, OrdersFiltersContainer> {
   private readonly ordersApi = inject(OrderControllerService);
   private readonly orderLoadHelper = inject(OrderLoadHelperService);
 

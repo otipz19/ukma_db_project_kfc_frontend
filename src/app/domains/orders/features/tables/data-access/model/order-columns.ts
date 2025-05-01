@@ -15,4 +15,19 @@ export const OrderColumns: Record<OrderColumn, OrderColumn> = {
   isCompleted: 'isCompleted',
 };
 
+export const ClientOrderColumns: Partial<Record<OrderColumn, OrderColumn>> = {
+  id: 'id',
+  restaurantAddress: 'restaurantAddress',
+  dateCreated: 'dateCreated',
+  cost: 'cost',
+  isCompleted: 'isCompleted',
+};
+
 export const OrderPageTableColumns = buildPageTableColumns(OrderColumns);
+
+export const AdminOrderColumnsArray = Object.values(OrderColumns);
+export const AdminOrderDisplayedColumnsArray = Object.values(OrderPageTableColumns);
+
+export const ClientOrderColumnsArray = Object.values(ClientOrderColumns);
+export const ClientPageTableColumns = buildPageTableColumns(ClientOrderColumns);
+export const ClientOrderDisplayedColumnsArray = Object.values(ClientPageTableColumns) as OrderPageTableColumn[];

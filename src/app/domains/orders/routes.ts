@@ -12,7 +12,7 @@ export const ORDERS_ROUTES: Routes = [
       {
         path: '',
         canActivate: [hasRoleRouteGuard(UserRole.ADMIN)],
-        loadComponent: () => import('./view/pages/orders-page/orders-page.component').then(r => r.OrdersPageComponent)
+        loadComponent: () => import('./view/pages/admin-orders-page/admin-orders-page.component').then(r => r.AdminOrdersPageComponent)
       },
       {
         path: 'create',

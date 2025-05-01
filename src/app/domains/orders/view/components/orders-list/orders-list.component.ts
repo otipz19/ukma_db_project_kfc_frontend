@@ -36,8 +36,8 @@ import {RouterLink} from "@angular/router";
 })
 export class OrdersListComponent {
   readonly $orders = input.required<Order[]>({alias: 'orders'});
+  readonly $displayedColumns = input.required<Array<OrderPageTableColumn>>({alias: 'displayedColumns'});
   protected readonly $dataSource = computed(() => this.$orders());
 
-  protected readonly displayedColumns: Array<OrderPageTableColumn> = Object.values(OrderPageTableColumns);
   protected readonly TableColumns = OrderPageTableColumns;
 }
