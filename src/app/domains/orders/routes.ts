@@ -3,6 +3,7 @@ import {hasRoleRouteGuard} from "../../core/route-guards/has-role-route.guard";
 import {UserRole} from "../../api";
 import {authenticatedRouteGuard} from "../../core/route-guards/authenticated.route-guard";
 import {ORDER_RESOLVER_KEY, orderResolver} from "./data-access/resolvers/order.resolver";
+import {roleRedirectRouteGuard} from "../../core/route-guards/managers-redirect.route-guard";
 
 export const ORDERS_ROUTES: Routes = [
   {
@@ -11,7 +12,11 @@ export const ORDERS_ROUTES: Routes = [
     children: [
       {
         path: '',
-        canActivate: [hasRoleRouteGuard(UserRole.ADMIN)],
+        canActivate: [
+          roleRedirectRouteGuard([
+            [UserRole.CLIENT, ['clients', client => client.id, 'orders']]
+          ])
+        ],
         loadComponent: () => import('./view/pages/admin-orders-page/admin-orders-page.component').then(r => r.AdminOrdersPageComponent)
       },
       {

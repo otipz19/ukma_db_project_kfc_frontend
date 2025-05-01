@@ -8,11 +8,11 @@ import {
   EmployeeStoreEntity,
   mapEmployeeToStoreEntity
 } from "../../domains/employees/data-access/model/employee-store-entity";
-import {Client} from "../../api/model/client";
 import {ClientControllerService} from "../../api/api/clientController.service";
 import {User, UserControllerService, UserRole} from "../../api";
 import {EmployeeControllerService} from "../../api/api/employeeController.service";
 import {Router} from "@angular/router";
+import {ClientStoreEntity, mapClientToStoreEntity} from "../../domains/clients/data-access/model/client-store-entity";
 
 type TokensDto = {
   accessToken: string,
@@ -44,7 +44,7 @@ export class AuthService {
   private readonly $currentEmployeeInner = signal<EmployeeStoreEntity | undefined>(undefined);
   readonly $currentEmployee = this.$currentEmployeeInner.asReadonly();
 
-  private readonly $currentClientInner = signal<Client | undefined>(undefined);
+  private readonly $currentClientInner = signal<ClientStoreEntity | undefined>(undefined);
   readonly $currentClient = this.$currentClientInner.asReadonly();
 
   hasRole(...roles: UserRole[]): boolean {
@@ -109,7 +109,7 @@ export class AuthService {
     return this.clientApi.getClientByUserId(user.id)
       .pipe(
         tap(client => {
-          this.$currentClientInner.set(client);
+          this.$currentClientInner.set(mapClientToStoreEntity(client));
         })
       );
   }
