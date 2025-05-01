@@ -1,5 +1,5 @@
 /**
- * Restaurant Service
+ * Ingredient Service
  *
  * 
  *
@@ -9,12 +9,19 @@
  */
 
 
-export interface RestaurantsFilter { 
+export interface IngredientsFilter { 
     page?: number;
     size?: number;
     sortBy?: string;
     descendingOrder?: boolean;
     ids?: Array<number>;
     query?: string;
+    minEnergeticValue?: number;
+    maxEnergeticValue?: number;
+    minWeight?: number;
+    maxWeight?: number;
+    minPrice?: number;
+    maxPrice?: number;
+    isActual?: boolean;
 }
 

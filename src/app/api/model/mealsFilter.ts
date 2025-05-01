@@ -1,5 +1,5 @@
 /**
- * Restaurant Service
+ * Meal Service
  *
  * 
  *
@@ -9,12 +9,21 @@
  */
 
 
-export interface RestaurantsFilter { 
+export interface MealsFilter { 
     page?: number;
     size?: number;
     sortBy?: string;
     descendingOrder?: boolean;
     ids?: Array<number>;
     query?: string;
+    minEnergeticValue?: number;
+    maxEnergeticValue?: number;
+    minWeight?: number;
+    maxWeight?: number;
+    minPrice?: number;
+    maxPrice?: number;
+    minAdditionalPrice?: number;
+    maxAdditionalPrice?: number;
+    isActual?: boolean;
 }
 
