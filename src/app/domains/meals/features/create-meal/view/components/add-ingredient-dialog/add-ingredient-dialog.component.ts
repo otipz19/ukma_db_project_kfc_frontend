@@ -60,8 +60,8 @@ export class AddIngredientDialogComponent implements OnInit {
   }
 
   protected onSearch(query: string) {
-    this.ingredientsStore.filters.titleFilter.setFilter(query);
-    this.ingredientsStore.forceSignalReload();
+    this.ingredientsStore.filters.search.setQuery(query);
+    this.ingredientsStore.loadAll();
   }
 
   protected onSelect(ingredient: Ingredient) {

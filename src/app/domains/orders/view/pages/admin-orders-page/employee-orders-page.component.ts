@@ -1,6 +1,5 @@
 import {Component, inject, OnInit, Signal} from '@angular/core';
 import {EmployeeOrdersStore} from "../../../data-access/store/employee-orders.store";
-import {SearchBarComponent} from "../../../../../shared/components/search-bar/search-bar.component";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {OrdersListComponent} from "../../components/orders-list/orders-list.component";
@@ -22,7 +21,6 @@ import {PageEvent} from "@angular/material/paginator";
   imports: [
     MatButton,
     MatIcon,
-    SearchBarComponent,
     OrdersListComponent,
   ],
   templateUrl: './employee-orders-page.component.html',
@@ -48,11 +46,6 @@ export class EmployeeOrdersPageComponent implements OnInit {
   protected onPagination(page: PageEvent) {
     this.store.paginatorModel.setPageEvent(page);
     this.store.loadAll();
-  }
-
-  protected onSearch(query: string) {
-    this.store.filters.search.setFilter(query);
-    this.store.forceSignalReload();
   }
 
   protected onExportReport() {

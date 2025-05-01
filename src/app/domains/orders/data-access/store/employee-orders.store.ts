@@ -1,5 +1,4 @@
-import {BaseEntityStore, StoreSort} from "../../../../shared/store/base-entity-store";
-import {OrdersFiltersContainer} from "../filters/filters-container/orders.filters-container";
+import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
 import {forkJoin, map, Observable, of, switchMap} from "rxjs";
 import {inject, Injectable} from "@angular/core";
 import {OrderControllerService} from "../../../../api/api/orderController.service";
@@ -9,8 +8,9 @@ import {Order} from "../../../../api/model/order";
 import {Restaurant} from "../../../../api/model/restaurant";
 import {EmployeeStoreEntity} from "../../../employees/data-access/model/employee-store-entity";
 import {ClientStoreEntity} from "../../../clients/data-access/model/client-store-entity";
-import {StorePage} from "../../../../shared/features/pagination/data-access/model/paginator-model";
 import {convertUnixTimestampToDateString} from "../../../../shared/utils/convert-unix-timestamp-to-date-string";
+import {OrdersFiltersContainer} from "../filters/orders.filters-container";
+import {OrdersFilter} from "../../../../api/model/ordersFilter";
 
 type JoinedResponse = {
   order: Order,
@@ -22,7 +22,7 @@ type JoinedResponse = {
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeOrdersStore extends BaseEntityStore<ListOrderDto, OrdersFiltersContainer> {
+export class EmployeeOrdersStore extends BaseEntityStore<ListOrderDto, OrdersFilter, OrdersFiltersContainer> {
   private readonly ordersApi = inject(OrderControllerService);
   private readonly orderLoadHelper = inject(OrderLoadHelperService);
   private restaurantId: Restaurant['id'] | undefined;
@@ -37,8 +37,8 @@ export class EmployeeOrdersStore extends BaseEntityStore<ListOrderDto, OrdersFil
     return new OrdersFiltersContainer();
   }
 
-  protected override getAllFromApi(sort: StoreSort, page: StorePage): Observable<ListOrderDto[]> {
-    return this.ordersApi.getOrdersByFilter({restaurantId: this.restaurantId, ...sort, ...page})
+  protected override getAllFromApi(filtersDto: Partial<OrdersFilter>): Observable<ListOrderDto[]> {
+    return this.ordersApi.getOrdersByFilter({restaurantId: this.restaurantId, ...filtersDto})
       .pipe(
         switchMap(ordersList => {
           const orders = ordersList.items;

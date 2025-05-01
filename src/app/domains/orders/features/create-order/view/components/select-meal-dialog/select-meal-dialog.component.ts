@@ -44,8 +44,8 @@ export class SelectMealDialogComponent implements OnInit {
   }
 
   protected onSearch(query: string) {
-    this.store.filters.search.setFilter(query);
-    this.store.forceSignalReload();
+    this.store.filters.search.setQuery(query);
+    this.store.loadAll();
   }
 
   protected onSelect(meal: Meal) {

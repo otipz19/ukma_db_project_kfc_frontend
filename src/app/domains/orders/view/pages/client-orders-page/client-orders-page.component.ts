@@ -8,7 +8,6 @@ import {
 } from "../../../features/tables/data-access/model/order-columns";
 import {ClientOrdersStore} from "../../../data-access/store/client-orders.store";
 import {OrdersListComponent} from "../../components/orders-list/orders-list.component";
-import {SearchBarComponent} from "../../../../../shared/components/search-bar/search-bar.component";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {getFromResolver} from "../../../../../shared/resolvers/get-from-resolver";
@@ -22,7 +21,6 @@ import {PageEvent} from "@angular/material/paginator";
     MatButton,
     MatIcon,
     OrdersListComponent,
-    SearchBarComponent,
   ],
   templateUrl: './client-orders-page.component.html',
   styleUrl: './client-orders-page.component.scss'
@@ -46,11 +44,6 @@ export class ClientOrdersPageComponent implements OnInit {
   protected onPagination(page: PageEvent) {
     this.store.paginatorModel.setPageEvent(page);
     this.store.loadAll();
-  }
-
-  protected onSearch(query: string) {
-    this.store.filters.search.setFilter(query);
-    this.store.forceSignalReload();
   }
 
   protected onExportReport() {

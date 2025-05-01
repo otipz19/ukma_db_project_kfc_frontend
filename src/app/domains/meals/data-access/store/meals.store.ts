@@ -1,15 +1,15 @@
-import {BaseEntityStore, StoreSort} from "../../../../shared/store/base-entity-store";
+import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
 import {Meal} from "../../../../api/model/meal";
-import {MealsFiltersContainer} from "../filters/filters-container/meals.filters-container";
 import {map, Observable} from "rxjs";
 import {inject, Injectable} from "@angular/core";
 import {MealControllerService} from "../../../../api/api/mealController.service";
-import {StorePage} from "../../../../shared/features/pagination/data-access/model/paginator-model";
+import {MealsFilter} from "../../../../api/model/mealsFilter";
+import {MealsFiltersContainer} from "../filters/meals-filters-container";
 
 @Injectable({
   providedIn: 'root'
 })
-export class MealsStore extends BaseEntityStore<Meal, MealsFiltersContainer> {
+export class MealsStore extends BaseEntityStore<Meal, MealsFilter, MealsFiltersContainer> {
   private mealsApi = inject(MealControllerService);
 
   readonly $viewList = this.$filteredList;
@@ -18,8 +18,8 @@ export class MealsStore extends BaseEntityStore<Meal, MealsFiltersContainer> {
     return new MealsFiltersContainer();
   }
 
-  protected override getAllFromApi(sort: StoreSort, page: StorePage): Observable<Meal[]> {
-    return this.mealsApi.getMealsByFilter({isActual: true, ...sort, ...page})
+  protected override getAllFromApi(filtersDto: Partial<MealsFilter>): Observable<Meal[]> {
+    return this.mealsApi.getMealsByFilter({isActual: true, ...filtersDto})
       .pipe(
         map(list => {
           this.setTotalItems(list.total);

@@ -11,7 +11,6 @@ import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {Sort} from "@angular/material/sort";
 import {PageEvent} from "@angular/material/paginator";
-import {PAGE_SIZE_OPTIONS} from "../../../../../shared/features/pagination/data-access/model/paginator-model";
 
 @Component({
   selector: 'app-clients-page',
@@ -35,8 +34,8 @@ export class ClientsPageComponent implements OnInit {
   }
 
   protected onSearch(query: string) {
-    this.store.filters.search.setFilter(query);
-    this.store.forceSignalReload();
+    this.store.filters.search.setQuery(query);
+    this.store.loadAll();
   }
 
   protected onSort(sort: Sort) {
@@ -59,6 +58,4 @@ export class ClientsPageComponent implements OnInit {
       headerColumns: Object.values(ClientColumns)
     });
   }
-
-  protected readonly PAGE_SIZE_OPTIONS = PAGE_SIZE_OPTIONS;
 }

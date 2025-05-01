@@ -1,8 +1,6 @@
-import {
-  PrimitivePropertySubstringFilterModel
-} from "../../../../../shared/features/filters/generic-filters/primitive-property-substring-filter-model";
-import {ClientStoreEntity} from "../../model/client-store-entity";
+import {SearchFilterModel} from "../../../../../shared/features/filters/generic-filters/search.filter-model";
+import {ClientsFilter} from "../../../../../api/model/clientsFilter";
 
-export class SearchClientsFilterModel extends PrimitivePropertySubstringFilterModel<ClientStoreEntity> {
+export class SearchClientsFilterModel extends SearchFilterModel<ClientsFilter> {
 
 }

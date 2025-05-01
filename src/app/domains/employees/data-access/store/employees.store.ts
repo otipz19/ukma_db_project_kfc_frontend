@@ -1,16 +1,16 @@
 import {map, Observable} from "rxjs";
-import {BaseEntityStore, StoreSort} from "../../../../shared/store/base-entity-store";
+import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
 import {EmployeesFiltersContainer} from "../filters/filters-container/employees-filters-container";
 import {EmployeeStoreEntity, mapEmployeeToStoreEntity} from "../model/employee-store-entity";
-import {computed, inject, Injectable} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {AuthService} from "../../../../core/services/auth.service";
 import {EmployeeControllerService} from "../../../../api/api/employeeController.service";
-import {StorePage} from "../../../../shared/features/pagination/data-access/model/paginator-model";
+import {EmployeesFilter} from "../../../../api/model/employeesFilter";
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeesStore extends BaseEntityStore<EmployeeStoreEntity, EmployeesFiltersContainer> {
+export class EmployeesStore extends BaseEntityStore<EmployeeStoreEntity, EmployeesFilter, EmployeesFiltersContainer> {
   private readonly api = inject(EmployeeControllerService);
   private readonly authService = inject(AuthService);
 
@@ -23,8 +23,8 @@ export class EmployeesStore extends BaseEntityStore<EmployeeStoreEntity, Employe
     return new EmployeesFiltersContainer();
   }
 
-  protected override getAllFromApi(sort: StoreSort, page: StorePage): Observable<EmployeeStoreEntity[]> {
-    return this.api.getEmployeesByFilter({...sort, ...page})
+  protected override getAllFromApi(filtersDto: Partial<EmployeesFilter>): Observable<EmployeeStoreEntity[]> {
+    return this.api.getEmployeesByFilter({...filtersDto})
       .pipe(
         map(list => {
           // Exclude self employee

@@ -1,7 +1,7 @@
-import {FiltersContainer} from "../../../../../shared/features/filters/model/filters-container";
 import {SearchClientsFilterModel} from "../filter-models/search-clients.filter-model";
-import {ClientStoreEntity} from "../../model/client-store-entity";
+import {ServerSideFiltersContainer} from "../../../../../shared/features/filters/model/server-side-filters-container";
+import {ClientsFilter} from "../../../../../api/model/clientsFilter";
 
-export class ClientsFiltersContainer extends FiltersContainer<ClientStoreEntity> {
+export class ClientsFiltersContainer extends ServerSideFiltersContainer<ClientsFilter> {
   readonly search = this.addFilterModel(new SearchClientsFilterModel());
 }

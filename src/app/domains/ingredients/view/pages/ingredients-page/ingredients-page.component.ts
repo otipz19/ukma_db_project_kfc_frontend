@@ -55,8 +55,8 @@ export class IngredientsPageComponent implements OnInit {
   }
 
   protected onSearch(query: string) {
-    this.store.filters.titleFilter.setFilter(query);
-    this.store.forceSignalReload();
+    this.store.filters.search.setQuery(query);
+    this.store.loadAll();
   }
 
   protected onExportReport() {

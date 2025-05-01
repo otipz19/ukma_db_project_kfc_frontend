@@ -42,8 +42,8 @@ export class EmployeesPageComponent implements OnInit {
   }
 
   protected onSearch(query: string) {
-    this.store.filters.searchFilter.setFilter(query);
-    this.store.forceSignalReload();
+    this.store.filters.searchFilter.setQuery(query);
+    this.store.loadAll();
   }
 
   protected onSort(sort: Sort) {

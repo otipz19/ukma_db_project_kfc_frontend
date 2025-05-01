@@ -1,15 +1,15 @@
-import {BaseEntityStore, StoreSort} from "../../../../shared/store/base-entity-store";
+import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
 import {ClientsFiltersContainer} from "../filters/filters-container/clients.filters-container";
 import {map, Observable, tap} from "rxjs";
 import {ClientStoreEntity, mapClientToStoreEntity} from "../model/client-store-entity";
 import {inject, Injectable} from "@angular/core";
 import {ClientControllerService} from "../../../../api/api/clientController.service";
-import {StorePage} from "../../../../shared/features/pagination/data-access/model/paginator-model";
+import {ClientsFilter} from "../../../../api/model/clientsFilter";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClientsStore extends BaseEntityStore<ClientStoreEntity, ClientsFiltersContainer> {
+export class ClientsStore extends BaseEntityStore<ClientStoreEntity, ClientsFilter, ClientsFiltersContainer> {
   private readonly api = inject(ClientControllerService);
 
   readonly $viewList = this.$filteredList;
@@ -18,8 +18,8 @@ export class ClientsStore extends BaseEntityStore<ClientStoreEntity, ClientsFilt
     return new ClientsFiltersContainer();
   }
 
-  protected override getAllFromApi(sort?: StoreSort, page?: StorePage): Observable<ClientStoreEntity[]> {
-    return this.api.getClientsByFilter({...sort, ...page})
+  protected override getAllFromApi(filtersDto: Partial<ClientsFilter>): Observable<ClientStoreEntity[]> {
+    return this.api.getClientsByFilter({...filtersDto})
       .pipe(
         tap(list => {
           this.setTotalItems(list.total)

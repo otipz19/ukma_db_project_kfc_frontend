@@ -1,8 +1,6 @@
-import {
-  PrimitivePropertySubstringFilterModel
-} from "../../../../../shared/features/filters/generic-filters/primitive-property-substring-filter-model";
-import {EmployeeStoreEntity} from "../../model/employee-store-entity";
+import {SearchFilterModel} from "../../../../../shared/features/filters/generic-filters/search.filter-model";
+import {EmployeesFilter} from "../../../../../api/model/employeesFilter";
 
-export class EmployeeSearchFilterModel extends PrimitivePropertySubstringFilterModel<EmployeeStoreEntity> {
+export class EmployeeSearchFilterModel extends SearchFilterModel<EmployeesFilter> {
 
 }

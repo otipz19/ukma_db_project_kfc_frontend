@@ -1,20 +1,20 @@
 import {signal} from "@angular/core";
-import {FiltersContainer} from "../features/filters/model/filters-container";
 import {Observable} from "rxjs";
 import {BaseFilter} from "../../api/model/baseFilter";
 import {Sort} from "@angular/material/sort";
-import {PaginatorModel, StorePage} from "../features/pagination/data-access/model/paginator-model";
+import {PaginatorModel} from "../features/pagination/data-access/model/paginator-model";
+import {ServerSideFiltersContainer} from "../features/filters/model/server-side-filters-container";
 
 export type StoreSort = Pick<BaseFilter, 'sortBy' | 'descendingOrder'>;
 
-export abstract class BaseEntityStore<TEntity extends {id: number}, TFiltersContainer extends FiltersContainer<TEntity>> {
+export abstract class BaseEntityStore<TEntity extends {id: number}, TFilterDto extends BaseFilter, TFiltersContainer extends ServerSideFiltersContainer<TFilterDto>> {
   readonly filters: TFiltersContainer = this.buildFiltersContainer();
 
   private storeSort: StoreSort = {};
   readonly paginatorModel = new PaginatorModel();
 
   protected readonly $responseList = signal<Array<TEntity>>([]);
-  protected readonly $filteredList = this.filters.$filterSignal(this.$responseList);
+  protected readonly $filteredList = this.$responseList.asReadonly();
 
   protected abstract buildFiltersContainer(): TFiltersContainer;
 
@@ -35,13 +35,13 @@ export abstract class BaseEntityStore<TEntity extends {id: number}, TFiltersCont
   }
 
   loadAll() {
-    this.getAllFromApi(this.storeSort, this.paginatorModel.storePage)
+    this.getAllFromApi({...this.storeSort, ...this.paginatorModel.storePage, ...this.filters.getAllFilters()})
       .subscribe(result => {
         this.$responseList.set(result);
       });
   }
 
-  protected abstract getAllFromApi(sort: StoreSort, page: StorePage): Observable<Array<TEntity>>;
+  protected abstract getAllFromApi(filterDto: Partial<TFilterDto>): Observable<Array<TEntity>>;
 
   load(id: number) {
     this.getByIdFromApi(id)
@@ -71,10 +71,6 @@ export abstract class BaseEntityStore<TEntity extends {id: number}, TFiltersCont
 
   cleanFilters() {
     this.filters.cleanFilters();
-    this.forceSignalReload();
-  }
-
-  forceSignalReload() {
-    this.$responseList.update(val => [...val]);
+    this.loadAll();
   }
 }

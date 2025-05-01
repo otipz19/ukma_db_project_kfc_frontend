@@ -48,8 +48,8 @@ export class RestaurantsPageComponent implements OnInit {
   }
 
   protected onSearch(query: string) {
-    this.store.filters.addressFilter.setFilter(query);
-    this.store.forceSignalReload();
+    this.store.filters.query.setQuery(query);
+    this.store.loadAll();
   }
 
   protected onExportReport() {
