@@ -1,6 +1,6 @@
 import {map, Observable} from "rxjs";
 import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
-import {EmployeesFiltersContainer} from "../filters/filters-container/employees-filters-container";
+import {EmployeesFiltersContainer} from "../../features/filters/data-access/model/filters-container/employees-filters-container";
 import {EmployeeStoreEntity, mapEmployeeToStoreEntity} from "../model/employee-store-entity";
 import {inject, Injectable} from "@angular/core";
 import {AuthService} from "../../../../core/services/auth.service";

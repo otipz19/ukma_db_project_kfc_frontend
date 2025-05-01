@@ -12,6 +12,9 @@ import {EmployeeColumns} from "../../../features/tables/data-access/model/employ
 import {MatIcon} from "@angular/material/icon";
 import {Sort} from "@angular/material/sort";
 import {PageEvent} from "@angular/material/paginator";
+import {
+  EmployeeChipFiltersComponent
+} from "../../../features/filters/view/components/employee-chip-filters/employee-chip-filters.component";
 
 @Component({
   selector: 'app-employees-page',
@@ -21,6 +24,7 @@ import {PageEvent} from "@angular/material/paginator";
     EmployeesTableListComponent,
     RouterLink,
     MatIcon,
+    EmployeeChipFiltersComponent,
   ],
   templateUrl: './employees-page.component.html',
   styleUrl: './employees-page.component.scss'
