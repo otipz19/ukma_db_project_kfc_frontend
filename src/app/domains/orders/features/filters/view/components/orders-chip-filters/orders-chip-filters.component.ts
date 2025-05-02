@@ -24,6 +24,11 @@ export class OrdersChipFiltersComponent<TStore extends BaseEntityStore<ListOrder
   private readonly filtersService = inject(OrdersFiltersService);
   readonly $store = input.required<TStore>({alias: 'store'});
 
+  protected onOldOrders() {
+    this.$store().filters.oldOrders.toggleFilter();
+    this.$store().loadAll();
+  }
+
   protected onStatusToggle(status: OrderStatus) {
     this.$store().filters.status.toggleStatus(status);
     this.$store().loadAll();

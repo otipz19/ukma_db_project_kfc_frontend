@@ -3,9 +3,11 @@ import {OrdersFilter} from "../../../../../../api/model/ordersFilter";
 import {OrdersCostRangeFilterModel} from "./orders-cost-range.filter-model";
 import {OrdersDateCreatedRangeFilterModel} from "./orders-date-created-range-filter.model";
 import {OrdersStatusFilterModel} from "./order-status.filter-model";
+import {OldOrdersFilterModel} from "./old-orders.filter-model";
 
 export class OrdersFiltersContainer extends ServerSideFiltersContainer<OrdersFilter> {
   readonly status = this.addFilterModel(new OrdersStatusFilterModel());
   readonly cost = this.addFilterModel(new OrdersCostRangeFilterModel());
   readonly dateCreated = this.addFilterModel(new OrdersDateCreatedRangeFilterModel());
+  readonly oldOrders = this.addFilterModel(new OldOrdersFilterModel());
 }

@@ -4,7 +4,13 @@ import {NotifyService} from "../../../../../../shared/features/notify/data-acces
 import {Observable, switchMap} from "rxjs";
 import {DeleteDialogService} from "../../../../../../shared/features/delete-dialog/services/delete-dialog.service";
 
-export const OLD_ORDERS_DATE_BEFORE_TIMESTAMP = new Date().getTime();
+export const OLD_ORDERS_DATE_BEFORE_TIMESTAMP = getOldOrdersDateBeforeTimestamp();
+
+function getOldOrdersDateBeforeTimestamp() {
+  const today = new Date();
+  const daysToSub = 90;
+  return today.setDate(today.getDate() - daysToSub);
+}
 
 @Injectable({
   providedIn: 'root'
