@@ -6,21 +6,28 @@ import {BaseEntityStore} from "../../../../../../../shared/store/base-entity-sto
 import {ListOrderDto} from "../../../../../data-access/types/list-order-dto";
 import {OrdersFilter} from "../../../../../../../api/model/ordersFilter";
 import {OrdersFiltersContainer} from "../../../data-access/model/orders.filters-container";
+import {EmployeePosition} from "../../../../../../../api/model/employeePosition";
+import {OrderStatus} from "../../../data-access/model/order-status.filter-model";
 
 @Component({
   selector: 'app-orders-chip-filters',
-    imports: [
-        MatChipListbox,
-        MatChipOption,
-        MatChipRemove,
-        MatIcon
-    ],
+  imports: [
+    MatChipListbox,
+    MatChipOption,
+    MatChipRemove,
+    MatIcon,
+  ],
   templateUrl: './orders-chip-filters.component.html',
   styleUrl: './orders-chip-filters.component.scss'
 })
 export class OrdersChipFiltersComponent<TStore extends BaseEntityStore<ListOrderDto, OrdersFilter, OrdersFiltersContainer>> {
   private readonly filtersService = inject(OrdersFiltersService);
   readonly $store = input.required<TStore>({alias: 'store'});
+
+  protected onStatusToggle(status: OrderStatus) {
+    this.$store().filters.status.toggleStatus(status);
+    this.$store().loadAll();
+  }
 
   protected onCostOpen() {
     this.filtersService.openCostRange(this.$store());
@@ -39,4 +46,7 @@ export class OrdersChipFiltersComponent<TStore extends BaseEntityStore<ListOrder
     this.$store().filters.dateCreated.toggleFilter();
     this.$store().loadAll();
   }
+
+  protected readonly EmployeePosition = EmployeePosition;
+  protected readonly OrderStatus = OrderStatus;
 }

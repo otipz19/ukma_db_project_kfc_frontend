@@ -44,7 +44,7 @@ export class EmployeeOrdersPageComponent implements OnInit {
     if(this.restaurant) {
       this.store.setRestaurantId(this.restaurant.id);
     }
-    this.store.initialLoad();
+    this.store.loadAll();
   }
 
   protected onPagination(page: PageEvent) {
