@@ -1,4 +1,16 @@
 <mat-chip-listbox multiple>
+  <mat-chip-option (click)="onHasManagerToggle(RestaurantsStatsHasManagerOptions.HAS_MANAGER)">
+    Є менеджер
+  </mat-chip-option>
+  <mat-chip-option (click)="onHasManagerToggle(RestaurantsStatsHasManagerOptions.NO)">
+    Немає менеджера
+  </mat-chip-option>
+  <mat-chip-option (click)="onDeletedToggle(RestaurantsStatsDeletedFilterOptions.NO)">
+    Відкриті ресторани
+  </mat-chip-option>
+  <mat-chip-option (click)="onDeletedToggle(RestaurantsStatsDeletedFilterOptions.DELETED)">
+    Закриті ресторани
+  </mat-chip-option>
   <mat-chip-option (click)="onNumberToggle()">
     Кількість замовлень
     <mat-icon matChipRemove (click)="onNumberOpen()">menu</mat-icon>

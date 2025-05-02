@@ -3,6 +3,11 @@ import {MatChipListbox, MatChipOption, MatChipRemove} from "@angular/material/ch
 import {MatIcon} from "@angular/material/icon";
 import {RestaurantsStatsStore} from "../../../../../data-access/store/restaurants-stats.store";
 import {RestaurantsStatsFiltersService} from "../../../data-access/services/restaurants-stats-filters.service";
+import {EmployeePosition} from "../../../../../../../api/model/employeePosition";
+import {RestaurantsStatsHasManagerOptions} from "../../../data-access/model/restaurants-stats-has-manager.filter-model";
+import {
+  RestaurantsStatsDeletedFilterOptions
+} from "../../../data-access/model/restaurants-stats-deleted-filter.model";
 
 @Component({
   selector: 'app-restaurants-stats-chip-filters',
@@ -18,6 +23,16 @@ import {RestaurantsStatsFiltersService} from "../../../data-access/services/rest
 export class RestaurantsStatsChipFiltersComponent {
   private readonly store = inject(RestaurantsStatsStore);
   private readonly filtersService = inject(RestaurantsStatsFiltersService);
+
+  protected onHasManagerToggle(option: RestaurantsStatsHasManagerOptions) {
+    this.store.filters.hasManager.toggleOption(option);
+    this.store.loadAll();
+  }
+
+  protected onDeletedToggle(option: RestaurantsStatsDeletedFilterOptions) {
+    this.store.filters.deleted.toggleOption(option);
+    this.store.loadAll();
+  }
 
   protected onTotalPriceOpen() {
     this.filtersService.openTotalOrdersPrice();
@@ -45,4 +60,8 @@ export class RestaurantsStatsChipFiltersComponent {
     this.store.filters.ordersDate.toggleFilter();
     this.store.loadAll();
   }
+
+  protected readonly EmployeePosition = EmployeePosition;
+  protected readonly RestaurantsStatsHasManagerOptions = RestaurantsStatsHasManagerOptions;
+  protected readonly RestaurantsStatsDeletedFilterOptions = RestaurantsStatsDeletedFilterOptions;
 }
