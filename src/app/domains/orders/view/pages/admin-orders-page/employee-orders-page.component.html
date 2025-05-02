@@ -12,6 +12,7 @@
 
       @if (authService.hasRole(UserRole.ADMIN)) {
         <button mat-raised-button color="warn" (click)="onDeleteOldOrders()">
+          <mat-icon>delete</mat-icon>
           <span>Видалити застарілі замовлення</span>
         </button>
       }
