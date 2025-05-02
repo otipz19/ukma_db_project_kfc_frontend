@@ -7,7 +7,7 @@ import {
   UpsertDialogFormComponent
 } from "../../../../../shared/features/upsert-dialog/components/upsert-dialog/upsert-dialog.component";
 import {ControlsOf} from "../../../../../shared/type-utils/controls-of";
-import {UpdateIngredient} from "../../../../../api/model/updateIngredient";
+import {CreateIngredient} from "../../../../../api/model/createIngredient";
 
 @Component({
   selector: 'app-ingredient-upsert-form',
@@ -18,18 +18,19 @@ import {UpdateIngredient} from "../../../../../api/model/updateIngredient";
   templateUrl: './ingredient-upsert-form.component.html',
   styleUrl: './ingredient-upsert-form.component.scss'
 })
-export class IngredientUpsertFormComponent implements UpsertDialogFormComponent<UpdateIngredient> {
+export class IngredientUpsertFormComponent implements UpsertDialogFormComponent<CreateIngredient> {
   private readonly fb = inject(FormBuilder).nonNullable;
 
-  protected readonly form: FormGroup<ControlsOf<UpdateIngredient>> = this.fb.group({
+  protected readonly form: FormGroup<ControlsOf<CreateIngredient>> = this.fb.group({
     title: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
     energeticValue: this.fb.control(0, [Validators.required, Validators.min(0)]),
     weight: this.fb.control(0, [Validators.required, Validators.min(0)]),
     price: this.fb.control(0, [Validators.required, Validators.min(0)]),
   });
 
-  initByValue(value: UpdateIngredient): void {
+  initByValue(value: CreateIngredient): void {
     this.form.patchValue(value);
+    this.form.controls.title.disable();
   }
 
   validate(): boolean {
@@ -41,7 +42,7 @@ export class IngredientUpsertFormComponent implements UpsertDialogFormComponent<
     return true;
   }
 
-  getFormValue(): UpdateIngredient {
+  getFormValue(): CreateIngredient {
     return this.form.getRawValue();
   }
 }

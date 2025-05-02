@@ -12,7 +12,6 @@ import {
 } from '@angular/core';
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
-import {UpdateMeal} from "../../../../../../../api/model/updateMeal";
 import {ControlsOf} from "../../../../../../../shared/type-utils/controls-of";
 import {MatButton} from "@angular/material/button";
 import {
@@ -36,8 +35,9 @@ import {map} from "rxjs";
 import {
   CommonFormTextAreaComponent
 } from "../../../../../../../shared/form/components/common-form-text-area/common-form-text-area.component";
+import {CreateMeal} from "../../../../../../../api/model/createMeal";
 
-type MealDataStepFormType = Omit<UpdateMeal, 'ingredients'>
+type MealDataStepFormType = Omit<CreateMeal, 'ingredients'>
 
 @Component({
   selector: 'app-meal-upsert-form',
@@ -66,7 +66,7 @@ export class MealUpsertFormComponent implements OnInit {
 
   readonly $initialValue = input<Meal | undefined>(undefined, {alias: 'initialValue'});
 
-  protected readonly submit = output<UpdateMeal>();
+  protected readonly submit = output<CreateMeal>();
   protected readonly cancel = output<void>();
 
   protected readonly mealDataStepForm = this.fb.group<ControlsOf<MealDataStepFormType>>({
@@ -108,6 +108,7 @@ export class MealUpsertFormComponent implements OnInit {
     if(initValue) {
       const {title, additionalPrice, description, recipe, ingredients: mealIngredients} = initValue;
       this.mealDataStepForm.patchValue({title, additionalPrice, description, recipe});
+      this.mealDataStepForm.controls.title.disable();
       this.ingredientsApi.getIngredientsByFilter({ids: mealIngredients.map(i => i.ingredientId)})
         .pipe(
           takeUntilDestroyed(this.destroyRef),
@@ -136,12 +137,12 @@ export class MealUpsertFormComponent implements OnInit {
 
     const dataFormValue = this.mealDataStepForm.getRawValue();
 
-    const updateMealDto: UpdateMeal = {
+    const result: CreateMeal = {
       ingredients: mealIngredients,
       ...dataFormValue
     };
 
-    this.submit.emit(updateMealDto);
+    this.submit.emit(result);
   }
 
   protected onCancel() {

@@ -1,9 +1,9 @@
 import {Component, inject} from '@angular/core';
 import {Location} from "@angular/common";
-import {UpdateMeal} from "../../../../../../../api/model/updateMeal";
 import {MealControllerService} from "../../../../../../../api/api/mealController.service";
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
 import {MealUpsertFormComponent} from "../../components/meal-upsert-form/meal-upsert-form.component";
+import {CreateMeal} from "../../../../../../../api/model/createMeal";
 
 @Component({
   selector: 'app-meal-create-page',
@@ -18,7 +18,7 @@ export class MealCreatePageComponent {
   private readonly notify = inject(NotifyService);
   private readonly location = inject(Location);
 
-  protected onSubmit(dto: UpdateMeal) {
+  protected onSubmit(dto: CreateMeal) {
     this.api.createMeal(dto)
       .pipe(
         this.notify.notifyHttpRequest()

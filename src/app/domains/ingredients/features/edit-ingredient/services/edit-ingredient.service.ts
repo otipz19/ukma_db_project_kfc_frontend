@@ -26,7 +26,8 @@ export class EditIngredientService {
       formComponent: IngredientUpsertFormComponent,
       initialValue: formInitValue,
       submitCallback: dto => {
-        return this.api.updateIngredient(id, dto)
+        const {title, ...rest} = dto;
+        return this.api.updateIngredient(id, rest)
           .pipe(
             this.notify.notifyHttpRequest(),
             tap(updatedId => {

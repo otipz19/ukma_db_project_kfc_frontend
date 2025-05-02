@@ -6,7 +6,7 @@ import {MEAL_RESOLVER_KEY} from "../../../../../data-access/resolvers/meal.resol
 import {MealControllerService} from "../../../../../../../api/api/mealController.service";
 import {NotifyService} from "../../../../../../../shared/features/notify/data-access/services/notify.service";
 import {Location} from "@angular/common";
-import {UpdateMeal} from "../../../../../../../api/model/updateMeal";
+import {CreateMeal} from "../../../../../../../api/model/createMeal";
 
 @Component({
   selector: 'app-meal-update-page',
@@ -24,8 +24,9 @@ export class MealUpdatePageComponent {
   private readonly route = inject(ActivatedRoute);
   protected readonly $meal = signal<Meal>(this.route.snapshot.data[MEAL_RESOLVER_KEY]);
 
-  protected onSubmit(dto: UpdateMeal) {
-    this.api.updateMeal(this.$meal().id, dto)
+  protected onSubmit(dto: CreateMeal) {
+    const {title, ...rest} = dto;
+    this.api.updateMeal(this.$meal().id, rest)
       .pipe(
         this.notify.notifyHttpRequest()
       )
