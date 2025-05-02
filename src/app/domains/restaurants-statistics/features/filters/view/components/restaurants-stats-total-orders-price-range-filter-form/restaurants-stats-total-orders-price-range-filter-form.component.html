@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.minTotalOrdersPrice!"
+                               inputType="number"
+                               label="Мінімальна сумарна вартість замовлень"/>
+
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.maxTotalOrdersPrice!"
+                               inputType="number"
+                               label="Максимальна сумарна вартість замовлень"/>
+</form>

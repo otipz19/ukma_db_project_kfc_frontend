@@ -19,7 +19,7 @@ export class RestaurantsStatsStore extends BaseStatsStore<RestaurantStatistic, R
   }
 
   protected override getAllFromApi(filterDto: Partial<RestaurantsStatisticFilter>): Observable<RestaurantStatistic[]> {
-    return this.api.getRestaurantsStatisticByFilter(filterDto)
+    return this.api.getRestaurantsStatisticByFilter({...filterDto})
       .pipe(
         map(list => {
           this.setTotalItems(list.total);

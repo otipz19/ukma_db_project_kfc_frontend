@@ -15,6 +15,9 @@ import {
 import {
   RestaurantsStatsTableListComponent
 } from "../../components/restaurants-stats-table-list/restaurants-stats-table-list.component";
+import {
+  RestaurantsStatsChipFiltersComponent
+} from "../../../features/filters/view/components/restaurants-stats-chip-filters/restaurants-stats-chip-filters.component";
 
 @Component({
   selector: 'app-restaurants-stats-page',
@@ -23,6 +26,7 @@ import {
     MatIcon,
     SearchBarComponent,
     RestaurantsStatsTableListComponent,
+    RestaurantsStatsChipFiltersComponent,
   ],
   templateUrl: './restaurants-stats-page.component.html',
   styleUrl: './restaurants-stats-page.component.scss'
@@ -35,7 +39,7 @@ export class RestaurantsStatsPageComponent implements OnInit {
   protected readonly $data: Signal<RestaurantStatistic[]> = this.store.$viewList;
 
   ngOnInit() {
-    this.store.loadAll();
+    this.store.initialLoad();
   }
 
   protected onPagination(page: PageEvent) {

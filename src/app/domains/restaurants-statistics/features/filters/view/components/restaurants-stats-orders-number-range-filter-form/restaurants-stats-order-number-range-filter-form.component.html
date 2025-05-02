@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.minNumberOfOrders!"
+                               inputType="number"
+                               label="Мінімальна кількість замовлень"/>
+
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.maxNumberOfOrders!"
+                               inputType="number"
+                               label="Максимальна кількість замовлень"/>
+</form>
