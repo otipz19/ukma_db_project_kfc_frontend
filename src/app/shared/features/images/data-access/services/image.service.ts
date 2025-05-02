@@ -53,7 +53,9 @@ export class ImageService {
             mimeType: image.type
           });
         }),
-        this.notify.notifyError(),
+        catchError(() => {
+          return of(true);
+        }),
         map(() => true)
       );
   }
@@ -61,20 +63,12 @@ export class ImageService {
   private deleteImageRequest$(imageType: ImageType, title: string): Observable<boolean> {
     return this.imageApi.deleteImage(imageType, title)
       .pipe(
-        this.notify.notifyError(),
+        catchError(() => {
+          return of(true);
+        }),
         map(() => true)
       );
   }
-
-  // private getBase64$(image: File): Observable<string> {
-  //   const fileURL = URL.createObjectURL(image);
-  //   return fromPromise(imageToBase64(fileURL))
-  //     .pipe(
-  //       tap(() => {
-  //         URL.revokeObjectURL(fileURL);
-  //       })
-  //     );
-  // }
 
   private getBase64$(image: File): Observable<string> {
     return fromPromise(this.fileToBase64Raw(image));
