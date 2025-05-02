@@ -35,6 +35,22 @@ body {
 
 .item-list-card {
   width: 100%;
+  max-width: 350px;
+  min-width: 0;
+
+  .mat-mdc-card-header-text  {
+    overflow: clip;
+    min-width: 0;
+    max-width: 90%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  a, p, span {
+    overflow: clip;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
   .item-list-card-title {
     padding-left: 5px;
