@@ -35,24 +35,26 @@ export class ViewMealPageComponent implements OnInit {
   protected readonly isClientMeal = getFromResolver(CLIENT_MEAL_RESOLVER_KEY) != undefined;
   protected readonly $mealIngredients = signal<MealIngredientCombinedDto[]>([]);
 
-   ngOnInit() {
-     const mealIngredients = this.$meal().ingredients;
-     const ids = mealIngredients.map(i => i.ingredientId);
+  ngOnInit() {
+    const mealIngredients = this.$meal().ingredients;
+    const ids = mealIngredients.map(i => i.ingredientId);
 
-     this.ingredientsApi.getIngredientsByFilter({ids: ids})
-       .pipe(
-         takeUntilDestroyed(this.destroyRef),
-         this.notify.notifyError()
-       )
-       .subscribe(ingredients => {
-         const dtos: MealIngredientCombinedDto[] = ingredients.items.map(ingredient => {
-           const mealIngredient = mealIngredients
-             .find(m => m.ingredientId === ingredient.id)!;
-           return {ingredient, mealIngredient};
-         });
-         this.$mealIngredients.set(dtos);
-       });
-   }
+    const isActual = {isActual: !this.isClientMeal};
+
+    this.ingredientsApi.getIngredientsByFilter({ids: ids, ...isActual})
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        this.notify.notifyError()
+      )
+      .subscribe(ingredients => {
+        const dtos: MealIngredientCombinedDto[] = ingredients.items.map(ingredient => {
+          const mealIngredient = mealIngredients
+            .find(m => m.ingredientId === ingredient.id)!;
+          return {ingredient, mealIngredient};
+        });
+        this.$mealIngredients.set(dtos);
+      });
+  }
 
   protected readonly ImageType = ImageType;
 }
