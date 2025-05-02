@@ -5,7 +5,7 @@ export type StorePage = {
   size: number
 };
 
-export const PAGE_SIZE_OPTIONS = [1, 2, 3] as const;
+export const PAGE_SIZE_OPTIONS = [8, 16, 24] as const;
 
 export class PaginatorModel {
   private _total?: number;

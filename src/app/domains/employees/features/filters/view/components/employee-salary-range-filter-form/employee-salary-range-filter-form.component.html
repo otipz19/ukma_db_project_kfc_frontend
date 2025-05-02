@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.minSalary!"
+                               inputType="number"
+                               label="Мінімальна заробітна плата"/>
+
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.maxSalary!"
+                               inputType="number"
+                               label="Максимальна заробітна плата"/>
+</form>

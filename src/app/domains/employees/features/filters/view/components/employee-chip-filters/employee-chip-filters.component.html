@@ -1,8 +1,4 @@
 <mat-chip-listbox multiple>
-<!--  <mat-chip-option (click)="onPriceRangeToggle()">-->
-<!--    Ціна-->
-<!--    <mat-icon matChipRemove (click)="onPriceRangeForm()">menu</mat-icon>-->
-<!--  </mat-chip-option>-->
   <mat-chip-option selected (click)="onPositionToggle(EmployeePosition.MANAGER)">
     Менеджери
   </mat-chip-option>
@@ -11,5 +7,13 @@
   </mat-chip-option>
   <mat-chip-option selected (click)="onPositionToggle(EmployeePosition.COOK)">
     Кухарі
+  </mat-chip-option>
+  <mat-chip-option (click)="onSalaryToggle()">
+    Заробітна плата
+    <mat-icon matChipRemove (click)="onSalaryOpen()">menu</mat-icon>
+  </mat-chip-option>
+  <mat-chip-option (click)="onBirthDateToggle()">
+    Дата народження
+    <mat-icon matChipRemove (click)="onBirthDateOpen()">menu</mat-icon>
   </mat-chip-option>
 </mat-chip-listbox>
