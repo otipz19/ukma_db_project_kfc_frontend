@@ -12,6 +12,8 @@ import {
 import {CommonDataCardComponent} from "../../../../../shared/components/common-data-card/common-data-card.component";
 import {getFromResolver} from "../../../../../shared/resolvers/get-from-resolver";
 import {CLIENT_MEAL_RESOLVER_KEY} from "../../../data-access/resolvers/client-meal.resolver";
+import {ImageLoaderDirective} from "../../../../../shared/features/images/view/directives/image-loader.directive";
+import {ImageType} from "../../../../../api/model/imageType";
 
 @Component({
   selector: 'app-view-meal-page',
@@ -19,7 +21,8 @@ import {CLIENT_MEAL_RESOLVER_KEY} from "../../../data-access/resolvers/client-me
     MatCard,
     MatCardImage,
     MealIngredientViewCardComponent,
-    CommonDataCardComponent
+    CommonDataCardComponent,
+    ImageLoaderDirective
   ],
   templateUrl: './view-meal-page.component.html',
   styleUrl: './view-meal-page.component.scss'
@@ -51,4 +54,6 @@ export class ViewMealPageComponent implements OnInit {
          this.$mealIngredients.set(dtos);
        });
    }
+
+  protected readonly ImageType = ImageType;
 }

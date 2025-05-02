@@ -8,15 +8,18 @@ import {
   ModifyOrderMealIngredientsDialogComponent, ModifyOrderMealIngredientsDialogData
 } from "../modify-order-meal-ingredients-dialog/modify-order-meal-ingredients-dialog.component";
 import {OrderMealIngredient} from "../../../data-access/types/order-meal-ingredient";
+import {ImageLoaderDirective} from "../../../../../../../shared/features/images/view/directives/image-loader.directive";
+import {ImageType} from "../../../../../../../api/model/imageType";
 
 @Component({
   selector: 'app-order-meal-card',
-  imports: [
-    MatCard,
-    MatIcon,
-    MatIconButton,
-    MatButton
-  ],
+    imports: [
+        MatCard,
+        MatIcon,
+        MatIconButton,
+        MatButton,
+        ImageLoaderDirective
+    ],
   templateUrl: './order-meal-card.component.html',
   styleUrl: './order-meal-card.component.scss'
 })
@@ -77,4 +80,6 @@ export class OrderMealCardComponent {
   protected shouldDisplayModifyBtn(): boolean {
     return this.$meal().ingredients.filter(i => !i.isFixated).length !== 0;
   }
+
+  protected readonly ImageType = ImageType;
 }

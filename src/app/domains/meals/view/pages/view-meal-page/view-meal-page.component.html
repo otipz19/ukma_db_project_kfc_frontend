@@ -3,9 +3,10 @@
 <div class="horizontal-container">
   <div class="long-info-cards-container">
     <mat-card>
-      <!-- TODO: add images from entity when api is updated -->
-      <img class="meal-image" mat-card-image src="https://placehold.co/1200x800.png?text=Ingredient+Placeholder"
-           alt="{{ $meal().title }}"/>
+      <img imageLoader [imageType]="ImageType.MEAL_IMAGE"
+           [title]="$meal().title"
+           alt="{{ $meal().title }}"
+      />
     </mat-card>
 
     <app-common-data-card class="common-data-card-absolute-width">

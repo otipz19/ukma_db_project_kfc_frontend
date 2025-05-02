@@ -5,15 +5,18 @@ import {Ingredient} from "../../../../../../../api/model/ingredient";
 import {MealIngredient} from "../../../../../../../api/model/mealIngredient";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatIcon} from "@angular/material/icon";
+import {ImageLoaderDirective} from "../../../../../../../shared/features/images/view/directives/image-loader.directive";
+import {ImageType} from "../../../../../../../api/model/imageType";
 
 @Component({
   selector: 'app-meal-ingredient-card',
-  imports: [
-    MatCard,
-    MatIconButton,
-    MatCheckbox,
-    MatIcon
-  ],
+    imports: [
+        MatCard,
+        MatIconButton,
+        MatCheckbox,
+        MatIcon,
+        ImageLoaderDirective,
+    ],
   templateUrl: './meal-ingredient-card.component.html',
   styleUrl: './meal-ingredient-card.component.scss'
 })
@@ -66,4 +69,6 @@ export class MealIngredientCardComponent {
   protected shouldDisableDecrease(): boolean {
     return this.$mealIngredient().amount === 0 || (this.$mealIngredient().amount === 1 && this.$mealIngredient().isFixated);
   }
+
+    protected readonly ImageType = ImageType;
 }

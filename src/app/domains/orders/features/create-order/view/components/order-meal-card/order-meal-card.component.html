@@ -1,7 +1,9 @@
 <mat-card class="meal-card mat-elevation-z7">
   <div class="image-section">
-    <!-- TODO: add images from entity when api is updated -->
-    <img src="https://placehold.co/800x800.png?text=Meal+Placeholder" alt="Meal image"/>
+    <img imageLoader [imageType]="ImageType.MEAL_IMAGE"
+         [title]="$meal().title"
+         alt="{{ $meal().title }}"
+    />
   </div>
 
   <div class="main-content">
