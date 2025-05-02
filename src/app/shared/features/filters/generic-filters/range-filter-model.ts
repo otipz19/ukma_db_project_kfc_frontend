@@ -28,7 +28,7 @@ export abstract class RangeFilterModel<TFilterDto, TPartialFilterDto extends Par
         return this.getRange();
     }
 
-    cleanFilter(): void {
+    doCleanFilter(): void {
         this.range = undefined;
     }
 }

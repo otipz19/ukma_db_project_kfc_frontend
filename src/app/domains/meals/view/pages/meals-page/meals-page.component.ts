@@ -44,7 +44,7 @@ export class MealsPageComponent implements OnInit {
   protected readonly $userRole = this.authService.$role;
 
   ngOnInit() {
-    this.store.loadAll();
+    this.store.initialLoad();
   }
 
   protected onPagination(page: PageEvent) {

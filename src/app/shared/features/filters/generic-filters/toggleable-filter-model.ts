@@ -18,5 +18,10 @@ export abstract class ToggleableFilterModel<TFilterDto> implements ServerSideFil
 
   protected abstract doHasFilter(): boolean;
 
-  abstract cleanFilter(): void;
+  cleanFilter(): void {
+    this.enabled = false;
+    this.doCleanFilter();
+  }
+
+  protected abstract doCleanFilter(): void;
 }

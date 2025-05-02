@@ -54,8 +54,7 @@ export class AddIngredientDialogComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.ingredientsStore.cleanFilters();
-    this.ingredientsStore.loadAll();
+    this.ingredientsStore.initialLoad();
   }
 
   protected onPagination(page: PageEvent) {

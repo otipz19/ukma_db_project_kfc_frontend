@@ -45,8 +45,7 @@ export class IngredientsPageComponent implements OnInit {
   protected readonly $userRole = this.authService.$role;
 
   ngOnInit(): void {
-    this.store.loadAll();
-    this.store.cleanFilters();
+    this.store.initialLoad();
   }
 
   protected onPagination(page: PageEvent) {
