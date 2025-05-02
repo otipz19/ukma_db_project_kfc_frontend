@@ -19,7 +19,7 @@ export class RestaurantsStore extends BaseEntityStore<Restaurant, RestaurantsFil
   }
 
   protected override getAllFromApi(filterDto: Partial<RestaurantsFilter>): Observable<Restaurant[]> {
-    return this.api.getRestaurantsByFilter({...filterDto})
+    return this.api.getRestaurantsByFilter({isDeleted: false, ...filterDto})
       .pipe(
         map(list => {
           this.setTotalItems(list.total);
