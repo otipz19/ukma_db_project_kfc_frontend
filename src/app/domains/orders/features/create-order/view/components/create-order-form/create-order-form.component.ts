@@ -55,7 +55,7 @@ export class CreateOrderFormComponent implements OnInit {
     const dialogRef = this.matDialog.open<SelectMealDialogComponent, void, Meal>(
       SelectMealDialogComponent,
       {
-        minWidth: '800px',
+        minWidth: '1000px',
         minHeight: '400px'
       }
     );

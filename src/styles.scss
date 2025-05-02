@@ -29,13 +29,12 @@ body {
 
 .item-list-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 16px;
 }
 
 .item-list-card {
   width: 100%;
-  max-width: 350px;
   min-width: 0;
 
   .mat-mdc-card-header-text  {

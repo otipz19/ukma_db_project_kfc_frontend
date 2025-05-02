@@ -175,7 +175,10 @@ export class MealUpsertFormComponent implements OnInit {
   }
 
   protected onAddIngredient() {
-    const dialogRef = this.matDialog.open<AddIngredientDialogComponent, void, Ingredient>(AddIngredientDialogComponent);
+    const dialogRef = this.matDialog.open<AddIngredientDialogComponent, void, Ingredient>(AddIngredientDialogComponent,
+      {
+        minWidth: '1000px'
+      });
 
     dialogRef.afterClosed()
       .subscribe(ingredient => {
