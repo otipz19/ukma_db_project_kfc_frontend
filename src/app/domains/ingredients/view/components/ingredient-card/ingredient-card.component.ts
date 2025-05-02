@@ -1,4 +1,4 @@
-import {booleanAttribute, Component, computed, inject, input} from '@angular/core';
+import {booleanAttribute, Component, computed, inject, input, signal} from '@angular/core';
 import {
   MatCard,
   MatCardActions,
@@ -14,6 +14,8 @@ import {EditIngredientService} from "../../../features/edit-ingredient/services/
 import {Ingredient} from "../../../../../api/model/ingredient";
 import {AuthService} from "../../../../../core/services/auth.service";
 import {UserRole} from "../../../../../api";
+import {ImageType} from "../../../../../api/model/imageType";
+import {ImageLoaderDirective} from "../../../../../shared/features/images/view/directives/image-loader.directive";
 
 @Component({
   selector: 'app-ingredient-card',
@@ -25,7 +27,8 @@ import {UserRole} from "../../../../../api";
     MatCardActions,
     MatButton,
     MatCardHeader,
-    MatIcon
+    MatIcon,
+    ImageLoaderDirective
   ],
   templateUrl: './ingredient-card.component.html',
   styleUrl: './ingredient-card.component.scss'
@@ -34,6 +37,7 @@ export class IngredientCardComponent {
   private readonly deleteIngredientService = inject(DeleteIngredientService);
   private readonly editIngredientService = inject(EditIngredientService);
   private readonly authService = inject(AuthService);
+
   protected readonly $userRole = this.authService.$role;
 
   readonly $ingredient = input.required<Ingredient>({alias: 'ingredient'});
@@ -43,11 +47,15 @@ export class IngredientCardComponent {
     return !this.$hideActions() && this.$userRole() === UserRole.ADMIN;
   });
 
+  protected readonly $image = signal<File | undefined>(undefined);
+
   onDeleteClick(): void {
     this.deleteIngredientService.delete(this.$ingredient());
   }
 
   onEditClick(): void {
-    this.editIngredientService.edit(this.$ingredient());
+    this.editIngredientService.edit(this.$ingredient(), this.$image());
   }
+
+  protected readonly ImageType = ImageType;
 }

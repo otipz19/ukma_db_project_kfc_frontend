@@ -12,6 +12,11 @@ import {
   ImageDropZoneComponent
 } from "../../../../../shared/features/images/view/components/image-drop-zone/image-drop-zone.component";
 
+export type CreateIngredientWithImage = {
+  ingredient: CreateIngredient;
+  image?: File;
+}
+
 @Component({
   selector: 'app-ingredient-upsert-form',
   imports: [
@@ -22,8 +27,10 @@ import {
   templateUrl: './ingredient-upsert-form.component.html',
   styleUrl: './ingredient-upsert-form.component.scss'
 })
-export class IngredientUpsertFormComponent implements UpsertDialogFormComponent<CreateIngredient> {
+export class IngredientUpsertFormComponent implements UpsertDialogFormComponent<CreateIngredientWithImage> {
   private readonly fb = inject(FormBuilder).nonNullable;
+
+  private image?: File;
 
   protected readonly form: FormGroup<ControlsOf<CreateIngredient>> = this.fb.group({
     title: this.fb.control('', [Validators.required, Validators.maxLength(64)]),
@@ -32,8 +39,10 @@ export class IngredientUpsertFormComponent implements UpsertDialogFormComponent<
     price: this.fb.control(0, [Validators.required, Validators.min(0)]),
   });
 
-  initByValue(value: CreateIngredient): void {
-    this.form.patchValue(value);
+  initByValue(value: CreateIngredientWithImage): void {
+    const {image, ingredient} = value;
+    this.image = image;
+    this.form.patchValue(ingredient);
     this.form.controls.title.disable();
   }
 
@@ -46,7 +55,12 @@ export class IngredientUpsertFormComponent implements UpsertDialogFormComponent<
     return true;
   }
 
-  getFormValue(): CreateIngredient {
-    return this.form.getRawValue();
+  getFormValue(): CreateIngredientWithImage {
+    const ingredient = this.form.getRawValue();
+    return {image: this.image, ingredient};
+  }
+
+  protected onFileUpdate(file: File | undefined) {
+    this.image = file;
   }
 }

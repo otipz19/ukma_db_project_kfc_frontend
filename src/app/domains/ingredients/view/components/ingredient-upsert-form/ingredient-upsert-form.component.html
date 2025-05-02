@@ -22,6 +22,6 @@
 
   <div class="image-drop-zone-wrapper">
     <label>Зображення</label>
-    <app-image-drop-zone/>
+    <app-image-drop-zone (fileUpdate)="onFileUpdate($event)"/>
   </div>
 </form>

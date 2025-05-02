@@ -3,8 +3,8 @@
     <mat-card-title class="item-list-card-title">{{ $ingredient().title }}</mat-card-title>
   </mat-card-header>
 
-  <!-- TODO: add images from entity when api is updated -->
-  <img class="item-list-card-img" mat-card-image src="https://placehold.co/1200x800.png?text=Ingredient+Placeholder" alt="{{ $ingredient().title }}"/>
+  <img imageLoader [imageType]="ImageType.INGREDIENT_IMAGE" [title]="$ingredient().title"
+       class="item-list-card-img" mat-card-image alt="{{ $ingredient().title }}"/>
 
   <mat-card-content>
     <div class="item-list-card-info-container">
@@ -20,7 +20,7 @@
     </div>
   </mat-card-content>
 
-  @if($shouldShowActions()){
+  @if ($shouldShowActions()) {
     <mat-card-actions class="item-list-card-actions-container">
       <button mat-button color="primary" (click)="onEditClick()">
         <mat-icon>edit</mat-icon>
