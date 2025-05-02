@@ -1,7 +1,7 @@
 import {
   Component,
   computed,
-  DestroyRef,
+  DestroyRef, effect,
   inject,
   input,
   OnInit,
@@ -116,12 +116,15 @@ export class MealUpsertFormComponent implements OnInit {
 
   private readonly $matStepper = viewChild(MatStepper);
 
+  constructor() {
+    effect(() => {
+      this.image = this.$initialImage()!;
+    });
+  }
+
   ngOnInit() {
     this.selectIngredientStore.cleanFilters();
     const initValue = this.$initialValue();
-    if(this.$initialImage()) {
-     this.image = this.$initialImage()!;
-    }
     if (initValue) {
       const {title, additionalPrice, description, recipe, ingredients: mealIngredients} = initValue;
       this.mealDataStepForm.patchValue({title, additionalPrice, description, recipe});

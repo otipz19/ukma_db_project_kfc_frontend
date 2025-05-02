@@ -1,7 +1,7 @@
 import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {Meal} from "../../../../../api/model/meal";
 import {MEAL_RESOLVER_KEY} from "../../../data-access/resolvers/meal.resolver";
-import {MatCard, MatCardImage} from "@angular/material/card";
+import {MatCard} from "@angular/material/card";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {IngredientControllerService} from "../../../../../api/api/ingredientController.service";
 import {NotifyService} from "../../../../../shared/features/notify/data-access/services/notify.service";
@@ -19,7 +19,6 @@ import {ImageType} from "../../../../../api/model/imageType";
   selector: 'app-view-meal-page',
   imports: [
     MatCard,
-    MatCardImage,
     MealIngredientViewCardComponent,
     CommonDataCardComponent,
     ImageLoaderDirective
