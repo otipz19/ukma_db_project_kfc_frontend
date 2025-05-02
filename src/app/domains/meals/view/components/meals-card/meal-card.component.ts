@@ -1,4 +1,4 @@
-import {booleanAttribute, Component, inject, input} from '@angular/core';
+import {booleanAttribute, Component, inject, input, signal} from '@angular/core';
 import {Meal} from '../../../../../api/model/meal';
 import {
   MatCard,
@@ -14,22 +14,25 @@ import {RouterLink} from "@angular/router";
 import {DeleteMealService} from "../../../features/delete-meal/data-access/services/delete-meal.service";
 import {AuthService} from "../../../../../core/services/auth.service";
 import {UserRole} from "../../../../../api";
+import {ImageLoaderDirective} from "../../../../../shared/features/images/view/directives/image-loader.directive";
+import {ImageType} from "../../../../../api/model/imageType";
 
 @Component({
   selector: 'app-meal-card',
-  imports: [
-    MatCard,
-    MatCardHeader,
-    MatCardImage,
-    MatCardContent,
-    MatButton,
-    MatCardActions,
-    MatIcon,
-    MatCardTitle,
-    RouterLink,
-    MatIconButton,
-    MatCardTitle
-  ],
+    imports: [
+        MatCard,
+        MatCardHeader,
+        MatCardImage,
+        MatCardContent,
+        MatButton,
+        MatCardActions,
+        MatIcon,
+        MatCardTitle,
+        RouterLink,
+        MatIconButton,
+        MatCardTitle,
+        ImageLoaderDirective
+    ],
   templateUrl: './meal-card.component.html',
   styleUrl: './meal-card.component.scss'
 })
@@ -46,5 +49,12 @@ export class MealCardComponent {
     this.deleteService.delete(this.$meal());
   }
 
+  protected readonly $image = signal<File | undefined>(undefined);
+
+  protected onImageLoaded(image: File | undefined) {
+    this.$image.set(image);
+  }
+
   protected readonly UserRole = UserRole;
+  protected readonly ImageType = ImageType;
 }

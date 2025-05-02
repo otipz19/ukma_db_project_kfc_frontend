@@ -30,6 +30,11 @@
                                    iconSuffix="menu_book"
                                    [minRows]="5"
                                    [maxLength]="1024"/>
+
+        <div class="image-drop-zone-wrapper">
+          <label>Зображення</label>
+          <app-image-drop-zone [initialFile]="$initialImage()" (fileUpdate)="onFileUpdate($event)"/>
+        </div>
       </form>
 
       <div class="stepper-buttons w-80">

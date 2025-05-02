@@ -36,6 +36,14 @@ import {
 } from "../../../../../../../shared/form/components/common-form-text-area/common-form-text-area.component";
 import {CreateMeal} from "../../../../../../../api/model/createMeal";
 import {SelectIngredientStore} from "../../../../../../ingredients/data-access/store/select-ingredient.store";
+import {
+  ImageDropZoneComponent
+} from "../../../../../../../shared/features/images/view/components/image-drop-zone/image-drop-zone.component";
+
+export type CreateMealWithImage = {
+  createMeal: CreateMeal,
+  image: File | undefined
+};
 
 type MealDataStepFormType = Omit<CreateMeal, 'ingredients'>
 
@@ -53,6 +61,7 @@ type MealDataStepFormType = Omit<CreateMeal, 'ingredients'>
     MealStatsComponent,
     CommonFormTextAreaComponent,
     MatStepperPrevious,
+    ImageDropZoneComponent,
   ],
   templateUrl: './meal-upsert-form.component.html',
   styleUrl: './meal-upsert-form.component.scss'
@@ -66,8 +75,11 @@ export class MealUpsertFormComponent implements OnInit {
   private readonly selectIngredientStore = inject(SelectIngredientStore);
 
   readonly $initialValue = input<Meal | undefined>(undefined, {alias: 'initialValue'});
+  readonly $initialImage = input<File | undefined>(undefined, {alias: 'initialImage'});
 
-  protected readonly submit = output<CreateMeal>();
+  protected image?: File;
+
+  protected readonly submit = output<CreateMealWithImage>();
   protected readonly cancel = output<void>();
 
   protected readonly mealDataStepForm = this.fb.group<ControlsOf<MealDataStepFormType>>({
@@ -107,6 +119,9 @@ export class MealUpsertFormComponent implements OnInit {
   ngOnInit() {
     this.selectIngredientStore.cleanFilters();
     const initValue = this.$initialValue();
+    if(this.$initialImage()) {
+     this.image = this.$initialImage()!;
+    }
     if (initValue) {
       const {title, additionalPrice, description, recipe, ingredients: mealIngredients} = initValue;
       this.mealDataStepForm.patchValue({title, additionalPrice, description, recipe});
@@ -139,9 +154,14 @@ export class MealUpsertFormComponent implements OnInit {
 
     const dataFormValue = this.mealDataStepForm.getRawValue();
 
-    const result: CreateMeal = {
+    const createMeal: CreateMeal = {
       ingredients: mealIngredients,
       ...dataFormValue
+    };
+
+    const result = {
+      createMeal,
+      image: this.image
     };
 
     this.submit.emit(result);
@@ -211,5 +231,9 @@ export class MealUpsertFormComponent implements OnInit {
 
       return [...list];
     });
+  }
+
+  protected onFileUpdate(file: File | undefined) {
+    this.image = file;
   }
 }
