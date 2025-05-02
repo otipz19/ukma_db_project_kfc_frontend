@@ -136,7 +136,7 @@ export class EmployeeCreateFormComponent implements OnInit {
   ngOnInit() {
     const restaurant = this.$restaurant();
     if (restaurant == undefined) {
-      this.restaurantsApi.getRestaurantsByFilter()
+      this.restaurantsApi.getRestaurantsByFilter({isDeleted: false})
         .pipe(
           takeUntilDestroyed(this.destroyRef)
         )
