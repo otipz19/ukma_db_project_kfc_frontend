@@ -64,6 +64,7 @@ export class CreateOrderFormComponent implements OnInit {
       .subscribe(meal => {
         if (meal) {
           this.loadNewOrderMeal(meal);
+          this.selectMealStore.filters.exclude.exclude(meal.id);
         }
       });
   }
@@ -110,11 +111,13 @@ export class CreateOrderFormComponent implements OnInit {
     this.$meals.update(list => {
       return list.filter(m => m.id !== id);
     });
+    this.selectMealStore.filters.exclude.include(id);
     this.orderStateService.saveOrderState(this.$meals());
   }
 
   protected onClear() {
     this.$meals.set([]);
+    this.selectMealStore.filters.exclude.cleanFilter();
     this.orderStateService.clearOrderState();
   }
 

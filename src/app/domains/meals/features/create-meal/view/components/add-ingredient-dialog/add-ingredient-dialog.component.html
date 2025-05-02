@@ -6,7 +6,7 @@
       <app-search-bar class="search-bar" label="Пошук інгредієнта" (search)="onSearch($event)"/>
     </div>
 
-    <app-ingredients-chip-filters/>
+    <app-ingredients-chip-filters [store]="ingredientsStore"/>
 
     <div class="item-list-grid">
       @for (ingredient of $ingredients(); track ingredient.id) {

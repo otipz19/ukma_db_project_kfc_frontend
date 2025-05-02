@@ -157,6 +157,7 @@ export class MealUpsertFormComponent implements OnInit {
     dialogRef.afterClosed()
       .subscribe(ingredient => {
         if (ingredient) {
+          this.selectIngredientStore.filters.exclude.exclude(ingredient.id);
           this.addNew(ingredient);
         }
       });
@@ -183,6 +184,7 @@ export class MealUpsertFormComponent implements OnInit {
     this.$ingredients.update(list => {
       return list.filter(i => i.ingredient.id !== id);
     });
+    this.selectIngredientStore.filters.exclude.include(id);
   }
 
   protected onIngredientUp(id: Ingredient['id']) {

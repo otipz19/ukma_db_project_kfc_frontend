@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, Signal} from '@angular/core';
 import {
   MatDialogContent,
   MatDialogRef,
@@ -35,7 +35,7 @@ export class AddIngredientDialogComponent implements OnInit {
   private readonly dialogRef = inject(MatDialogRef<AddIngredientDialogComponent, Ingredient>);
   protected readonly ingredientsStore = inject(SelectIngredientStore);
 
-  protected readonly $ingredients = this.ingredientsStore.$viewList;
+  protected readonly $ingredients: Signal<Ingredient[]> = this.ingredientsStore.$viewList;
 
   protected readonly skeletonDummyIngredient: Ingredient = {
     title: '',
@@ -60,7 +60,6 @@ export class AddIngredientDialogComponent implements OnInit {
   }
 
   protected onSelect(ingredient: Ingredient) {
-    this.ingredientsStore.filters.exclude.exclude(ingredient.id);
     this.dialogRef.close(ingredient);
   }
 }

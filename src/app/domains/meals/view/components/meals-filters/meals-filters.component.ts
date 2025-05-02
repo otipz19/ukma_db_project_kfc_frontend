@@ -1,8 +1,11 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {MatChipListbox, MatChipOption, MatChipRemove} from "@angular/material/chips";
-import {MealsStore} from "../../../data-access/store/meals.store";
 import {MealsFiltersService} from "../../../features/filters/data-access/services/meals-filters.service";
 import {MatIcon} from "@angular/material/icon";
+import {BaseEntityStore} from "../../../../../shared/store/base-entity-store";
+import {Meal} from "../../../../../api/model/meal";
+import {MealsFilter} from "../../../../../api/model/mealsFilter";
+import {MealsFiltersContainer} from "../../../data-access/filters/meals-filters-container";
 
 @Component({
   selector: 'app-meals-filters',
@@ -15,13 +18,13 @@ import {MatIcon} from "@angular/material/icon";
   templateUrl: './meals-filters.component.html',
   styleUrl: './meals-filters.component.scss'
 })
-export class MealsFiltersComponent {
-  protected readonly store = inject(MealsStore);
+export class MealsFiltersComponent<TStore extends BaseEntityStore<Meal, MealsFilter, MealsFiltersContainer>> {
   private readonly filtersService = inject(MealsFiltersService);
+  readonly $store = input.required<TStore>({alias: 'store'});
 
   protected onPriceRangeToggle() {
-    this.store.filters.priceRange.toggleFilter();
-    this.store.loadAll();
+    this.$store().filters.priceRange.toggleFilter();
+    this.$store().loadAll();
   }
 
   protected onPriceRangeForm() {
@@ -29,8 +32,8 @@ export class MealsFiltersComponent {
   }
 
   protected onAdditionalPriceToggle() {
-    this.store.filters.additionalPriceRange.toggleFilter();
-    this.store.loadAll();
+    this.$store().filters.additionalPriceRange.toggleFilter();
+    this.$store().loadAll();
   }
 
   protected onAdditionalPriceForm() {
@@ -38,8 +41,8 @@ export class MealsFiltersComponent {
   }
 
   protected onWeightRangeToggle() {
-    this.store.filters.weightRange.toggleFilter();
-    this.store.loadAll();
+    this.$store().filters.weightRange.toggleFilter();
+    this.$store().loadAll();
   }
 
   protected onWeightRangeForm() {
@@ -47,8 +50,8 @@ export class MealsFiltersComponent {
   }
 
   protected onEnergeticValueToggle() {
-    this.store.filters.energeticValueRange.toggleFilter();
-    this.store.loadAll();
+    this.$store().filters.energeticValueRange.toggleFilter();
+    this.$store().loadAll();
   }
 
   protected onEnergeticValueForm() {

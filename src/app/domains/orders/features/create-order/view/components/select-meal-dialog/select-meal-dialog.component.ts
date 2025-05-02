@@ -29,6 +29,18 @@ export class SelectMealDialogComponent implements OnInit {
 
   protected readonly $meals: Signal<Meal[]> = this.store.$viewList;
 
+  protected readonly skeletonDummyMeal: Meal = {
+    title: '',
+    id: -1,
+    energeticValue: -1,
+    price: -1,
+    weight: -1,
+    ingredients: [],
+    recipe: '',
+    description: '',
+    additionalPrice: -1
+  };
+
   ngOnInit() {
     this.store.loadAll();
   }
@@ -44,7 +56,6 @@ export class SelectMealDialogComponent implements OnInit {
   }
 
   protected onSelect(meal: Meal) {
-    this.store.filters.exclude.exclude(meal.id);
     this.dialogRef.close(meal);
   }
 }

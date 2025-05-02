@@ -6,13 +6,16 @@
       <app-search-bar class="search-bar" label="Пошук страви" (search)="onSearch($event)"/>
     </div>
 
-    <app-meals-filters/>
+    <app-meals-filters [store]="store"/>
 
     <div class="item-list-grid">
       @for (meal of $meals(); track meal.id) {
         <app-meal-card [meal]="meal"
-                             hideActions
-                             (click)="onSelect(meal)"/>
+                       hideActions
+                       (click)="onSelect(meal)"/>
+      } @empty {
+        <app-meal-card style="visibility: hidden;" [meal]="skeletonDummyMeal"
+                       hideActions/>
       }
     </div>
   </div>

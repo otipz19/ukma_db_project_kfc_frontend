@@ -8,6 +8,10 @@ export abstract class ExcludeFilterModel<TEntity extends {id: number}, TFilterDt
     this.excludeIds.push(id);
   }
 
+  include(id: TEntity['id']) {
+    this.excludeIds = this.excludeIds.filter(i => i !== id);
+  }
+
   getFilterDtoPart(): Partial<TFilterDto> {
     if (!this.hasFilter()) {
       return {};
