@@ -22,6 +22,18 @@ export class IngredientsChipFiltersComponent<TStore extends BaseEntityStore<Ingr
   private readonly filtersService = inject(IngredientsFiltersService);
   readonly $store = input.required<TStore>({alias: 'store'});
 
+  protected isPriceEnabled() {
+    return this.$store().filters.priceRange.isEnabled();
+  }
+
+  protected isWeightEnabled() {
+    return this.$store().filters.weightRange.isEnabled();
+  }
+
+  protected isEnergeticValueEnabled() {
+    return this.$store().filters.energeticValueRange.isEnabled();
+  }
+
   protected onPriceRangeToggle() {
     this.$store().filters.priceRange.toggleFilter();
     this.$store().loadAll();

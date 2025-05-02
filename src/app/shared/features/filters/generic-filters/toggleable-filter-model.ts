@@ -9,6 +9,10 @@ export abstract class ToggleableFilterModel<TFilterDto> implements ServerSideFil
     this.enabled = !this.enabled;
   }
 
+  isEnabled() {
+    return this.enabled;
+  }
+
   hasFilter(): boolean {
     if(!this.enabled) {
       return false;

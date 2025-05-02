@@ -22,6 +22,22 @@ export class MealsFiltersComponent<TStore extends BaseEntityStore<Meal, MealsFil
   private readonly filtersService = inject(MealsFiltersService);
   readonly $store = input.required<TStore>({alias: 'store'});
 
+  protected isPriceEnabled() {
+    return this.$store().filters.priceRange.isEnabled();
+  }
+
+  protected isAdditionalPriceEnabled() {
+    return this.$store().filters.additionalPriceRange.isEnabled();
+  }
+
+  protected isWeightEnabled() {
+    return this.$store().filters.weightRange.isEnabled();
+  }
+
+  protected isEnergeticValueEnabled() {
+    return this.$store().filters.energeticValueRange.isEnabled();
+  }
+
   protected onPriceRangeToggle() {
     this.$store().filters.priceRange.toggleFilter();
     this.$store().loadAll();
