@@ -10,10 +10,10 @@
 
 
 export interface Ingredient { 
-    title: string;
     energeticValue: number;
     weight: number;
     price: number;
+    title: string;
     id: number;
 }
 

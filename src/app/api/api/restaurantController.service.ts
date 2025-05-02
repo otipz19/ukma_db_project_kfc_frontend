@@ -157,16 +157,21 @@ export class RestaurantControllerService extends BaseService {
     /**
      * Get restaurant by id
      * @param restaurantId 
+     * @param requireNotDeleted 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRestaurantById(restaurantId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Restaurant>;
-    public getRestaurantById(restaurantId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Restaurant>>;
-    public getRestaurantById(restaurantId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Restaurant>>;
-    public getRestaurantById(restaurantId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public getRestaurantById(restaurantId: number, requireNotDeleted?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Restaurant>;
+    public getRestaurantById(restaurantId: number, requireNotDeleted?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Restaurant>>;
+    public getRestaurantById(restaurantId: number, requireNotDeleted?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Restaurant>>;
+    public getRestaurantById(restaurantId: number, requireNotDeleted?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (restaurantId === null || restaurantId === undefined) {
             throw new Error('Required parameter restaurantId was null or undefined when calling getRestaurantById.');
         }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>requireNotDeleted, 'requireNotDeleted');
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -197,6 +202,7 @@ export class RestaurantControllerService extends BaseService {
         return this.httpClient.request<Restaurant>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

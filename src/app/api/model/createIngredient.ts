@@ -1,5 +1,5 @@
 /**
- * Meal Service
+ * Ingredient Service
  *
  * 
  *
@@ -7,18 +7,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { MealIngredient } from './mealIngredient';
 
 
-export interface Meal { 
-    additionalPrice: number;
-    description: string;
-    recipe: string;
-    ingredients: Array<MealIngredient>;
-    title: string;
-    id: number;
+export interface CreateIngredient { 
     energeticValue: number;
     weight: number;
     price: number;
+    title: string;
 }
 

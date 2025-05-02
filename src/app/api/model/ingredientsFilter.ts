@@ -15,6 +15,7 @@ export interface IngredientsFilter {
     sortBy?: string;
     descendingOrder?: boolean;
     ids?: Array<number>;
+    idsNot?: Array<number>;
     query?: string;
     minEnergeticValue?: number;
     maxEnergeticValue?: number;

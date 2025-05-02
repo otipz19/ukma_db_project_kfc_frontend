@@ -1,5 +1,5 @@
 /**
- * Ingredient Service
+ * Order Service
  *
  * 
  *
@@ -9,9 +9,7 @@
  */
 
 
-export interface UpdateIngredient { 
-    energeticValue: number;
-    weight: number;
-    price: number;
+export interface ClearOrdersHistoryRequest { 
+    clearBefore: string;
 }
 

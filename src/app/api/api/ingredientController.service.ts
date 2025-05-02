@@ -17,6 +17,8 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
+import { CreateIngredient } from '../model/createIngredient';
+// @ts-ignore
 import { Ingredient } from '../model/ingredient';
 // @ts-ignore
 import { IngredientsFilter } from '../model/ingredientsFilter';
@@ -43,16 +45,16 @@ export class IngredientControllerService extends BaseService {
 
     /**
      * Create new ingredient
-     * @param updateIngredient 
+     * @param createIngredient 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createIngredient(updateIngredient: UpdateIngredient, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<number>;
-    public createIngredient(updateIngredient: UpdateIngredient, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<number>>;
-    public createIngredient(updateIngredient: UpdateIngredient, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<number>>;
-    public createIngredient(updateIngredient: UpdateIngredient, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (updateIngredient === null || updateIngredient === undefined) {
-            throw new Error('Required parameter updateIngredient was null or undefined when calling createIngredient.');
+    public createIngredient(createIngredient: CreateIngredient, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<number>;
+    public createIngredient(createIngredient: CreateIngredient, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<number>>;
+    public createIngredient(createIngredient: CreateIngredient, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<number>>;
+    public createIngredient(createIngredient: CreateIngredient, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (createIngredient === null || createIngredient === undefined) {
+            throw new Error('Required parameter createIngredient was null or undefined when calling createIngredient.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -93,7 +95,7 @@ export class IngredientControllerService extends BaseService {
         return this.httpClient.request<number>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: updateIngredient,
+                body: createIngredient,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

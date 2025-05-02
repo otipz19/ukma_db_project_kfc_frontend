@@ -1,5 +1,5 @@
 /**
- * Ingredient Service
+ * Image Service
  *
  * 
  *
@@ -9,9 +9,10 @@
  */
 
 
-export interface UpdateIngredient { 
-    energeticValue: number;
-    weight: number;
-    price: number;
+export enum ImageType {
+
+    MEAL_IMAGE = 'MEAL_IMAGE',
+
+    INGREDIENT_IMAGE = 'INGREDIENT_IMAGE'
 }
 

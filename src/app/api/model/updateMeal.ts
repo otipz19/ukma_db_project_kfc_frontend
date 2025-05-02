@@ -11,7 +11,6 @@ import { MealIngredient } from './mealIngredient';
 
 
 export interface UpdateMeal { 
-    title: string;
     additionalPrice: number;
     description: string;
     recipe: string;

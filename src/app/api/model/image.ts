@@ -1,5 +1,5 @@
 /**
- * Ingredient Service
+ * Image Service
  *
  * 
  *
@@ -9,9 +9,8 @@
  */
 
 
-export interface UpdateIngredient { 
-    energeticValue: number;
-    weight: number;
-    price: number;
+export interface Image { 
+    image: string;
+    mimeType: string;
 }
 

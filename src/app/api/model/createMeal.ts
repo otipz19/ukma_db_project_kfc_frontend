@@ -10,15 +10,11 @@
 import { MealIngredient } from './mealIngredient';
 
 
-export interface Meal { 
+export interface CreateMeal { 
     additionalPrice: number;
     description: string;
     recipe: string;
     ingredients: Array<MealIngredient>;
     title: string;
-    id: number;
-    energeticValue: number;
-    weight: number;
-    price: number;
 }
 

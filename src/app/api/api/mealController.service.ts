@@ -17,6 +17,8 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
+import { CreateMeal } from '../model/createMeal';
+// @ts-ignore
 import { Meal } from '../model/meal';
 // @ts-ignore
 import { MealsFilter } from '../model/mealsFilter';
@@ -43,16 +45,16 @@ export class MealControllerService extends BaseService {
 
     /**
      * Create a new meal
-     * @param updateMeal 
+     * @param createMeal 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createMeal(updateMeal: UpdateMeal, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<number>;
-    public createMeal(updateMeal: UpdateMeal, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<number>>;
-    public createMeal(updateMeal: UpdateMeal, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<number>>;
-    public createMeal(updateMeal: UpdateMeal, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (updateMeal === null || updateMeal === undefined) {
-            throw new Error('Required parameter updateMeal was null or undefined when calling createMeal.');
+    public createMeal(createMeal: CreateMeal, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<number>;
+    public createMeal(createMeal: CreateMeal, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<number>>;
+    public createMeal(createMeal: CreateMeal, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<number>>;
+    public createMeal(createMeal: CreateMeal, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (createMeal === null || createMeal === undefined) {
+            throw new Error('Required parameter createMeal was null or undefined when calling createMeal.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -93,7 +95,7 @@ export class MealControllerService extends BaseService {
         return this.httpClient.request<number>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: updateMeal,
+                body: createMeal,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

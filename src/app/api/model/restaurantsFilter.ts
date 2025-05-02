@@ -16,5 +16,6 @@ export interface RestaurantsFilter {
     descendingOrder?: boolean;
     ids?: Array<number>;
     query?: string;
+    isDeleted?: boolean;
 }
 
