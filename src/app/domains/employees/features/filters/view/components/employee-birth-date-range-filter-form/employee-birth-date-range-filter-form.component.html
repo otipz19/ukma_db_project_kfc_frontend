@@ -1,0 +1,9 @@
+<form [formGroup]="form">
+  <app-common-form-datepicker-field class="default-form-input-field"
+                                    [control]="form.controls.minBirthDate!"
+                                    label="Мінімальна дата народження"/>
+
+  <app-common-form-datepicker-field class="default-form-input-field"
+                                    [control]="form.controls.maxBirthDate!"
+                                    label="Максимальна дата народження"/>
+</form>

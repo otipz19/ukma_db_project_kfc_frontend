@@ -9,7 +9,7 @@ import {Restaurant} from "../../../../api/model/restaurant";
 import {ClientStoreEntity} from "../../../clients/data-access/model/client-store-entity";
 import {convertUnixTimestampToDateString} from "../../../../shared/utils/convert-unix-timestamp-to-date-string";
 import {OrdersFilter} from "../../../../api/model/ordersFilter";
-import {OrdersFiltersContainer} from "../filters/orders.filters-container";
+import {OrdersFiltersContainer} from "../../features/filters/data-access/model/orders.filters-container";
 
 type JoinedResponse = {
   order: Order,

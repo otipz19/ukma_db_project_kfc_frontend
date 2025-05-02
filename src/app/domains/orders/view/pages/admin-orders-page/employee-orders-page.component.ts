@@ -15,14 +15,18 @@ import {getFromResolver} from "../../../../../shared/resolvers/get-from-resolver
 import {RESTAURANT_RESOLVER_KEY} from "../../../../restaurants/data-access/resolvers/restaurant.resolver";
 import {Restaurant} from "../../../../../api/model/restaurant";
 import {PageEvent} from "@angular/material/paginator";
+import {
+    OrdersChipFiltersComponent
+} from "../../../features/filters/view/components/orders-chip-filters/orders-chip-filters.component";
 
 @Component({
   selector: 'app-orders-page',
-  imports: [
-    MatButton,
-    MatIcon,
-    OrdersListComponent,
-  ],
+    imports: [
+        MatButton,
+        MatIcon,
+        OrdersListComponent,
+        OrdersChipFiltersComponent,
+    ],
   templateUrl: './employee-orders-page.component.html',
   styleUrl: './employee-orders-page.component.scss'
 })

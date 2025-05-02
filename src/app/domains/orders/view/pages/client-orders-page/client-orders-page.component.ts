@@ -14,6 +14,9 @@ import {getFromResolver} from "../../../../../shared/resolvers/get-from-resolver
 import {ClientStoreEntity} from "../../../../clients/data-access/model/client-store-entity";
 import {CLIENT_RESOLVER_KEY} from "../../../../clients/data-access/resolvers/client.resolver";
 import {PageEvent} from "@angular/material/paginator";
+import {
+  OrdersChipFiltersComponent
+} from "../../../features/filters/view/components/orders-chip-filters/orders-chip-filters.component";
 
 @Component({
   selector: 'app-client-orders-page',
@@ -21,6 +24,7 @@ import {PageEvent} from "@angular/material/paginator";
     MatButton,
     MatIcon,
     OrdersListComponent,
+    OrdersChipFiltersComponent,
   ],
   templateUrl: './client-orders-page.component.html',
   styleUrl: './client-orders-page.component.scss'

@@ -1,0 +1,10 @@
+<mat-chip-listbox multiple>
+  <mat-chip-option (click)="onCostToggle()">
+    Вартість
+    <mat-icon matChipRemove (click)="onCostOpen()">menu</mat-icon>
+  </mat-chip-option>
+  <mat-chip-option (click)="onDateToggle()">
+    Дата створення
+    <mat-icon matChipRemove (click)="onDateCreatedOpen()">menu</mat-icon>
+  </mat-chip-option>
+</mat-chip-listbox>
