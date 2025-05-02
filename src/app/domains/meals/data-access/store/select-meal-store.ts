@@ -19,7 +19,7 @@ export class SelectMealStore extends BaseEntityStore<Meal, MealsFilter, MealsFil
   }
 
   protected override getAllFromApi(filtersDto: Partial<MealsFilter>): Observable<Meal[]> {
-    return this.mealsApi.getMealsByFilter({isActual: true, ...filtersDto})
+    return this.mealsApi.getMealsByFilter({isActual: true, sortBy: 'title', ...filtersDto})
       .pipe(
         map(list => {
           this.setTotalItems(list.total);

@@ -34,6 +34,9 @@ export class CreateIngredientService {
             }),
             switchMap(() => {
               return this.imageService.uploadNewImage$(ImageType.INGREDIENT_IMAGE, ingredient.title, image);
+            }),
+            tap(() => {
+              this.store.loadAll();
             })
           );
       }

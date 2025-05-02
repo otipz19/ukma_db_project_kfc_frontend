@@ -39,6 +39,9 @@ export class EditIngredientService {
             }),
             switchMap(() => {
               return this.imageService.changeImage$(ImageType.INGREDIENT_IMAGE, updatedIngredient.title, image);
+            }),
+            tap(() => {
+              this.store.loadAll();
             })
           )
       }

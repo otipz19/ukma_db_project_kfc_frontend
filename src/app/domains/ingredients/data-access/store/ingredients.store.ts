@@ -19,7 +19,7 @@ export class IngredientsStore extends BaseEntityStore<Ingredient, IngredientsFil
   }
 
   protected override getAllFromApi(filtersDto: Partial<IngredientsFilter>): Observable<Ingredient[]> {
-      return this.ingredientsApi.getIngredientsByFilter({isActual: true, ...filtersDto})
+      return this.ingredientsApi.getIngredientsByFilter({isActual: true, sortBy: 'title', ...filtersDto})
         .pipe(
           map(list => {
             this.setTotalItems(list.total);
