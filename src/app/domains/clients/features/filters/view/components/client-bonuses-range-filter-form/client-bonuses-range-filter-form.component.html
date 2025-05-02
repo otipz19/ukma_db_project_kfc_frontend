@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.minBonuses!"
+                               inputType="number"
+                               label="Мінімальна кількість бонусів"/>
+
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.maxBonuses!"
+                               inputType="number"
+                               label="Максимальна кількість бонусів"/>
+</form>

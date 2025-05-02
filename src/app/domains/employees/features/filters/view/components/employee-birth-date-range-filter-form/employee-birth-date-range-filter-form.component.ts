@@ -12,7 +12,7 @@ import {
 } from "../../../../../../../shared/form/components/common-form-datepicker-field/common-form-datepicker-field.component";
 
 @Component({
-  selector: 'app-meals-energetic-value-range-filter-form',
+  selector: 'app-employee-birth-date-range-filter-form',
   imports: [
     ReactiveFormsModule,
     CommonFormDatepickerFieldComponent

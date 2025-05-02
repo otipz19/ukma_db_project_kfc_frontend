@@ -11,6 +11,9 @@ import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {Sort} from "@angular/material/sort";
 import {PageEvent} from "@angular/material/paginator";
+import {
+  ClientChipFiltersComponent
+} from "../../../features/filters/view/components/client-chip-filters/client-chip-filters.component";
 
 @Component({
   selector: 'app-clients-page',
@@ -19,6 +22,7 @@ import {PageEvent} from "@angular/material/paginator";
     ClientsListComponent,
     MatButton,
     MatIcon,
+    ClientChipFiltersComponent,
   ],
   templateUrl: './clients-page.component.html',
   styleUrl: './clients-page.component.scss'

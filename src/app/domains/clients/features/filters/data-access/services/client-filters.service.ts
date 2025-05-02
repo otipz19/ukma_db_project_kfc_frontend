@@ -1,29 +1,29 @@
 import {inject, Injectable} from "@angular/core";
 import {UpsertDialogService} from "../../../../../../shared/features/upsert-dialog/services/upsert-dialog.service";
-import {EmployeesStore} from "../../../../data-access/store/employees.store";
+import {ClientsStore} from "../../../../data-access/store/clients.store";
 import {
-  EmployeeSalaryRangeFilterFormComponent
-} from "../../view/components/employee-salary-range-filter-form/employee-salary-range-filter-form.component";
+  ClientBonusesRangeFilterFormComponent
+} from "../../view/components/client-bonuses-range-filter-form/client-bonuses-range-filter-form.component";
 import {of} from "rxjs";
 import {
-  EmployeeBirthDateRangeFilterFormComponent
-} from "../../view/components/employee-birth-date-range-filter-form/employee-birth-date-range-filter-form.component";
+  ClientBirthDateRangeFilterFormComponent
+} from "../../view/components/client-birth-date-range-filter-form/client-birth-date-range-filter-form.component";
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeFiltersService {
+export class ClientFiltersService {
   private readonly upsertDialog = inject(UpsertDialogService);
-  private readonly store = inject(EmployeesStore);
+  private readonly store = inject(ClientsStore);
 
-  openSalaryRange() {
+  openBonusesRange() {
     this.upsertDialog.openUpsert$(
       {
-        title: 'Оберіть діапазон заробітної плати',
-        formComponent: EmployeeSalaryRangeFilterFormComponent,
-        initialValue: this.store.filters.salary.getRange(),
+        title: 'Оберіть діапазон кількості бонусів',
+        formComponent: ClientBonusesRangeFilterFormComponent,
+        initialValue: this.store.filters.bonuses.getRange(),
         submitCallback: (range) => {
-          this.store.filters.salary.setRange(range);
+          this.store.filters.bonuses.setRange(range);
           this.store.loadAll();
           return of(true);
         }
@@ -36,7 +36,7 @@ export class EmployeeFiltersService {
     this.upsertDialog.openUpsert$(
       {
         title: 'Оберіть діапазон дати народження',
-        formComponent: EmployeeBirthDateRangeFilterFormComponent,
+        formComponent: ClientBirthDateRangeFilterFormComponent,
         initialValue: this.store.filters.birthDate.getRange(),
         submitCallback: (range) => {
           this.store.filters.birthDate.setRange(range);

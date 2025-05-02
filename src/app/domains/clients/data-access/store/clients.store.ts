@@ -1,5 +1,5 @@
 import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
-import {ClientsFiltersContainer} from "../filters/filters-container/clients.filters-container";
+import {ClientsFiltersContainer} from "../../features/filters/data-access/model/filters-container/clients.filters-container";
 import {map, Observable, tap} from "rxjs";
 import {ClientStoreEntity, mapClientToStoreEntity} from "../model/client-store-entity";
 import {inject, Injectable} from "@angular/core";
