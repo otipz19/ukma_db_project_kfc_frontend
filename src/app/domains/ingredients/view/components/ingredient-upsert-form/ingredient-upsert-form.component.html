@@ -20,9 +20,8 @@
                                label="Вага (г)"
                                inputType="number"/>
 
-<!--  <div class="image-section">-->
-<!--    <label for="imageUpload">Зображення:</label>-->
-<!--    <input type="file" id="imageUpload" (change)="onImageChange($event)" accept="image/*" />-->
-<!--    <img [src]="previewUrl" class="preview-img" *ngIf="previewUrl" />-->
-<!--  </div>-->
+  <div class="image-drop-zone-wrapper">
+    <label>Зображення</label>
+    <app-image-drop-zone/>
+  </div>
 </form>

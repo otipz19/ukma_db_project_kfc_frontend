@@ -184,3 +184,8 @@ body {
   width: 600px !important;
   display: block !important;
 }
+
+.logo-drop-zone {
+  border-radius: var(--R-1, 8px);
+  border: 2px dashed var(--Borders-Brd-Gray, #E6E7E7);
+}

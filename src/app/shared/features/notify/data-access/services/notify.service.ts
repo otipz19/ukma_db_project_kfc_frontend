@@ -87,6 +87,10 @@ export class NotifyService {
     };
   }
 
+  showError(errorMessage: string) {
+    this.openErrorDialog({error: errorMessage});
+  }
+
   private openErrorDialog(config: ErrorDialogConfig) {
     return this.dialog.open<ErrorDialogComponent, ErrorDialogConfig, undefined>(ErrorDialogComponent, {
       data: config,

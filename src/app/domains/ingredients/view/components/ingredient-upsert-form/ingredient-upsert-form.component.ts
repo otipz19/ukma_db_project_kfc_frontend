@@ -8,12 +8,16 @@ import {
 } from "../../../../../shared/features/upsert-dialog/components/upsert-dialog/upsert-dialog.component";
 import {ControlsOf} from "../../../../../shared/type-utils/controls-of";
 import {CreateIngredient} from "../../../../../api/model/createIngredient";
+import {
+  ImageDropZoneComponent
+} from "../../../../../shared/features/images/view/components/image-drop-zone/image-drop-zone.component";
 
 @Component({
   selector: 'app-ingredient-upsert-form',
   imports: [
     ReactiveFormsModule,
-    CommonFormInputFieldComponent
+    CommonFormInputFieldComponent,
+    ImageDropZoneComponent
   ],
   templateUrl: './ingredient-upsert-form.component.html',
   styleUrl: './ingredient-upsert-form.component.scss'

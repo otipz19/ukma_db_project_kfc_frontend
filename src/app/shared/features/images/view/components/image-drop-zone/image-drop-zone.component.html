@@ -1,0 +1,18 @@
+<ngx-file-drop [multiple]="false"
+               accept="image/jpeg,image/jpg,image/png,image/gif"
+               dropZoneClassName="logo-drop-zone"
+               (onFileDrop)="onDrop($event)">
+  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+    <div class="dropzone-content" (click)="openFileSelector()">
+      @let imageSrc = $imageSrc();
+      @if (!imageSrc) {
+        <span class="drop-action-label">Перетягніть файл сюди</span>
+      } @else {
+        <div class="image-preview-wrapper">
+          <button type="button" class="remove-btn" (click)="onRemove($event)">✖</button>
+          <img [src]="imageSrc" alt="Preview"/>
+        </div>
+      }
+    </div>
+  </ng-template>
+</ngx-file-drop>
