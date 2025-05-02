@@ -28,7 +28,7 @@ export class IngredientsChipFiltersComponent<TStore extends BaseEntityStore<Ingr
   }
 
   protected onPriceRangeForm() {
-    this.filtersService.openPriceRange();
+    this.filtersService.openPriceRange(this.$store());
   }
 
   protected onWeightRangeToggle() {
@@ -37,7 +37,7 @@ export class IngredientsChipFiltersComponent<TStore extends BaseEntityStore<Ingr
   }
 
   protected onWeightRangeForm() {
-    this.filtersService.openWeightRange();
+    this.filtersService.openWeightRange(this.$store());
   }
 
   protected onEnergeticValueToggle() {
@@ -46,6 +46,6 @@ export class IngredientsChipFiltersComponent<TStore extends BaseEntityStore<Ingr
   }
 
   protected onEnergeticValueForm() {
-    this.filtersService.openEnergeticValue();
+    this.filtersService.openEnergeticValue(this.$store());
   }
 }

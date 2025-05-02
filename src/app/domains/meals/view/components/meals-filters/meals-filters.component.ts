@@ -28,7 +28,7 @@ export class MealsFiltersComponent<TStore extends BaseEntityStore<Meal, MealsFil
   }
 
   protected onPriceRangeForm() {
-    this.filtersService.openPriceRange();
+    this.filtersService.openPriceRange(this.$store());
   }
 
   protected onAdditionalPriceToggle() {
@@ -37,7 +37,7 @@ export class MealsFiltersComponent<TStore extends BaseEntityStore<Meal, MealsFil
   }
 
   protected onAdditionalPriceForm() {
-    this.filtersService.openAdditionalPriceRange();
+    this.filtersService.openAdditionalPriceRange(this.$store());
   }
 
   protected onWeightRangeToggle() {
@@ -46,7 +46,7 @@ export class MealsFiltersComponent<TStore extends BaseEntityStore<Meal, MealsFil
   }
 
   protected onWeightRangeForm() {
-    this.filtersService.openWeightRange();
+    this.filtersService.openWeightRange(this.$store());
   }
 
   protected onEnergeticValueToggle() {
@@ -55,6 +55,6 @@ export class MealsFiltersComponent<TStore extends BaseEntityStore<Meal, MealsFil
   }
 
   protected onEnergeticValueForm() {
-    this.filtersService.openEnergeticValue();
+    this.filtersService.openEnergeticValue(this.$store());
   }
 }

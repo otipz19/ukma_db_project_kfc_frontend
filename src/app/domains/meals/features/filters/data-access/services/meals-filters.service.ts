@@ -3,7 +3,6 @@ import {UpsertDialogService} from "../../../../../../shared/features/upsert-dial
 import {
   MealsPriceRangeFilterFormComponent
 } from "../../view/components/meals-price-filter/meals-price-range-filter-form.component";
-import {MealsStore} from "../../../../data-access/store/meals.store";
 import {of} from "rxjs";
 import {
   MealsWeightRangeFilterFormComponent
@@ -14,23 +13,26 @@ import {
 import {
   MealsAdditionalPriceRangeFilterFormComponent
 } from "../../view/components/meals-additional-price-range-filter-form/meals-additional-price-range-filter-form.component";
+import {BaseEntityStore} from "../../../../../../shared/store/base-entity-store";
+import {Meal} from "../../../../../../api/model/meal";
+import {MealsFilter} from "../../../../../../api/model/mealsFilter";
+import {MealsFiltersContainer} from "../../../../data-access/filters/meals-filters-container";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MealsFiltersService {
   private readonly upsertDialog = inject(UpsertDialogService);
-  private readonly store = inject(MealsStore);
 
-  openPriceRange() {
+  openPriceRange<TStore extends BaseEntityStore<Meal, MealsFilter, MealsFiltersContainer>>(store: TStore) {
     this.upsertDialog.openUpsert$(
       {
         title: 'Оберіть діапазон цін',
         formComponent: MealsPriceRangeFilterFormComponent,
-        initialValue: this.store.filters.priceRange.getRange(),
+        initialValue: store.filters.priceRange.getRange(),
         submitCallback: (priceRange) => {
-          this.store.filters.priceRange.setRange(priceRange);
-          this.store.loadAll();
+          store.filters.priceRange.setRange(priceRange);
+          store.loadAll();
           return of(true);
         }
       }
@@ -38,15 +40,15 @@ export class MealsFiltersService {
       .subscribe();
   }
 
-  openAdditionalPriceRange() {
+  openAdditionalPriceRange<TStore extends BaseEntityStore<Meal, MealsFilter, MealsFiltersContainer>>(store: TStore) {
     this.upsertDialog.openUpsert$(
       {
         title: 'Оберіть діапазон доданої вартості',
         formComponent: MealsAdditionalPriceRangeFilterFormComponent,
-        initialValue: this.store.filters.additionalPriceRange.getRange(),
+        initialValue: store.filters.additionalPriceRange.getRange(),
         submitCallback: (priceRange) => {
-          this.store.filters.additionalPriceRange.setRange(priceRange);
-          this.store.loadAll();
+          store.filters.additionalPriceRange.setRange(priceRange);
+          store.loadAll();
           return of(true);
         }
       }
@@ -54,15 +56,15 @@ export class MealsFiltersService {
       .subscribe();
   }
 
-  openWeightRange() {
+  openWeightRange<TStore extends BaseEntityStore<Meal, MealsFilter, MealsFiltersContainer>>(store: TStore) {
     this.upsertDialog.openUpsert$(
       {
         title: 'Оберіть діапазон ваги',
         formComponent: MealsWeightRangeFilterFormComponent,
-        initialValue: this.store.filters.weightRange.getRange(),
+        initialValue: store.filters.weightRange.getRange(),
         submitCallback: (range) => {
-          this.store.filters.weightRange.setRange(range);
-          this.store.loadAll();
+          store.filters.weightRange.setRange(range);
+          store.loadAll();
           return of(true);
         }
       }
@@ -70,15 +72,15 @@ export class MealsFiltersService {
       .subscribe();
   }
 
-  openEnergeticValue() {
+  openEnergeticValue<TStore extends BaseEntityStore<Meal, MealsFilter, MealsFiltersContainer>>(store: TStore) {
     this.upsertDialog.openUpsert$(
       {
         title: 'Оберіть діапазон енергетичної цінності',
         formComponent: MealsEnergeticValueRangeFilterFormComponent,
-        initialValue: this.store.filters.energeticValueRange.getRange(),
+        initialValue: store.filters.energeticValueRange.getRange(),
         submitCallback: (range) => {
-          this.store.filters.energeticValueRange.setRange(range);
-          this.store.loadAll();
+          store.filters.energeticValueRange.setRange(range);
+          store.loadAll();
           return of(true);
         }
       }
