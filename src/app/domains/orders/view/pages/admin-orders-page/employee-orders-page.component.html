@@ -9,6 +9,12 @@
         <mat-icon>print</mat-icon>
         <span>Експортувати звіт</span>
       </button>
+
+      @if (authService.hasRole(UserRole.ADMIN)) {
+        <button mat-raised-button color="warn" (click)="onDeleteOldOrders()">
+          <span>Видалити застарілі замовлення</span>
+        </button>
+      }
     </div>
   </div>
 

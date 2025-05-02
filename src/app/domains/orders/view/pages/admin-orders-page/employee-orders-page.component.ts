@@ -18,6 +18,11 @@ import {PageEvent} from "@angular/material/paginator";
 import {
     OrdersChipFiltersComponent
 } from "../../../features/filters/view/components/orders-chip-filters/orders-chip-filters.component";
+import {AuthService} from "../../../../../core/services/auth.service";
+import {UserRole} from "../../../../../api";
+import {
+  DeleteOldOrdersService
+} from "../../../features/delete-old-orders/data-access/services/delete-old-orders.service";
 
 @Component({
   selector: 'app-orders-page',
@@ -35,6 +40,8 @@ export class EmployeeOrdersPageComponent implements OnInit {
   private readonly reportsService = inject(TableReportsService);
   private readonly columnsMapper = new OrderColumnsMapper();
   protected readonly displayedColumns = EmployeeOrderDisplayedColumnsArray;
+  protected readonly authService = inject(AuthService);
+  private readonly deleteOldOrdersService = inject(DeleteOldOrdersService);
 
   protected readonly $orders: Signal<ListOrderDto[]> = this.store.$viewList;
 
@@ -45,6 +52,13 @@ export class EmployeeOrdersPageComponent implements OnInit {
       this.store.setRestaurantId(this.restaurant.id);
     }
     this.store.loadAll();
+  }
+
+  protected onDeleteOldOrders() {
+    this.deleteOldOrdersService.deleteOldOrders$()
+      .subscribe(() => {
+        this.store.loadAll();
+      });
   }
 
   protected onPagination(page: PageEvent) {
@@ -61,4 +75,6 @@ export class EmployeeOrdersPageComponent implements OnInit {
       headerColumns: EmployeeOrderColumnsArray
     });
   }
+
+  protected readonly UserRole = UserRole;
 }
