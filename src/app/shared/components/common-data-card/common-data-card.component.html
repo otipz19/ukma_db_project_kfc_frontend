@@ -1,17 +1,19 @@
-<mat-card class="common-data-card">
-  <mat-card-header class="common-data-card-header">
-    <mat-card-title>
-      <ng-content select="[title]"></ng-content>
-    </mat-card-title>
+<div class="mat-elevation-z1">
+  <mat-card class="common-data-card">
+    <mat-card-header class="common-data-card-header">
+      <mat-card-title>
+        <ng-content select="[title]"></ng-content>
+      </mat-card-title>
 
-    <div class="common-data-card-header-absolute-action">
-      <ng-content select="[relativeAction]"></ng-content>
-    </div>
-  </mat-card-header>
+      <div class="common-data-card-header-absolute-action">
+        <ng-content select="[relativeAction]"></ng-content>
+      </div>
+    </mat-card-header>
 
-  <mat-card-content>
-    <div class="common-data-card-content-wrapper">
-      <ng-content></ng-content>
-    </div>
-  </mat-card-content>
-</mat-card>
+    <mat-card-content>
+      <div class="common-data-card-content-wrapper">
+        <ng-content></ng-content>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

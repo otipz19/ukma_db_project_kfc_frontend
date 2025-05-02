@@ -10,20 +10,21 @@ export const CLIENTS_ROUTES: Routes = [
     children: [
       {
         path: '',
-        canActivate: [hasRoleRouteGuard(UserRole.ADMIN, UserRole.MANAGER)],
+        canActivate: [hasRoleRouteGuard(UserRole.ADMIN, UserRole.MANAGER, UserRole.CASHIER)],
         loadComponent: () => import('./view/pages/clients-page/clients-page.component').then(r => r.ClientsPageComponent)
       },
       {
         path: ':clientId',
-        canActivate: [hasRoleRouteGuard(UserRole.ADMIN, UserRole.MANAGER, UserRole.CLIENT)],
         resolve: {[CLIENT_RESOLVER_KEY]: clientResolver},
         children: [
           {
             path: '',
+            canActivate: [hasRoleRouteGuard(UserRole.ADMIN, UserRole.MANAGER, UserRole.CLIENT, UserRole.CASHIER)],
             loadComponent: () => import('./view/pages/client-profile-page/client-profile-page.component').then(r => r.ClientProfilePageComponent)
           },
           {
             path: 'orders',
+            canActivate: [hasRoleRouteGuard(UserRole.ADMIN, UserRole.CLIENT)],
             children: [
               {
                 path: '',

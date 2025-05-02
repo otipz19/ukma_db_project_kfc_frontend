@@ -13,9 +13,11 @@
     <app-common-data-card class="common-data-card-absolute-width">
       <span title>Персональні дані</span>
 
-      <button relativeAction mat-icon-button color="primary" (click)="onEdit()">
-        <mat-icon>edit</mat-icon>
-      </button>
+      @if (authService.hasRole(UserRole.CLIENT)) {
+        <button relativeAction mat-icon-button color="primary" (click)="onEdit()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      }
 
       <p>
         <strong>Прізвище: </strong> {{ $client()?.surname }}

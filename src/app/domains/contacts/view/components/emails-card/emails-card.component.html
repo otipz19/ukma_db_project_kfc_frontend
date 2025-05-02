@@ -1,8 +1,10 @@
 <app-common-data-card class="common-data-card-absolute-width">
   <span title>Пошта</span>
-  <button relativeAction mat-icon-button color="primary" (click)="onEdit()">
-    <mat-icon>edit</mat-icon>
-  </button>
+  @if (authService.$currentUser()?.id === $userId()) {
+    <button relativeAction mat-icon-button color="primary" (click)="onEdit()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  }
   @for (email of $emails(); track email; ) {
     <div class="contact-wrapper">
       <strong>{{ $index + 1 }}.</strong> <a mat-button color="primary" [href]="'mailto:' + email">{{ email }}</a>
