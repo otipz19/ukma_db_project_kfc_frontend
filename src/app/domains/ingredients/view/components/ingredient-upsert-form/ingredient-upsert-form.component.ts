@@ -30,7 +30,7 @@ export type CreateIngredientWithImage = {
 export class IngredientUpsertFormComponent implements UpsertDialogFormComponent<CreateIngredientWithImage> {
   private readonly fb = inject(FormBuilder).nonNullable;
 
-  private image?: File;
+  protected image?: File;
 
   protected readonly form: FormGroup<ControlsOf<CreateIngredient>> = this.fb.group({
     title: this.fb.control('', [Validators.required, Validators.maxLength(64)]),

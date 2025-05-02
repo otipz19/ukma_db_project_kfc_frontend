@@ -3,8 +3,13 @@
     <mat-card-title class="item-list-card-title">{{ $ingredient().title }}</mat-card-title>
   </mat-card-header>
 
-  <img imageLoader [imageType]="ImageType.INGREDIENT_IMAGE" [title]="$ingredient().title"
-       class="item-list-card-img" mat-card-image alt="{{ $ingredient().title }}"/>
+  <img imageLoader [imageType]="ImageType.INGREDIENT_IMAGE"
+       [title]="$ingredient().title"
+       (imageLoaded)="onImageLoaded($event)"
+       class="item-list-card-img"
+       mat-card-image
+       alt="{{ $ingredient().title }}"
+  />
 
   <mat-card-content>
     <div class="item-list-card-info-container">

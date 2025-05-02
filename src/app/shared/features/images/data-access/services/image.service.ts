@@ -13,24 +13,29 @@ export class ImageService {
   private readonly notify = inject(NotifyService);
 
   getImage$(imageType: ImageType, title: string): Observable<File | undefined> {
-    return this.imageApi.getImage(imageType, title)
+    return this.imageApi.getImage(imageType, title, 'response')
       .pipe(
-        map(blob => {
-          return new File([blob], 'image');
+        map(response => {
+          const blob = response.body;
+          if(blob == undefined) {
+            return undefined;
+          }
+          const contentType = response.headers.get('Content-Type')!;
+          return new File([blob], 'image', {type: contentType});
         }),
         catchError(() => of(undefined))
       );
   }
 
   changeImage$(imageType: ImageType, title: string, image: File | undefined): Observable<boolean> {
-    if(image == undefined) {
+    if (image == undefined) {
       return this.deleteImageRequest$(imageType, title);
     }
     return this.setImageRequest$(imageType, title, image);
   }
 
-  uploadNewImage$(imageType: ImageType, title: string, image: File | undefined): Observable<boolean>  {
-    if(image == undefined) {
+  uploadNewImage$(imageType: ImageType, title: string, image: File | undefined): Observable<boolean> {
+    if (image == undefined) {
       return of(false);
     }
     return this.setImageRequest$(imageType, title, image);
@@ -40,7 +45,7 @@ export class ImageService {
     return this.getBase64$(image)
       .pipe(
         switchMap(base64 => {
-          if(image == undefined || base64 == undefined) {
+          if (image == undefined || base64 == undefined) {
             return of(true);
           }
           return this.imageApi.setImage(imageType, title, {
@@ -53,7 +58,7 @@ export class ImageService {
       );
   }
 
-  private deleteImageRequest$(imageType: ImageType, title: string): Observable<boolean>{
+  private deleteImageRequest$(imageType: ImageType, title: string): Observable<boolean> {
     return this.imageApi.deleteImage(imageType, title)
       .pipe(
         this.notify.notifyError(),

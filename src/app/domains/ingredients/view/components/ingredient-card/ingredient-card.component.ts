@@ -49,11 +49,15 @@ export class IngredientCardComponent {
 
   protected readonly $image = signal<File | undefined>(undefined);
 
-  onDeleteClick(): void {
+  protected onImageLoaded(image: File | undefined) {
+    this.$image.set(image);
+  }
+
+  protected onDeleteClick(): void {
     this.deleteIngredientService.delete(this.$ingredient());
   }
 
-  onEditClick(): void {
+  protected onEditClick(): void {
     this.editIngredientService.edit(this.$ingredient(), this.$image());
   }
 
