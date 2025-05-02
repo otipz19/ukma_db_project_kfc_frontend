@@ -22,7 +22,7 @@ export class SidenavLinksService {
     [UserRole.ADMIN, ['meals', 'ingredients', 'restaurants', 'restaurants-statistics', 'employees', 'clients', 'orders']],
     [UserRole.MANAGER, ['meals', 'ingredients', 'restaurants', 'employees', 'clients', 'orders']],
     [UserRole.CASHIER, ['meals', 'orders', 'clients']],
-    [UserRole.COOK, ['meals', 'ingredients']],
+    [UserRole.COOK, ['meals', 'ingredients', 'orders']],
     [UserRole.CLIENT, ['meals', 'orders']],
   ]);
 
