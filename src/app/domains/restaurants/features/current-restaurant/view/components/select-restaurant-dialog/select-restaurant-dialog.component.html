@@ -9,5 +9,9 @@
     <div class="list-container">
       <app-restaurants-list [restaurants]="$restaurants()" [hideActions]="true" (select)="onSelect($event)"/>
     </div>
+
+    <div class="mat-elevation-z3">
+      <app-common-paginator [paginator]="store.paginatorModel" (page)="onPagination($event)"/>
+    </div>
   </div>
 </mat-dialog-content>

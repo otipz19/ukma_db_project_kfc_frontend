@@ -4,6 +4,10 @@ import {SearchBarComponent} from "../../../../../../../shared/components/search-
 import {MatDialogContent, MatDialogRef, MatDialogTitle} from "@angular/material/dialog";
 import {RestaurantsStore} from "../../../../../data-access/store/restaurants.store";
 import {Restaurant} from "../../../../../../../api/model/restaurant";
+import {
+  CommonPaginatorComponent
+} from "../../../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-select-restaurant-dialog',
@@ -11,14 +15,15 @@ import {Restaurant} from "../../../../../../../api/model/restaurant";
     RestaurantsListComponent,
     SearchBarComponent,
     MatDialogContent,
-    MatDialogTitle
+    MatDialogTitle,
+    CommonPaginatorComponent
   ],
   templateUrl: './select-restaurant-dialog.component.html',
   styleUrl: './select-restaurant-dialog.component.scss'
 })
 export class SelectRestaurantDialogComponent implements OnInit {
   private readonly dialogRef = inject(MatDialogRef<void, Restaurant>);
-  private readonly store = inject(RestaurantsStore);
+  protected readonly store = inject(RestaurantsStore);
 
   protected $restaurants: Signal<Restaurant[]> = this.store.$viewList;
 
@@ -33,5 +38,10 @@ export class SelectRestaurantDialogComponent implements OnInit {
 
   protected onSelect(restaurant: Restaurant) {
     this.dialogRef.close(restaurant);
+  }
+
+  protected onPagination(page: PageEvent) {
+    this.store.paginatorModel.setPageEvent(page);
+    this.store.loadAll();
   }
 }

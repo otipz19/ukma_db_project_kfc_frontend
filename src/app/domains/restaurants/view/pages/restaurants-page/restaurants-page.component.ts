@@ -35,7 +35,7 @@ export class RestaurantsPageComponent implements OnInit {
   protected readonly $restaurants: Signal<Restaurant[]> = this.store.$viewList;
 
   ngOnInit() {
-    this.store.loadAll();
+    this.store.initialLoad();
   }
 
   protected onPagination(page: PageEvent) {
