@@ -2,7 +2,7 @@ import {Component, computed, DestroyRef, inject, OnInit, output, signal} from '@
 import {MatDialog} from "@angular/material/dialog";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {OrderMeal} from "../../../data-access/types/order-meal";
-import {SelectMealDialogComponent, SelectMealDialogData} from "../select-meal-dialog/select-meal-dialog.component";
+import {SelectMealDialogComponent} from "../select-meal-dialog/select-meal-dialog.component";
 import {Meal} from "../../../../../../../api/model/meal";
 import {IngredientControllerService} from "../../../../../../../api/api/ingredientController.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -11,6 +11,7 @@ import {OrderMealIngredient} from "../../../data-access/types/order-meal-ingredi
 import {OrderMealCardComponent} from "../order-meal-card/order-meal-card.component";
 import {MatIcon} from "@angular/material/icon";
 import {OrderStateService} from "../../../data-access/services/order-state.service";
+import {SelectMealStore} from "../../../../../../meals/data-access/store/select-meal-store";
 
 @Component({
   selector: 'app-create-order-form',
@@ -29,6 +30,7 @@ export class CreateOrderFormComponent implements OnInit {
   private readonly ingredientsApi = inject(IngredientControllerService);
   private readonly notify = inject(NotifyService);
   private readonly orderStateService = inject(OrderStateService);
+  private readonly selectMealStore = inject(SelectMealStore);
 
   protected readonly submit = output<OrderMeal[]>();
   protected readonly cancel = output<void>();
@@ -41,16 +43,18 @@ export class CreateOrderFormComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.$meals.set(this.orderStateService.getOrderState());
+    const meals = this.orderStateService.getOrderState();
+    this.$meals.set(meals);
+    this.selectMealStore.cleanFilters();
+    for(const meal of meals) {
+      this.selectMealStore.filters.exclude.exclude(meal.id);
+    }
   }
 
   protected onAddMeal() {
-    const dialogRef = this.matDialog.open<SelectMealDialogComponent, SelectMealDialogData, Meal>(
+    const dialogRef = this.matDialog.open<SelectMealDialogComponent, void, Meal>(
       SelectMealDialogComponent,
       {
-        data: {
-          alreadyPresentMealsIdList: this.$meals().map(m => m.id)
-        },
         minWidth: '800px',
         minHeight: '400px'
       }

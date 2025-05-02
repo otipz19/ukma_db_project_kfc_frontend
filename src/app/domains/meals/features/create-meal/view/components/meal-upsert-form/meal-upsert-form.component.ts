@@ -20,7 +20,6 @@ import {
 import {MatDialog} from "@angular/material/dialog";
 import {
   AddIngredientDialogComponent,
-  AddIngredientDialogData
 } from "../add-ingredient-dialog/add-ingredient-dialog.component";
 import {Ingredient} from "../../../../../../../api/model/ingredient";
 import {MealIngredientCardComponent} from "../meal-ingredient-card/meal-ingredient-card.component";
@@ -36,6 +35,7 @@ import {
   CommonFormTextAreaComponent
 } from "../../../../../../../shared/form/components/common-form-text-area/common-form-text-area.component";
 import {CreateMeal} from "../../../../../../../api/model/createMeal";
+import {SelectIngredientStore} from "../../../../../../ingredients/data-access/store/select-ingredient.store";
 
 type MealDataStepFormType = Omit<CreateMeal, 'ingredients'>
 
@@ -63,6 +63,7 @@ export class MealUpsertFormComponent implements OnInit {
   private readonly matDialog = inject(MatDialog);
   private readonly notify = inject(NotifyService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly selectIngredientStore = inject(SelectIngredientStore);
 
   readonly $initialValue = input<Meal | undefined>(undefined, {alias: 'initialValue'});
 
@@ -92,7 +93,7 @@ export class MealUpsertFormComponent implements OnInit {
       energeticValue: 0
     };
 
-    for(const dto of this.$ingredients()) {
+    for (const dto of this.$ingredients()) {
       mealStats.price += dto.ingredient.price * dto.mealIngredient.amount;
       mealStats.energeticValue += dto.ingredient.energeticValue * dto.mealIngredient.amount;
       mealStats.weight += dto.ingredient.weight * dto.mealIngredient.amount;
@@ -104,8 +105,9 @@ export class MealUpsertFormComponent implements OnInit {
   private readonly $matStepper = viewChild(MatStepper);
 
   ngOnInit() {
+    this.selectIngredientStore.cleanFilters();
     const initValue = this.$initialValue();
-    if(initValue) {
+    if (initValue) {
       const {title, additionalPrice, description, recipe, ingredients: mealIngredients} = initValue;
       this.mealDataStepForm.patchValue({title, additionalPrice, description, recipe});
       this.mealDataStepForm.controls.title.disable();
@@ -126,7 +128,7 @@ export class MealUpsertFormComponent implements OnInit {
   }
 
   protected onSubmit() {
-    if(this.mealDataStepForm.invalid) {
+    if (this.mealDataStepForm.invalid) {
       this.mealDataStepForm.markAllAsTouched();
       this.$matStepper()?.previous();
       return;
@@ -150,14 +152,7 @@ export class MealUpsertFormComponent implements OnInit {
   }
 
   protected onAddIngredient() {
-    const dialogRef = this.matDialog.open<AddIngredientDialogComponent, AddIngredientDialogData, Ingredient>(
-      AddIngredientDialogComponent,
-      {
-        data: {
-          alreadyPresentIngredientsIdList: this.$ingredients().map(dto => dto.ingredient.id)
-        }
-      }
-    );
+    const dialogRef = this.matDialog.open<AddIngredientDialogComponent, void, Ingredient>(AddIngredientDialogComponent);
 
     dialogRef.afterClosed()
       .subscribe(ingredient => {
@@ -193,7 +188,7 @@ export class MealUpsertFormComponent implements OnInit {
   protected onIngredientUp(id: Ingredient['id']) {
     this.$ingredients.update(list => {
       const index = list.findIndex(i => i.ingredient.id === id);
-      if(index > 0) {
+      if (index > 0) {
         const aux = list[index];
         list[index] = list[index - 1];
         list[index - 1] = aux;
@@ -206,7 +201,7 @@ export class MealUpsertFormComponent implements OnInit {
   protected onIngredientDown(id: Ingredient['id']) {
     this.$ingredients.update(list => {
       const index = list.findIndex(i => i.ingredient.id === id);
-      if(index < list.length - 1) {
+      if (index < list.length - 1) {
         const aux = list[index];
         list[index] = list[index + 1];
         list[index + 1] = aux;

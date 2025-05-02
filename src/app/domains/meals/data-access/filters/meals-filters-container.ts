@@ -5,6 +5,7 @@ import {MealsPriceRangeFilterModel} from "./meals-price-range.filter-model";
 import {MealsWeightRangeFilterModel} from "./meals-weight-range.filter-model";
 import {MealsEnergeticValueRangeFilterModel} from "./meals-energetic-value-range.filter-model";
 import {MealsAdditionalPriceRangeFilterModel} from "./meals-additional-price-range.filter-model";
+import {MealsExcludeFilterModel} from "./meals-exclude-filter.model";
 
 export class MealsFiltersContainer extends ServerSideFiltersContainer<MealsFilter> {
   readonly search = this.addFilterModel(new SearchMealsFilterModel());
@@ -12,4 +13,5 @@ export class MealsFiltersContainer extends ServerSideFiltersContainer<MealsFilte
   readonly additionalPriceRange = this.addFilterModel(new MealsAdditionalPriceRangeFilterModel());
   readonly weightRange = this.addFilterModel(new MealsWeightRangeFilterModel());
   readonly energeticValueRange = this.addFilterModel(new MealsEnergeticValueRangeFilterModel());
+  readonly exclude = this.addFilterModel(new MealsExcludeFilterModel());
 }

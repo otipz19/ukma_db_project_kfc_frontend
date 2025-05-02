@@ -1,11 +1,9 @@
-import {Component, computed, inject, OnInit, Signal} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
-  MAT_DIALOG_DATA,
   MatDialogContent,
   MatDialogRef,
   MatDialogTitle
 } from "@angular/material/dialog";
-import {IngredientsStore} from "../../../../../../ingredients/data-access/store/ingredients.store";
 import {Ingredient} from "../../../../../../../api/model/ingredient";
 import {
   IngredientCardComponent
@@ -18,10 +16,7 @@ import {PageEvent} from "@angular/material/paginator";
 import {
     IngredientsChipFiltersComponent
 } from "../../../../../../ingredients/view/components/ingredients-chip-filters/ingredients-chip-filters.component";
-
-export type AddIngredientDialogData = {
-  alreadyPresentIngredientsIdList: Array<Ingredient['id']>,
-};
+import {SelectIngredientStore} from "../../../../../../ingredients/data-access/store/select-ingredient.store";
 
 @Component({
   selector: 'app-add-ingredient-dialog',
@@ -38,12 +33,9 @@ export type AddIngredientDialogData = {
 })
 export class AddIngredientDialogComponent implements OnInit {
   private readonly dialogRef = inject(MatDialogRef<AddIngredientDialogComponent, Ingredient>);
-  protected readonly ingredientsStore = inject(IngredientsStore);
-  private readonly data: AddIngredientDialogData = inject(MAT_DIALOG_DATA);
+  protected readonly ingredientsStore = inject(SelectIngredientStore);
 
-  protected readonly $ingredients: Signal<Ingredient[]> = computed(() => {
-    return this.ingredientsStore.$viewList().filter(i => !this.data.alreadyPresentIngredientsIdList.includes(i.id));
-  });
+  protected readonly $ingredients = this.ingredientsStore.$viewList;
 
   protected readonly skeletonDummyIngredient: Ingredient = {
     title: '',
@@ -54,7 +46,7 @@ export class AddIngredientDialogComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.ingredientsStore.initialLoad();
+    this.ingredientsStore.loadAll();
   }
 
   protected onPagination(page: PageEvent) {
@@ -68,6 +60,7 @@ export class AddIngredientDialogComponent implements OnInit {
   }
 
   protected onSelect(ingredient: Ingredient) {
+    this.ingredientsStore.filters.exclude.exclude(ingredient.id);
     this.dialogRef.close(ingredient);
   }
 }
