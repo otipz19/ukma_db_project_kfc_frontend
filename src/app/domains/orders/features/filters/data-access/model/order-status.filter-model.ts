@@ -10,8 +10,8 @@ export class OrdersStatusFilterModel implements ServerSideFilterModel<OrdersFilt
   private readonly statusValues = Object.values(OrderStatus);
 
   private readonly statusMap= new Map<OrderStatus, boolean>([
-    [OrderStatus.COMPLETE, true],
-    [OrderStatus.IN_PROCESS, true]
+    [OrderStatus.COMPLETE, false],
+    [OrderStatus.IN_PROCESS, false]
   ]);
 
   toggleStatus(status: OrderStatus) {

@@ -51,7 +51,7 @@ export class EmployeeOrdersPageComponent implements OnInit {
     if(this.restaurant) {
       this.store.setRestaurantId(this.restaurant.id);
     }
-    this.store.loadAll();
+    this.store.initialLoad();
   }
 
   protected onDeleteOldOrders() {

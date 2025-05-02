@@ -1,7 +1,7 @@
 <div class="title-wrapper">
   <h2>Замовлення номер {{ $order().id }}</h2>
 
-  @if (!$order().isCompleted && authService.hasRole(UserRole.COOK, UserRole.MANAGER, UserRole.ADMIN)) {
+  @if (!$order().isCompleted && authService.hasRole(UserRole.CASHIER, UserRole.MANAGER, UserRole.ADMIN)) {
     <button mat-raised-button color="accent" (click)="onComplete()">
       Завершити замовлення
     </button>

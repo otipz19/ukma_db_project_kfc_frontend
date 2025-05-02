@@ -1,8 +1,8 @@
 <mat-chip-listbox multiple>
-  <mat-chip-option selected (click)="onStatusToggle(OrderStatus.COMPLETE)">
+  <mat-chip-option (click)="onStatusToggle(OrderStatus.COMPLETE)">
     Завершені
   </mat-chip-option>
-  <mat-chip-option selected (click)="onStatusToggle(OrderStatus.IN_PROCESS)">
+  <mat-chip-option (click)="onStatusToggle(OrderStatus.IN_PROCESS)">
     В обробці
   </mat-chip-option>
   <mat-chip-option (click)="onCostToggle()">

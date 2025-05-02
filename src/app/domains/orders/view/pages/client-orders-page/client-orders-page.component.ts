@@ -42,7 +42,7 @@ export class ClientOrdersPageComponent implements OnInit {
 
   ngOnInit() {
     this.store.setClientId(this.client.id);
-    this.store.loadAll();
+    this.store.initialLoad();
   }
 
   protected onPagination(page: PageEvent) {
