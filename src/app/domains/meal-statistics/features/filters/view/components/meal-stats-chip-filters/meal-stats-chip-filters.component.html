@@ -1,16 +1,12 @@
 <mat-chip-listbox multiple>
-<!--  <mat-chip-option [selected]="isPositionSelected(EmployeePosition.MANAGER)"-->
-<!--                   (click)="onPositionToggle(EmployeePosition.MANAGER)">-->
-<!--    Менеджери-->
-<!--  </mat-chip-option>-->
-<!--  <mat-chip-option [selected]="isPositionSelected(EmployeePosition.CASHIER)"-->
-<!--                   (click)="onPositionToggle(EmployeePosition.CASHIER)">-->
-<!--    Касири-->
-<!--  </mat-chip-option>-->
-<!--  <mat-chip-option [selected]="isPositionSelected(EmployeePosition.COOK)"-->
-<!--                   (click)="onPositionToggle(EmployeePosition.COOK)">-->
-<!--    Кухарі-->
-<!--  </mat-chip-option>-->
+  <mat-chip-option [selected]="isOptionsSelected(MealStatus.ACTUAL)"
+                   (click)="onOptionToggle(MealStatus.ACTUAL)">
+    Актуальні
+  </mat-chip-option>
+  <mat-chip-option [selected]="isOptionsSelected(MealStatus.NOT_ACTUAL)"
+                   (click)="onOptionToggle(MealStatus.NOT_ACTUAL)">
+    Неактуальні
+  </mat-chip-option>
   <mat-chip-option (click)="onLastOrderedToggle()">
     Дата останнього замовлення
     <mat-icon matChipRemove (click)="onLastOrderedOpen()">menu</mat-icon>

@@ -3,6 +3,7 @@ import {MatChipListbox, MatChipOption, MatChipRemove} from "@angular/material/ch
 import {MatIcon} from "@angular/material/icon";
 import {MealStatsStore} from "../../../../../data-access/store/meal-stats.store";
 import {MealStatsFiltersService} from "../../../data-access/services/meal-stats-filters.service";
+import {MealStatus} from "../../../data-access/model/meal-stats-status-filter.model";
 
 @Component({
   selector: 'app-meal-stats-chip-filters',
@@ -19,14 +20,14 @@ export class MealStatsChipFiltersComponent {
   private readonly store = inject(MealStatsStore);
   private readonly filtersService = inject(MealStatsFiltersService);
 
-  // protected isPositionSelected(position: EmployeePosition) {
-  //   return this.store.filters.position.isPositionEnabled(position);
-  // }
-  //
-  // protected onPositionToggle(position: EmployeePosition) {
-  //   this.store.filters.position.togglePosition(position);
-  //   this.store.loadAll();
-  // }
+  protected isOptionsSelected(option: MealStatus) {
+    return this.store.filters.actual.isOptionEnabled(option);
+  }
+
+  protected onOptionToggle(option: MealStatus) {
+    this.store.filters.actual.toggleOption(option);
+    this.store.loadAll();
+  }
 
   protected onClientMealsOpen() {
     this.filtersService.openClientMeals();
@@ -45,4 +46,6 @@ export class MealStatsChipFiltersComponent {
     this.store.filters.lastOrdered.toggleFilter();
     this.store.loadAll();
   }
+
+  protected readonly MealStatus = MealStatus;
 }
