@@ -19,5 +19,6 @@
   <app-orders-list [orders]="$orders()"
                    [displayedColumns]="displayedColumns"
                    [paginator]="store.paginatorModel"
+                   (sort)="onSort($event)"
                    (page)="onPagination($event)"/>
 </div>

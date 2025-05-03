@@ -23,6 +23,7 @@ import {
   DeleteOldOrdersService
 } from "../../../features/delete-old-orders/data-access/services/delete-old-orders.service";
 import {Order} from "../../../../../api/model/order";
+import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-orders-page',
@@ -59,6 +60,11 @@ export class EmployeeOrdersPageComponent implements OnInit {
       .subscribe(() => {
         this.store.loadAll();
       });
+  }
+
+  protected onSort(sort: Sort) {
+    this.store.sort(sort);
+    this.store.loadAll();
   }
 
   protected onPagination(page: PageEvent) {

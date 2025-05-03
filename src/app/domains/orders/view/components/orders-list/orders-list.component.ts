@@ -18,25 +18,28 @@ import {
 } from "../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
 import {PaginatorModel} from "../../../../../shared/features/pagination/data-access/model/paginator-model";
 import {PageEvent} from "@angular/material/paginator";
+import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-orders-list',
-    imports: [
-        MatCell,
-        MatCellDef,
-        MatHeaderCell,
-        MatHeaderRow,
-        MatHeaderRowDef,
-        MatIcon,
-        MatIconButton,
-        MatRow,
-        MatRowDef,
-        MatTable,
-        MatColumnDef,
-        MatHeaderCellDef,
-        RouterLink,
-        CommonPaginatorComponent
-    ],
+  imports: [
+    MatCell,
+    MatCellDef,
+    MatHeaderCell,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatIcon,
+    MatIconButton,
+    MatRow,
+    MatRowDef,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    RouterLink,
+    CommonPaginatorComponent,
+    MatSort,
+    MatSortHeader
+  ],
   templateUrl: './orders-list.component.html',
   styleUrl: './orders-list.component.scss'
 })
@@ -47,6 +50,7 @@ export class OrdersListComponent {
   protected readonly $dataSource = computed(() => this.$orders());
 
   protected readonly page = output<PageEvent>();
+  protected readonly sort = output<Sort>();
 
   protected readonly TableColumns = OrderPageTableColumns;
 }

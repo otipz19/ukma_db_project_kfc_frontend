@@ -17,6 +17,7 @@ import {
   OrdersChipFiltersComponent
 } from "../../../features/filters/view/components/orders-chip-filters/orders-chip-filters.component";
 import {Order} from "../../../../../api/model/order";
+import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-client-orders-page',
@@ -43,6 +44,11 @@ export class ClientOrdersPageComponent implements OnInit {
   ngOnInit() {
     this.store.setClientId(this.client.id);
     this.store.initialLoad();
+  }
+
+  protected onSort(sort: Sort) {
+    this.store.sort(sort);
+    this.store.loadAll();
   }
 
   protected onPagination(page: PageEvent) {
