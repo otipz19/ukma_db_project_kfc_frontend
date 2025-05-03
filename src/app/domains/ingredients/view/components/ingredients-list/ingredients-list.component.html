@@ -1,5 +1,5 @@
 <div class="item-list-grid">
   @for (ingredient of $ingredients(); track ingredient.id) {
-    <app-ingredient-card [ingredient]="ingredient"></app-ingredient-card>
+    <app-ingredient-card [hideActions]="$hideActions()" [ingredient]="ingredient"></app-ingredient-card>
   }
 </div>

@@ -35,6 +35,7 @@ body {
 
 .item-list-card {
   width: 100%;
+  max-width: 400px;
   min-width: 0;
 
   .mat-mdc-card-header-text  {

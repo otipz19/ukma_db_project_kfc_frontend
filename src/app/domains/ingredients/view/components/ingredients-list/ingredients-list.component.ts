@@ -12,4 +12,5 @@ import {Ingredient} from "../../../../../api/model/ingredient";
 })
 export class IngredientsListComponent {
   readonly $ingredients = input.required<Array<Ingredient>>({alias: 'ingredients'});
+  readonly $hideActions = input<boolean>(false, {alias: 'hideActions'});
 }
