@@ -1,0 +1,23 @@
+<div class="header-container">
+  <div class="title-wrapper">
+    <div>
+      <h2>Активні клієнти</h2>
+    </div>
+
+    <div>
+      <button mat-raised-button color="primary" (click)="onExportReport()">
+        <mat-icon>print</mat-icon>
+        <span>Експортувати звіт</span>
+      </button>
+    </div>
+  </div>
+
+  <app-advent-clients-chip-filters/>
+</div>
+
+<div class="list-container">
+  <app-clients-list [clients]="$clients()"
+                    [paginator]="store.paginatorModel"
+                    (sort)="onSort($event)"
+                    (page)="onPagination($event)"/>
+</div>
