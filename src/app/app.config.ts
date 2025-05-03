@@ -10,6 +10,7 @@ import {apiConfigProvider} from "./core/config/api-config";
 import {restoreSessionProvider} from "./core/providers/restore-session.provider";
 import {jspdfFontProvider} from "./core/providers/jspdf-font.provider";
 import {paginatorLocalizationProvider} from "./shared/features/pagination/data-access/model/paginator-localization";
+import {UTCDateAdapterProvider} from "./core/providers/utc-date-adapter";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
     apiConfigProvider,
     restoreSessionProvider,
     jspdfFontProvider,
-    paginatorLocalizationProvider
+    paginatorLocalizationProvider,
+    UTCDateAdapterProvider
   ]
 };
