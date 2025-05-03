@@ -25,7 +25,7 @@ export class DeleteOldOrdersService {
       customMessage: 'Ви впевнені, що хочете видалити історію застарілих замовлень?'
     }).pipe(
       switchMap(() => {
-        return this.api.clearOrdersHistory({clearBefore: OLD_ORDERS_DATE_BEFORE_TIMESTAMP.toString()})
+        return this.api.clearOrdersHistory({clearBefore: new Date(OLD_ORDERS_DATE_BEFORE_TIMESTAMP).toISOString()})
       }),
       this.notify.notifyHttpRequest()
     );
