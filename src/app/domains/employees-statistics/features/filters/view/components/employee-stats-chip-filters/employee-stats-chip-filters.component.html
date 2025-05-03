@@ -1,4 +1,16 @@
 <mat-chip-listbox multiple>
+  <mat-chip-option [selected]="isPositionSelected(EmployeePosition.MANAGER)"
+                   (click)="onPositionToggle(EmployeePosition.MANAGER)">
+    Менеджери
+  </mat-chip-option>
+  <mat-chip-option [selected]="isPositionSelected(EmployeePosition.CASHIER)"
+                   (click)="onPositionToggle(EmployeePosition.CASHIER)">
+    Касири
+  </mat-chip-option>
+  <mat-chip-option [selected]="isPositionSelected(EmployeePosition.COOK)"
+                   (click)="onPositionToggle(EmployeePosition.COOK)">
+    Кухарі
+  </mat-chip-option>
   <mat-chip-option (click)="onNumberToggle()">
     Кількість замовлень
     <mat-icon matChipRemove (click)="onNumberOpen()">menu</mat-icon>

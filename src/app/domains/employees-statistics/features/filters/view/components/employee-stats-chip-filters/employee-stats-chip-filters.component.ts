@@ -20,15 +20,14 @@ export class EmployeeStatsChipFiltersComponent {
   private readonly store = inject(EmployeeStatsStore);
   private readonly filtersService = inject(EmployeeStatsFiltersService);
 
-  // protected onHasManagerToggle(option: RestaurantsStatsHasManagerOptions) {
-  //   this.store.filters.hasManager.toggleOption(option);
-  //   this.store.loadAll();
-  // }
-  //
-  // protected onDeletedToggle(option: RestaurantsStatsDeletedFilterOptions) {
-  //   this.store.filters.deleted.toggleOption(option);
-  //   this.store.loadAll();
-  // }
+  protected isPositionSelected(position: EmployeePosition) {
+    return this.store.filters.position.isPositionEnabled(position);
+  }
+
+  protected onPositionToggle(position: EmployeePosition) {
+    this.store.filters.position.togglePosition(position);
+    this.store.loadAll();
+  }
 
   protected onTotalPriceOpen() {
     this.filtersService.openTotalOrdersPrice();
