@@ -45,8 +45,7 @@ export const routes: Routes = [
       },
       {
         path: 'landing',
-        canActivate: [authenticatedRouteGuard],
-        loadComponent: () => import('./domains/dumb-pages/view/pages/landing-page/landing-page.component').then(r => r.LandingPageComponent)
+        redirectTo: 'meals',
       },
       {
         path: 'forbidden',
