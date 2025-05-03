@@ -1,0 +1,14 @@
+<mat-chip-listbox multiple>
+  <mat-chip-option (click)="onNumberToggle()">
+    Кількість замовлень
+    <mat-icon matChipRemove (click)="onNumberOpen()">menu</mat-icon>
+  </mat-chip-option>
+  <mat-chip-option (click)="onTotalPriceToggle()">
+    Сумарна вартість замовлень
+    <mat-icon matChipRemove (click)="onTotalPriceOpen()">menu</mat-icon>
+  </mat-chip-option>
+  <mat-chip-option (click)="onDateToggle()">
+    Дата замовлень
+    <mat-icon matChipRemove (click)="onDateOpen()">menu</mat-icon>
+  </mat-chip-option>
+</mat-chip-listbox>

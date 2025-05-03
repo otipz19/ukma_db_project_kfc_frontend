@@ -1,0 +1,9 @@
+<form [formGroup]="form">
+  <app-common-form-datepicker-field class="default-form-input-field"
+                                    [control]="form.controls.fromDate!"
+                                    label="Початкова дата створення замовлень"/>
+
+  <app-common-form-datepicker-field class="default-form-input-field"
+                                    [control]="form.controls.toDate!"
+                                    label="Кінцева дата створення замовлень"/>
+</form>
