@@ -90,7 +90,7 @@ export class OrderViewPageComponent {
   }
 
   private loadRestaurant(order: Order) {
-    this.restaurantsApi.getRestaurantById(order.restaurantId)
+    this.restaurantsApi.getRestaurantById(order.restaurantId, false)
       .pipe(
         takeUntilDestroyed(),
         catchError(() => {
