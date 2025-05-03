@@ -9,11 +9,22 @@ export function mapEmployeeToStoreEntity(employee: Employee): EmployeeStoreEntit
   return {id: userId, birthDate, ...rest};
 }
 
+// export function mapDateFromArrayResponse(arrDate?: [number, number, number]): string {
+//   if(!arrDate) {
+//     return '';
+//   }
+//   const dateObj = new Date(arrDate[0], arrDate[1] - 1, arrDate[2]);
+//   // Format it as a string (e.g., YYYY-MM-DD)
+//   return dateObj.toISOString().split('T')[0];
+// }
+
 export function mapDateFromArrayResponse(arrDate?: [number, number, number]): string {
-  if(!arrDate) {
+  if (!arrDate) {
     return '';
   }
-  const dateObj = new Date(arrDate[0], arrDate[1] - 1, arrDate[2]);
-  // Format it as a string (e.g., YYYY-MM-DD)
-  return dateObj.toISOString().split('T')[0];
+  const [year, month, day] = arrDate;
+  // Pad month and day with leading zeros if needed
+  const mm = String(month).padStart(2, '0');
+  const dd = String(day).padStart(2, '0');
+  return `${year}-${mm}-${dd}`;
 }
