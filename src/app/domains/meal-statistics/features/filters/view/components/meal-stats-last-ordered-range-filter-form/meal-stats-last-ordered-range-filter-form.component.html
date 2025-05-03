@@ -1,0 +1,9 @@
+<form [formGroup]="form">
+  <app-common-form-datepicker-field class="default-form-input-field"
+                                    [control]="form.controls.minLastOrderedDate!"
+                                    label="Мінімальна дата останнього замовлення"/>
+
+  <app-common-form-datepicker-field class="default-form-input-field"
+                                    [control]="form.controls.maxLastOrderedDate!"
+                                    label="Максимальна дата останнього замовлення"/>
+</form>

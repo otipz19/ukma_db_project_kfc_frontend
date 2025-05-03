@@ -1,5 +1,5 @@
-import {ServerSideFilterModel} from "../../../../../shared/features/filters/model/server-side-filter-model";
-import {MealsStatisticFilter} from "../../../../../api/model/mealsStatisticFilter";
+import {ServerSideFilterModel} from "../../../../../../shared/features/filters/model/server-side-filter-model";
+import {MealsStatisticFilter} from "../../../../../../api/model/mealsStatisticFilter";
 
 export class MealStatsSearchFilterModel implements ServerSideFilterModel<MealsStatisticFilter> {
   private query?: string;

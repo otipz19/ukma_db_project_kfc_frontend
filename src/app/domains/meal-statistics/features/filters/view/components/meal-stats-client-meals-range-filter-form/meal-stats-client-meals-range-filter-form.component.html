@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.minClientMealsCount!"
+                               inputType="number"
+                               label="Мінімальна кількість клієнтських страв"/>
+
+  <app-common-form-input-field class="default-form-input-field"
+                               [control]="form.controls.maxClientMealsCount!"
+                               inputType="number"
+                               label="Максимальна кількість клієнтських страв"/>
+</form>

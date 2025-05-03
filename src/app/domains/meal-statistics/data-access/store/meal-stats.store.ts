@@ -3,7 +3,7 @@ import {map, Observable} from "rxjs";
 import {inject, Injectable} from "@angular/core";
 import {MealStatistic} from "../../../../api/model/mealStatistic";
 import {MealsStatisticFilter} from "../../../../api/model/mealsStatisticFilter";
-import {MealStatsFiltersContainer} from "../../features/filters/model/meal-stats.filters-container";
+import {MealStatsFiltersContainer} from "../../features/filters/data-access/model/meal-stats.filters-container";
 import {MealControllerService} from "../../../../api/api/mealController.service";
 import {convertUnixTimestampToDateString} from "../../../../shared/utils/convert-unix-timestamp-to-date-string";
 

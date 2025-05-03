@@ -2,7 +2,6 @@ import {Component, inject, OnInit, Signal} from '@angular/core';
 import {TableReportsService} from "../../../../../shared/features/reports/data-access/services/table-reports.service";
 import {PageEvent} from "@angular/material/paginator";
 import {Sort} from "@angular/material/sort";
-import {MealStatsStore} from "../../../data-access/store/meal-stats.store";
 import {MealStatsColumnsMapper} from "../../../features/tables/data-access/model/meal-stats-columns-mapper";
 import {MealStatistic} from "../../../../../api/model/mealStatistic";
 import {MealStatsTableHeaderMapper} from "../../../features/tables/data-access/model/meal-stats-table-header-mapper";
@@ -11,6 +10,10 @@ import {SearchBarComponent} from "../../../../../shared/components/search-bar/se
 import {MealStatsTableListComponent} from "../../components/meal-stats-table-list/meal-stats-table-list.component";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
+import {
+  MealStatsChipFiltersComponent
+} from "../../../features/filters/view/components/meal-stats-chip-filters/meal-stats-chip-filters.component";
+import {MealStatsStore} from "../../../data-access/store/meal-stats.store";
 
 @Component({
   selector: 'app-meals-stats-page',
@@ -18,7 +21,8 @@ import {MatIcon} from "@angular/material/icon";
     MatButton,
     MatIcon,
     SearchBarComponent,
-    MealStatsTableListComponent
+    MealStatsTableListComponent,
+    MealStatsChipFiltersComponent
   ],
   templateUrl: './meals-stats-page.component.html',
   styleUrl: './meals-stats-page.component.scss'
