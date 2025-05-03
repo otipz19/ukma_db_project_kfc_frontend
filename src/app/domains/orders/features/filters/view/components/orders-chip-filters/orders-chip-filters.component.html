@@ -13,7 +13,9 @@
     Дата створення
     <mat-icon matChipRemove (click)="onDateCreatedOpen()">menu</mat-icon>
   </mat-chip-option>
-  <mat-chip-option (click)="onOldOrders()">
-    Тільки застарілі замовлення
-  </mat-chip-option>
+  @if (authService.hasRole(UserRole.ADMIN)) {
+    <mat-chip-option (click)="onOldOrders()">
+      Тільки застарілі замовлення
+    </mat-chip-option>
+  }
 </mat-chip-listbox>

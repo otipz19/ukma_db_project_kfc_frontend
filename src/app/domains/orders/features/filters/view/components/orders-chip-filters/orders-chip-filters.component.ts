@@ -8,6 +8,8 @@ import {OrdersFiltersContainer} from "../../../data-access/model/orders.filters-
 import {EmployeePosition} from "../../../../../../../api/model/employeePosition";
 import {OrderStatus} from "../../../data-access/model/order-status.filter-model";
 import {Order} from "../../../../../../../api/model/order";
+import {AuthService} from "../../../../../../../core/services/auth.service";
+import {UserRole} from "../../../../../../../api";
 
 @Component({
   selector: 'app-orders-chip-filters',
@@ -21,6 +23,8 @@ import {Order} from "../../../../../../../api/model/order";
   styleUrl: './orders-chip-filters.component.scss'
 })
 export class OrdersChipFiltersComponent<TStore extends BaseEntityStore<Order, OrdersFilter, OrdersFiltersContainer>> {
+  protected authService = inject(AuthService);
+
   private readonly filtersService = inject(OrdersFiltersService);
   readonly $store = input.required<TStore>({alias: 'store'});
 
@@ -54,4 +58,5 @@ export class OrdersChipFiltersComponent<TStore extends BaseEntityStore<Order, Or
 
   protected readonly EmployeePosition = EmployeePosition;
   protected readonly OrderStatus = OrderStatus;
+  protected readonly UserRole = UserRole;
 }
