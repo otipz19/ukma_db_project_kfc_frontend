@@ -11,7 +11,8 @@ type LinkAlias = 'ingredients'
   | 'restaurants-statistics'
   | 'employee-statistics'
   | 'meal-statistics'
-  | 'valuable-ingredients';
+  | 'valuable-ingredients'
+  | 'in-active-use-ingredients';
 
 type UserRoleState = UserRole | 'UNAUTHENTICATED';
 
@@ -28,7 +29,7 @@ export class SidenavLinksService {
   private readonly authService = inject(AuthService);
 
   private readonly roleToAllowedLinks = new Map<UserRoleState, Array<LinkAlias>>([
-    [UserRole.ADMIN, ['meals', 'meal-statistics', 'ingredients', 'valuable-ingredients', 'restaurants', 'restaurants-statistics', 'employees', 'employee-statistics', 'clients', 'orders']],
+    [UserRole.ADMIN, ['meals', 'meal-statistics', 'ingredients', 'valuable-ingredients', 'in-active-use-ingredients', 'restaurants', 'restaurants-statistics', 'employees', 'employee-statistics', 'clients', 'orders']],
     [UserRole.MANAGER, ['meals', 'meal-statistics', 'ingredients', 'restaurants', 'employees', 'employee-statistics', 'clients', 'orders']],
     [UserRole.CASHIER, ['meals', 'orders', 'clients']],
     [UserRole.COOK, ['meals', 'ingredients', 'orders']],
@@ -66,6 +67,14 @@ export class SidenavLinksService {
         routerLink: ['/', 'valuable-ingredients'],
         icon: 'analytics',
         label: 'Цінні інгредієнти'
+      }
+    ],
+    [
+      'in-active-use-ingredients',
+      {
+        routerLink: ['/', 'in-active-use-ingredients'],
+        icon: 'analytics',
+        label: 'Активні інгредієнти'
       }
     ],
     [

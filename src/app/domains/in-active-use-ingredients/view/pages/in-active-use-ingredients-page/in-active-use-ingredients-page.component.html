@@ -1,0 +1,24 @@
+<div class="header-container">
+  <div class="title-wrapper">
+    <div>
+      <h2>Статистика інгредієнтів, що активно використовуються</h2>
+    </div>
+
+    <div class="right-end-toolbar">
+      <button mat-raised-button color="primary" (click)="onExportReport()">
+        <mat-icon>print</mat-icon>
+        <span>Експортувати звіт</span>
+      </button>
+    </div>
+  </div>
+
+  <app-in-active-use-ingredients-chip-filters/>
+</div>
+
+<div class="list-container">
+  <app-ingredients-list [hideActions]="true" [ingredients]="$data()"/>
+</div>
+
+<div class="mat-elevation-z3">
+  <app-common-paginator [paginator]="store.paginatorModel" (page)="onPagination($event)"/>
+</div>

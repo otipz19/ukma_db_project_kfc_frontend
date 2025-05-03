@@ -13,6 +13,7 @@ import {RESTAURANTS_STATS_ROUTES} from "./domains/restaurants-statistics/routes"
 import {EMPLOYEE_STATS_ROUTES} from "./domains/employees-statistics/routes";
 import {MEAL_STATS_ROUTES} from "./domains/meal-statistics/routes";
 import {VALUABLE_INGREDIENTS_ROUTES} from "./domains/valuable-ingredients/routes";
+import {IN_ACTIVE_USE_INGREDIENTS_ROUTES} from "./domains/in-active-use-ingredients/routes";
 
 export const routes: Routes = [
   {
@@ -34,6 +35,7 @@ export const routes: Routes = [
       ...EMPLOYEE_STATS_ROUTES,
       ...MEAL_STATS_ROUTES,
       ...VALUABLE_INGREDIENTS_ROUTES,
+      ...IN_ACTIVE_USE_INGREDIENTS_ROUTES,
       {
         path: 'ingredients',
         canActivate: [hasRoleRouteGuard(UserRole.ADMIN, UserRole.MANAGER, UserRole.COOK)],
