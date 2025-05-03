@@ -6,7 +6,7 @@ import {ClientMealControllerService} from "../../../../../api/api/clientMealCont
 import {MealControllerService} from "../../../../../api/api/mealController.service";
 import {ClientMealInfo} from "../../../data-access/types/client-meal-info";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {map, switchMap} from "rxjs";
+import {catchError, EMPTY, map, switchMap} from "rxjs";
 import {NotifyService} from "../../../../../shared/features/notify/data-access/services/notify.service";
 import {Restaurant} from "../../../../../api/model/restaurant";
 import {
@@ -93,7 +93,9 @@ export class OrderViewPageComponent {
     this.restaurantsApi.getRestaurantById(order.restaurantId)
       .pipe(
         takeUntilDestroyed(),
-        this.notify.notifyError('Помилка завантаження інформації про ресторан')
+        catchError(() => {
+          return EMPTY;
+        })
       )
       .subscribe(restaurant => {
         this.$restaurant.set(restaurant);
@@ -105,7 +107,9 @@ export class OrderViewPageComponent {
       this.clientsApi.getClientByUserId(order.clientUserId)
         .pipe(
           takeUntilDestroyed(),
-          this.notify.notifyError('Помилка завантаження інформації про клієнта')
+          catchError(() => {
+            return EMPTY;
+          })
         )
         .subscribe(client => {
           this.$client.set(mapClientToStoreEntity(client));
@@ -118,7 +122,9 @@ export class OrderViewPageComponent {
       this.employeeApi.getEmployeeByUserId(order.employeeUserId)
         .pipe(
           takeUntilDestroyed(),
-          this.notify.notifyError('Помилка завантаження інформації про працівника')
+          catchError(() => {
+            return EMPTY;
+          })
         )
         .subscribe(employee => {
           this.$employee.set(mapEmployeeToStoreEntity(employee));
