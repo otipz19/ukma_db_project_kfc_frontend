@@ -25,7 +25,7 @@ export class EmployeePositionsFilterModel implements ServerSideFilterModel<Emplo
 
   cleanFilter(): void {
     for(const position of this.positionsValues) {
-      this.positionsMap.set(position, false);
+      this.positionsMap.set(position, true);
     }
   }
 

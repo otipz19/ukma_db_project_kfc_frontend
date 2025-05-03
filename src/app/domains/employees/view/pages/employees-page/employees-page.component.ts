@@ -37,7 +37,7 @@ export class EmployeesPageComponent implements OnInit {
   protected readonly $employees: Signal<EmployeeStoreEntity[]> = this.store.$viewList;
 
   ngOnInit() {
-    this.store.loadAll();
+    this.store.initialLoad();
   }
 
   protected onPagination(page: PageEvent) {
