@@ -19,6 +19,9 @@ import {
 import {
   CommonPaginatorComponent
 } from "../../../../../shared/features/pagination/view/components/common-paginator/common-paginator.component";
+import {
+  ValuableIngredientsChipFiltersComponent
+} from "../../../features/filters/view/components/valuable-ingredients-chip-filters/valuable-ingredients-chip-filters.component";
 
 @Component({
   selector: 'app-valuable-ingredients-page',
@@ -26,7 +29,8 @@ import {
     MatButton,
     MatIcon,
     IngredientsListComponent,
-    CommonPaginatorComponent
+    CommonPaginatorComponent,
+    ValuableIngredientsChipFiltersComponent
   ],
   templateUrl: './valuable-ingredients-page.component.html',
   styleUrl: './valuable-ingredients-page.component.scss'
@@ -54,7 +58,7 @@ export class ValuableIngredientsPageComponent implements OnInit {
 
   protected onExportReport() {
     this.reportsService.exportReport({
-      title: 'Звіт статистики працівників',
+      title: 'Звіт статистики цінних інгредієнтів',
       entities: this.$data(),
       columnsMapper: this.columnsMapper,
       headerMapper: IngredientTableHeaderMapper,
