@@ -1,0 +1,49 @@
+<div class="mat-elevation-z3">
+  <table mat-table [dataSource]="$data()" matSort (matSortChange)="sort.emit($event)">
+    <ng-container [matColumnDef]="TableColumns.passportNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ HeaderMapper[TableColumns.passportNumber] }}</th>
+      <td mat-cell *matCellDef="let entity">{{ entity.passportNumber }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="TableColumns.surname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ HeaderMapper[TableColumns.surname] }}</th>
+      <td mat-cell *matCellDef="let entity">{{ entity.surname }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="TableColumns.position">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ HeaderMapper[TableColumns.position] }}</th>
+      <td mat-cell *matCellDef="let entity">{{ entity.position | employeePositionPipe }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="TableColumns.restaurantAddress">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ HeaderMapper[TableColumns.restaurantAddress] }}</th>
+      <td mat-cell *matCellDef="let entity">{{ entity.restaurantAddress }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="TableColumns.totalOrdersPrice">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ HeaderMapper[TableColumns.totalOrdersPrice] }}</th>
+      <td mat-cell *matCellDef="let entity">{{ entity.totalOrdersPrice }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="TableColumns.numberOfOrders">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ HeaderMapper[TableColumns.numberOfOrders] }}</th>
+      <td mat-cell *matCellDef="let entity">{{ entity.numberOfOrders }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="TableColumns.actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let entity">
+        <div class="table-list-actions-container">
+          <button mat-icon-button color="primary" [routerLink]="['/', 'employees', entity.id]">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <app-common-paginator [paginator]="$paginator()" (page)="page.emit($event)"/>
+</div>
