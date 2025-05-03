@@ -1,11 +1,17 @@
 import {Component, inject, signal} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {Restaurant} from "../../../../../api/model/restaurant";
 import {RESTAURANT_RESOLVER_KEY} from "../../../data-access/resolvers/restaurant.resolver";
+import {MatButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-restaurant-dashboard',
-  imports: [],
+  imports: [
+    MatButton,
+    MatIcon,
+    RouterLink
+  ],
   templateUrl: './restaurant-dashboard.component.html',
   styleUrl: './restaurant-dashboard.component.scss'
 })

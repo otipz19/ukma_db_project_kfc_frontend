@@ -3,28 +3,29 @@ import {BaseEntityStore} from "../../../../shared/store/base-entity-store";
 import {EmployeesFiltersContainer} from "../../features/filters/data-access/model/filters-container/employees-filters-container";
 import {EmployeeStoreEntity, mapEmployeeToStoreEntity} from "../model/employee-store-entity";
 import {inject, Injectable} from "@angular/core";
-import {AuthService} from "../../../../core/services/auth.service";
 import {EmployeeControllerService} from "../../../../api/api/employeeController.service";
 import {EmployeesFilter} from "../../../../api/model/employeesFilter";
+import {Restaurant} from "../../../../api/model/restaurant";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeesStore extends BaseEntityStore<EmployeeStoreEntity, EmployeesFilter, EmployeesFiltersContainer> {
   private readonly api = inject(EmployeeControllerService);
-  private readonly authService = inject(AuthService);
+  private restaurantId?: Restaurant['id'];
 
-  // readonly $viewList = computed(() => {
-  //   return this.$filteredList().filter(e => e.id !== this.authService.$currentUser()?.id);
-  // });
   readonly $viewList = this.$filteredList;
+
+  setRestaurantId(id?: Restaurant['id']) {
+    this.restaurantId = id;
+  }
 
   protected override buildFiltersContainer(): EmployeesFiltersContainer {
     return new EmployeesFiltersContainer();
   }
 
   protected override getAllFromApi(filtersDto: Partial<EmployeesFilter>): Observable<EmployeeStoreEntity[]> {
-    return this.api.getEmployeesByFilter({...filtersDto})
+    return this.api.getEmployeesByFilter({restaurantId: this.restaurantId, ...filtersDto})
       .pipe(
         map(list => {
           // Exclude self employee

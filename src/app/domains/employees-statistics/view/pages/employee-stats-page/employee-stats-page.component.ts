@@ -18,6 +18,9 @@ import {
 import {
   EmployeeStatsChipFiltersComponent
 } from "../../../features/filters/view/components/employee-stats-chip-filters/employee-stats-chip-filters.component";
+import {getFromResolver} from "../../../../../shared/resolvers/get-from-resolver";
+import {RESTAURANT_RESOLVER_KEY} from "../../../../restaurants/data-access/resolvers/restaurant.resolver";
+import {Restaurant} from "../../../../../api/model/restaurant";
 
 @Component({
   selector: 'app-employee-stats-page',
@@ -38,7 +41,10 @@ export class EmployeeStatsPageComponent implements OnInit {
 
   protected readonly $data: Signal<EmployeeStatistic[]> = this.store.$viewList;
 
+  private readonly restaurant = getFromResolver<Restaurant | undefined>(RESTAURANT_RESOLVER_KEY);
+
   ngOnInit() {
+    this.store.setRestaurantId(this.restaurant?.id);
     this.store.initialLoad();
   }
 

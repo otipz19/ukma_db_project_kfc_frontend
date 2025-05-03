@@ -41,14 +41,21 @@ export const RESTAURANT_ROUTES: Routes = [
             ]
           },
           {
+            path: 'employee-statistics',
+            canActivate: [hasRoleRouteGuard(UserRole.ADMIN, UserRole.MANAGER)],
+            loadComponent: () => import('../employees-statistics/view/pages/employee-stats-page/employee-stats-page.component').then(r => r.EmployeeStatsPageComponent)
+          },
+          {
             path: 'employees',
             children: [
               {
                 path: '',
+                canActivate: [hasRoleRouteGuard(UserRole.ADMIN, UserRole.MANAGER)],
                 loadComponent: () => import("../employees/view/pages/employees-page/employees-page.component").then(r => r.EmployeesPageComponent)
               },
               {
                 path: 'create',
+                canActivate: [hasRoleRouteGuard(UserRole.ADMIN, UserRole.MANAGER)],
                 loadComponent: () => import('../employees/features/create-employee/view/pages/create-employee-page/create-employee-page.component').then(r => r.CreateEmployeePageComponent)
               },
               {

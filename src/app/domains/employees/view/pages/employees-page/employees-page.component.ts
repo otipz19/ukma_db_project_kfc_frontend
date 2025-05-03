@@ -15,6 +15,9 @@ import {PageEvent} from "@angular/material/paginator";
 import {
   EmployeeChipFiltersComponent
 } from "../../../features/filters/view/components/employee-chip-filters/employee-chip-filters.component";
+import {getFromResolver} from "../../../../../shared/resolvers/get-from-resolver";
+import {RESTAURANT_RESOLVER_KEY} from "../../../../restaurants/data-access/resolvers/restaurant.resolver";
+import {Restaurant} from "../../../../../api/model/restaurant";
 
 @Component({
   selector: 'app-employees-page',
@@ -36,7 +39,10 @@ export class EmployeesPageComponent implements OnInit {
 
   protected readonly $employees: Signal<EmployeeStoreEntity[]> = this.store.$viewList;
 
+  private readonly restaurant = getFromResolver<Restaurant | undefined>(RESTAURANT_RESOLVER_KEY);
+
   ngOnInit() {
+    this.store.setRestaurantId(this.restaurant?.id);
     this.store.initialLoad();
   }
 

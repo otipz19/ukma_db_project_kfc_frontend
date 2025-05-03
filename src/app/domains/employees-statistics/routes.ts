@@ -1,11 +1,10 @@
 import {Routes} from "@angular/router";
-import {hasRoleRouteGuard} from "../../core/route-guards/has-role-route.guard";
-import {UserRole} from "../../api";
+import {managersRedirectRouteGuard} from "../../core/route-guards/managers-redirect.route-guard";
 
 export const EMPLOYEE_STATS_ROUTES: Routes = [
   {
     path: 'employee-statistics',
-    canActivate: [hasRoleRouteGuard(UserRole.ADMIN, UserRole.MANAGER)],
+    canActivate: [managersRedirectRouteGuard(['restaurants', e => e.restaurantId, 'employee-statistics'])],
     loadComponent: () => import('./view/pages/employee-stats-page/employee-stats-page.component').then(r => r.EmployeeStatsPageComponent)
   }
 ];

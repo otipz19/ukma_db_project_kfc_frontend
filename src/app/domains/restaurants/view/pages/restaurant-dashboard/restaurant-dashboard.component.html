@@ -1,2 +1,15 @@
-<h2>Ресторан {{$restaurant().address}}</h2>
+<div class="title-wrapper">
+  <h2>Ресторан {{ $restaurant().address }}</h2>
+
+  <div class="right-end-toolbar">
+    <button mat-raised-button color="primary" [routerLink]="['employees']">
+      <mat-icon>person</mat-icon>
+      Список працівників
+    </button>
+    <button mat-raised-button color="primary" [routerLink]="['employee-statistics']">
+      <mat-icon>person</mat-icon>
+      Статистика працівників
+    </button>
+  </div>
+</div>
 
