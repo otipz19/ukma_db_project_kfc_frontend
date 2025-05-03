@@ -1,7 +1,7 @@
 import {buildPageTableColumns, PageTableColumn} from "../../../../../../shared/features/reports/data-access/model/page-table-column";
-import {ListOrderDto} from "../../../../data-access/types/list-order-dto";
+import {Order} from "../../../../../../api/model/order";
 
-export type OrderColumn = keyof Omit<ListOrderDto, 'employeeUserId' | 'clientUserId' | 'restaurantId'>;
+export type OrderColumn = keyof Omit<Order, 'employeeUserId' | 'clientUserId' | 'restaurantId'>;
 
 export type OrderPageTableColumn = PageTableColumn<OrderColumn>;
 

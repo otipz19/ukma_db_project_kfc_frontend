@@ -1,7 +1,6 @@
 import {Component, inject, OnInit, Signal} from '@angular/core';
 import {TableReportsService} from "../../../../../shared/features/reports/data-access/services/table-reports.service";
 import {OrderColumnsMapper} from "../../../features/tables/data-access/model/order-columns-mapper";
-import {ListOrderDto} from "../../../data-access/types/list-order-dto";
 import {OrderTableHeaderMapper} from "../../../features/tables/data-access/model/order-table-header-mapper";
 import {
     ClientOrderColumnsArray, ClientOrderDisplayedColumnsArray,
@@ -17,6 +16,7 @@ import {PageEvent} from "@angular/material/paginator";
 import {
   OrdersChipFiltersComponent
 } from "../../../features/filters/view/components/orders-chip-filters/orders-chip-filters.component";
+import {Order} from "../../../../../api/model/order";
 
 @Component({
   selector: 'app-client-orders-page',
@@ -38,7 +38,7 @@ export class ClientOrdersPageComponent implements OnInit {
 
   protected readonly client = getFromResolver<ClientStoreEntity>(CLIENT_RESOLVER_KEY);
 
-  protected readonly $orders: Signal<ListOrderDto[]> = this.store.$viewList;
+  protected readonly $orders: Signal<Order[]> = this.store.$viewList;
 
   ngOnInit() {
     this.store.setClientId(this.client.id);

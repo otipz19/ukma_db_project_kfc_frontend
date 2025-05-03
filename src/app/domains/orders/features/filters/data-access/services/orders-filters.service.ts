@@ -2,7 +2,6 @@ import {inject, Injectable} from "@angular/core";
 import {UpsertDialogService} from "../../../../../../shared/features/upsert-dialog/services/upsert-dialog.service";
 import {of} from "rxjs";
 import {BaseEntityStore} from "../../../../../../shared/store/base-entity-store";
-import {ListOrderDto} from "../../../../data-access/types/list-order-dto";
 import {OrdersFilter} from "../../../../../../api/model/ordersFilter";
 import {OrdersFiltersContainer} from "../model/orders.filters-container";
 import {
@@ -11,6 +10,7 @@ import {
 import {
   OrdersDateCreatedRangeFilterFormComponent
 } from "../../view/components/orders-date-created-range-filter-form/orders-date-created-range-filter-form.component";
+import {Order} from "../../../../../../api/model/order";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ import {
 export class OrdersFiltersService {
   private readonly upsertDialog = inject(UpsertDialogService);
 
-  openCostRange<TStore extends BaseEntityStore<ListOrderDto, OrdersFilter, OrdersFiltersContainer>>(store: TStore) {
+  openCostRange<TStore extends BaseEntityStore<Order, OrdersFilter, OrdersFiltersContainer>>(store: TStore) {
     this.upsertDialog.openUpsert$(
       {
         title: 'Оберіть діапазон вартості',
@@ -34,7 +34,7 @@ export class OrdersFiltersService {
       .subscribe();
   }
 
-  openDateCreatedRange<TStore extends BaseEntityStore<ListOrderDto, OrdersFilter, OrdersFiltersContainer>>(store: TStore) {
+  openDateCreatedRange<TStore extends BaseEntityStore<Order, OrdersFilter, OrdersFiltersContainer>>(store: TStore) {
     this.upsertDialog.openUpsert$(
       {
         title: 'Оберіть діапазон дати створення',

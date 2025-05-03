@@ -3,11 +3,11 @@ import {MatChipListbox, MatChipOption, MatChipRemove} from "@angular/material/ch
 import {MatIcon} from "@angular/material/icon";
 import {OrdersFiltersService} from "../../../data-access/services/orders-filters.service";
 import {BaseEntityStore} from "../../../../../../../shared/store/base-entity-store";
-import {ListOrderDto} from "../../../../../data-access/types/list-order-dto";
 import {OrdersFilter} from "../../../../../../../api/model/ordersFilter";
 import {OrdersFiltersContainer} from "../../../data-access/model/orders.filters-container";
 import {EmployeePosition} from "../../../../../../../api/model/employeePosition";
 import {OrderStatus} from "../../../data-access/model/order-status.filter-model";
+import {Order} from "../../../../../../../api/model/order";
 
 @Component({
   selector: 'app-orders-chip-filters',
@@ -20,7 +20,7 @@ import {OrderStatus} from "../../../data-access/model/order-status.filter-model"
   templateUrl: './orders-chip-filters.component.html',
   styleUrl: './orders-chip-filters.component.scss'
 })
-export class OrdersChipFiltersComponent<TStore extends BaseEntityStore<ListOrderDto, OrdersFilter, OrdersFiltersContainer>> {
+export class OrdersChipFiltersComponent<TStore extends BaseEntityStore<Order, OrdersFilter, OrdersFiltersContainer>> {
   private readonly filtersService = inject(OrdersFiltersService);
   readonly $store = input.required<TStore>({alias: 'store'});
 

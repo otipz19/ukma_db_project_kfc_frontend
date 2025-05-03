@@ -1,8 +1,8 @@
 import {ColumnMapperFn, ColumnsMapper} from "../../../../../../shared/features/reports/data-access/model/columns-mapper";
-import {ListOrderDto} from "../../../../data-access/types/list-order-dto";
+import {Order} from "../../../../../../api/model/order";
 
-export class OrderColumnsMapper extends ColumnsMapper<ListOrderDto> {
-  protected override readonly mappers = new Map<keyof ListOrderDto, ColumnMapperFn<ListOrderDto>>([
+export class OrderColumnsMapper extends ColumnsMapper<Order> {
+  protected override readonly mappers = new Map<keyof Order, ColumnMapperFn<Order>>([
     ['isCompleted', (isCompleted) => isCompleted ? 'Завершено' : 'В обробці']
   ]);
 }

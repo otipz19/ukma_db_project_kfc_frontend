@@ -3,7 +3,6 @@ import {EmployeeOrdersStore} from "../../../data-access/store/employee-orders.st
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {OrdersListComponent} from "../../components/orders-list/orders-list.component";
-import {ListOrderDto} from "../../../data-access/types/list-order-dto";
 import {TableReportsService} from "../../../../../shared/features/reports/data-access/services/table-reports.service";
 import {OrderColumnsMapper} from "../../../features/tables/data-access/model/order-columns-mapper";
 import {OrderTableHeaderMapper} from "../../../features/tables/data-access/model/order-table-header-mapper";
@@ -23,6 +22,7 @@ import {UserRole} from "../../../../../api";
 import {
   DeleteOldOrdersService
 } from "../../../features/delete-old-orders/data-access/services/delete-old-orders.service";
+import {Order} from "../../../../../api/model/order";
 
 @Component({
   selector: 'app-orders-page',
@@ -43,7 +43,7 @@ export class EmployeeOrdersPageComponent implements OnInit {
   protected readonly authService = inject(AuthService);
   private readonly deleteOldOrdersService = inject(DeleteOldOrdersService);
 
-  protected readonly $orders: Signal<ListOrderDto[]> = this.store.$viewList;
+  protected readonly $orders: Signal<Order[]> = this.store.$viewList;
 
   private readonly restaurant = getFromResolver<Restaurant | undefined>(RESTAURANT_RESOLVER_KEY);
 
