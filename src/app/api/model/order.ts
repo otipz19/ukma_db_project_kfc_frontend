@@ -15,6 +15,9 @@ export interface Order {
     clientUserId?: number;
     id: number;
     cost: number;
+    restaurantAddress: string;
+    employeeSurname?: string;
+    clientSurname?: string;
     dateCreated: string;
     isCompleted: boolean;
 }

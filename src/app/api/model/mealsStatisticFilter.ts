@@ -20,6 +20,7 @@ export interface MealsStatisticFilter {
     maxClientMealsCount?: number;
     minLastOrderedDate?: string;
     maxLastOrderedDate?: string;
+    restaurantId?: number;
     isActual?: boolean;
 }
 
