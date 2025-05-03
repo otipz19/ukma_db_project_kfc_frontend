@@ -39,9 +39,7 @@ export class ViewMealPageComponent implements OnInit {
     const mealIngredients = this.$meal().ingredients;
     const ids = mealIngredients.map(i => i.ingredientId);
 
-    const isActual = {isActual: this.isClientMeal ? undefined : true};
-
-    this.ingredientsApi.getIngredientsByFilter({ids: ids, ...isActual})
+    this.ingredientsApi.getIngredientsByFilter({ids: ids, isActual: undefined})
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         this.notify.notifyError()

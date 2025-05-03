@@ -16,7 +16,7 @@ export const mealResolver: ResolveFn<Meal> = (route, state) => {
 
   const mealApi = inject(MealControllerService);
 
-  return mealApi.getMealById(mealId)
+  return mealApi.getMealById(mealId, false)
     .pipe(
       catchError(() => {
         router.navigate(['not-found']);
