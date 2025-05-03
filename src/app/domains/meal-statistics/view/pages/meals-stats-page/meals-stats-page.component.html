@@ -1,0 +1,27 @@
+<div class="header-container">
+  <div class="title-wrapper">
+    <div>
+      <h2>Статистика страв</h2>
+    </div>
+
+    <div class="right-end-toolbar">
+      <button mat-raised-button color="primary" (click)="onExportReport()">
+        <mat-icon>print</mat-icon>
+        <span>Експортувати звіт</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="search-bar-container">
+    <app-search-bar class="search-bar" label="Пошук страв" (search)="onSearch($event)"/>
+  </div>
+
+<!--  <app-employee-stats-chip-filters/>-->
+</div>
+
+<div class="list-container">
+  <app-meal-stats-table-list [data]="$data()"
+                                 [paginator]="store.paginatorModel"
+                                 (page)="onPagination($event)"
+                                 (sort)="onSort($event)"/>
+</div>

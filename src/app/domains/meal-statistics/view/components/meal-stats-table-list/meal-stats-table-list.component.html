@@ -1,0 +1,41 @@
+<div class="mat-elevation-z3">
+  <table mat-table [dataSource]="$data()" matSort (matSortChange)="sort.emit($event)">
+    <ng-container [matColumnDef]="TableColumns.title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ HeaderMapper[TableColumns.title] }}</th>
+      <td mat-cell *matCellDef="let entity">{{ entity.title }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="TableColumns.clientMealsCount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ HeaderMapper[TableColumns.clientMealsCount] }}</th>
+      <td mat-cell *matCellDef="let entity">{{ entity.clientMealsCount }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="TableColumns.lastOrderedDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ HeaderMapper[TableColumns.lastOrderedDate] }}</th>
+      <td mat-cell *matCellDef="let entity">{{ entity.lastOrderedDate }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="TableColumns.isActual">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ HeaderMapper[TableColumns.isActual] }}</th>
+      <td mat-cell *matCellDef="let entity">{{ entity.isActual | mealStatsActual }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="TableColumns.actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let entity">
+        <div class="table-list-actions-container">
+          @if (entity.isActual) {
+            <button mat-icon-button color="primary" [routerLink]="['/', 'meals', entity.id]">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          }
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <app-common-paginator [paginator]="$paginator()" (page)="page.emit($event)"/>
+</div>
